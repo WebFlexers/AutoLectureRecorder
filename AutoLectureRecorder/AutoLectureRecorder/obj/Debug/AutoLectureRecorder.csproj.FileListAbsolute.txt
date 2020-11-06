@@ -1,0 +1,10 @@
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\bin\Debug\AutoLectureRecorder.exe.config
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\bin\Debug\AutoLectureRecorder.exe
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\bin\Debug\AutoLectureRecorder.pdb
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Debug\AutoLectureRecorder.csprojAssemblyReference.cache
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Debug\AutoLectureRecorder.MainForm.resources
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Debug\AutoLectureRecorder.Properties.Resources.resources
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Debug\AutoLectureRecorder.csproj.GenerateResource.cache
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Debug\AutoLectureRecorder.csproj.CoreCompileInputs.cache
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Debug\AutoLectureRecorder.exe
+C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Debug\AutoLectureRecorder.pdb
