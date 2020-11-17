@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder", "Auto Lecture Recorder\AutoLectureRecorder.csproj", "{ED334155-1CAC-4F63-BE0C-5F00DEEDF55C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auto Lecture Recorder", "Auto Lecture Recorder\Auto Lecture Recorder.csproj", "{ED334155-1CAC-4F63-BE0C-5F00DEEDF55C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

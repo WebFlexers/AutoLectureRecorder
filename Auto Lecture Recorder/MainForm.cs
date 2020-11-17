@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Subjects;
+using Auto_Lecture_Recorder.Subjects;
 
 
 namespace Auto_Lecture_Recorder
@@ -21,11 +21,17 @@ namespace Auto_Lecture_Recorder
             InitializeComponent();
         }
 
+        // List that contains all days of the week
+        List<Subjects.Day> week;
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            // Instanciate the week
+            week = new List<Subjects.Day>();
+            
         }
+
         
+
 
 
 
@@ -45,12 +51,12 @@ namespace Auto_Lecture_Recorder
             if (WindowState == FormWindowState.Normal)
             {
                 this.WindowState = FormWindowState.Maximized;
-                buttonMaximize.BackgroundImage = Properties.Resources.restore_down_20px;
+                buttonMaximize.BackgroundImage = Auto_Lecture_Recorder.Properties.Resources.restore_down_20px;
             }
             else
             {
                 this.WindowState = FormWindowState.Normal;
-                buttonMaximize.BackgroundImage = Properties.Resources.maximize_button_16px;
+                buttonMaximize.BackgroundImage = Auto_Lecture_Recorder.Properties.Resources.maximize_button_16px;
             }
         }
 
@@ -89,7 +95,7 @@ namespace Auto_Lecture_Recorder
         private void panelMenu_Resize(object sender, EventArgs e)
         {
             // Change the size of the radio buttons in panel menu when form is resized
-            int sizeY = (panelMenu.Height - panelTitleLabel.Height) / 4;
+            int sizeY = (panelMenu.Height - labelTitle.Height) / 4;
             foreach (RadioButton radio in panelMenu.Controls.OfType<RadioButton>())
             {
                 radio.Size = new Size(radio.Width, sizeY);
@@ -109,35 +115,35 @@ namespace Auto_Lecture_Recorder
 
 
         // Menu functionality
-        private void hideMainPanels()
+        private void showPanel(Panel panelToShow)
         {
-            panelRecord.Visible = false;
-            panelSubjects.Visible = false;
-            panelAddSubjects.Visible = false;
-            panelSettings.Visible = false;
+            foreach (Panel panel in panelMainWindows.Controls.OfType<Panel>())
+            {
+                panelToShow.Visible = true;
+                if (!panel.Name.Equals(panelToShow.Name))
+                {
+                    panel.Visible = false;
+                }
+            }
         }
         private void radioMenuRecord_Click(object sender, EventArgs e)
         {
-            hideMainPanels();
-            panelRecord.Visible = true;
+            showPanel(panelRecord);
         }
 
         private void radioMenuSubjects_Click(object sender, EventArgs e)
-        {
-            hideMainPanels();
-            panelSubjects.Visible = true;
+        { 
+            showPanel(panelSubjects);
         }
 
         private void radioMenuAdd_Click(object sender, EventArgs e)
         {
-            hideMainPanels();
-            panelAddSubjects.Visible = true;
+            showPanel(panelAddSubjects);
         }
 
         private void radioMenuSettings_Click(object sender, EventArgs e)
         {
-            hideMainPanels();
-            panelSettings.Visible = true;
+            showPanel(panelSettings);
         }
 
         // Menu Styling
@@ -284,73 +290,46 @@ namespace Auto_Lecture_Recorder
 
 
 
-        // Add Subjects tab -> drop down list functionality
-
-        // All drop down lists are organized in panels that contain 2 labels
-        // The first label is the down arrow symbol and the second is where
-        // the text from the dropdown will go in
-
-        // The panel of the option that was selected
-        Panel labelDropdown = null;
-        // Show the dropdown menu
-        private void buttonShowList_Click(object sender, EventArgs e)
+        private void dropdownDay_Load(object sender, EventArgs e)
         {
-            if (sender is Label)
-            {
-                // Get the container panel's name
-                string panelName = ((Label)sender).Parent.Name;
-
-                // Check which dropdown menu to show
-                if (panelName.Equals("panelDropdownDay"))
-                {
-                    menuStripDays.Show(((Label)sender).Parent, new Point(0, ((Label)sender).Height));
-                }
-                else if (panelName.Equals("panelDropdownHours1") || panelName.Equals("panelDropdownHours2"))
-                {
-                    menuStripHours.Show(((Label)sender).Parent, new Point(0, ((Label)sender).Height));
-                }
-                else
-                {
-                    menuStripMinutes.Show(((Label)sender).Parent, new Point(0, ((Label)sender).Height));
-                }
-
-                // Save the panel of the clicked label so that the text can be saved in the correct label
-                labelDropdown = (Panel)((Label)sender).Parent;
-            }
-
+            dropdownDay.AddOption("Monday");
+            dropdownDay.AddOption("Tuesday");
+            dropdownDay.AddOption("Wednesday");
+            dropdownDay.AddOption("Thursday");
+            dropdownDay.AddOption("Friday");
+            dropdownDay.AddOption("Saturday");
+            dropdownDay.AddOption("Sunday");
         }
 
-        // Hover effect on dropdown lists
-            // on enter
-        private void buttonShowList_MouseEnter(object sender, EventArgs e)
+        private void displayHours(DropdownList list)
         {
-            foreach (Label label in ((Label)sender).Parent.Controls.OfType<Label>())
+            for (int i = 1; i <= 24; i++)
             {
-                label.BackColor = Color.FromArgb(61, 67, 103);
-            }
-            
-        }
-            // on leave
-        private void buttonShowList_MouseLeave(object sender, EventArgs e)
-        {
-            foreach (Label label in ((Label)sender).Parent.Controls.OfType<Label>())
-            {
-                label.BackColor = Color.FromArgb(51, 56, 86);
+                list.AddOption(i.ToString());
             }
         }
 
-        // Assign the selected value to the correct label
-        private void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void displayMinutes(DropdownList list)
         {
-            foreach (Label label in labelDropdown.Controls.OfType<Label>())
+            for (int i = 1; i <= 60; i++)
             {
-                if (!label.Text.Equals("u"))
-                {
-                    label.Text = e.ClickedItem.Text;
-                }
+                list.AddOption(i.ToString());
             }
-
         }
 
+        private void dropdownStartHour_Load(object sender, EventArgs e)
+        {
+            displayHours((DropdownList)sender);
+        }
+
+        private void dropdownStartMin_Load(object sender, EventArgs e)
+        {
+            displayMinutes((DropdownList)sender);
+        }
+
+        private void buttonAddSubject_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(dropdownDay.Text);
+        }
     }
 }
