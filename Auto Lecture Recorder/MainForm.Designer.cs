@@ -56,14 +56,19 @@
             this.panelAddButton = new System.Windows.Forms.Panel();
             this.buttonAddSubject = new System.Windows.Forms.Button();
             this.panelEndTime = new System.Windows.Forms.Panel();
+            this.dropdownEndMin = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownEndHour = new Auto_Lecture_Recorder.DropdownList();
             this.label9 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.panelStartTime = new System.Windows.Forms.Panel();
+            this.dropdownStartMin = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownStartHour = new Auto_Lecture_Recorder.DropdownList();
             this.label16 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panelSubjectDay = new System.Windows.Forms.Panel();
+            this.dropdownDay = new Auto_Lecture_Recorder.DropdownList();
             this.label4 = new System.Windows.Forms.Label();
             this.panelSubjectName = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -73,11 +78,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.panelMainWindows = new System.Windows.Forms.Panel();
-            this.dropdownEndMin = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownEndHour = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownStartMin = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownStartHour = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownDay = new Auto_Lecture_Recorder.DropdownList();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
             this.panelRecord.SuspendLayout();
@@ -323,6 +324,7 @@
             // panelRecord
             // 
             this.panelRecord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelRecord.Controls.Add(this.button1);
             this.panelRecord.Controls.Add(this.panelRecordArmed);
             this.panelRecord.Controls.Add(this.panelRecordContent);
             this.panelRecord.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -489,6 +491,24 @@
             this.panelEndTime.Size = new System.Drawing.Size(769, 140);
             this.panelEndTime.TabIndex = 6;
             // 
+            // dropdownEndMin
+            // 
+            this.dropdownEndMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownEndMin.Location = new System.Drawing.Point(389, 76);
+            this.dropdownEndMin.Name = "dropdownEndMin";
+            this.dropdownEndMin.Size = new System.Drawing.Size(60, 31);
+            this.dropdownEndMin.TabIndex = 24;
+            this.dropdownEndMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
+            // 
+            // dropdownEndHour
+            // 
+            this.dropdownEndHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownEndHour.Location = new System.Drawing.Point(293, 76);
+            this.dropdownEndHour.Name = "dropdownEndHour";
+            this.dropdownEndHour.Size = new System.Drawing.Size(60, 31);
+            this.dropdownEndHour.TabIndex = 23;
+            this.dropdownEndHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
+            // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -543,6 +563,24 @@
             this.panelStartTime.Size = new System.Drawing.Size(769, 145);
             this.panelStartTime.TabIndex = 5;
             // 
+            // dropdownStartMin
+            // 
+            this.dropdownStartMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownStartMin.Location = new System.Drawing.Point(389, 81);
+            this.dropdownStartMin.Name = "dropdownStartMin";
+            this.dropdownStartMin.Size = new System.Drawing.Size(60, 31);
+            this.dropdownStartMin.TabIndex = 18;
+            this.dropdownStartMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
+            // 
+            // dropdownStartHour
+            // 
+            this.dropdownStartHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownStartHour.Location = new System.Drawing.Point(293, 81);
+            this.dropdownStartHour.Name = "dropdownStartHour";
+            this.dropdownStartHour.Size = new System.Drawing.Size(60, 31);
+            this.dropdownStartHour.TabIndex = 17;
+            this.dropdownStartHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
+            // 
             // label16
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -593,6 +631,15 @@
             this.panelSubjectDay.Padding = new System.Windows.Forms.Padding(0, 5, 0, 30);
             this.panelSubjectDay.Size = new System.Drawing.Size(769, 109);
             this.panelSubjectDay.TabIndex = 4;
+            // 
+            // dropdownDay
+            // 
+            this.dropdownDay.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownDay.Location = new System.Drawing.Point(170, 45);
+            this.dropdownDay.Name = "dropdownDay";
+            this.dropdownDay.Size = new System.Drawing.Size(416, 31);
+            this.dropdownDay.TabIndex = 7;
+            this.dropdownDay.Load += new System.EventHandler(this.dropdownDay_Load);
             // 
             // label4
             // 
@@ -692,9 +739,9 @@
             // 
             // panelMainWindows
             // 
+            this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelAddSubjects);
             this.panelMainWindows.Controls.Add(this.panelSubjects);
-            this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelSettings);
             this.panelMainWindows.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMainWindows.Location = new System.Drawing.Point(163, 35);
@@ -702,50 +749,15 @@
             this.panelMainWindows.Size = new System.Drawing.Size(786, 506);
             this.panelMainWindows.TabIndex = 5;
             // 
-            // dropdownEndMin
+            // button1
             // 
-            this.dropdownEndMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownEndMin.Location = new System.Drawing.Point(389, 76);
-            this.dropdownEndMin.Name = "dropdownEndMin";
-            this.dropdownEndMin.Size = new System.Drawing.Size(60, 31);
-            this.dropdownEndMin.TabIndex = 24;
-            this.dropdownEndMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
-            // 
-            // dropdownEndHour
-            // 
-            this.dropdownEndHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownEndHour.Location = new System.Drawing.Point(293, 76);
-            this.dropdownEndHour.Name = "dropdownEndHour";
-            this.dropdownEndHour.Size = new System.Drawing.Size(60, 31);
-            this.dropdownEndHour.TabIndex = 23;
-            this.dropdownEndHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
-            // 
-            // dropdownStartMin
-            // 
-            this.dropdownStartMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownStartMin.Location = new System.Drawing.Point(389, 81);
-            this.dropdownStartMin.Name = "dropdownStartMin";
-            this.dropdownStartMin.Size = new System.Drawing.Size(60, 31);
-            this.dropdownStartMin.TabIndex = 18;
-            this.dropdownStartMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
-            // 
-            // dropdownStartHour
-            // 
-            this.dropdownStartHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownStartHour.Location = new System.Drawing.Point(293, 81);
-            this.dropdownStartHour.Name = "dropdownStartHour";
-            this.dropdownStartHour.Size = new System.Drawing.Size(60, 31);
-            this.dropdownStartHour.TabIndex = 17;
-            this.dropdownStartHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
-            // 
-            // dropdownDay
-            // 
-            this.dropdownDay.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownDay.Location = new System.Drawing.Point(170, 45);
-            this.dropdownDay.Name = "dropdownDay";
-            this.dropdownDay.Size = new System.Drawing.Size(416, 31);
-            this.dropdownDay.TabIndex = 7;
-            this.dropdownDay.Load += new System.EventHandler(this.dropdownDay_Load);
+            this.button1.Location = new System.Drawing.Point(652, 366);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
@@ -844,6 +856,7 @@
         private DropdownList dropdownStartHour;
         private DropdownList dropdownEndMin;
         private DropdownList dropdownEndHour;
+        private System.Windows.Forms.Button button1;
     }
 }
 

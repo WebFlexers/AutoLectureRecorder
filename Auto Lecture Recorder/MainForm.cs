@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Auto_Lecture_Recorder.Subjects;
+using Auto_Lecture_Recorder.BotController;
 
 
 namespace Auto_Lecture_Recorder
@@ -330,6 +331,13 @@ namespace Auto_Lecture_Recorder
         private void buttonAddSubject_Click(object sender, EventArgs e)
         {
             MessageBox.Show(dropdownDay.Text);
+        }
+
+        // Temporary button for microsoft teams bot
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Bot bot = new Bot();
+            bot.ConnectToTeamsChrome("p19165@unipi.gr", "p19165", "nhy6514236798awdsm");
         }
     }
 }
