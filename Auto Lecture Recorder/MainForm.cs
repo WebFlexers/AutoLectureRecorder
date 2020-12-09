@@ -337,7 +337,7 @@ namespace Auto_Lecture_Recorder
         private void button1_Click(object sender, EventArgs e)
         {
             Bot bot = new Bot();
-            bot.ConnectToTeamsChrome("p19165@unipi.gr", "p19165", "nhy6514236798awdsm");
+            bot.ConnectToTeamsChrome("p19165@unipi.gr", "p19165", "");
         }
     }
 }
