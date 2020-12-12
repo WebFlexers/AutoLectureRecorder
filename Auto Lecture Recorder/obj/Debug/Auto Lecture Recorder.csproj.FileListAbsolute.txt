@@ -1,16 +1,17 @@
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\Debug\Auto Lecture Recorder.exe.config
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\Debug\Auto Lecture Recorder.exe
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\Debug\Auto Lecture Recorder.pdb
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto_Lecture_Recorder.Properties.Resources.resources
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.csproj.GenerateResource.cache
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.csproj.CoreCompileInputs.cache
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.exe
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.pdb
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto_Lecture_Recorder.MainForm.resources
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto_Lecture_Recorder.DropdownList.resources
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\Debug\WebDriver.dll
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\Debug\WebDriver.Support.dll
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\Debug\WebDriver.xml
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\Debug\WebDriver.Support.xml
-C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.csprojAssemblyReference.cache
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto_Lecture_Recorder.DropdownList.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto_Lecture_Recorder.MainForm.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto_Lecture_Recorder.Properties.Resources.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto_Lecture_Recorder.ModernTextBox.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.csproj.GenerateResource.cache
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.csproj.CoreCompileInputs.cache
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.csproj.CopyComplete
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.exe
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.pdb
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\Debug\Auto Lecture Recorder.csprojAssemblyReference.cache

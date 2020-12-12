@@ -12,9 +12,13 @@ namespace Auto_Lecture_Recorder
 {
     public partial class DropdownList : UserControl
     {
+        // Responsive object
+        Responsive responsive;
         public DropdownList()
         {
             InitializeComponent();
+            responsive = new Responsive(Controls, 199, 31);
+
         }
 
         private void dropdown_MouseEnter(object sender, EventArgs e)
@@ -31,7 +35,12 @@ namespace Auto_Lecture_Recorder
 
         private void DropdownList_Resize(object sender, EventArgs e)
         {
-            //resizeMenu();
+            // Resize the font dynamically
+            float newSize = responsive.InitialControls["buttonDropdown"].Font.Size * this.Height / responsive.InitialFormHeight;
+            buttonDropdown.Font = new Font("Marlett", newSize, FontStyle.Bold, GraphicsUnit.Point, 2);
+
+            // Resize the menu items
+            resizeMenu();
         }
 
         private void resizeMenu()
@@ -61,7 +70,10 @@ namespace Auto_Lecture_Recorder
             labelDropdown.Text = e.ClickedItem.Text;
         }
 
-        public override string Text { get => labelDropdown.Text; set => labelDropdown.Text = value; }
+        public string GetText()
+        {
+            return labelDropdown.Text;
+        }
 
         public void AddOption(string option)
         {

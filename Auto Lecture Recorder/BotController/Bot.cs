@@ -15,58 +15,125 @@ namespace Auto_Lecture_Recorder.BotController
 {
     class Bot
     {
-        IWebDriver driver;
-
+        //IWebDriver driver;
+        ChromeDriver chromeDriver;
         int timeToConnect = 1; //in minutes
         string email, AM, password;               
 
+        public Bot()
+        {
+            ChromeDriverService driver = ChromeDriverService.CreateDefaultService();
+            driver.HideCommandPromptWindow = true;
+            chromeDriver = new ChromeDriver(driver, new ChromeOptions());
+        }
+
         public void ConnectToTeamsChrome(string email, string AM, string password)
-        {           
+        {
+
+            
+
             this.email = email;
             this.AM = AM;
             this.password = password;
 
-            //Opens a certain url to the chrome browser                      
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";                     
-
-            Thread.Sleep(1000); //Wait 10 seconds
-
-            IWebElement emailInputBox = driver.FindElement(By.Id("i0116"));
-            emailInputBox.SendKeys(email);
+            // Opens a certain url to the chrome browser
+            while (true)
+            {
+                try
+                {
+                    chromeDriver.Manage().Window.Maximize();
+                    chromeDriver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
+                    break;
+                } 
+                catch
+                {
+                    Thread.Sleep(500);
+                }
+            }
+                                 
+            while (true)
+            {
+                try
+                {
+                    IWebElement emailInputBox = chromeDriver.FindElement(By.Id("i0116"));
+                    emailInputBox.SendKeys(email);
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(500);
+                }
+            }
+            
 
             //Click Next Button
-            IWebElement nextEmailBtn = driver.FindElement(By.Id("idSIButton9"));
-            nextEmailBtn.Click();
+            while (true)
+            {
+                try
+                {
+                    IWebElement nextEmailBtn = chromeDriver.FindElement(By.Id("idSIButton9"));
+                    nextEmailBtn.Click();
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(500);
+                }
+            }
+            
 
-            Thread.Sleep(5000);
+            
 
             //UNIPI page
-            IWebElement usernameUnipiInputBox = driver.FindElement(By.Id("username"));
-            usernameUnipiInputBox.SendKeys(AM);
-            IWebElement passwordUnipiInputBox = driver.FindElement(By.Id("password"));
-            passwordUnipiInputBox.SendKeys(password);
+            while (true)
+            {
+                try
+                {
+                    IWebElement usernameUnipiInputBox = chromeDriver.FindElement(By.Id("username"));
+                    usernameUnipiInputBox.SendKeys(AM);
+                    IWebElement passwordUnipiInputBox = chromeDriver.FindElement(By.Id("password"));
+                    passwordUnipiInputBox.SendKeys(password);
 
-            IWebElement loginUnipiBtn = driver.FindElement(By.Id("submitForm"));
-            loginUnipiBtn.Click();
+                    IWebElement loginUnipiBtn = chromeDriver.FindElement(By.Id("submitForm"));
+                    loginUnipiBtn.Click();
 
-            Thread.Sleep(1000);
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(500);
+                }
+            }
+            
+
+            
 
             //No stay sign page
-            IWebElement NoStaySignInBtn = driver.FindElement(By.Id("idBtn_Back"));
-            NoStaySignInBtn.Click();
+            while (true)
+            {
+                try
+                {
+                    IWebElement NoStaySignInBtn = chromeDriver.FindElement(By.Id("idBtn_Back"));
+                    NoStaySignInBtn.Click();
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(500);
+                }
+            }
+            
 
-            Thread.Sleep(3000);
+            
 
             try
             {
-                IWebElement UseWebAppBtn = driver.FindElement(By.ClassName("use-app-lnk"));
+                IWebElement UseWebAppBtn = chromeDriver.FindElement(By.ClassName("use-app-lnk"));
                 UseWebAppBtn.Click();
             }
             catch (Exception e)
             {
-                return;
+                throw e;
             }                                                                                    
         }
 
@@ -74,7 +141,7 @@ namespace Auto_Lecture_Recorder.BotController
         {
             Thread.Sleep(2000);
             //team-XEIM20_21-[ΠΛΠΛΗ08]-
-            IWebElement lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, 'ΜΕΤΑΓΛΩΤΤΙΣΤΕΣ')]"));
+            IWebElement lessonCardBtn = chromeDriver.FindElement(By.XPath("//div[contains(@data-tid, 'ΜΕΤΑΓΛΩΤΤΙΣΤΕΣ')]"));
             lessonCardBtn.Click();
 
             bool isJoined = false;
@@ -93,7 +160,7 @@ namespace Auto_Lecture_Recorder.BotController
                 catch (Exception e)
                 {
                     Thread.Sleep(36000 * timeToConnect);
-                    driver.Navigate().Refresh();
+                    chromeDriver.Navigate().Refresh();
                 }
 
                 if (!isJoined)

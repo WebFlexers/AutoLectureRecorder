@@ -103,6 +103,26 @@ namespace Auto_Lecture_Recorder.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap exclamation_mark_15px {
+            get {
+                object obj = ResourceManager.GetObject("exclamation_mark_15px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap left_arrow_30px {
+            get {
+                object obj = ResourceManager.GetObject("left_arrow_30px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap maximize_button_16px {
             get {
                 object obj = ResourceManager.GetObject("maximize_button_16px", resourceCulture);
@@ -176,6 +196,16 @@ namespace Auto_Lecture_Recorder.Properties {
         internal static System.Drawing.Bitmap restore_down_20px {
             get {
                 object obj = ResourceManager.GetObject("restore_down_20px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap right_arrow_30px {
+            get {
+                object obj = ResourceManager.GetObject("right_arrow_30px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

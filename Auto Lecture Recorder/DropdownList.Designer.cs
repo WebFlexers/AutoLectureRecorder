@@ -45,7 +45,7 @@
             this.labelDropdown.Margin = new System.Windows.Forms.Padding(0);
             this.labelDropdown.Name = "labelDropdown";
             this.labelDropdown.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.labelDropdown.Size = new System.Drawing.Size(180, 31);
+            this.labelDropdown.Size = new System.Drawing.Size(199, 31);
             this.labelDropdown.TabIndex = 9;
             this.labelDropdown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelDropdown.Click += new System.EventHandler(this.dropdown_Click);
@@ -59,13 +59,13 @@
             this.buttonDropdown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDropdown.Font = new System.Drawing.Font("Marlett", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.buttonDropdown.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(220)))), ((int)(((byte)(236)))));
-            this.buttonDropdown.Location = new System.Drawing.Point(180, 0);
+            this.buttonDropdown.Location = new System.Drawing.Point(174, 0);
             this.buttonDropdown.Margin = new System.Windows.Forms.Padding(0);
             this.buttonDropdown.Name = "buttonDropdown";
-            this.buttonDropdown.Size = new System.Drawing.Size(20, 31);
+            this.buttonDropdown.Size = new System.Drawing.Size(25, 31);
             this.buttonDropdown.TabIndex = 10;
             this.buttonDropdown.Text = "u";
-            this.buttonDropdown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonDropdown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonDropdown.Click += new System.EventHandler(this.dropdown_Click);
             this.buttonDropdown.MouseEnter += new System.EventHandler(this.dropdown_MouseEnter);
             this.buttonDropdown.MouseLeave += new System.EventHandler(this.dropdown_MouseLeave);
@@ -90,10 +90,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelDropdown);
             this.Controls.Add(this.buttonDropdown);
+            this.Controls.Add(this.labelDropdown);
             this.Name = "DropdownList";
-            this.Size = new System.Drawing.Size(200, 31);
+            this.Size = new System.Drawing.Size(199, 31);
             this.Resize += new System.EventHandler(this.DropdownList_Resize);
             this.ResumeLayout(false);
 
