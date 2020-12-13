@@ -579,7 +579,6 @@
             this.label10.TabIndex = 2;
             this.label10.Text = "Lectures";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // panel1
             // 

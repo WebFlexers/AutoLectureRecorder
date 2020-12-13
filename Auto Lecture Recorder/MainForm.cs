@@ -311,18 +311,18 @@ namespace Auto_Lecture_Recorder
         Lecture nextScheduledLecture;
         private Lecture FindNextLectureToBeRecorded() 
         {
-            // A for loop that scans the week days until it finds the correct lecture
+            // A for loop that scans the week days until it finds the correct lecture (It starts from today)
             for (int dayNum = 0; dayNum < 7; dayNum++)
             {
-                // Get the day that the lecture will take place
+                // Get the day that the lecture will take place starting from today, since dayNum starts with 0
                 Lectures.Day lectureDay = week[DateTime.Now.AddDays(dayNum).ToString("dddd")];
-                // Get a list of lectures of the day defined by dayNum, but starting from today
+                // Get a list of lectures of the day defined by dayNum
                 List<Lecture> dayLectures = lectureDay.Lectures;
                 // Sort the lectures list by start time
                 dayLectures = dayLectures.OrderBy(lecture => lecture.StartTime).ToList();
 
                 // Find the first scheduled lecture in the selected day that has a larger start time than the current time 
-                // or if the scheduled lecture is for a later day return the first lecture of the next day
+                // or if the scheduled lecture is for a later day return the first lecture of the closest day
                 foreach (Lecture lecture in dayLectures)
                 {
                     if (lecture.StartTime > DateTime.Now.TimeOfDay || !lectureDay.Name.Equals(DateTime.Now.ToString("dddd")))
@@ -389,7 +389,7 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        // Timer that updates the remaining time before next lecture label and starts the recording process
+        // Timer that updates the remaining time before next lecture label and starts the recording process when it reaches 0
         private void timerCountdown_Tick(object sender, EventArgs e)
         {
             
@@ -600,16 +600,19 @@ namespace Auto_Lecture_Recorder
                 // Remove the lecture from the list
                 week[lectureDay].Lectures.Remove(lecture);
                 // Redraw the lectures in the lecture panel
-                foreach (RadioButton radioButton in panelDaysMenu.Controls)
+                foreach (RadioButton day in panelDaysMenu.Controls)
                 {
-                    if (radioButton.Checked)
+                    if (day.Checked)
                     {
-                        GenerateLectures(radioButton.Text);
+                        GenerateLectures(day.Text);
                         break;
                     }
                 }
                 // Refresh the countdown timer
+                // Stop the timer to avoid exceptions
                 timerCountdown.Stop();
+                // Click the check box record button twice. The goal here is to find the next lecture to be recorded in case the previous
+                // one was just delete it
                 checkBoxRecordButton_Click(sender, EventArgs.Empty);
                 checkBoxRecordButton_Click(sender, EventArgs.Empty);
             }
@@ -639,7 +642,7 @@ namespace Auto_Lecture_Recorder
 
 
 
-        // Index that shows from which element the DisplayLectures() method needs to start displaying
+        // Index that shows from which lecture the DisplayLectures() method should start displaying
         int dayLecturesListIndex = 0;
         string lectureDay;
 
@@ -658,9 +661,9 @@ namespace Auto_Lecture_Recorder
             // Starting coordinates
             int x = 38;
             int y = 151;
-            // counter for for loop
+            // for loop counter
             int i;
-            // Display all the lectures in the given day
+            // Display 6 or less lectures in the given day depending on the dayLecturesListIndex 
             for (i = dayLecturesListIndex; i < dayLectures.Count; i++)
             {
                 // When the first row is filled move to the next
@@ -681,12 +684,13 @@ namespace Auto_Lecture_Recorder
                 // When the screen is filled move to the next page
                 if (lecturesDisplayedNow == 6)
                 {
+                    // i is incremented here because afterwards we escape from the for loop so i doesn't get incremented as desired
                     i++;
                     break;
                 }
             }
 
-            // Save the dayLecturesListIndex
+            // Update the dayLecturesListIndex
             dayLecturesListIndex = i;
 
             // Check if next button should be visible
@@ -707,7 +711,7 @@ namespace Auto_Lecture_Recorder
                        
         }
 
-        // Every page contains 6 lectures
+        // Determine in which pages we are currently on. Every page contains 6 lectures        
         int pageNum = 0;
         // Show the next lectures
         private void buttonLecturesNext_Click(object sender, EventArgs e)
@@ -865,9 +869,9 @@ namespace Auto_Lecture_Recorder
                 endTime = new TimeSpan(Convert.ToInt32(dropdownEndHour.GetText()), Convert.ToInt32(dropdownEndMin.GetText()), 0);
 
                 // if the time isn't valid show error
-                if (!Lectures.Lecture.timeIsValid(startTime, endTime))
+                if (!Lecture.timeIsValid(startTime, endTime))
                 {
-                    MessageBox.Show("The end time can't be smaller that the start time!", "Incorrect time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("The end time has to be larger that the start time!", "Incorrect time input", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
@@ -878,7 +882,7 @@ namespace Auto_Lecture_Recorder
                 {
                     StringBuilder errorMessage = new StringBuilder();
                     errorMessage.Append(givenLectureName);
-                    errorMessage.Append(" already exists in ");
+                    errorMessage.Append(" already exists on ");
                     errorMessage.Append(storedDay.Name);
                     errorMessage.Append("!");
                     errorMessage.Append(Environment.NewLine);
@@ -896,13 +900,13 @@ namespace Auto_Lecture_Recorder
             platform = dropdownPlatform.GetText();
 
             // Create Lecture object
-            Lectures.Lecture lecture = new Lectures.Lecture(givenLectureName, startTime, endTime, platform);
+            Lecture lecture = new Lecture(givenLectureName, startTime, endTime, platform);
             // Add the lecture to the correct day
             storedDay.Lectures.Add(lecture);
             // Success message
             MessageBox.Show("Successfully added lecture!", "Success");
 
-            // Redraw the lectures in the lecture panel
+            // Redraw the lectures in the lecture panel depending on which day is selected on the daysMenu
             foreach (RadioButton radioButton in panelDaysMenu.Controls)
             {
                 if (radioButton.Checked)
@@ -912,12 +916,5 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        // temp
-        private void label10_Click(object sender, EventArgs e)
-        {
-            ClearDisplayedLectures();
-        }
-
-        
     }
 }
