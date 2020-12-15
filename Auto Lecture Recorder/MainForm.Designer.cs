@@ -41,6 +41,8 @@
             this.radioMenuRecord = new System.Windows.Forms.RadioButton();
             this.panelMenuBorder = new System.Windows.Forms.Panel();
             this.panelRecord = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.labelCountdown = new System.Windows.Forms.Label();
             this.labelRecordingInfo = new System.Windows.Forms.Label();
             this.checkBoxRecordButton = new System.Windows.Forms.CheckBox();
@@ -59,46 +61,72 @@
             this.buttonLecturesNext = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.modernCheckbox2 = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.panelAddLectures = new System.Windows.Forms.Panel();
             this.panelAddButton = new System.Windows.Forms.Panel();
             this.buttonAddSubject = new System.Windows.Forms.Button();
             this.panelEndTime = new System.Windows.Forms.Panel();
+            this.dropdownEndMin = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownEndHour = new Auto_Lecture_Recorder.DropdownList();
             this.label9 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.panelStartTime = new System.Windows.Forms.Panel();
+            this.dropdownStartMin = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownStartHour = new Auto_Lecture_Recorder.DropdownList();
             this.label16 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panelSelectPlatform = new System.Windows.Forms.Panel();
+            this.dropdownPlatform = new Auto_Lecture_Recorder.DropdownList();
             this.label15 = new System.Windows.Forms.Label();
             this.panelSubjectDay = new System.Windows.Forms.Panel();
+            this.dropdownDay = new Auto_Lecture_Recorder.DropdownList();
             this.label4 = new System.Windows.Forms.Label();
             this.panelSubjectName = new System.Windows.Forms.Panel();
+            this.textboxLectureName = new Auto_Lecture_Recorder.ModernTextBox();
             this.labelSubjectName = new System.Windows.Forms.Label();
             this.panelAddSubjectLabel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panelSettings = new System.Windows.Forms.Panel();
+            this.panelLectureSettings = new System.Windows.Forms.Panel();
+            this.modernCheckbox1 = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.panelRecordingSettings = new System.Windows.Forms.Panel();
+            this.panelUploadSettings = new System.Windows.Forms.Panel();
+            this.panelSettingsTitleAndMenu = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panelSettingsMenu = new System.Windows.Forms.Panel();
+            this.settingsMenuUpload = new System.Windows.Forms.RadioButton();
+            this.settingsMenuRecording = new System.Windows.Forms.RadioButton();
+            this.settingsMenuLectures = new System.Windows.Forms.RadioButton();
             this.panelMainWindows = new System.Windows.Forms.Panel();
+            this.panelActiveRecording = new System.Windows.Forms.Panel();
+            this.buttonAbortRecording = new System.Windows.Forms.Button();
+            this.labelActiveRemainingTime = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.LabelActiveTimeElapsed = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.labelActiveEndTime = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.labelActiveStartTime = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
+            this.labelActiveRecordTitle = new System.Windows.Forms.Label();
             this.timerCountdown = new System.Windows.Forms.Timer(this.components);
-            this.buttonExit = new System.Windows.Forms.Button();
-            this.buttonMaximize = new System.Windows.Forms.Button();
-            this.buttonMinimize = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panelTitleBar = new System.Windows.Forms.Panel();
-            this.dropdownEndMin = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownEndHour = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownStartMin = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownStartHour = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownPlatform = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownDay = new Auto_Lecture_Recorder.DropdownList();
-            this.textboxLectureName = new Auto_Lecture_Recorder.ModernTextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonMinimize = new System.Windows.Forms.Button();
+            this.buttonMaximize = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
+            this.panelLecturesTitleAndMenu = new System.Windows.Forms.Panel();
+            this.panelNavigationButtons = new System.Windows.Forms.Panel();
+            this.panelGeneratedLectures = new System.Windows.Forms.Panel();
             this.panelMenu.SuspendLayout();
             this.panelRecord.SuspendLayout();
             this.panelLectures.SuspendLayout();
@@ -114,8 +142,16 @@
             this.panelSubjectDay.SuspendLayout();
             this.panelSubjectName.SuspendLayout();
             this.panelAddSubjectLabel.SuspendLayout();
+            this.panelSettings.SuspendLayout();
+            this.panelLectureSettings.SuspendLayout();
+            this.panelSettingsTitleAndMenu.SuspendLayout();
+            this.panelSettingsMenu.SuspendLayout();
             this.panelMainWindows.SuspendLayout();
+            this.panelActiveRecording.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
+            this.panelLecturesTitleAndMenu.SuspendLayout();
+            this.panelNavigationButtons.SuspendLayout();
+            this.panelGeneratedLectures.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBorderRight
@@ -279,6 +315,8 @@
             // panelRecord
             // 
             this.panelRecord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelRecord.Controls.Add(this.button3);
+            this.panelRecord.Controls.Add(this.button1);
             this.panelRecord.Controls.Add(this.labelCountdown);
             this.panelRecord.Controls.Add(this.labelRecordingInfo);
             this.panelRecord.Controls.Add(this.checkBoxRecordButton);
@@ -288,6 +326,26 @@
             this.panelRecord.Name = "panelRecord";
             this.panelRecord.Size = new System.Drawing.Size(853, 696);
             this.panelRecord.TabIndex = 7;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(710, 453);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 13;
+            this.button3.Text = "Stop";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(710, 414);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelCountdown
             // 
@@ -351,11 +409,9 @@
             // panelLectures
             // 
             this.panelLectures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.panelLectures.Controls.Add(this.labelLectureExistance);
-            this.panelLectures.Controls.Add(this.panelDaysMenu);
-            this.panelLectures.Controls.Add(this.buttonLecturesPrevious);
-            this.panelLectures.Controls.Add(this.buttonLecturesNext);
-            this.panelLectures.Controls.Add(this.label10);
+            this.panelLectures.Controls.Add(this.panelGeneratedLectures);
+            this.panelLectures.Controls.Add(this.panelNavigationButtons);
+            this.panelLectures.Controls.Add(this.panelLecturesTitleAndMenu);
             this.panelLectures.Controls.Add(this.panel1);
             this.panelLectures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelLectures.Location = new System.Drawing.Point(0, 0);
@@ -367,7 +423,7 @@
             // 
             this.labelLectureExistance.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLectureExistance.ForeColor = System.Drawing.Color.White;
-            this.labelLectureExistance.Location = new System.Drawing.Point(248, 311);
+            this.labelLectureExistance.Location = new System.Drawing.Point(248, 199);
             this.labelLectureExistance.Name = "labelLectureExistance";
             this.labelLectureExistance.Size = new System.Drawing.Size(356, 74);
             this.labelLectureExistance.TabIndex = 27;
@@ -378,7 +434,6 @@
             // panelDaysMenu
             // 
             this.panelDaysMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
-            this.panelDaysMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelDaysMenu.Controls.Add(this.daysMenuSunday);
             this.panelDaysMenu.Controls.Add(this.daysMenuSaturday);
             this.panelDaysMenu.Controls.Add(this.daysMenuFriday);
@@ -386,7 +441,8 @@
             this.panelDaysMenu.Controls.Add(this.daysMenuWednesday);
             this.panelDaysMenu.Controls.Add(this.daysMenuTuesday);
             this.panelDaysMenu.Controls.Add(this.daysMenuMonday);
-            this.panelDaysMenu.Location = new System.Drawing.Point(37, 67);
+            this.panelDaysMenu.Location = new System.Drawing.Point(37, 32);
+            this.panelDaysMenu.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.panelDaysMenu.Name = "panelDaysMenu";
             this.panelDaysMenu.Size = new System.Drawing.Size(778, 60);
             this.panelDaysMenu.TabIndex = 24;
@@ -404,7 +460,7 @@
             this.daysMenuSunday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.daysMenuSunday.Location = new System.Drawing.Point(666, 0);
             this.daysMenuSunday.Name = "daysMenuSunday";
-            this.daysMenuSunday.Size = new System.Drawing.Size(110, 58);
+            this.daysMenuSunday.Size = new System.Drawing.Size(112, 60);
             this.daysMenuSunday.TabIndex = 11;
             this.daysMenuSunday.Text = "Sunday";
             this.daysMenuSunday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -425,7 +481,7 @@
             this.daysMenuSaturday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.daysMenuSaturday.Location = new System.Drawing.Point(555, 0);
             this.daysMenuSaturday.Name = "daysMenuSaturday";
-            this.daysMenuSaturday.Size = new System.Drawing.Size(111, 58);
+            this.daysMenuSaturday.Size = new System.Drawing.Size(111, 60);
             this.daysMenuSaturday.TabIndex = 10;
             this.daysMenuSaturday.Text = "Saturday";
             this.daysMenuSaturday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -446,7 +502,7 @@
             this.daysMenuFriday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.daysMenuFriday.Location = new System.Drawing.Point(444, 0);
             this.daysMenuFriday.Name = "daysMenuFriday";
-            this.daysMenuFriday.Size = new System.Drawing.Size(111, 58);
+            this.daysMenuFriday.Size = new System.Drawing.Size(111, 60);
             this.daysMenuFriday.TabIndex = 9;
             this.daysMenuFriday.Text = "Friday";
             this.daysMenuFriday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -467,7 +523,7 @@
             this.daysMenuThursday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.daysMenuThursday.Location = new System.Drawing.Point(333, 0);
             this.daysMenuThursday.Name = "daysMenuThursday";
-            this.daysMenuThursday.Size = new System.Drawing.Size(111, 58);
+            this.daysMenuThursday.Size = new System.Drawing.Size(111, 60);
             this.daysMenuThursday.TabIndex = 8;
             this.daysMenuThursday.Text = "Thursday";
             this.daysMenuThursday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -488,7 +544,7 @@
             this.daysMenuWednesday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.daysMenuWednesday.Location = new System.Drawing.Point(222, 0);
             this.daysMenuWednesday.Name = "daysMenuWednesday";
-            this.daysMenuWednesday.Size = new System.Drawing.Size(111, 58);
+            this.daysMenuWednesday.Size = new System.Drawing.Size(111, 60);
             this.daysMenuWednesday.TabIndex = 7;
             this.daysMenuWednesday.Text = "Wednesday";
             this.daysMenuWednesday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -509,7 +565,7 @@
             this.daysMenuTuesday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.daysMenuTuesday.Location = new System.Drawing.Point(111, 0);
             this.daysMenuTuesday.Name = "daysMenuTuesday";
-            this.daysMenuTuesday.Size = new System.Drawing.Size(111, 58);
+            this.daysMenuTuesday.Size = new System.Drawing.Size(111, 60);
             this.daysMenuTuesday.TabIndex = 6;
             this.daysMenuTuesday.Text = "Tuesday";
             this.daysMenuTuesday.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -532,7 +588,7 @@
             this.daysMenuMonday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.daysMenuMonday.Location = new System.Drawing.Point(0, 0);
             this.daysMenuMonday.Name = "daysMenuMonday";
-            this.daysMenuMonday.Size = new System.Drawing.Size(111, 58);
+            this.daysMenuMonday.Size = new System.Drawing.Size(111, 60);
             this.daysMenuMonday.TabIndex = 5;
             this.daysMenuMonday.TabStop = true;
             this.daysMenuMonday.Text = "Monday";
@@ -545,7 +601,8 @@
             // 
             this.buttonLecturesPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonLecturesPrevious.Image = global::Auto_Lecture_Recorder.Properties.Resources.left_arrow_30px;
-            this.buttonLecturesPrevious.Location = new System.Drawing.Point(39, 648);
+            this.buttonLecturesPrevious.Location = new System.Drawing.Point(37, 0);
+            this.buttonLecturesPrevious.Margin = new System.Windows.Forms.Padding(0);
             this.buttonLecturesPrevious.Name = "buttonLecturesPrevious";
             this.buttonLecturesPrevious.Size = new System.Drawing.Size(38, 38);
             this.buttonLecturesPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -558,7 +615,8 @@
             // 
             this.buttonLecturesNext.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonLecturesNext.Image = global::Auto_Lecture_Recorder.Properties.Resources.right_arrow_30px;
-            this.buttonLecturesNext.Location = new System.Drawing.Point(777, 648);
+            this.buttonLecturesNext.Location = new System.Drawing.Point(777, 0);
+            this.buttonLecturesNext.Margin = new System.Windows.Forms.Padding(0);
             this.buttonLecturesNext.Name = "buttonLecturesNext";
             this.buttonLecturesNext.Size = new System.Drawing.Size(38, 38);
             this.buttonLecturesNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -570,31 +628,92 @@
             // label10
             // 
             this.label10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label10.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
             this.label10.Location = new System.Drawing.Point(0, 0);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(853, 55);
+            this.label10.Size = new System.Drawing.Size(853, 29);
             this.label10.TabIndex = 2;
             this.label10.Text = "Lectures";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
             // 
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.modernCheckbox2);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.panel8);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label11);
             this.panel1.Location = new System.Drawing.Point(38, 161);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(222, 215);
+            this.panel1.Size = new System.Drawing.Size(222, 256);
             this.panel1.TabIndex = 0;
             this.panel1.Visible = false;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.button2.BackgroundImage = global::Auto_Lecture_Recorder.Properties.Resources.x_24px;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(198, 19);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(23, 22);
+            this.button2.TabIndex = 13;
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // modernCheckbox2
+            // 
+            this.modernCheckbox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.modernCheckbox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modernCheckbox2.Location = new System.Drawing.Point(0, 209);
+            this.modernCheckbox2.Name = "modernCheckbox2";
+            this.modernCheckbox2.Size = new System.Drawing.Size(220, 40);
+            this.modernCheckbox2.TabIndex = 15;
+            // 
+            // label11
+            // 
+            this.label11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(0, 169);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(220, 40);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Platform: Microsoft Teams";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(0, 129);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(220, 40);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "End Time: 10:20";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(0, 89);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(220, 40);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Start Time: 08:20";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -618,57 +737,6 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(215, 1);
             this.panel8.TabIndex = 12;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(3, 90);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(215, 40);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Start Time: 08:20";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
-            this.button2.BackgroundImage = global::Auto_Lecture_Recorder.Properties.Resources.x_24px;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(198, -2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(23, 22);
-            this.button2.TabIndex = 13;
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(3, 130);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(215, 40);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "End Time: 10:20";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(3, 170);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(215, 40);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Platform: Microsoft Teams";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelAddLectures
             // 
@@ -734,6 +802,24 @@
             this.panelEndTime.Size = new System.Drawing.Size(853, 130);
             this.panelEndTime.TabIndex = 6;
             // 
+            // dropdownEndMin
+            // 
+            this.dropdownEndMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownEndMin.Location = new System.Drawing.Point(455, 76);
+            this.dropdownEndMin.Name = "dropdownEndMin";
+            this.dropdownEndMin.Size = new System.Drawing.Size(91, 31);
+            this.dropdownEndMin.TabIndex = 24;
+            this.dropdownEndMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
+            // 
+            // dropdownEndHour
+            // 
+            this.dropdownEndHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownEndHour.Location = new System.Drawing.Point(307, 76);
+            this.dropdownEndHour.Name = "dropdownEndHour";
+            this.dropdownEndHour.Size = new System.Drawing.Size(91, 31);
+            this.dropdownEndHour.TabIndex = 23;
+            this.dropdownEndHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
+            // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -789,6 +875,24 @@
             this.panelStartTime.Size = new System.Drawing.Size(853, 135);
             this.panelStartTime.TabIndex = 5;
             // 
+            // dropdownStartMin
+            // 
+            this.dropdownStartMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownStartMin.Location = new System.Drawing.Point(455, 81);
+            this.dropdownStartMin.Name = "dropdownStartMin";
+            this.dropdownStartMin.Size = new System.Drawing.Size(91, 31);
+            this.dropdownStartMin.TabIndex = 18;
+            this.dropdownStartMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
+            // 
+            // dropdownStartHour
+            // 
+            this.dropdownStartHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownStartHour.Location = new System.Drawing.Point(307, 81);
+            this.dropdownStartHour.Name = "dropdownStartHour";
+            this.dropdownStartHour.Size = new System.Drawing.Size(91, 31);
+            this.dropdownStartHour.TabIndex = 17;
+            this.dropdownStartHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
+            // 
             // label16
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -841,6 +945,16 @@
             this.panelSelectPlatform.Size = new System.Drawing.Size(853, 93);
             this.panelSelectPlatform.TabIndex = 8;
             // 
+            // dropdownPlatform
+            // 
+            this.dropdownPlatform.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownPlatform.Location = new System.Drawing.Point(218, 39);
+            this.dropdownPlatform.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.dropdownPlatform.Name = "dropdownPlatform";
+            this.dropdownPlatform.Size = new System.Drawing.Size(416, 31);
+            this.dropdownPlatform.TabIndex = 9;
+            this.dropdownPlatform.Load += new System.EventHandler(this.dropdownPlatform_Load);
+            // 
             // label15
             // 
             this.label15.Dock = System.Windows.Forms.DockStyle.Top;
@@ -867,6 +981,15 @@
             this.panelSubjectDay.Size = new System.Drawing.Size(853, 99);
             this.panelSubjectDay.TabIndex = 4;
             // 
+            // dropdownDay
+            // 
+            this.dropdownDay.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownDay.Location = new System.Drawing.Point(218, 45);
+            this.dropdownDay.Name = "dropdownDay";
+            this.dropdownDay.Size = new System.Drawing.Size(416, 31);
+            this.dropdownDay.TabIndex = 7;
+            this.dropdownDay.Load += new System.EventHandler(this.dropdownDay_Load);
+            // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
@@ -892,6 +1015,15 @@
             this.panelSubjectName.Padding = new System.Windows.Forms.Padding(0, 5, 0, 20);
             this.panelSubjectName.Size = new System.Drawing.Size(853, 97);
             this.panelSubjectName.TabIndex = 3;
+            // 
+            // textboxLectureName
+            // 
+            this.textboxLectureName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxLectureName.Location = new System.Drawing.Point(218, 44);
+            this.textboxLectureName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxLectureName.Name = "textboxLectureName";
+            this.textboxLectureName.Size = new System.Drawing.Size(416, 30);
+            this.textboxLectureName.TabIndex = 19;
             // 
             // labelSubjectName
             // 
@@ -934,18 +1066,155 @@
             // panelSettings
             // 
             this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelSettings.Controls.Add(this.panelLectureSettings);
+            this.panelSettings.Controls.Add(this.panelRecordingSettings);
+            this.panelSettings.Controls.Add(this.panelUploadSettings);
+            this.panelSettings.Controls.Add(this.panelSettingsTitleAndMenu);
             this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSettings.Location = new System.Drawing.Point(0, 0);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(853, 696);
             this.panelSettings.TabIndex = 7;
             // 
+            // panelLectureSettings
+            // 
+            this.panelLectureSettings.Controls.Add(this.modernCheckbox1);
+            this.panelLectureSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelLectureSettings.Location = new System.Drawing.Point(0, 171);
+            this.panelLectureSettings.Name = "panelLectureSettings";
+            this.panelLectureSettings.Size = new System.Drawing.Size(853, 525);
+            this.panelLectureSettings.TabIndex = 5;
+            // 
+            // modernCheckbox1
+            // 
+            this.modernCheckbox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.modernCheckbox1.Location = new System.Drawing.Point(86, 40);
+            this.modernCheckbox1.Name = "modernCheckbox1";
+            this.modernCheckbox1.Size = new System.Drawing.Size(215, 34);
+            this.modernCheckbox1.TabIndex = 0;
+            // 
+            // panelRecordingSettings
+            // 
+            this.panelRecordingSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRecordingSettings.Location = new System.Drawing.Point(0, 171);
+            this.panelRecordingSettings.Name = "panelRecordingSettings";
+            this.panelRecordingSettings.Size = new System.Drawing.Size(853, 525);
+            this.panelRecordingSettings.TabIndex = 6;
+            // 
+            // panelUploadSettings
+            // 
+            this.panelUploadSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelUploadSettings.Location = new System.Drawing.Point(0, 171);
+            this.panelUploadSettings.Name = "panelUploadSettings";
+            this.panelUploadSettings.Size = new System.Drawing.Size(853, 525);
+            this.panelUploadSettings.TabIndex = 6;
+            // 
+            // panelSettingsTitleAndMenu
+            // 
+            this.panelSettingsTitleAndMenu.Controls.Add(this.label8);
+            this.panelSettingsTitleAndMenu.Controls.Add(this.panelSettingsMenu);
+            this.panelSettingsTitleAndMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSettingsTitleAndMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelSettingsTitleAndMenu.Name = "panelSettingsTitleAndMenu";
+            this.panelSettingsTitleAndMenu.Size = new System.Drawing.Size(853, 171);
+            this.panelSettingsTitleAndMenu.TabIndex = 4;
+            // 
+            // label8
+            // 
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label8.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Margin = new System.Windows.Forms.Padding(0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(853, 55);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Settings";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelSettingsMenu
+            // 
+            this.panelSettingsMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.panelSettingsMenu.Controls.Add(this.settingsMenuUpload);
+            this.panelSettingsMenu.Controls.Add(this.settingsMenuRecording);
+            this.panelSettingsMenu.Controls.Add(this.settingsMenuLectures);
+            this.panelSettingsMenu.Location = new System.Drawing.Point(86, 63);
+            this.panelSettingsMenu.Name = "panelSettingsMenu";
+            this.panelSettingsMenu.Size = new System.Drawing.Size(681, 72);
+            this.panelSettingsMenu.TabIndex = 0;
+            // 
+            // settingsMenuUpload
+            // 
+            this.settingsMenuUpload.Appearance = System.Windows.Forms.Appearance.Button;
+            this.settingsMenuUpload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.settingsMenuUpload.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.settingsMenuUpload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsMenuUpload.FlatAppearance.BorderSize = 0;
+            this.settingsMenuUpload.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.settingsMenuUpload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.settingsMenuUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsMenuUpload.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsMenuUpload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.settingsMenuUpload.Location = new System.Drawing.Point(454, 0);
+            this.settingsMenuUpload.Name = "settingsMenuUpload";
+            this.settingsMenuUpload.Size = new System.Drawing.Size(227, 72);
+            this.settingsMenuUpload.TabIndex = 8;
+            this.settingsMenuUpload.Text = "Auto upload";
+            this.settingsMenuUpload.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.settingsMenuUpload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.settingsMenuUpload.UseVisualStyleBackColor = false;
+            // 
+            // settingsMenuRecording
+            // 
+            this.settingsMenuRecording.Appearance = System.Windows.Forms.Appearance.Button;
+            this.settingsMenuRecording.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.settingsMenuRecording.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.settingsMenuRecording.Dock = System.Windows.Forms.DockStyle.Left;
+            this.settingsMenuRecording.FlatAppearance.BorderSize = 0;
+            this.settingsMenuRecording.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.settingsMenuRecording.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.settingsMenuRecording.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsMenuRecording.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsMenuRecording.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.settingsMenuRecording.Location = new System.Drawing.Point(227, 0);
+            this.settingsMenuRecording.Name = "settingsMenuRecording";
+            this.settingsMenuRecording.Size = new System.Drawing.Size(227, 72);
+            this.settingsMenuRecording.TabIndex = 6;
+            this.settingsMenuRecording.Text = "Recording";
+            this.settingsMenuRecording.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.settingsMenuRecording.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.settingsMenuRecording.UseVisualStyleBackColor = false;
+            // 
+            // settingsMenuLectures
+            // 
+            this.settingsMenuLectures.Appearance = System.Windows.Forms.Appearance.Button;
+            this.settingsMenuLectures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.settingsMenuLectures.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.settingsMenuLectures.Checked = true;
+            this.settingsMenuLectures.Dock = System.Windows.Forms.DockStyle.Left;
+            this.settingsMenuLectures.FlatAppearance.BorderSize = 0;
+            this.settingsMenuLectures.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.settingsMenuLectures.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.settingsMenuLectures.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsMenuLectures.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsMenuLectures.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.settingsMenuLectures.Location = new System.Drawing.Point(0, 0);
+            this.settingsMenuLectures.Name = "settingsMenuLectures";
+            this.settingsMenuLectures.Size = new System.Drawing.Size(227, 72);
+            this.settingsMenuLectures.TabIndex = 7;
+            this.settingsMenuLectures.TabStop = true;
+            this.settingsMenuLectures.Text = "Active Lectures";
+            this.settingsMenuLectures.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.settingsMenuLectures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.settingsMenuLectures.UseVisualStyleBackColor = false;
+            // 
             // panelMainWindows
             // 
-            this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelLectures);
-            this.panelMainWindows.Controls.Add(this.panelAddLectures);
             this.panelMainWindows.Controls.Add(this.panelSettings);
+            this.panelMainWindows.Controls.Add(this.panelAddLectures);
+            this.panelMainWindows.Controls.Add(this.panelActiveRecording);
+            this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMainWindows.Location = new System.Drawing.Point(163, 35);
             this.panelMainWindows.Name = "panelMainWindows";
@@ -953,38 +1222,208 @@
             this.panelMainWindows.TabIndex = 5;
             this.panelMainWindows.Resize += new System.EventHandler(this.panelMainWindows_Resize);
             // 
+            // panelActiveRecording
+            // 
+            this.panelActiveRecording.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelActiveRecording.Controls.Add(this.buttonAbortRecording);
+            this.panelActiveRecording.Controls.Add(this.labelActiveRemainingTime);
+            this.panelActiveRecording.Controls.Add(this.label21);
+            this.panelActiveRecording.Controls.Add(this.LabelActiveTimeElapsed);
+            this.panelActiveRecording.Controls.Add(this.label18);
+            this.panelActiveRecording.Controls.Add(this.labelActiveEndTime);
+            this.panelActiveRecording.Controls.Add(this.label13);
+            this.panelActiveRecording.Controls.Add(this.labelActiveStartTime);
+            this.panelActiveRecording.Controls.Add(this.label);
+            this.panelActiveRecording.Controls.Add(this.labelActiveRecordTitle);
+            this.panelActiveRecording.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelActiveRecording.Location = new System.Drawing.Point(0, 0);
+            this.panelActiveRecording.Name = "panelActiveRecording";
+            this.panelActiveRecording.Size = new System.Drawing.Size(853, 696);
+            this.panelActiveRecording.TabIndex = 14;
+            // 
+            // buttonAbortRecording
+            // 
+            this.buttonAbortRecording.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.buttonAbortRecording.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonAbortRecording.FlatAppearance.BorderSize = 0;
+            this.buttonAbortRecording.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.buttonAbortRecording.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAbortRecording.Font = new System.Drawing.Font("Century", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAbortRecording.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.buttonAbortRecording.Location = new System.Drawing.Point(218, 563);
+            this.buttonAbortRecording.Name = "buttonAbortRecording";
+            this.buttonAbortRecording.Size = new System.Drawing.Size(416, 49);
+            this.buttonAbortRecording.TabIndex = 12;
+            this.buttonAbortRecording.Text = "Abort";
+            this.buttonAbortRecording.UseVisualStyleBackColor = false;
+            // 
+            // labelActiveRemainingTime
+            // 
+            this.labelActiveRemainingTime.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelActiveRemainingTime.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelActiveRemainingTime.ForeColor = System.Drawing.Color.White;
+            this.labelActiveRemainingTime.Location = new System.Drawing.Point(0, 440);
+            this.labelActiveRemainingTime.Margin = new System.Windows.Forms.Padding(0);
+            this.labelActiveRemainingTime.Name = "labelActiveRemainingTime";
+            this.labelActiveRemainingTime.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.labelActiveRemainingTime.Size = new System.Drawing.Size(853, 32);
+            this.labelActiveRemainingTime.TabIndex = 11;
+            this.labelActiveRemainingTime.Text = "00:00:00";
+            this.labelActiveRemainingTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label21
+            // 
+            this.label21.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label21.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label21.Location = new System.Drawing.Point(0, 376);
+            this.label21.Margin = new System.Windows.Forms.Padding(0);
+            this.label21.Name = "label21";
+            this.label21.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.label21.Size = new System.Drawing.Size(853, 64);
+            this.label21.TabIndex = 10;
+            this.label21.Text = "Remaining time";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // LabelActiveTimeElapsed
+            // 
+            this.LabelActiveTimeElapsed.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LabelActiveTimeElapsed.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelActiveTimeElapsed.ForeColor = System.Drawing.Color.White;
+            this.LabelActiveTimeElapsed.Location = new System.Drawing.Point(0, 344);
+            this.LabelActiveTimeElapsed.Margin = new System.Windows.Forms.Padding(0);
+            this.LabelActiveTimeElapsed.Name = "LabelActiveTimeElapsed";
+            this.LabelActiveTimeElapsed.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.LabelActiveTimeElapsed.Size = new System.Drawing.Size(853, 32);
+            this.LabelActiveTimeElapsed.TabIndex = 9;
+            this.LabelActiveTimeElapsed.Text = "00:00:00";
+            this.LabelActiveTimeElapsed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label18.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label18.Location = new System.Drawing.Point(0, 280);
+            this.label18.Margin = new System.Windows.Forms.Padding(0);
+            this.label18.Name = "label18";
+            this.label18.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.label18.Size = new System.Drawing.Size(853, 64);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "Time Elapsed";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // labelActiveEndTime
+            // 
+            this.labelActiveEndTime.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelActiveEndTime.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelActiveEndTime.ForeColor = System.Drawing.Color.White;
+            this.labelActiveEndTime.Location = new System.Drawing.Point(0, 248);
+            this.labelActiveEndTime.Margin = new System.Windows.Forms.Padding(0);
+            this.labelActiveEndTime.Name = "labelActiveEndTime";
+            this.labelActiveEndTime.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.labelActiveEndTime.Size = new System.Drawing.Size(853, 32);
+            this.labelActiveEndTime.TabIndex = 7;
+            this.labelActiveEndTime.Text = "00:00:00";
+            this.labelActiveEndTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label13
+            // 
+            this.label13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label13.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label13.Location = new System.Drawing.Point(0, 184);
+            this.label13.Margin = new System.Windows.Forms.Padding(0);
+            this.label13.Name = "label13";
+            this.label13.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.label13.Size = new System.Drawing.Size(853, 64);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "It will end before";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // labelActiveStartTime
+            // 
+            this.labelActiveStartTime.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelActiveStartTime.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelActiveStartTime.ForeColor = System.Drawing.Color.White;
+            this.labelActiveStartTime.Location = new System.Drawing.Point(0, 152);
+            this.labelActiveStartTime.Margin = new System.Windows.Forms.Padding(0);
+            this.labelActiveStartTime.Name = "labelActiveStartTime";
+            this.labelActiveStartTime.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.labelActiveStartTime.Size = new System.Drawing.Size(853, 32);
+            this.labelActiveStartTime.TabIndex = 5;
+            this.labelActiveStartTime.Text = "00:00:00";
+            this.labelActiveStartTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label
+            // 
+            this.label.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label.Location = new System.Drawing.Point(0, 55);
+            this.label.Margin = new System.Windows.Forms.Padding(0);
+            this.label.Name = "label";
+            this.label.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.label.Size = new System.Drawing.Size(853, 97);
+            this.label.TabIndex = 4;
+            this.label.Text = "Recording started at";
+            this.label.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // labelActiveRecordTitle
+            // 
+            this.labelActiveRecordTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelActiveRecordTitle.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelActiveRecordTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.labelActiveRecordTitle.Location = new System.Drawing.Point(0, 0);
+            this.labelActiveRecordTitle.Margin = new System.Windows.Forms.Padding(0);
+            this.labelActiveRecordTitle.Name = "labelActiveRecordTitle";
+            this.labelActiveRecordTitle.Size = new System.Drawing.Size(853, 55);
+            this.labelActiveRecordTitle.TabIndex = 3;
+            this.labelActiveRecordTitle.Text = "Object oriented programming is being recorded";
+            this.labelActiveRecordTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // timerCountdown
             // 
             this.timerCountdown.Interval = 1000;
             this.timerCountdown.Tick += new System.EventHandler(this.timerCountdown_Tick);
             // 
-            // buttonExit
+            // labelTitle
             // 
-            this.buttonExit.BackgroundImage = global::Auto_Lecture_Recorder.Properties.Resources.x_24px;
-            this.buttonExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonExit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonExit.FlatAppearance.BorderSize = 0;
-            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExit.Location = new System.Drawing.Point(981, 0);
-            this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(34, 34);
-            this.buttonExit.TabIndex = 0;
-            this.buttonExit.UseVisualStyleBackColor = true;
-            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            this.labelTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.labelTitle.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.labelTitle.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(203)))), ((int)(((byte)(227)))));
+            this.labelTitle.Location = new System.Drawing.Point(0, 0);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(161, 34);
+            this.labelTitle.TabIndex = 0;
+            this.labelTitle.Text = "Auto Lecture Recorder";
+            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // buttonMaximize
+            // panelTitleBar
             // 
-            this.buttonMaximize.BackgroundImage = global::Auto_Lecture_Recorder.Properties.Resources.maximize_button_16px;
-            this.buttonMaximize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonMaximize.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonMaximize.FlatAppearance.BorderSize = 0;
-            this.buttonMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMaximize.Location = new System.Drawing.Point(947, 0);
-            this.buttonMaximize.Name = "buttonMaximize";
-            this.buttonMaximize.Size = new System.Drawing.Size(34, 34);
-            this.buttonMaximize.TabIndex = 1;
-            this.buttonMaximize.UseVisualStyleBackColor = true;
-            this.buttonMaximize.Click += new System.EventHandler(this.buttonMaximize_Click);
+            this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelTitleBar.Controls.Add(this.panel2);
+            this.panelTitleBar.Controls.Add(this.labelTitle);
+            this.panelTitleBar.Controls.Add(this.buttonMinimize);
+            this.panelTitleBar.Controls.Add(this.buttonMaximize);
+            this.panelTitleBar.Controls.Add(this.buttonExit);
+            this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitleBar.Location = new System.Drawing.Point(1, 1);
+            this.panelTitleBar.Name = "panelTitleBar";
+            this.panelTitleBar.Size = new System.Drawing.Size(1015, 34);
+            this.panelTitleBar.TabIndex = 6;
+            this.panelTitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseMove);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Black;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(161, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1, 34);
+            this.panel2.TabIndex = 6;
             // 
             // buttonMinimize
             // 
@@ -1000,97 +1439,65 @@
             this.buttonMinimize.UseVisualStyleBackColor = true;
             this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
             // 
-            // labelTitle
+            // buttonMaximize
             // 
-            this.labelTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
-            this.labelTitle.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.labelTitle.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(203)))), ((int)(((byte)(227)))));
-            this.labelTitle.Location = new System.Drawing.Point(0, 0);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(162, 34);
-            this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "Auto Lecture Recorder";
-            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonMaximize.BackgroundImage = global::Auto_Lecture_Recorder.Properties.Resources.maximize_button_16px;
+            this.buttonMaximize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonMaximize.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonMaximize.FlatAppearance.BorderSize = 0;
+            this.buttonMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMaximize.Location = new System.Drawing.Point(947, 0);
+            this.buttonMaximize.Name = "buttonMaximize";
+            this.buttonMaximize.Size = new System.Drawing.Size(34, 34);
+            this.buttonMaximize.TabIndex = 1;
+            this.buttonMaximize.UseVisualStyleBackColor = true;
+            this.buttonMaximize.Click += new System.EventHandler(this.buttonMaximize_Click);
             // 
-            // panelTitleBar
+            // buttonExit
             // 
-            this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.panelTitleBar.Controls.Add(this.labelTitle);
-            this.panelTitleBar.Controls.Add(this.buttonMinimize);
-            this.panelTitleBar.Controls.Add(this.buttonMaximize);
-            this.panelTitleBar.Controls.Add(this.buttonExit);
-            this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitleBar.Location = new System.Drawing.Point(1, 1);
-            this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(1015, 34);
-            this.panelTitleBar.TabIndex = 6;
-            this.panelTitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseMove);
+            this.buttonExit.BackgroundImage = global::Auto_Lecture_Recorder.Properties.Resources.x_24px;
+            this.buttonExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonExit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonExit.FlatAppearance.BorderSize = 0;
+            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExit.Location = new System.Drawing.Point(981, 0);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(34, 34);
+            this.buttonExit.TabIndex = 0;
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
-            // dropdownEndMin
+            // panelLecturesTitleAndMenu
             // 
-            this.dropdownEndMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownEndMin.Location = new System.Drawing.Point(455, 76);
-            this.dropdownEndMin.Name = "dropdownEndMin";
-            this.dropdownEndMin.Size = new System.Drawing.Size(91, 31);
-            this.dropdownEndMin.TabIndex = 24;
-            this.dropdownEndMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
+            this.panelLecturesTitleAndMenu.AutoSize = true;
+            this.panelLecturesTitleAndMenu.Controls.Add(this.label10);
+            this.panelLecturesTitleAndMenu.Controls.Add(this.panelDaysMenu);
+            this.panelLecturesTitleAndMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelLecturesTitleAndMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelLecturesTitleAndMenu.Name = "panelLecturesTitleAndMenu";
+            this.panelLecturesTitleAndMenu.Size = new System.Drawing.Size(853, 92);
+            this.panelLecturesTitleAndMenu.TabIndex = 28;
             // 
-            // dropdownEndHour
+            // panelNavigationButtons
             // 
-            this.dropdownEndHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownEndHour.Location = new System.Drawing.Point(307, 76);
-            this.dropdownEndHour.Name = "dropdownEndHour";
-            this.dropdownEndHour.Size = new System.Drawing.Size(91, 31);
-            this.dropdownEndHour.TabIndex = 23;
-            this.dropdownEndHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
+            this.panelNavigationButtons.AutoSize = true;
+            this.panelNavigationButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelNavigationButtons.Controls.Add(this.buttonLecturesPrevious);
+            this.panelNavigationButtons.Controls.Add(this.buttonLecturesNext);
+            this.panelNavigationButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelNavigationButtons.Location = new System.Drawing.Point(0, 658);
+            this.panelNavigationButtons.Name = "panelNavigationButtons";
+            this.panelNavigationButtons.Size = new System.Drawing.Size(853, 38);
+            this.panelNavigationButtons.TabIndex = 29;
             // 
-            // dropdownStartMin
+            // panelGeneratedLectures
             // 
-            this.dropdownStartMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownStartMin.Location = new System.Drawing.Point(455, 81);
-            this.dropdownStartMin.Name = "dropdownStartMin";
-            this.dropdownStartMin.Size = new System.Drawing.Size(91, 31);
-            this.dropdownStartMin.TabIndex = 18;
-            this.dropdownStartMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
-            // 
-            // dropdownStartHour
-            // 
-            this.dropdownStartHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownStartHour.Location = new System.Drawing.Point(307, 81);
-            this.dropdownStartHour.Name = "dropdownStartHour";
-            this.dropdownStartHour.Size = new System.Drawing.Size(91, 31);
-            this.dropdownStartHour.TabIndex = 17;
-            this.dropdownStartHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
-            // 
-            // dropdownPlatform
-            // 
-            this.dropdownPlatform.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownPlatform.Location = new System.Drawing.Point(218, 39);
-            this.dropdownPlatform.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.dropdownPlatform.Name = "dropdownPlatform";
-            this.dropdownPlatform.Size = new System.Drawing.Size(416, 31);
-            this.dropdownPlatform.TabIndex = 9;
-            this.dropdownPlatform.Load += new System.EventHandler(this.dropdownPlatform_Load);
-            // 
-            // dropdownDay
-            // 
-            this.dropdownDay.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownDay.Location = new System.Drawing.Point(218, 45);
-            this.dropdownDay.Name = "dropdownDay";
-            this.dropdownDay.Size = new System.Drawing.Size(416, 31);
-            this.dropdownDay.TabIndex = 7;
-            this.dropdownDay.Load += new System.EventHandler(this.dropdownDay_Load);
-            // 
-            // textboxLectureName
-            // 
-            this.textboxLectureName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textboxLectureName.Location = new System.Drawing.Point(218, 44);
-            this.textboxLectureName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.textboxLectureName.Name = "textboxLectureName";
-            this.textboxLectureName.Size = new System.Drawing.Size(416, 30);
-            this.textboxLectureName.TabIndex = 19;
+            this.panelGeneratedLectures.Controls.Add(this.labelLectureExistance);
+            this.panelGeneratedLectures.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGeneratedLectures.Location = new System.Drawing.Point(0, 92);
+            this.panelGeneratedLectures.Name = "panelGeneratedLectures";
+            this.panelGeneratedLectures.Size = new System.Drawing.Size(853, 566);
+            this.panelGeneratedLectures.TabIndex = 30;
             // 
             // MainForm
             // 
@@ -1115,6 +1522,7 @@
             this.panelMenu.ResumeLayout(false);
             this.panelRecord.ResumeLayout(false);
             this.panelLectures.ResumeLayout(false);
+            this.panelLectures.PerformLayout();
             this.panelDaysMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.buttonLecturesPrevious)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonLecturesNext)).EndInit();
@@ -1128,9 +1536,17 @@
             this.panelSubjectDay.ResumeLayout(false);
             this.panelSubjectName.ResumeLayout(false);
             this.panelAddSubjectLabel.ResumeLayout(false);
+            this.panelSettings.ResumeLayout(false);
+            this.panelLectureSettings.ResumeLayout(false);
+            this.panelSettingsTitleAndMenu.ResumeLayout(false);
+            this.panelSettingsMenu.ResumeLayout(false);
             this.panelMainWindows.ResumeLayout(false);
             this.panelMainWindows.PerformLayout();
+            this.panelActiveRecording.ResumeLayout(false);
             this.panelTitleBar.ResumeLayout(false);
+            this.panelLecturesTitleAndMenu.ResumeLayout(false);
+            this.panelNavigationButtons.ResumeLayout(false);
+            this.panelGeneratedLectures.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1191,7 +1607,7 @@
         private System.Windows.Forms.Panel panelTitleBar;
         private System.Windows.Forms.Label labelCountdown;
         private System.Windows.Forms.Label labelRecordingInfo;
-        private System.Windows.Forms.Panel panelDaysMenu;
+        public System.Windows.Forms.Panel panelDaysMenu;
         private System.Windows.Forms.RadioButton daysMenuSunday;
         private System.Windows.Forms.RadioButton daysMenuSaturday;
         private System.Windows.Forms.RadioButton daysMenuFriday;
@@ -1207,6 +1623,34 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelActiveRecording;
+        private System.Windows.Forms.Label labelActiveRecordTitle;
+        private System.Windows.Forms.Button buttonAbortRecording;
+        private System.Windows.Forms.Label labelActiveRemainingTime;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label LabelActiveTimeElapsed;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label labelActiveEndTime;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelActiveStartTime;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Panel panelLectureSettings;
+        private System.Windows.Forms.Panel panelRecordingSettings;
+        private System.Windows.Forms.Panel panelUploadSettings;
+        private System.Windows.Forms.Panel panelSettingsTitleAndMenu;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panelSettingsMenu;
+        private System.Windows.Forms.RadioButton settingsMenuUpload;
+        private System.Windows.Forms.RadioButton settingsMenuRecording;
+        private System.Windows.Forms.RadioButton settingsMenuLectures;
+        private ModernCheckbox modernCheckbox1;
+        private ModernCheckbox modernCheckbox2;
+        private System.Windows.Forms.Panel panelNavigationButtons;
+        private System.Windows.Forms.Panel panelLecturesTitleAndMenu;
+        private System.Windows.Forms.Panel panelGeneratedLectures;
     }
 }
 

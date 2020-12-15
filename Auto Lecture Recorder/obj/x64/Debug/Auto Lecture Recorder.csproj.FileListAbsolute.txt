@@ -1,0 +1,18 @@
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\Auto Lecture Recorder.exe.config
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\Auto Lecture Recorder.exe
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\Auto Lecture Recorder.pdb
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\ScreenRecorderLib.dll
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\WebDriver.dll
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\WebDriver.Support.dll
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\WebDriver.xml
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\WebDriver.Support.xml
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\bin\x64\Debug\ScreenRecorderLib.xml
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto_Lecture_Recorder.DropdownList.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto_Lecture_Recorder.MainForm.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto_Lecture_Recorder.Properties.Resources.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto_Lecture_Recorder.ModernTextBox.resources
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto Lecture Recorder.csproj.GenerateResource.cache
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto Lecture Recorder.csproj.CoreCompileInputs.cache
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto Lecture Recorder.csproj.CopyComplete
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto Lecture Recorder.exe
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x64\Debug\Auto Lecture Recorder.pdb

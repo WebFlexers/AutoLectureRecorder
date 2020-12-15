@@ -7,11 +7,14 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 using Auto_Lecture_Recorder.Lectures;
 using Auto_Lecture_Recorder.BotController;
-using System.Threading;
+using Auto_Lecture_Recorder.ScreenRecorder;
+using Auto_Lecture_Recorder.Youtube;
+using System.IO;
 
 namespace Auto_Lecture_Recorder
 {
@@ -19,6 +22,10 @@ namespace Auto_Lecture_Recorder
     {
         // Responsive object
         Responsive responsive;
+        // Recorder
+        Recorder recorder;
+        // Youtube
+        YoutubeUploader youtubeUploader = new YoutubeUploader();
         public MainForm()
         {
             InitializeComponent();
@@ -41,7 +48,7 @@ namespace Auto_Lecture_Recorder
             }     
         }
         // List that contains all days of the week
-        Dictionary<string, Lectures.Day> week;
+        public Dictionary<string, Lectures.Day> week;
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -54,6 +61,8 @@ namespace Auto_Lecture_Recorder
             week.Add("Friday", new Lectures.Day("Friday"));
             week.Add("Saturday", new Lectures.Day("Saturday"));
             week.Add("Sunday", new Lectures.Day("Sunday"));
+            // Instanciate recorder
+            recorder = new Recorder();
         }
 
         // Eliminate flickering
@@ -291,6 +300,9 @@ namespace Auto_Lecture_Recorder
 
 
 
+
+
+
         // RECORD PANEL
         // Record button Styling
         private void checkBoxRecordButton_MouseEnter(object sender, EventArgs e)
@@ -312,7 +324,7 @@ namespace Auto_Lecture_Recorder
         private Lecture FindNextLectureToBeRecorded() 
         {
             // A for loop that scans the week days until it finds the correct lecture (It starts from today)
-            for (int dayNum = 0; dayNum < 7; dayNum++)
+            for (int dayNum = 0; dayNum <= 7; dayNum++)
             {
                 // Get the day that the lecture will take place starting from today, since dayNum starts with 0
                 Lectures.Day lectureDay = week[DateTime.Now.AddDays(dayNum).ToString("dddd")];
@@ -325,7 +337,7 @@ namespace Auto_Lecture_Recorder
                 // or if the scheduled lecture is for a later day return the first lecture of the closest day
                 foreach (Lecture lecture in dayLectures)
                 {
-                    if (lecture.StartTime > DateTime.Now.TimeOfDay || !lectureDay.Name.Equals(DateTime.Now.ToString("dddd")))
+                    if (lecture.Active && (lecture.StartTime > DateTime.Now.TimeOfDay || dayNum != 0))
                     {
                         // Save the current day
                         numOfDaysFromToday = dayNum;
@@ -368,9 +380,9 @@ namespace Auto_Lecture_Recorder
                     // if statement to make sure that the error message isnt displayed when the checkBoxRecordButton_Click method
                     // is called programmatically and not through click
                     if (((Control)sender).Name.Equals(checkBoxRecordButton.Name))
-                        MessageBox.Show("There are no scheduled recordings." + Environment.NewLine +
+                        MessageBox.Show("No enabled lectures exist." + Environment.NewLine +
                                     "You can add lectures in the Add Lectures section or enable existing lectures in the settings section",
-                                    "No scheduled recordings were found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    "No active lectures were found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
             }
@@ -404,27 +416,55 @@ namespace Auto_Lecture_Recorder
 
             if (remainingTime.TotalSeconds <= 0)
             {
+                // Make the countdown 0
+                remainingTime = new TimeSpan(0);
+                labelCountdown.Text = remainingTime.ToString("hh\\:mm\\:ss");
                 // Disable timer
                 timerCountdown.Stop();
                 // Disable the schedule recording checkbox
                 checkBoxRecordButton.Enabled = false;
 
                 // Join meating and start recording
+                Thread joinAndRecord = new Thread(JoinMeatingAndRecord);
+                
             }
-
-            labelRecordingInfo.Text = "The next lecture to be recorded is:" + Environment.NewLine +
+            else
+            {
+                labelRecordingInfo.Text = "The next lecture to be recorded is:" + Environment.NewLine +
                                       nextScheduledLecture.Name + Environment.NewLine + "The recording will start in:";
 
-            string displayFormat = "dd\\:hh\\:mm\\:ss";
-            if (numOfDaysFromToday == 0)
-            {
-                displayFormat = "hh\\:mm\\:ss";
-            }
+                string displayFormat = "dd\\:hh\\:mm\\:ss";
+                if (numOfDaysFromToday == 0)
+                {
+                    displayFormat = "hh\\:mm\\:ss";
+                }
 
-            labelCountdown.Text = remainingTime.ToString(displayFormat);
+                labelCountdown.Text = remainingTime.ToString(displayFormat);
+            }
+            
         }
 
+        private void JoinMeatingAndRecord()
+        {
+            // Join meating
+            Bot teamsBot = new Bot();
+            teamsBot.ConnectToTeamsChrome("p19165@unipi.gr", "p19165", "nhy6514236798awdsm");
 
+            // Record
+            recorder.StartRecording(Path.Combine(nextScheduledLecture.Name, " - ", 
+                                    DateTime.Now.ToString("dd\\-MM\\-yyyy")));
+            MessageBox.Show("Connected to teams");
+        }
+
+        public void RefreshScheduledRecordings(object sender)
+        {
+            // Stop the timer to avoid exceptions
+            timerCountdown.Stop();
+            // Click the check box record button twice. The goal here is to find the next lecture to be recorded in case the previous
+            // one was just deleted
+            checkBoxRecordButton_Click(sender, EventArgs.Empty);
+            checkBoxRecordButton_Click(sender, EventArgs.Empty);
+        }
 
 
 
@@ -453,7 +493,7 @@ namespace Auto_Lecture_Recorder
             panel.BorderStyle = BorderStyle.FixedSingle;
             panel.Location = new Point(x, y);
             panel.Name = "panelLecture" + controlsCount;
-            panel.Size = new Size(217, 230);
+            panel.Size = new Size(217, 270);
             panel.TabIndex = 0;
 
             // Store the control in responsive object
@@ -557,6 +597,7 @@ namespace Auto_Lecture_Recorder
             return label;
         }
 
+
         // Number of lectures that are currently displayed on screen
         int lecturesDisplayedNow = 0;
 
@@ -572,12 +613,18 @@ namespace Auto_Lecture_Recorder
             Label startTime = CreateLectureInfoLabel("Start time: " + lecture.StartTime);
             Label endTime = CreateLectureInfoLabel("End time: " + lecture.EndTime);
             Label platform = CreateLectureInfoLabel("Platform: " + lecture.Platform);
+            // Enabled checkbox
+            ModernCheckbox modernCheckbox = lecture.CreateCheckbox(responsive, ref controlsCount);
+            modernCheckbox.AddClickEvents(new EventHandler((sender, EventArgs) =>
+                           modernCheckbox.Lecture_Enable_Click(sender, EventArgs, week[FindSelectedDay()], lecture)));
+            
             // Delete x button
             Button xButton = CreateLectureXButton();
             xButton.Click += (sender, EventArgs) => { buttonDeleteLecture_Click(sender, EventArgs, lecture); };
 
             // Add the controls to the container panel
             lectureWindow.Controls.Add(xButton);
+            lectureWindow.Controls.Add(modernCheckbox);
             lectureWindow.Controls.Add(platform);
             lectureWindow.Controls.Add(endTime);
             lectureWindow.Controls.Add(startTime);
@@ -586,7 +633,7 @@ namespace Auto_Lecture_Recorder
 
             // Add the Lecture window to the container
             responsive.ScaleControl(lectureWindow);
-            panelLectures.Controls.Add(lectureWindow);
+            panelGeneratedLectures.Controls.Add(lectureWindow);
 
             // Increment the lecture counter
             lecturesDisplayedNow++;
@@ -600,37 +647,41 @@ namespace Auto_Lecture_Recorder
                 // Remove the lecture from the list
                 week[lectureDay].Lectures.Remove(lecture);
                 // Redraw the lectures in the lecture panel
-                foreach (RadioButton day in panelDaysMenu.Controls)
-                {
-                    if (day.Checked)
-                    {
-                        GenerateLectures(day.Text);
-                        break;
-                    }
-                }
-                // Refresh the countdown timer
-                // Stop the timer to avoid exceptions
-                timerCountdown.Stop();
-                // Click the check box record button twice. The goal here is to find the next lecture to be recorded in case the previous
-                // one was just delete it
-                checkBoxRecordButton_Click(sender, EventArgs.Empty);
-                checkBoxRecordButton_Click(sender, EventArgs.Empty);
+                GenerateLectures(FindSelectedDay());
+
+                // Refresh the scheduled recordings
+                RefreshScheduledRecordings(sender);
+                
             }
             
+        }
+
+        public String FindSelectedDay()
+        {
+            foreach (RadioButton day in panelDaysMenu.Controls)
+            {
+                if (day.Checked)
+                {
+                    return day.Text;
+                }
+            }
+
+            return null;
         }
 
         // Clears the lecture panel from all displayed lectures
         private void ClearDisplayedLectures()
         {
-            List<Panel> panelsToRemove = panelLectures.Controls.OfType<Panel>().ToList();
+            List<Panel> panelsToRemove = panelGeneratedLectures.Controls.OfType<Panel>().ToList();
 
             foreach (Panel panel in panelsToRemove)
             {
-                if (!panel.Name.Equals("panelDaysMenu"))
-                {
-                    panelLectures.Controls.Remove(panel);
-                    panel.Dispose();
-                }
+                // Nullify the checkbox so the lecture object doesnt get an exception
+                var checkbox = panel.Controls.OfType<ModernCheckbox>().ToList();
+                checkbox[0] = null;
+                // Delete the displayed lecture
+                panelGeneratedLectures.Controls.Remove(panel);
+                panel.Dispose();
             }
 
             // Reset the lectures displayed now counter and the general control counter
@@ -660,7 +711,7 @@ namespace Auto_Lecture_Recorder
 
             // Starting coordinates
             int x = 38;
-            int y = 151;
+            int y = 10;
             // for loop counter
             int i;
             // Display 6 or less lectures in the given day depending on the dayLecturesListIndex 
@@ -672,7 +723,7 @@ namespace Auto_Lecture_Recorder
                     // Reset x
                     x = 38;
                     // increment y
-                    y += 255;
+                    y += 285;
                 }
 
                 // Create a lecture
@@ -785,8 +836,7 @@ namespace Auto_Lecture_Recorder
 
 
 
-
-
+        
 
 
 
@@ -853,10 +903,10 @@ namespace Auto_Lecture_Recorder
             string platform;
 
             // Check if everything is filled
-            if (String.IsNullOrEmpty(textboxLectureName.GetText()) || String.IsNullOrEmpty(dropdownDay.GetText()) ||
-                String.IsNullOrEmpty(dropdownPlatform.GetText()) || String.IsNullOrEmpty(dropdownStartHour.GetText()) ||
-                String.IsNullOrEmpty(dropdownStartMin.GetText()) || String.IsNullOrEmpty(dropdownEndHour.GetText()) ||
-                String.IsNullOrEmpty(dropdownEndMin.GetText()))
+            if (String.IsNullOrWhiteSpace(textboxLectureName.GetText()) || String.IsNullOrWhiteSpace(dropdownDay.GetText()) ||
+                String.IsNullOrWhiteSpace(dropdownPlatform.GetText()) || String.IsNullOrWhiteSpace(dropdownStartHour.GetText()) ||
+                String.IsNullOrWhiteSpace(dropdownStartMin.GetText()) || String.IsNullOrWhiteSpace(dropdownEndHour.GetText()) ||
+                String.IsNullOrWhiteSpace(dropdownEndMin.GetText()))
             {
                 MessageBox.Show("Please fill all the fields to continue", "Empty fields detected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -912,8 +962,70 @@ namespace Auto_Lecture_Recorder
                 if (radioButton.Checked)
                 {
                     GenerateLectures(radioButton.Text);
+                    break;
                 }
             }
+
+            // Find and disable any conflicting lectures
+            foreach (Lecture activeLecture in storedDay.Lectures)
+            {
+                if (activeLecture.Active && activeLecture != lecture)
+                {
+                    storedDay.DisableConflictingLectures(activeLecture);
+                }
+            }
+
+            // Update the scheduled recordings
+            RefreshScheduledRecordings(sender);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // SETTINGS PANEL
+
+
+
+        // Temp
+        private void button1_Click(object sender, EventArgs e)
+        {
+            recorder.StartRecording("Kalispera.mp4");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
+            recorder.StopRecording();
+            
+            
+            try
+            {
+                Thread thead = new Thread(() =>
+                {
+                    youtubeUploader.Run(Path.Combine(recorder.VideoFolderPath, "Kalispera.mp4"), "Kalispera", "Euxes" ,"12.12.2020").Wait();
+                });
+                thead.IsBackground = true;
+                thead.Start();
+
+            }
+            catch (AggregateException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
     }

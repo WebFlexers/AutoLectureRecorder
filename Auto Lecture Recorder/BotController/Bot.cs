@@ -125,7 +125,7 @@ namespace Auto_Lecture_Recorder.BotController
             
 
             
-
+            /*
             try
             {
                 IWebElement UseWebAppBtn = chromeDriver.FindElement(By.ClassName("use-app-lnk"));
@@ -134,7 +134,8 @@ namespace Auto_Lecture_Recorder.BotController
             catch (Exception e)
             {
                 throw e;
-            }                                                                                    
+            }   
+            */
         }
 
         public void ConnectToMeeting(string name)

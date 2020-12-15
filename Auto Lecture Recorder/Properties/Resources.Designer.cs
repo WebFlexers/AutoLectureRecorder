@@ -103,6 +103,36 @@ namespace Auto_Lecture_Recorder.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap checkbox {
+            get {
+                object obj = ResourceManager.GetObject("checkbox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap checkbox_clicked {
+            get {
+                object obj = ResourceManager.GetObject("checkbox_clicked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap checkbox_hover {
+            get {
+                object obj = ResourceManager.GetObject("checkbox_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap exclamation_mark_15px {
             get {
                 object obj = ResourceManager.GetObject("exclamation_mark_15px", resourceCulture);
