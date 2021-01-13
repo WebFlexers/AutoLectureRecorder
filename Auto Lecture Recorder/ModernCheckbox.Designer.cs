@@ -43,9 +43,10 @@
             this.label.Location = new System.Drawing.Point(0, 0);
             this.label.Margin = new System.Windows.Forms.Padding(0);
             this.label.Name = "label";
+            this.label.Padding = new System.Windows.Forms.Padding(55, 0, 0, 0);
             this.label.Size = new System.Drawing.Size(347, 34);
             this.label.TabIndex = 4;
-            this.label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label.MouseEnter += new System.EventHandler(this.Component_MouseEnter);
             this.label.MouseLeave += new System.EventHandler(this.Component_MouseLeave);
             // 

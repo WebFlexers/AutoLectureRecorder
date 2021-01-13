@@ -75,6 +75,21 @@ namespace Auto_Lecture_Recorder
             return labelDropdown.Text;
         }
 
+        public void AddDefaultOption(string option)
+        {
+            foreach (ToolStripMenuItem item in contextMenuStrip.Items)
+            {
+                if (item.Text.Equals(option))
+                {
+                    labelDropdown.Text = option;
+                    return;
+                }
+            }
+
+            AddOption(option);
+            labelDropdown.Text = option;
+        }
+
         public void AddOption(string option)
         {
             // Create menu option
@@ -113,6 +128,11 @@ namespace Auto_Lecture_Recorder
             contextMenuStrip.Items.Clear();
             // Resize
             resizeMenu();
+        }
+
+        public void AddSelectionClickEvent(ToolStripItemClickedEventHandler clickEvent)
+        {
+            contextMenuStrip.ItemClicked += clickEvent;
         }
     }
 }

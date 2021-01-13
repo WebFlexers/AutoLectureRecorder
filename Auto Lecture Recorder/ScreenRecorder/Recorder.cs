@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ScreenRecorderLib;
 using System.IO;
+
+using ScreenRecorderLib;
 
 namespace Auto_Lecture_Recorder.ScreenRecorder
 {
@@ -18,10 +19,42 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
         private bool isRecording;
         ScreenRecorderLib.Recorder recorder;
         // Path of the folder where videos will be saved and video name
-        public string VideoFolderPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AutoLectureRecorder");
-        private string videoName;
+        public string VideoFolderPath { get; set; }
+        public string VideoName { get; set; }
+        public string RecordingPath
+        {
+            get
+            {
+                string fullPath = Path.Combine(VideoFolderPath, "temp_recording.mp4");
+                if (File.Exists(fullPath))
+                    return fullPath;
+                else
+                    return null;
+            }
+        }
+
         // Options
-        RecorderOptions Options { get; set; }
+        public RecorderOptions Options { get; set; }
+        // Audio options
+        public Dictionary<string, string> InputDevices { get; }
+        public Dictionary<string, string> OutputDevices { get; }
+        public string SelectedOutputDevice { get; set; } = null;
+        public string SelectedInputDevice { get; set; } = null;
+        // All open windows
+        public List<RecordableWindow> ActiveWindows { get; set; } = ScreenRecorderLib.Recorder.GetWindows();
+        
+
+        public Recorder()
+        {
+            // Set default Video folder path
+            VideoFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Auto Lecture Recorder");
+            VideoName = "ΜΑΘΗΜΑΤΙΚΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ";
+            // Instanciate options
+            LoadDefaultOptions();
+            // Instanciate input and output devices
+            InputDevices = ScreenRecorderLib.Recorder.GetSystemAudioDevices(AudioDeviceSource.InputDevices);
+            OutputDevices = ScreenRecorderLib.Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices);
+        }
 
 
         public void StartRecording(string fileName)
@@ -44,10 +77,10 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
             }
 
             // Save file name
-            videoName = fileName;
+            VideoName = fileName;
 
             // Start recording
-            recorder.Record(Path.Combine(VideoFolderPath, fileName));
+            recorder.Record(Path.Combine(VideoFolderPath, "temp_recording.mp4"));
             isRecording = true;
         }
 
@@ -62,9 +95,9 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
 
         public void DeleteRecording()
         {
-            if (videoName != null)
+            if (VideoName != null)
             {
-                string videoPath = Path.Combine(VideoFolderPath, videoName);
+                string videoPath = Path.Combine(VideoFolderPath, VideoName + ".mp4");
                 if (File.Exists(videoPath))
                 {
                     File.Delete(videoPath);
@@ -91,7 +124,11 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
                 {
                     Bitrate = AudioBitrate.bitrate_128kbps,
                     Channels = AudioChannels.Stereo,
-                    IsAudioEnabled = true
+                    IsAudioEnabled = true,
+                    IsOutputDeviceEnabled = true,
+                    IsInputDeviceEnabled = true,
+                    AudioOutputDevice = SelectedOutputDevice,
+                    AudioInputDevice = SelectedInputDevice
                 },
 
                 VideoOptions = new VideoOptions
@@ -123,7 +160,7 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
 
         private void Rec_OnRecordingFailed(object sender, RecordingFailedEventArgs e)
         {
-            MessageBox.Show("The recording failed. Try again", "Recording failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(e.Error, "Recording failed" ,MessageBoxButtons.OK, MessageBoxIcon.Error);
             isRecording = false;
             CleanupResources();
         }
@@ -138,8 +175,6 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
             recorder.Dispose();
             recorder = null;
         }
-
-        
 
     }
 }

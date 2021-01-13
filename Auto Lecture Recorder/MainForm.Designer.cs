@@ -39,16 +39,34 @@
             this.radioMenuAdd = new System.Windows.Forms.RadioButton();
             this.radioMenuSubjects = new System.Windows.Forms.RadioButton();
             this.radioMenuRecord = new System.Windows.Forms.RadioButton();
+            this.radioMenuAuthenticate = new System.Windows.Forms.RadioButton();
             this.panelMenuBorder = new System.Windows.Forms.Panel();
             this.panelRecord = new System.Windows.Forms.Panel();
+            this.buttonYoutubeUpload = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.labelCountdown = new System.Windows.Forms.Label();
             this.labelRecordingInfo = new System.Windows.Forms.Label();
             this.checkBoxRecordButton = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.panelAuthentication = new System.Windows.Forms.Panel();
+            this.labelLoginStatus = new System.Windows.Forms.Label();
+            this.buttonLogin = new System.Windows.Forms.Button();
+            this.textboxPassword = new Auto_Lecture_Recorder.ModernTextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.textboxRN = new Auto_Lecture_Recorder.ModernTextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.panelLectures = new System.Windows.Forms.Panel();
+            this.panelGeneratedLectures = new System.Windows.Forms.Panel();
             this.labelLectureExistance = new System.Windows.Forms.Label();
+            this.panelNavigationButtons = new System.Windows.Forms.Panel();
+            this.buttonLecturesPrevious = new System.Windows.Forms.PictureBox();
+            this.buttonLecturesNext = new System.Windows.Forms.PictureBox();
+            this.panelLecturesTitleAndMenu = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.panelDaysMenu = new System.Windows.Forms.Panel();
             this.daysMenuSunday = new System.Windows.Forms.RadioButton();
             this.daysMenuSaturday = new System.Windows.Forms.RadioButton();
@@ -57,9 +75,6 @@
             this.daysMenuWednesday = new System.Windows.Forms.RadioButton();
             this.daysMenuTuesday = new System.Windows.Forms.RadioButton();
             this.daysMenuMonday = new System.Windows.Forms.RadioButton();
-            this.buttonLecturesPrevious = new System.Windows.Forms.PictureBox();
-            this.buttonLecturesNext = new System.Windows.Forms.PictureBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.modernCheckbox2 = new Auto_Lecture_Recorder.ModernCheckbox();
@@ -95,16 +110,38 @@
             this.panelAddSubjectLabel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panelSettings = new System.Windows.Forms.Panel();
-            this.panelLectureSettings = new System.Windows.Forms.Panel();
-            this.modernCheckbox1 = new Auto_Lecture_Recorder.ModernCheckbox();
-            this.panelRecordingSettings = new System.Windows.Forms.Panel();
-            this.panelUploadSettings = new System.Windows.Forms.Panel();
-            this.panelSettingsTitleAndMenu = new System.Windows.Forms.Panel();
+            this.panelSettingsGeneral = new System.Windows.Forms.Panel();
+            this.textboxAutoQuitNum = new Auto_Lecture_Recorder.ModernTextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.buttonBrowseLocation = new System.Windows.Forms.Button();
+            this.labelVideoLocation = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.panelSettingsRecording = new System.Windows.Forms.Panel();
+            this.dropdownQuality = new Auto_Lecture_Recorder.DropdownList();
+            this.label25 = new System.Windows.Forms.Label();
+            this.dropdownFPS = new Auto_Lecture_Recorder.DropdownList();
+            this.label23 = new System.Windows.Forms.Label();
+            this.checkboxInputEnabled = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.checkboxOutputEnabled = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.dropdownInputDevices = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownOutputDevices = new Auto_Lecture_Recorder.DropdownList();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.labelAudioOptions = new System.Windows.Forms.Label();
+            this.panelSettingsYoutube = new System.Windows.Forms.Panel();
+            this.panelYoutubeUpload = new System.Windows.Forms.Panel();
+            this.labelYoutubeUploadStatus = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.progressBarYoutube = new System.Windows.Forms.ProgressBar();
+            this.checkboxSettingsYoutube = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.panelSettingsSwitch = new System.Windows.Forms.Panel();
+            this.menuSettingsYoutube = new System.Windows.Forms.RadioButton();
+            this.menuSettingsGeneral = new System.Windows.Forms.RadioButton();
+            this.menuSettingsRecording = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
-            this.panelSettingsMenu = new System.Windows.Forms.Panel();
-            this.settingsMenuUpload = new System.Windows.Forms.RadioButton();
-            this.settingsMenuRecording = new System.Windows.Forms.RadioButton();
-            this.settingsMenuLectures = new System.Windows.Forms.RadioButton();
             this.panelMainWindows = new System.Windows.Forms.Panel();
             this.panelActiveRecording = new System.Windows.Forms.Panel();
             this.buttonAbortRecording = new System.Windows.Forms.Button();
@@ -124,15 +161,21 @@
             this.buttonMinimize = new System.Windows.Forms.Button();
             this.buttonMaximize = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
-            this.panelLecturesTitleAndMenu = new System.Windows.Forms.Panel();
-            this.panelNavigationButtons = new System.Windows.Forms.Panel();
-            this.panelGeneratedLectures = new System.Windows.Forms.Panel();
+            this.timerEndtime = new System.Windows.Forms.Timer(this.components);
+            this.timerYoutubeProgress = new System.Windows.Forms.Timer(this.components);
+            this.timerLoginProgress = new System.Windows.Forms.Timer(this.components);
+            this.folderBrowserVideo = new System.Windows.Forms.FolderBrowserDialog();
+            this.timerUpdateYoutubeProgressbar = new System.Windows.Forms.Timer(this.components);
             this.panelMenu.SuspendLayout();
             this.panelRecord.SuspendLayout();
+            this.panelAuthentication.SuspendLayout();
             this.panelLectures.SuspendLayout();
-            this.panelDaysMenu.SuspendLayout();
+            this.panelGeneratedLectures.SuspendLayout();
+            this.panelNavigationButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.buttonLecturesPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonLecturesNext)).BeginInit();
+            this.panelLecturesTitleAndMenu.SuspendLayout();
+            this.panelDaysMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelAddLectures.SuspendLayout();
             this.panelAddButton.SuspendLayout();
@@ -143,15 +186,14 @@
             this.panelSubjectName.SuspendLayout();
             this.panelAddSubjectLabel.SuspendLayout();
             this.panelSettings.SuspendLayout();
-            this.panelLectureSettings.SuspendLayout();
-            this.panelSettingsTitleAndMenu.SuspendLayout();
-            this.panelSettingsMenu.SuspendLayout();
+            this.panelSettingsGeneral.SuspendLayout();
+            this.panelSettingsRecording.SuspendLayout();
+            this.panelSettingsYoutube.SuspendLayout();
+            this.panelYoutubeUpload.SuspendLayout();
+            this.panelSettingsSwitch.SuspendLayout();
             this.panelMainWindows.SuspendLayout();
             this.panelActiveRecording.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
-            this.panelLecturesTitleAndMenu.SuspendLayout();
-            this.panelNavigationButtons.SuspendLayout();
-            this.panelGeneratedLectures.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBorderRight
@@ -197,6 +239,7 @@
             this.panelMenu.Controls.Add(this.radioMenuAdd);
             this.panelMenu.Controls.Add(this.radioMenuSubjects);
             this.panelMenu.Controls.Add(this.radioMenuRecord);
+            this.panelMenu.Controls.Add(this.radioMenuAuthenticate);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(1, 35);
             this.panelMenu.Name = "panelMenu";
@@ -215,9 +258,9 @@
             this.radioMenuSettings.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioMenuSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(220)))), ((int)(((byte)(236)))));
             this.radioMenuSettings.Image = global::Auto_Lecture_Recorder.Properties.Resources.settings_white_35px;
-            this.radioMenuSettings.Location = new System.Drawing.Point(0, 513);
+            this.radioMenuSettings.Location = new System.Drawing.Point(0, 556);
             this.radioMenuSettings.Name = "radioMenuSettings";
-            this.radioMenuSettings.Size = new System.Drawing.Size(161, 183);
+            this.radioMenuSettings.Size = new System.Drawing.Size(161, 140);
             this.radioMenuSettings.TabIndex = 6;
             this.radioMenuSettings.Text = "Settings";
             this.radioMenuSettings.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -239,9 +282,9 @@
             this.radioMenuAdd.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioMenuAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(220)))), ((int)(((byte)(236)))));
             this.radioMenuAdd.Image = global::Auto_Lecture_Recorder.Properties.Resources.add_book_white_35px;
-            this.radioMenuAdd.Location = new System.Drawing.Point(0, 342);
+            this.radioMenuAdd.Location = new System.Drawing.Point(0, 417);
             this.radioMenuAdd.Name = "radioMenuAdd";
-            this.radioMenuAdd.Size = new System.Drawing.Size(161, 171);
+            this.radioMenuAdd.Size = new System.Drawing.Size(161, 139);
             this.radioMenuAdd.TabIndex = 5;
             this.radioMenuAdd.Text = "Add Lectures";
             this.radioMenuAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -264,9 +307,9 @@
             this.radioMenuSubjects.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioMenuSubjects.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(220)))), ((int)(((byte)(236)))));
             this.radioMenuSubjects.Image = global::Auto_Lecture_Recorder.Properties.Resources.book_white_35px;
-            this.radioMenuSubjects.Location = new System.Drawing.Point(0, 171);
+            this.radioMenuSubjects.Location = new System.Drawing.Point(0, 278);
             this.radioMenuSubjects.Name = "radioMenuSubjects";
-            this.radioMenuSubjects.Size = new System.Drawing.Size(161, 171);
+            this.radioMenuSubjects.Size = new System.Drawing.Size(161, 139);
             this.radioMenuSubjects.TabIndex = 4;
             this.radioMenuSubjects.Text = "Lectures";
             this.radioMenuSubjects.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -280,7 +323,6 @@
             // radioMenuRecord
             // 
             this.radioMenuRecord.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioMenuRecord.Checked = true;
             this.radioMenuRecord.Dock = System.Windows.Forms.DockStyle.Top;
             this.radioMenuRecord.FlatAppearance.BorderSize = 0;
             this.radioMenuRecord.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
@@ -288,12 +330,11 @@
             this.radioMenuRecord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioMenuRecord.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioMenuRecord.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(220)))), ((int)(((byte)(236)))));
-            this.radioMenuRecord.Image = global::Auto_Lecture_Recorder.Properties.Resources.video_call_blue_35px;
-            this.radioMenuRecord.Location = new System.Drawing.Point(0, 0);
+            this.radioMenuRecord.Image = global::Auto_Lecture_Recorder.Properties.Resources.video_call_white_35px;
+            this.radioMenuRecord.Location = new System.Drawing.Point(0, 139);
             this.radioMenuRecord.Name = "radioMenuRecord";
-            this.radioMenuRecord.Size = new System.Drawing.Size(161, 171);
+            this.radioMenuRecord.Size = new System.Drawing.Size(161, 139);
             this.radioMenuRecord.TabIndex = 3;
-            this.radioMenuRecord.TabStop = true;
             this.radioMenuRecord.Text = "Record";
             this.radioMenuRecord.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.radioMenuRecord.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -302,6 +343,32 @@
             this.radioMenuRecord.Click += new System.EventHandler(this.radioMenuRecord_Click);
             this.radioMenuRecord.MouseEnter += new System.EventHandler(this.radioMenuRecord_MouseEnter);
             this.radioMenuRecord.MouseLeave += new System.EventHandler(this.radioMenuRecord_MouseLeave);
+            // 
+            // radioMenuAuthenticate
+            // 
+            this.radioMenuAuthenticate.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioMenuAuthenticate.Checked = true;
+            this.radioMenuAuthenticate.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioMenuAuthenticate.FlatAppearance.BorderSize = 0;
+            this.radioMenuAuthenticate.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.radioMenuAuthenticate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.radioMenuAuthenticate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioMenuAuthenticate.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioMenuAuthenticate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(220)))), ((int)(((byte)(236)))));
+            this.radioMenuAuthenticate.Image = global::Auto_Lecture_Recorder.Properties.Resources.key_blue_35px;
+            this.radioMenuAuthenticate.Location = new System.Drawing.Point(0, 0);
+            this.radioMenuAuthenticate.Name = "radioMenuAuthenticate";
+            this.radioMenuAuthenticate.Size = new System.Drawing.Size(161, 139);
+            this.radioMenuAuthenticate.TabIndex = 7;
+            this.radioMenuAuthenticate.TabStop = true;
+            this.radioMenuAuthenticate.Text = "Authentication";
+            this.radioMenuAuthenticate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.radioMenuAuthenticate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.radioMenuAuthenticate.UseVisualStyleBackColor = true;
+            this.radioMenuAuthenticate.CheckedChanged += new System.EventHandler(this.radioMenuAuthenticate_CheckedChanged);
+            this.radioMenuAuthenticate.Click += new System.EventHandler(this.radioMenuAuthenticate_Click);
+            this.radioMenuAuthenticate.MouseEnter += new System.EventHandler(this.radioMenuAuthenticate_MouseEnter);
+            this.radioMenuAuthenticate.MouseLeave += new System.EventHandler(this.radioMenuAuthenticate_MouseLeave);
             // 
             // panelMenuBorder
             // 
@@ -315,6 +382,9 @@
             // panelRecord
             // 
             this.panelRecord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelRecord.Controls.Add(this.buttonYoutubeUpload);
+            this.panelRecord.Controls.Add(this.button6);
+            this.panelRecord.Controls.Add(this.button5);
             this.panelRecord.Controls.Add(this.button3);
             this.panelRecord.Controls.Add(this.button1);
             this.panelRecord.Controls.Add(this.labelCountdown);
@@ -326,6 +396,36 @@
             this.panelRecord.Name = "panelRecord";
             this.panelRecord.Size = new System.Drawing.Size(853, 696);
             this.panelRecord.TabIndex = 7;
+            // 
+            // buttonYoutubeUpload
+            // 
+            this.buttonYoutubeUpload.Location = new System.Drawing.Point(710, 232);
+            this.buttonYoutubeUpload.Name = "buttonYoutubeUpload";
+            this.buttonYoutubeUpload.Size = new System.Drawing.Size(75, 46);
+            this.buttonYoutubeUpload.TabIndex = 17;
+            this.buttonYoutubeUpload.Text = "Upload to youtube";
+            this.buttonYoutubeUpload.UseVisualStyleBackColor = true;
+            this.buttonYoutubeUpload.Click += new System.EventHandler(this.buttonYoutubeUpload_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(710, 102);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 15;
+            this.button6.Text = "Join teams";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(710, 72);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Show";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button3
             // 
@@ -406,6 +506,111 @@
             this.label2.Text = "Click the button to schedule the recordings";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panelAuthentication
+            // 
+            this.panelAuthentication.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelAuthentication.Controls.Add(this.labelLoginStatus);
+            this.panelAuthentication.Controls.Add(this.buttonLogin);
+            this.panelAuthentication.Controls.Add(this.textboxPassword);
+            this.panelAuthentication.Controls.Add(this.label28);
+            this.panelAuthentication.Controls.Add(this.textboxRN);
+            this.panelAuthentication.Controls.Add(this.label27);
+            this.panelAuthentication.Controls.Add(this.label26);
+            this.panelAuthentication.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAuthentication.Location = new System.Drawing.Point(0, 0);
+            this.panelAuthentication.Name = "panelAuthentication";
+            this.panelAuthentication.Size = new System.Drawing.Size(853, 696);
+            this.panelAuthentication.TabIndex = 15;
+            // 
+            // labelLoginStatus
+            // 
+            this.labelLoginStatus.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLoginStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.labelLoginStatus.Location = new System.Drawing.Point(0, 487);
+            this.labelLoginStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.labelLoginStatus.Name = "labelLoginStatus";
+            this.labelLoginStatus.Size = new System.Drawing.Size(853, 102);
+            this.labelLoginStatus.TabIndex = 25;
+            this.labelLoginStatus.Text = "Logging in\r\nPlease wait";
+            this.labelLoginStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelLoginStatus.Visible = false;
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.buttonLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonLogin.FlatAppearance.BorderSize = 0;
+            this.buttonLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogin.Font = new System.Drawing.Font("Century", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.buttonLogin.Location = new System.Drawing.Point(218, 364);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(416, 49);
+            this.buttonLogin.TabIndex = 24;
+            this.buttonLogin.Text = "Login";
+            this.buttonLogin.UseVisualStyleBackColor = false;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            // 
+            // textboxPassword
+            // 
+            this.textboxPassword.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxPassword.AutoSize = true;
+            this.textboxPassword.Location = new System.Drawing.Point(218, 256);
+            this.textboxPassword.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxPassword.Name = "textboxPassword";
+            this.textboxPassword.Size = new System.Drawing.Size(416, 30);
+            this.textboxPassword.TabIndex = 23;
+            this.textboxPassword.Load += new System.EventHandler(this.textboxPassword_Load);
+            // 
+            // label28
+            // 
+            this.label28.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label28.Location = new System.Drawing.Point(0, 209);
+            this.label28.Margin = new System.Windows.Forms.Padding(0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(853, 38);
+            this.label28.TabIndex = 22;
+            this.label28.Text = "Password";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textboxRN
+            // 
+            this.textboxRN.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxRN.AutoSize = true;
+            this.textboxRN.Location = new System.Drawing.Point(218, 145);
+            this.textboxRN.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxRN.Name = "textboxRN";
+            this.textboxRN.Size = new System.Drawing.Size(416, 30);
+            this.textboxRN.TabIndex = 21;
+            // 
+            // label27
+            // 
+            this.label27.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label27.Location = new System.Drawing.Point(0, 98);
+            this.label27.Margin = new System.Windows.Forms.Padding(0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(853, 38);
+            this.label27.TabIndex = 20;
+            this.label27.Text = "Registration Number";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label26
+            // 
+            this.label26.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label26.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label26.Location = new System.Drawing.Point(0, 0);
+            this.label26.Margin = new System.Windows.Forms.Padding(0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(853, 58);
+            this.label26.TabIndex = 2;
+            this.label26.Text = "Account Authentication";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // panelLectures
             // 
             this.panelLectures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
@@ -419,6 +624,15 @@
             this.panelLectures.Size = new System.Drawing.Size(853, 696);
             this.panelLectures.TabIndex = 5;
             // 
+            // panelGeneratedLectures
+            // 
+            this.panelGeneratedLectures.Controls.Add(this.labelLectureExistance);
+            this.panelGeneratedLectures.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGeneratedLectures.Location = new System.Drawing.Point(0, 92);
+            this.panelGeneratedLectures.Name = "panelGeneratedLectures";
+            this.panelGeneratedLectures.Size = new System.Drawing.Size(853, 566);
+            this.panelGeneratedLectures.TabIndex = 30;
+            // 
             // labelLectureExistance
             // 
             this.labelLectureExistance.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -430,6 +644,70 @@
             this.labelLectureExistance.Text = "No lectures exist in the selected day\r\nYou can add new lectures in the\r\nAdd Lectu" +
     "res section";
             this.labelLectureExistance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelNavigationButtons
+            // 
+            this.panelNavigationButtons.AutoSize = true;
+            this.panelNavigationButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelNavigationButtons.Controls.Add(this.buttonLecturesPrevious);
+            this.panelNavigationButtons.Controls.Add(this.buttonLecturesNext);
+            this.panelNavigationButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelNavigationButtons.Location = new System.Drawing.Point(0, 658);
+            this.panelNavigationButtons.Name = "panelNavigationButtons";
+            this.panelNavigationButtons.Size = new System.Drawing.Size(853, 38);
+            this.panelNavigationButtons.TabIndex = 29;
+            // 
+            // buttonLecturesPrevious
+            // 
+            this.buttonLecturesPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonLecturesPrevious.Image = global::Auto_Lecture_Recorder.Properties.Resources.left_arrow_30px;
+            this.buttonLecturesPrevious.Location = new System.Drawing.Point(37, 0);
+            this.buttonLecturesPrevious.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonLecturesPrevious.Name = "buttonLecturesPrevious";
+            this.buttonLecturesPrevious.Size = new System.Drawing.Size(38, 38);
+            this.buttonLecturesPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.buttonLecturesPrevious.TabIndex = 18;
+            this.buttonLecturesPrevious.TabStop = false;
+            this.buttonLecturesPrevious.Visible = false;
+            this.buttonLecturesPrevious.Click += new System.EventHandler(this.buttonLecturesPrevious_Click);
+            // 
+            // buttonLecturesNext
+            // 
+            this.buttonLecturesNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonLecturesNext.Image = global::Auto_Lecture_Recorder.Properties.Resources.right_arrow_30px;
+            this.buttonLecturesNext.Location = new System.Drawing.Point(777, 0);
+            this.buttonLecturesNext.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonLecturesNext.Name = "buttonLecturesNext";
+            this.buttonLecturesNext.Size = new System.Drawing.Size(38, 38);
+            this.buttonLecturesNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.buttonLecturesNext.TabIndex = 17;
+            this.buttonLecturesNext.TabStop = false;
+            this.buttonLecturesNext.Visible = false;
+            this.buttonLecturesNext.Click += new System.EventHandler(this.buttonLecturesNext_Click);
+            // 
+            // panelLecturesTitleAndMenu
+            // 
+            this.panelLecturesTitleAndMenu.AutoSize = true;
+            this.panelLecturesTitleAndMenu.Controls.Add(this.label10);
+            this.panelLecturesTitleAndMenu.Controls.Add(this.panelDaysMenu);
+            this.panelLecturesTitleAndMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelLecturesTitleAndMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelLecturesTitleAndMenu.Name = "panelLecturesTitleAndMenu";
+            this.panelLecturesTitleAndMenu.Size = new System.Drawing.Size(853, 92);
+            this.panelLecturesTitleAndMenu.TabIndex = 28;
+            // 
+            // label10
+            // 
+            this.label10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label10.Location = new System.Drawing.Point(0, 0);
+            this.label10.Margin = new System.Windows.Forms.Padding(0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(853, 29);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Lectures";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panelDaysMenu
             // 
@@ -597,47 +875,6 @@
             this.daysMenuMonday.UseVisualStyleBackColor = false;
             this.daysMenuMonday.Click += new System.EventHandler(this.daysMenuMonday_Click);
             // 
-            // buttonLecturesPrevious
-            // 
-            this.buttonLecturesPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonLecturesPrevious.Image = global::Auto_Lecture_Recorder.Properties.Resources.left_arrow_30px;
-            this.buttonLecturesPrevious.Location = new System.Drawing.Point(37, 0);
-            this.buttonLecturesPrevious.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonLecturesPrevious.Name = "buttonLecturesPrevious";
-            this.buttonLecturesPrevious.Size = new System.Drawing.Size(38, 38);
-            this.buttonLecturesPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.buttonLecturesPrevious.TabIndex = 18;
-            this.buttonLecturesPrevious.TabStop = false;
-            this.buttonLecturesPrevious.Visible = false;
-            this.buttonLecturesPrevious.Click += new System.EventHandler(this.buttonLecturesPrevious_Click);
-            // 
-            // buttonLecturesNext
-            // 
-            this.buttonLecturesNext.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonLecturesNext.Image = global::Auto_Lecture_Recorder.Properties.Resources.right_arrow_30px;
-            this.buttonLecturesNext.Location = new System.Drawing.Point(777, 0);
-            this.buttonLecturesNext.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonLecturesNext.Name = "buttonLecturesNext";
-            this.buttonLecturesNext.Size = new System.Drawing.Size(38, 38);
-            this.buttonLecturesNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.buttonLecturesNext.TabIndex = 17;
-            this.buttonLecturesNext.TabStop = false;
-            this.buttonLecturesNext.Visible = false;
-            this.buttonLecturesNext.Click += new System.EventHandler(this.buttonLecturesNext_Click);
-            // 
-            // label10
-            // 
-            this.label10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label10.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
-            this.label10.Location = new System.Drawing.Point(0, 0);
-            this.label10.Margin = new System.Windows.Forms.Padding(0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(853, 29);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Lectures";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // panel1
             // 
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -673,6 +910,7 @@
             // modernCheckbox2
             // 
             this.modernCheckbox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.modernCheckbox2.Checked = false;
             this.modernCheckbox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.modernCheckbox2.Location = new System.Drawing.Point(0, 209);
             this.modernCheckbox2.Name = "modernCheckbox2";
@@ -824,7 +1062,7 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
             this.label9.Location = new System.Drawing.Point(455, 39);
             this.label9.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.label9.Name = "label9";
@@ -837,7 +1075,7 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label12.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
             this.label12.Location = new System.Drawing.Point(307, 39);
             this.label12.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.label12.Name = "label12";
@@ -850,7 +1088,7 @@
             // 
             this.label24.Dock = System.Windows.Forms.DockStyle.Top;
             this.label24.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.label24.Location = new System.Drawing.Point(0, 5);
             this.label24.Margin = new System.Windows.Forms.Padding(0);
             this.label24.Name = "label24";
@@ -897,7 +1135,7 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label16.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
             this.label16.Location = new System.Drawing.Point(455, 46);
             this.label16.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.label16.Name = "label16";
@@ -910,7 +1148,7 @@
             // 
             this.label19.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label19.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
             this.label19.Location = new System.Drawing.Point(307, 46);
             this.label19.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.label19.Name = "label19";
@@ -923,7 +1161,7 @@
             // 
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.label5.Location = new System.Drawing.Point(0, 5);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
@@ -959,7 +1197,7 @@
             // 
             this.label15.Dock = System.Windows.Forms.DockStyle.Top;
             this.label15.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.label15.Location = new System.Drawing.Point(0, 5);
             this.label15.Margin = new System.Windows.Forms.Padding(0);
             this.label15.Name = "label15";
@@ -994,7 +1232,7 @@
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.label4.Location = new System.Drawing.Point(0, 5);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
@@ -1019,6 +1257,7 @@
             // textboxLectureName
             // 
             this.textboxLectureName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxLectureName.AutoSize = true;
             this.textboxLectureName.Location = new System.Drawing.Point(218, 44);
             this.textboxLectureName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.textboxLectureName.Name = "textboxLectureName";
@@ -1029,7 +1268,7 @@
             // 
             this.labelSubjectName.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelSubjectName.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.labelSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
             this.labelSubjectName.Location = new System.Drawing.Point(0, 5);
             this.labelSubjectName.Margin = new System.Windows.Forms.Padding(0);
             this.labelSubjectName.Name = "labelSubjectName";
@@ -1054,7 +1293,7 @@
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
             this.label3.Location = new System.Drawing.Point(0, 5);
             this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
@@ -1066,58 +1305,404 @@
             // panelSettings
             // 
             this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.panelSettings.Controls.Add(this.panelLectureSettings);
-            this.panelSettings.Controls.Add(this.panelRecordingSettings);
-            this.panelSettings.Controls.Add(this.panelUploadSettings);
-            this.panelSettings.Controls.Add(this.panelSettingsTitleAndMenu);
+            this.panelSettings.Controls.Add(this.panelSettingsGeneral);
+            this.panelSettings.Controls.Add(this.panelSettingsRecording);
+            this.panelSettings.Controls.Add(this.panelSettingsYoutube);
+            this.panelSettings.Controls.Add(this.panelSettingsSwitch);
+            this.panelSettings.Controls.Add(this.label8);
             this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSettings.Location = new System.Drawing.Point(0, 0);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(853, 696);
             this.panelSettings.TabIndex = 7;
             // 
-            // panelLectureSettings
+            // panelSettingsGeneral
             // 
-            this.panelLectureSettings.Controls.Add(this.modernCheckbox1);
-            this.panelLectureSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLectureSettings.Location = new System.Drawing.Point(0, 171);
-            this.panelLectureSettings.Name = "panelLectureSettings";
-            this.panelLectureSettings.Size = new System.Drawing.Size(853, 525);
-            this.panelLectureSettings.TabIndex = 5;
+            this.panelSettingsGeneral.Controls.Add(this.textboxAutoQuitNum);
+            this.panelSettingsGeneral.Controls.Add(this.label31);
+            this.panelSettingsGeneral.Controls.Add(this.label30);
+            this.panelSettingsGeneral.Controls.Add(this.buttonBrowseLocation);
+            this.panelSettingsGeneral.Controls.Add(this.labelVideoLocation);
+            this.panelSettingsGeneral.Controls.Add(this.label29);
+            this.panelSettingsGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSettingsGeneral.Location = new System.Drawing.Point(0, 104);
+            this.panelSettingsGeneral.Name = "panelSettingsGeneral";
+            this.panelSettingsGeneral.Size = new System.Drawing.Size(853, 592);
+            this.panelSettingsGeneral.TabIndex = 32;
             // 
-            // modernCheckbox1
+            // textboxAutoQuitNum
             // 
-            this.modernCheckbox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.modernCheckbox1.Location = new System.Drawing.Point(86, 40);
-            this.modernCheckbox1.Name = "modernCheckbox1";
-            this.modernCheckbox1.Size = new System.Drawing.Size(215, 34);
-            this.modernCheckbox1.TabIndex = 0;
+            this.textboxAutoQuitNum.AutoSize = true;
+            this.textboxAutoQuitNum.Location = new System.Drawing.Point(406, 310);
+            this.textboxAutoQuitNum.Name = "textboxAutoQuitNum";
+            this.textboxAutoQuitNum.Size = new System.Drawing.Size(40, 40);
+            this.textboxAutoQuitNum.TabIndex = 26;
+            this.textboxAutoQuitNum.Load += new System.EventHandler(this.textboxAutoQuitNum_Load);
             // 
-            // panelRecordingSettings
+            // label31
             // 
-            this.panelRecordingSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRecordingSettings.Location = new System.Drawing.Point(0, 171);
-            this.panelRecordingSettings.Name = "panelRecordingSettings";
-            this.panelRecordingSettings.Size = new System.Drawing.Size(853, 525);
-            this.panelRecordingSettings.TabIndex = 6;
+            this.label31.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(246)))), ((int)(((byte)(244)))));
+            this.label31.Location = new System.Drawing.Point(-1, 226);
+            this.label31.Margin = new System.Windows.Forms.Padding(0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(855, 69);
+            this.label31.TabIndex = 25;
+            this.label31.Text = "Quit the lecture if less than the following \r\nnumber of participants are left";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelUploadSettings
+            // label30
             // 
-            this.panelUploadSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelUploadSettings.Location = new System.Drawing.Point(0, 171);
-            this.panelUploadSettings.Name = "panelUploadSettings";
-            this.panelUploadSettings.Size = new System.Drawing.Size(853, 525);
-            this.panelUploadSettings.TabIndex = 6;
+            this.label30.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label30.Location = new System.Drawing.Point(-1, 179);
+            this.label30.Margin = new System.Windows.Forms.Padding(0);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(854, 35);
+            this.label30.TabIndex = 24;
+            this.label30.Text = "Early quit lecture";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelSettingsTitleAndMenu
+            // buttonBrowseLocation
             // 
-            this.panelSettingsTitleAndMenu.Controls.Add(this.label8);
-            this.panelSettingsTitleAndMenu.Controls.Add(this.panelSettingsMenu);
-            this.panelSettingsTitleAndMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelSettingsTitleAndMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelSettingsTitleAndMenu.Name = "panelSettingsTitleAndMenu";
-            this.panelSettingsTitleAndMenu.Size = new System.Drawing.Size(853, 171);
-            this.panelSettingsTitleAndMenu.TabIndex = 4;
+            this.buttonBrowseLocation.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonBrowseLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.buttonBrowseLocation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonBrowseLocation.FlatAppearance.BorderSize = 0;
+            this.buttonBrowseLocation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.buttonBrowseLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBrowseLocation.Font = new System.Drawing.Font("Century", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBrowseLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.buttonBrowseLocation.Location = new System.Drawing.Point(342, 113);
+            this.buttonBrowseLocation.Name = "buttonBrowseLocation";
+            this.buttonBrowseLocation.Size = new System.Drawing.Size(168, 37);
+            this.buttonBrowseLocation.TabIndex = 23;
+            this.buttonBrowseLocation.Text = "Browse";
+            this.buttonBrowseLocation.UseVisualStyleBackColor = false;
+            this.buttonBrowseLocation.Click += new System.EventHandler(this.buttonBrowseLocation_Click);
+            // 
+            // labelVideoLocation
+            // 
+            this.labelVideoLocation.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVideoLocation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(246)))), ((int)(((byte)(244)))));
+            this.labelVideoLocation.Location = new System.Drawing.Point(-1, 70);
+            this.labelVideoLocation.Margin = new System.Windows.Forms.Padding(0);
+            this.labelVideoLocation.Name = "labelVideoLocation";
+            this.labelVideoLocation.Size = new System.Drawing.Size(854, 35);
+            this.labelVideoLocation.TabIndex = 22;
+            this.labelVideoLocation.Text = "C:\\Users\\Michalis\\Documents\\Auto Lecture Recorder";
+            this.labelVideoLocation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label29
+            // 
+            this.label29.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label29.Location = new System.Drawing.Point(0, 31);
+            this.label29.Margin = new System.Windows.Forms.Padding(0);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(854, 35);
+            this.label29.TabIndex = 21;
+            this.label29.Text = "Video save location";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelSettingsRecording
+            // 
+            this.panelSettingsRecording.Controls.Add(this.dropdownQuality);
+            this.panelSettingsRecording.Controls.Add(this.label25);
+            this.panelSettingsRecording.Controls.Add(this.dropdownFPS);
+            this.panelSettingsRecording.Controls.Add(this.label23);
+            this.panelSettingsRecording.Controls.Add(this.checkboxInputEnabled);
+            this.panelSettingsRecording.Controls.Add(this.checkboxOutputEnabled);
+            this.panelSettingsRecording.Controls.Add(this.dropdownInputDevices);
+            this.panelSettingsRecording.Controls.Add(this.dropdownOutputDevices);
+            this.panelSettingsRecording.Controls.Add(this.label20);
+            this.panelSettingsRecording.Controls.Add(this.label17);
+            this.panelSettingsRecording.Controls.Add(this.label14);
+            this.panelSettingsRecording.Controls.Add(this.labelAudioOptions);
+            this.panelSettingsRecording.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSettingsRecording.Location = new System.Drawing.Point(0, 104);
+            this.panelSettingsRecording.Name = "panelSettingsRecording";
+            this.panelSettingsRecording.Size = new System.Drawing.Size(853, 592);
+            this.panelSettingsRecording.TabIndex = 19;
+            // 
+            // dropdownQuality
+            // 
+            this.dropdownQuality.Location = new System.Drawing.Point(488, 450);
+            this.dropdownQuality.Name = "dropdownQuality";
+            this.dropdownQuality.Size = new System.Drawing.Size(123, 31);
+            this.dropdownQuality.TabIndex = 31;
+            this.dropdownQuality.Load += new System.EventHandler(this.dropdownQuality_Load);
+            // 
+            // label25
+            // 
+            this.label25.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label25.Location = new System.Drawing.Point(488, 412);
+            this.label25.Margin = new System.Windows.Forms.Padding(0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(123, 31);
+            this.label25.TabIndex = 30;
+            this.label25.Text = "Quality";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dropdownFPS
+            // 
+            this.dropdownFPS.Location = new System.Drawing.Point(242, 450);
+            this.dropdownFPS.Name = "dropdownFPS";
+            this.dropdownFPS.Size = new System.Drawing.Size(123, 31);
+            this.dropdownFPS.TabIndex = 29;
+            this.dropdownFPS.Load += new System.EventHandler(this.dropdownFPS_Load);
+            // 
+            // label23
+            // 
+            this.label23.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label23.Location = new System.Drawing.Point(242, 412);
+            this.label23.Margin = new System.Windows.Forms.Padding(0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(123, 31);
+            this.label23.TabIndex = 28;
+            this.label23.Text = "FPS";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkboxInputEnabled
+            // 
+            this.checkboxInputEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.checkboxInputEnabled.Checked = false;
+            this.checkboxInputEnabled.Location = new System.Drawing.Point(189, 283);
+            this.checkboxInputEnabled.Name = "checkboxInputEnabled";
+            this.checkboxInputEnabled.Size = new System.Drawing.Size(347, 34);
+            this.checkboxInputEnabled.TabIndex = 24;
+            this.checkboxInputEnabled.Load += new System.EventHandler(this.checkboxInputEnabled_Load);
+            // 
+            // checkboxOutputEnabled
+            // 
+            this.checkboxOutputEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.checkboxOutputEnabled.Checked = false;
+            this.checkboxOutputEnabled.Location = new System.Drawing.Point(189, 166);
+            this.checkboxOutputEnabled.Name = "checkboxOutputEnabled";
+            this.checkboxOutputEnabled.Size = new System.Drawing.Size(347, 34);
+            this.checkboxOutputEnabled.TabIndex = 23;
+            this.checkboxOutputEnabled.Load += new System.EventHandler(this.checkboxOutputEnabled_Load);
+            // 
+            // dropdownInputDevices
+            // 
+            this.dropdownInputDevices.Location = new System.Drawing.Point(189, 241);
+            this.dropdownInputDevices.Name = "dropdownInputDevices";
+            this.dropdownInputDevices.Size = new System.Drawing.Size(474, 31);
+            this.dropdownInputDevices.TabIndex = 22;
+            // 
+            // dropdownOutputDevices
+            // 
+            this.dropdownOutputDevices.Location = new System.Drawing.Point(189, 128);
+            this.dropdownOutputDevices.Name = "dropdownOutputDevices";
+            this.dropdownOutputDevices.Size = new System.Drawing.Size(474, 31);
+            this.dropdownOutputDevices.TabIndex = 21;
+            // 
+            // label20
+            // 
+            this.label20.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label20.Location = new System.Drawing.Point(0, 346);
+            this.label20.Margin = new System.Windows.Forms.Padding(0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(853, 52);
+            this.label20.TabIndex = 25;
+            this.label20.Text = "Video options";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label17.Location = new System.Drawing.Point(-1, 203);
+            this.label17.Margin = new System.Windows.Forms.Padding(0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(854, 35);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "Select Input Device";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.label14.Location = new System.Drawing.Point(-1, 92);
+            this.label14.Margin = new System.Windows.Forms.Padding(0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(854, 35);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "Select Output Device";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAudioOptions
+            // 
+            this.labelAudioOptions.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelAudioOptions.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAudioOptions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.labelAudioOptions.Location = new System.Drawing.Point(0, 0);
+            this.labelAudioOptions.Margin = new System.Windows.Forms.Padding(0);
+            this.labelAudioOptions.Name = "labelAudioOptions";
+            this.labelAudioOptions.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelAudioOptions.Size = new System.Drawing.Size(853, 67);
+            this.labelAudioOptions.TabIndex = 18;
+            this.labelAudioOptions.Text = "Audio options";
+            this.labelAudioOptions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelSettingsYoutube
+            // 
+            this.panelSettingsYoutube.Controls.Add(this.panelYoutubeUpload);
+            this.panelSettingsYoutube.Controls.Add(this.checkboxSettingsYoutube);
+            this.panelSettingsYoutube.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSettingsYoutube.Location = new System.Drawing.Point(0, 104);
+            this.panelSettingsYoutube.Name = "panelSettingsYoutube";
+            this.panelSettingsYoutube.Size = new System.Drawing.Size(853, 592);
+            this.panelSettingsYoutube.TabIndex = 2;
+            // 
+            // panelYoutubeUpload
+            // 
+            this.panelYoutubeUpload.Controls.Add(this.labelYoutubeUploadStatus);
+            this.panelYoutubeUpload.Controls.Add(this.label32);
+            this.panelYoutubeUpload.Controls.Add(this.label22);
+            this.panelYoutubeUpload.Controls.Add(this.progressBarYoutube);
+            this.panelYoutubeUpload.Location = new System.Drawing.Point(-1, 133);
+            this.panelYoutubeUpload.Name = "panelYoutubeUpload";
+            this.panelYoutubeUpload.Size = new System.Drawing.Size(854, 235);
+            this.panelYoutubeUpload.TabIndex = 13;
+            this.panelYoutubeUpload.Visible = false;
+            // 
+            // labelYoutubeUploadStatus
+            // 
+            this.labelYoutubeUploadStatus.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelYoutubeUploadStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.labelYoutubeUploadStatus.Location = new System.Drawing.Point(0, 179);
+            this.labelYoutubeUploadStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.labelYoutubeUploadStatus.Name = "labelYoutubeUploadStatus";
+            this.labelYoutubeUploadStatus.Size = new System.Drawing.Size(855, 31);
+            this.labelYoutubeUploadStatus.TabIndex = 31;
+            this.labelYoutubeUploadStatus.Text = "Not uploading";
+            this.labelYoutubeUploadStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            this.label32.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label32.Location = new System.Drawing.Point(-1, 115);
+            this.label32.Margin = new System.Windows.Forms.Padding(0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(853, 55);
+            this.label32.TabIndex = 13;
+            this.label32.Text = "Uploading Status";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label22
+            // 
+            this.label22.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label22.Location = new System.Drawing.Point(-1, 4);
+            this.label22.Margin = new System.Windows.Forms.Padding(0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(853, 55);
+            this.label22.TabIndex = 11;
+            this.label22.Text = "Video uploading status";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // progressBarYoutube
+            // 
+            this.progressBarYoutube.Location = new System.Drawing.Point(199, 78);
+            this.progressBarYoutube.Name = "progressBarYoutube";
+            this.progressBarYoutube.Size = new System.Drawing.Size(452, 32);
+            this.progressBarYoutube.TabIndex = 12;
+            // 
+            // checkboxSettingsYoutube
+            // 
+            this.checkboxSettingsYoutube.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.checkboxSettingsYoutube.Checked = false;
+            this.checkboxSettingsYoutube.Location = new System.Drawing.Point(179, 52);
+            this.checkboxSettingsYoutube.Name = "checkboxSettingsYoutube";
+            this.checkboxSettingsYoutube.Size = new System.Drawing.Size(495, 34);
+            this.checkboxSettingsYoutube.TabIndex = 1;
+            this.checkboxSettingsYoutube.Load += new System.EventHandler(this.checkboxSettingsYoutube_Load);
+            this.checkboxSettingsYoutube.Click += new System.EventHandler(this.checkboxSettingsYoutube_Click);
+            // 
+            // panelSettingsSwitch
+            // 
+            this.panelSettingsSwitch.Controls.Add(this.menuSettingsYoutube);
+            this.panelSettingsSwitch.Controls.Add(this.menuSettingsGeneral);
+            this.panelSettingsSwitch.Controls.Add(this.menuSettingsRecording);
+            this.panelSettingsSwitch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSettingsSwitch.Location = new System.Drawing.Point(0, 55);
+            this.panelSettingsSwitch.Name = "panelSettingsSwitch";
+            this.panelSettingsSwitch.Size = new System.Drawing.Size(853, 49);
+            this.panelSettingsSwitch.TabIndex = 18;
+            // 
+            // menuSettingsYoutube
+            // 
+            this.menuSettingsYoutube.Appearance = System.Windows.Forms.Appearance.Button;
+            this.menuSettingsYoutube.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.menuSettingsYoutube.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.menuSettingsYoutube.FlatAppearance.BorderSize = 0;
+            this.menuSettingsYoutube.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.menuSettingsYoutube.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.menuSettingsYoutube.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.menuSettingsYoutube.Font = new System.Drawing.Font("Century", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuSettingsYoutube.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.menuSettingsYoutube.Location = new System.Drawing.Point(502, 0);
+            this.menuSettingsYoutube.Margin = new System.Windows.Forms.Padding(0);
+            this.menuSettingsYoutube.Name = "menuSettingsYoutube";
+            this.menuSettingsYoutube.Size = new System.Drawing.Size(151, 49);
+            this.menuSettingsYoutube.TabIndex = 9;
+            this.menuSettingsYoutube.Text = "Youtube";
+            this.menuSettingsYoutube.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.menuSettingsYoutube.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuSettingsYoutube.UseVisualStyleBackColor = false;
+            this.menuSettingsYoutube.Click += new System.EventHandler(this.menuSettingsYoutube_Click);
+            // 
+            // menuSettingsGeneral
+            // 
+            this.menuSettingsGeneral.Appearance = System.Windows.Forms.Appearance.Button;
+            this.menuSettingsGeneral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.menuSettingsGeneral.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.menuSettingsGeneral.Checked = true;
+            this.menuSettingsGeneral.FlatAppearance.BorderSize = 0;
+            this.menuSettingsGeneral.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.menuSettingsGeneral.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.menuSettingsGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.menuSettingsGeneral.Font = new System.Drawing.Font("Century", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuSettingsGeneral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.menuSettingsGeneral.Location = new System.Drawing.Point(200, 0);
+            this.menuSettingsGeneral.Margin = new System.Windows.Forms.Padding(0);
+            this.menuSettingsGeneral.Name = "menuSettingsGeneral";
+            this.menuSettingsGeneral.Size = new System.Drawing.Size(151, 49);
+            this.menuSettingsGeneral.TabIndex = 8;
+            this.menuSettingsGeneral.TabStop = true;
+            this.menuSettingsGeneral.Text = "General";
+            this.menuSettingsGeneral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.menuSettingsGeneral.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuSettingsGeneral.UseVisualStyleBackColor = false;
+            this.menuSettingsGeneral.Click += new System.EventHandler(this.menuSettingsGeneral_Click);
+            // 
+            // menuSettingsRecording
+            // 
+            this.menuSettingsRecording.Appearance = System.Windows.Forms.Appearance.Button;
+            this.menuSettingsRecording.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
+            this.menuSettingsRecording.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.menuSettingsRecording.FlatAppearance.BorderSize = 0;
+            this.menuSettingsRecording.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.menuSettingsRecording.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
+            this.menuSettingsRecording.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.menuSettingsRecording.Font = new System.Drawing.Font("Century", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuSettingsRecording.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.menuSettingsRecording.Location = new System.Drawing.Point(351, 0);
+            this.menuSettingsRecording.Margin = new System.Windows.Forms.Padding(0);
+            this.menuSettingsRecording.Name = "menuSettingsRecording";
+            this.menuSettingsRecording.Size = new System.Drawing.Size(151, 49);
+            this.menuSettingsRecording.TabIndex = 7;
+            this.menuSettingsRecording.Text = "Recording";
+            this.menuSettingsRecording.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.menuSettingsRecording.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.menuSettingsRecording.UseVisualStyleBackColor = false;
+            this.menuSettingsRecording.Click += new System.EventHandler(this.menuSettingsRecording_Click);
             // 
             // label8
             // 
@@ -1128,93 +1713,18 @@
             this.label8.Margin = new System.Windows.Forms.Padding(0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(853, 55);
-            this.label8.TabIndex = 3;
+            this.label8.TabIndex = 10;
             this.label8.Text = "Settings";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelSettingsMenu
-            // 
-            this.panelSettingsMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
-            this.panelSettingsMenu.Controls.Add(this.settingsMenuUpload);
-            this.panelSettingsMenu.Controls.Add(this.settingsMenuRecording);
-            this.panelSettingsMenu.Controls.Add(this.settingsMenuLectures);
-            this.panelSettingsMenu.Location = new System.Drawing.Point(86, 63);
-            this.panelSettingsMenu.Name = "panelSettingsMenu";
-            this.panelSettingsMenu.Size = new System.Drawing.Size(681, 72);
-            this.panelSettingsMenu.TabIndex = 0;
-            // 
-            // settingsMenuUpload
-            // 
-            this.settingsMenuUpload.Appearance = System.Windows.Forms.Appearance.Button;
-            this.settingsMenuUpload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
-            this.settingsMenuUpload.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.settingsMenuUpload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsMenuUpload.FlatAppearance.BorderSize = 0;
-            this.settingsMenuUpload.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
-            this.settingsMenuUpload.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
-            this.settingsMenuUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsMenuUpload.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingsMenuUpload.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
-            this.settingsMenuUpload.Location = new System.Drawing.Point(454, 0);
-            this.settingsMenuUpload.Name = "settingsMenuUpload";
-            this.settingsMenuUpload.Size = new System.Drawing.Size(227, 72);
-            this.settingsMenuUpload.TabIndex = 8;
-            this.settingsMenuUpload.Text = "Auto upload";
-            this.settingsMenuUpload.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.settingsMenuUpload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.settingsMenuUpload.UseVisualStyleBackColor = false;
-            // 
-            // settingsMenuRecording
-            // 
-            this.settingsMenuRecording.Appearance = System.Windows.Forms.Appearance.Button;
-            this.settingsMenuRecording.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
-            this.settingsMenuRecording.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.settingsMenuRecording.Dock = System.Windows.Forms.DockStyle.Left;
-            this.settingsMenuRecording.FlatAppearance.BorderSize = 0;
-            this.settingsMenuRecording.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
-            this.settingsMenuRecording.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
-            this.settingsMenuRecording.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsMenuRecording.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingsMenuRecording.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
-            this.settingsMenuRecording.Location = new System.Drawing.Point(227, 0);
-            this.settingsMenuRecording.Name = "settingsMenuRecording";
-            this.settingsMenuRecording.Size = new System.Drawing.Size(227, 72);
-            this.settingsMenuRecording.TabIndex = 6;
-            this.settingsMenuRecording.Text = "Recording";
-            this.settingsMenuRecording.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.settingsMenuRecording.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.settingsMenuRecording.UseVisualStyleBackColor = false;
-            // 
-            // settingsMenuLectures
-            // 
-            this.settingsMenuLectures.Appearance = System.Windows.Forms.Appearance.Button;
-            this.settingsMenuLectures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
-            this.settingsMenuLectures.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.settingsMenuLectures.Checked = true;
-            this.settingsMenuLectures.Dock = System.Windows.Forms.DockStyle.Left;
-            this.settingsMenuLectures.FlatAppearance.BorderSize = 0;
-            this.settingsMenuLectures.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
-            this.settingsMenuLectures.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(77)))), ((int)(((byte)(115)))));
-            this.settingsMenuLectures.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsMenuLectures.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingsMenuLectures.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
-            this.settingsMenuLectures.Location = new System.Drawing.Point(0, 0);
-            this.settingsMenuLectures.Name = "settingsMenuLectures";
-            this.settingsMenuLectures.Size = new System.Drawing.Size(227, 72);
-            this.settingsMenuLectures.TabIndex = 7;
-            this.settingsMenuLectures.TabStop = true;
-            this.settingsMenuLectures.Text = "Active Lectures";
-            this.settingsMenuLectures.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.settingsMenuLectures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.settingsMenuLectures.UseVisualStyleBackColor = false;
-            // 
             // panelMainWindows
             // 
-            this.panelMainWindows.Controls.Add(this.panelLectures);
-            this.panelMainWindows.Controls.Add(this.panelSettings);
-            this.panelMainWindows.Controls.Add(this.panelAddLectures);
-            this.panelMainWindows.Controls.Add(this.panelActiveRecording);
             this.panelMainWindows.Controls.Add(this.panelRecord);
+            this.panelMainWindows.Controls.Add(this.panelSettings);
+            this.panelMainWindows.Controls.Add(this.panelActiveRecording);
+            this.panelMainWindows.Controls.Add(this.panelAddLectures);
+            this.panelMainWindows.Controls.Add(this.panelAuthentication);
+            this.panelMainWindows.Controls.Add(this.panelLectures);
             this.panelMainWindows.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMainWindows.Location = new System.Drawing.Point(163, 35);
             this.panelMainWindows.Name = "panelMainWindows";
@@ -1467,37 +1977,29 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
-            // panelLecturesTitleAndMenu
+            // timerEndtime
             // 
-            this.panelLecturesTitleAndMenu.AutoSize = true;
-            this.panelLecturesTitleAndMenu.Controls.Add(this.label10);
-            this.panelLecturesTitleAndMenu.Controls.Add(this.panelDaysMenu);
-            this.panelLecturesTitleAndMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLecturesTitleAndMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelLecturesTitleAndMenu.Name = "panelLecturesTitleAndMenu";
-            this.panelLecturesTitleAndMenu.Size = new System.Drawing.Size(853, 92);
-            this.panelLecturesTitleAndMenu.TabIndex = 28;
+            this.timerEndtime.Interval = 1000;
+            this.timerEndtime.Tick += new System.EventHandler(this.timerEndtime_Tick);
             // 
-            // panelNavigationButtons
+            // timerYoutubeProgress
             // 
-            this.panelNavigationButtons.AutoSize = true;
-            this.panelNavigationButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelNavigationButtons.Controls.Add(this.buttonLecturesPrevious);
-            this.panelNavigationButtons.Controls.Add(this.buttonLecturesNext);
-            this.panelNavigationButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelNavigationButtons.Location = new System.Drawing.Point(0, 658);
-            this.panelNavigationButtons.Name = "panelNavigationButtons";
-            this.panelNavigationButtons.Size = new System.Drawing.Size(853, 38);
-            this.panelNavigationButtons.TabIndex = 29;
+            this.timerYoutubeProgress.Interval = 500;
+            this.timerYoutubeProgress.Tick += new System.EventHandler(this.timerYoutubeProgress_Tick);
             // 
-            // panelGeneratedLectures
+            // timerLoginProgress
             // 
-            this.panelGeneratedLectures.Controls.Add(this.labelLectureExistance);
-            this.panelGeneratedLectures.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelGeneratedLectures.Location = new System.Drawing.Point(0, 92);
-            this.panelGeneratedLectures.Name = "panelGeneratedLectures";
-            this.panelGeneratedLectures.Size = new System.Drawing.Size(853, 566);
-            this.panelGeneratedLectures.TabIndex = 30;
+            this.timerLoginProgress.Interval = 500;
+            this.timerLoginProgress.Tick += new System.EventHandler(this.timerLoginProgress_Tick);
+            // 
+            // folderBrowserVideo
+            // 
+            this.folderBrowserVideo.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // timerUpdateYoutubeProgressbar
+            // 
+            this.timerUpdateYoutubeProgressbar.Interval = 1000;
+            this.timerUpdateYoutubeProgressbar.Tick += new System.EventHandler(this.timerUpdateYoutubeProgressbar_Tick);
             // 
             // MainForm
             // 
@@ -1521,11 +2023,16 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panelMenu.ResumeLayout(false);
             this.panelRecord.ResumeLayout(false);
+            this.panelAuthentication.ResumeLayout(false);
+            this.panelAuthentication.PerformLayout();
             this.panelLectures.ResumeLayout(false);
             this.panelLectures.PerformLayout();
-            this.panelDaysMenu.ResumeLayout(false);
+            this.panelGeneratedLectures.ResumeLayout(false);
+            this.panelNavigationButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.buttonLecturesPrevious)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonLecturesNext)).EndInit();
+            this.panelLecturesTitleAndMenu.ResumeLayout(false);
+            this.panelDaysMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panelAddLectures.ResumeLayout(false);
             this.panelAddLectures.PerformLayout();
@@ -1535,18 +2042,19 @@
             this.panelSelectPlatform.ResumeLayout(false);
             this.panelSubjectDay.ResumeLayout(false);
             this.panelSubjectName.ResumeLayout(false);
+            this.panelSubjectName.PerformLayout();
             this.panelAddSubjectLabel.ResumeLayout(false);
             this.panelSettings.ResumeLayout(false);
-            this.panelLectureSettings.ResumeLayout(false);
-            this.panelSettingsTitleAndMenu.ResumeLayout(false);
-            this.panelSettingsMenu.ResumeLayout(false);
+            this.panelSettingsGeneral.ResumeLayout(false);
+            this.panelSettingsGeneral.PerformLayout();
+            this.panelSettingsRecording.ResumeLayout(false);
+            this.panelSettingsYoutube.ResumeLayout(false);
+            this.panelYoutubeUpload.ResumeLayout(false);
+            this.panelSettingsSwitch.ResumeLayout(false);
             this.panelMainWindows.ResumeLayout(false);
             this.panelMainWindows.PerformLayout();
             this.panelActiveRecording.ResumeLayout(false);
             this.panelTitleBar.ResumeLayout(false);
-            this.panelLecturesTitleAndMenu.ResumeLayout(false);
-            this.panelNavigationButtons.ResumeLayout(false);
-            this.panelGeneratedLectures.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1637,20 +2145,59 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label labelActiveStartTime;
         private System.Windows.Forms.Label label;
-        private System.Windows.Forms.Panel panelLectureSettings;
-        private System.Windows.Forms.Panel panelRecordingSettings;
-        private System.Windows.Forms.Panel panelUploadSettings;
-        private System.Windows.Forms.Panel panelSettingsTitleAndMenu;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Panel panelSettingsMenu;
-        private System.Windows.Forms.RadioButton settingsMenuUpload;
-        private System.Windows.Forms.RadioButton settingsMenuRecording;
-        private System.Windows.Forms.RadioButton settingsMenuLectures;
-        private ModernCheckbox modernCheckbox1;
         private ModernCheckbox modernCheckbox2;
         private System.Windows.Forms.Panel panelNavigationButtons;
         private System.Windows.Forms.Panel panelLecturesTitleAndMenu;
         private System.Windows.Forms.Panel panelGeneratedLectures;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Timer timerEndtime;
+        private System.Windows.Forms.Panel panelSettingsRecording;
+        private DropdownList dropdownFPS;
+        private System.Windows.Forms.Label label23;
+        private ModernCheckbox checkboxInputEnabled;
+        private ModernCheckbox checkboxOutputEnabled;
+        private DropdownList dropdownInputDevices;
+        private DropdownList dropdownOutputDevices;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label labelAudioOptions;
+        private System.Windows.Forms.Panel panelSettingsSwitch;
+        private System.Windows.Forms.RadioButton menuSettingsGeneral;
+        private System.Windows.Forms.RadioButton menuSettingsRecording;
+        private DropdownList dropdownQuality;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Panel panelSettingsGeneral;
+        private System.Windows.Forms.Timer timerYoutubeProgress;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.RadioButton radioMenuAuthenticate;
+        private System.Windows.Forms.Panel panelAuthentication;
+        private System.Windows.Forms.Button buttonLogin;
+        private ModernTextBox textboxPassword;
+        private System.Windows.Forms.Label label28;
+        private ModernTextBox textboxRN;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label labelLoginStatus;
+        private System.Windows.Forms.Timer timerLoginProgress;
+        private System.Windows.Forms.Panel panelSettingsYoutube;
+        private ModernCheckbox checkboxSettingsYoutube;
+        private System.Windows.Forms.RadioButton menuSettingsYoutube;
+        private System.Windows.Forms.Button buttonBrowseLocation;
+        private System.Windows.Forms.Label labelVideoLocation;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserVideo;
+        private ModernTextBox textboxAutoQuitNum;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.ProgressBar progressBarYoutube;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Panel panelYoutubeUpload;
+        private System.Windows.Forms.Timer timerUpdateYoutubeProgressbar;
+        private System.Windows.Forms.Label labelYoutubeUploadStatus;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Button buttonYoutubeUpload;
     }
 }
 

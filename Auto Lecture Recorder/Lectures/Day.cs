@@ -25,7 +25,7 @@ namespace Auto_Lecture_Recorder.Lectures
             {
                 foreach (Lecture otherLecture in Lectures)
                 {
-                    if (keptLecture != otherLecture && otherLecture.Active)
+                    if (keptLecture != otherLecture && otherLecture.Active && otherLecture.CheckBox != null && keptLecture.CheckBox != null)
                     {
                         if ((otherLecture.StartTime >= keptLecture.StartTime && otherLecture.StartTime <= keptLecture.EndTime) ||
                             (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
@@ -35,6 +35,26 @@ namespace Auto_Lecture_Recorder.Lectures
                         }
                     }
                 }
+            }
+        }
+
+        public static void DisableConflictingLectures(Day day)
+        {
+            foreach (Lecture keptLecture in day.Lectures)
+            {
+                if (keptLecture.Active)
+                    foreach (Lecture otherLecture in day.Lectures)
+                    {
+                        if (keptLecture != otherLecture && otherLecture.Active && otherLecture.CheckBox != null && keptLecture.CheckBox != null)
+                        {
+                            if ((otherLecture.StartTime >= keptLecture.StartTime && otherLecture.StartTime <= keptLecture.EndTime) ||
+                                (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
+                            {
+                                otherLecture.Active = false;
+                                otherLecture.CheckBox.Unckeck();
+                            }
+                        }
+                    }
             }
         }
     }

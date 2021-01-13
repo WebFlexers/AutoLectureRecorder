@@ -105,6 +105,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -114,6 +115,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
     <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
@@ -122,18 +124,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BotController\Bot.cs" />
+    <Compile Include="BotController\ChromeBot.cs" />
+    <Compile Include="BotController\ChromeBot.Teams.cs" />
+    <Compile Include="BotController\ChromeBot.Webex.cs" />
     <Compile Include="DropdownList.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DropdownList.Designer.cs">
       <DependentUpon>DropdownList.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainForm.AddLecturesPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.AuthenticationPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.RecordPanel.cs" />
+    <Compile Include="MainForm.SettingsPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.ShowLecturesPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.YoutubeScreen.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="ModernCheckbox.cs">
       <SubType>UserControl</SubType>
@@ -243,6 +263,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_graduation_cap.ico" />
+    <None Include="Resources\key_white_35px.png" />
+    <None Include="Resources\key_blue_35px.png" />
     <None Include="Resources\checkbox_clicked.png" />
     <None Include="Resources\checkbox_hover.png" />
     <None Include="Resources\checkbox.png" />

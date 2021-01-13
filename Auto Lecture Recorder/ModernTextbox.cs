@@ -21,24 +21,48 @@ namespace Auto_Lecture_Recorder
 
         private void ModernTextBox_Load(object sender, EventArgs e)
         {
-            richTextBox.SelectionAlignment = HorizontalAlignment.Center;
+            
         }
 
         public string GetText()
         {
-            return richTextBox.Text;
+            return textBox.Text;
         }
 
         public void SetText(string text)
         {
-            richTextBox.Text = text;
+            textBox.Text = text;
+        }
+
+        public void MakePasswordField()
+        {
+            textBox.PasswordChar = '*';
+        }
+
+        public void MakeNormalField()
+        {
+            textBox.PasswordChar = '\0';
+        }
+
+        public void AllowOnlyNumbers()
+        {
+            textBox.KeyPress += textBox_KeyPress;
+        }
+
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
         }
 
         private void ModernTextBox_Resize(object sender, EventArgs e)
         {
             // Update the font size
-            float newSize = responsive.InitialControls["richTextBox"].Font.Size * this.Height / responsive.InitialFormHeight;
-            richTextBox.Font = new Font(richTextBox.Font.FontFamily, newSize, FontStyle.Regular, GraphicsUnit.Point, 2);
+            responsive.ScaleControl(textBox);
         }
+
     }
 }
