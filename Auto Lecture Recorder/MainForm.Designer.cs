@@ -162,7 +162,6 @@
             this.buttonMaximize = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.timerEndtime = new System.Windows.Forms.Timer(this.components);
-            this.timerYoutubeProgress = new System.Windows.Forms.Timer(this.components);
             this.timerLoginProgress = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserVideo = new System.Windows.Forms.FolderBrowserDialog();
             this.timerUpdateYoutubeProgressbar = new System.Windows.Forms.Timer(this.components);
@@ -1374,6 +1373,7 @@
             this.buttonBrowseLocation.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonBrowseLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
             this.buttonBrowseLocation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonBrowseLocation.Enabled = false;
             this.buttonBrowseLocation.FlatAppearance.BorderSize = 0;
             this.buttonBrowseLocation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(56)))), ((int)(((byte)(86)))));
             this.buttonBrowseLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1725,9 +1725,9 @@
             // 
             // panelMainWindows
             // 
-            this.panelMainWindows.Controls.Add(this.panelRecord);
-            this.panelMainWindows.Controls.Add(this.panelSettings);
             this.panelMainWindows.Controls.Add(this.panelActiveRecording);
+            this.panelMainWindows.Controls.Add(this.panelSettings);
+            this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelAddLectures);
             this.panelMainWindows.Controls.Add(this.panelAuthentication);
             this.panelMainWindows.Controls.Add(this.panelLectures);
@@ -1772,6 +1772,7 @@
             this.buttonAbortRecording.TabIndex = 12;
             this.buttonAbortRecording.Text = "Abort";
             this.buttonAbortRecording.UseVisualStyleBackColor = false;
+            this.buttonAbortRecording.Click += new System.EventHandler(this.buttonAbortRecording_Click);
             // 
             // labelActiveRemainingTime
             // 
@@ -1895,7 +1896,7 @@
             this.labelActiveRecordTitle.Name = "labelActiveRecordTitle";
             this.labelActiveRecordTitle.Size = new System.Drawing.Size(853, 55);
             this.labelActiveRecordTitle.TabIndex = 3;
-            this.labelActiveRecordTitle.Text = "Object oriented programming is being recorded";
+            this.labelActiveRecordTitle.Text = "Lecture is being recorded";
             this.labelActiveRecordTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timerCountdown
@@ -1987,11 +1988,6 @@
             // 
             this.timerEndtime.Interval = 1000;
             this.timerEndtime.Tick += new System.EventHandler(this.timerEndtime_Tick);
-            // 
-            // timerYoutubeProgress
-            // 
-            this.timerYoutubeProgress.Interval = 500;
-            this.timerYoutubeProgress.Tick += new System.EventHandler(this.timerYoutubeProgress_Tick);
             // 
             // timerLoginProgress
             // 
@@ -2179,7 +2175,6 @@
         private DropdownList dropdownQuality;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Panel panelSettingsGeneral;
-        private System.Windows.Forms.Timer timerYoutubeProgress;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.RadioButton radioMenuAuthenticate;
         private System.Windows.Forms.Panel panelAuthentication;

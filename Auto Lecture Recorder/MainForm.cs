@@ -103,7 +103,7 @@ namespace Auto_Lecture_Recorder
             dropdownOutputDevice_Load(dropdownOutputDevices, EventArgs.Empty);
             dropdownInputDevice_Load(dropdownInputDevices, EventArgs.Empty);
             // Instanciate video location label
-            label.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Auto Lecture Recorder");
+            labelVideoLocation.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Auto Lecture Recorder");
         }
 
         // Eliminate flickering
@@ -138,7 +138,19 @@ namespace Auto_Lecture_Recorder
 
             Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
 
-            Application.Exit();
+            if (youtubeUploader.CurrentlyUploading)
+            {
+                var userResponse = MessageBox.Show("Are you sure you want to exit the application. A video is currently being uploaded", 
+                                                   "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (userResponse == DialogResult.Yes)
+                    Application.Exit();
+            }
+            else
+            {
+                Application.Exit();
+            }
+            
         }
 
         private void buttonMaximize_Click(object sender, EventArgs e)
@@ -419,6 +431,33 @@ namespace Auto_Lecture_Recorder
                 progressBarYoutube.Value = 0;
                 timerUpdateYoutubeProgressbar.Start();
             }
+        }
+
+        private void buttonAbortRecording_Click(object sender, EventArgs e)
+        {
+            var userResponse = MessageBox.Show("Are you sure you want to abort the recording? You will disconnect from the meating" +
+                                               " and the recording will be deleted.", "Confirmation" , MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (userResponse == DialogResult.Yes)
+            {
+                // Show the recording panel
+                ShowPanel(panelRecord);
+
+                // Stop everything
+                timerEndtime.Stop();
+                recorder.StopRecording();
+
+                // Schedule the next lecture
+                ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
+                panelRecord.Invoke(scheduleNextLecture, panelRecord);
+
+                teamsBot.TerminateDriver();
+
+                // Delete the file
+                DeleteTempRecording();       
+            }
+
+            
         }
     }
 }

@@ -152,9 +152,6 @@
     <Compile Include="MainForm.ShowLecturesPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.YoutubeScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ModernCheckbox.cs">
       <SubType>UserControl</SubType>
     </Compile>

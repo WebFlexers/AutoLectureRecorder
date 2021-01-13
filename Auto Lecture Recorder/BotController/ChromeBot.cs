@@ -35,7 +35,7 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
             chromeOptions.AddAdditionalCapability("browser_version", "70.0", true);
             chromeOptions.AddAdditionalCapability("os", "Windows", true);
             chromeOptions.AddAdditionalCapability("os_version", "10", true);
-            if(HideBrowser)
+            if (HideBrowser)
                 chromeOptions.AddArgument("--headless");
             //Hide cmd
             var driverService = ChromeDriverService.CreateDefaultService();
@@ -48,9 +48,6 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
 
         public bool AuthenticateUser(string AM, string password)
         {
-            bool isEmailValid = false;
-            bool areUnipiCredsValid = false;
-
             try
             {
                 //Microsoft's Login Page
@@ -66,42 +63,44 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
                 IWebElement nextEmailBtn = driver.FindElement(By.Id("idSIButton9"));
                 nextEmailBtn.Click();
                 //Check if email error showed at Microsoft's login page
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
                 try
                 {
-                    IWebElement usernameError = driver.FindElement(By.Id("usernameError"));                    
-                }
-                catch
-                {
-                    isEmailValid = true;
-                }
-                
-
-                //Unipi page
-                //Filling UNIPI form
-                IWebElement usernameUnipiInputBox = driver.FindElement(By.Id("username"));
-                usernameUnipiInputBox.SendKeys(AM);
-                IWebElement passwordUnipiInputBox = driver.FindElement(By.Id("password"));
-                passwordUnipiInputBox.SendKeys(password);
-                
-
-                //Login button
-                IWebElement loginUnipiBtn = driver.FindElement(By.Id("submitForm"));
-                loginUnipiBtn.Click();               
-
-                //Check if error showed at Unipi's login page
-                try
-                {
-                    IWebElement unipiCredsError = driver.FindElement(By.XPath("//div[contains(@class, 'alert alert-danger')]"));
-                }
-                catch
-                {
-                    areUnipiCredsValid = true;
-                }                
-
-                if (isEmailValid && areUnipiCredsValid)
-                    return true;
-                else
+                    IWebElement usernameError = driver.FindElement(By.Id("usernameError"));
                     return false;
+                }
+                catch
+                {
+                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitTime);
+                    //Unipi page
+                    //Filling UNIPI form
+                    IWebElement usernameUnipiInputBox = driver.FindElement(By.Id("username"));
+                    usernameUnipiInputBox.SendKeys(AM);
+                    IWebElement passwordUnipiInputBox = driver.FindElement(By.Id("password"));
+                    passwordUnipiInputBox.SendKeys(password);
+
+
+                    //Login button
+                    IWebElement loginUnipiBtn = driver.FindElement(By.Id("submitForm"));
+                    loginUnipiBtn.Click();
+
+                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+                    //Check if error showed at Unipi's login page
+                    try
+                    {
+                        IWebElement unipiCredsError = driver.FindElement(By.XPath("//div[contains(@class, 'alert alert-danger')]"));
+                        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitTime);
+                        return false;
+                    }
+                    catch
+                    {
+                        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitTime);
+                        return true;
+                    }
+                }
+                
+
+                
             }
             catch (Exception e)
             {

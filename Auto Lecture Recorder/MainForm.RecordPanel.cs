@@ -221,20 +221,20 @@ namespace Auto_Lecture_Recorder
 
         delegate void ScheduleNextLecture(object sender);
         TimeSpan timerIntervalSeconds;
-        TimeSpan timeElapsed = new TimeSpan(0);
+        TimeSpan timeElapsed;
         TimeSpan checkParticipantsTime = new TimeSpan(0, 45, 0);
         private void timerEndtime_Tick(object sender, EventArgs e)
         {
             /* Find the remaining time of the lecture according to the set lecture end time */
-            timerIntervalSeconds = new TimeSpan(0, 0, timerEndtime.Interval * 1000);
-            timeElapsed.Add(timerIntervalSeconds);
+            TimeSpan tempTimeElapsed = timeElapsed.Add(timerIntervalSeconds);
+            timeElapsed = tempTimeElapsed;
             LabelActiveTimeElapsed.Text = timeElapsed.ToString();
-            labelActiveRemainingTime.Text = nextScheduledLecture.EndTime.Subtract(timeElapsed).ToString();
 
             TimeSpan timeNow = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             TimeSpan timeEnd = nextScheduledLecture.EndTime;
 
             TimeSpan remainingTime = timeEnd - timeNow;
+            labelActiveRemainingTime.Text = remainingTime.ToString();
 
             if (remainingTime.TotalSeconds <= 0)
             {
@@ -242,7 +242,7 @@ namespace Auto_Lecture_Recorder
             }
 
             /* Start to check for participants number after 45 minutes */
-            if (checkParticipantsTime >= timeElapsed && !timerCheckParticipants.Enabled)
+            if (timeElapsed >= checkParticipantsTime && !timerCheckParticipants.Enabled)
             {
                 timerCheckParticipants.Start();
             }
@@ -252,36 +252,51 @@ namespace Auto_Lecture_Recorder
         private void ExitLectureAndSave()
         {
             timerEndtime.Stop();
-            recorder.StopRecording();
             teamsBot.TerminateDriver();
 
             // Schedule the next lecture
             ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
             panelRecord.Invoke(scheduleNextLecture, panelRecord);
 
-            // Rename the file
-            string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
-            string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");
-
-            // Move to the recording folder
-            MoveRecordingToRecFolder(recorder.RecordingPath, newVideoPath);
-
-            // Upload to youtube
-            if (checkboxSettingsYoutube.Checked)
+            if (recorder.IsRecording)
             {
-                UploadRecording(newVideoPath, videoName, recorder.VideoName);
-                panelYoutubeUpload.Show();
-                labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
-                labelYoutubeUploadStatus.Text = "Uploading...";
-                progressBarYoutube.Value = 0;
-                timerUpdateYoutubeProgressbar.Start();
+                recorder.StopRecording();
 
-                // Serialize youtube playlists
-                Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
+                // Rename the file
+                string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
+                string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");
+
+                // Rename the file
+                MoveRecordingToRecFolder(recorder.RecordingPath, newVideoPath);
+
+                // Upload to youtube
+                if (checkboxSettingsYoutube.Checked)
+                {
+                    UploadRecording(newVideoPath, videoName, recorder.VideoName);
+                    panelYoutubeUpload.Show();
+                    labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
+                    labelYoutubeUploadStatus.Text = "Uploading...";
+                    progressBarYoutube.Value = 0;
+                    timerUpdateYoutubeProgressbar.Start();
+
+                    // Serialize youtube playlists
+                    Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
+
+                    // Show the settings panel where youtube progress is shown
+                    ShowPanel(panelSettings);
+                    menuSettingsYoutube.PerformClick();
+                    menuSettingsYoutube.Checked = true;
+                }
+                else
+                    ShowPanel(panelRecord);
+
+                // Delete the temp recording if it exists
+                DeleteTempRecording();
             }
+            else
+                ShowPanel(panelRecord);
+            
 
-            // Delete the temp recording
-            DeleteTempRecording();
         }
 
         private void UploadRecording(string videoPath, string youtubeVideoName, string playlistName)
@@ -322,10 +337,9 @@ namespace Auto_Lecture_Recorder
         private void DeleteTempRecording()
         {
             // Delete temp file
-            string fileToDeletePath = Path.Combine(Path.GetTempPath(), "temp_recording.mp4");
-            if (File.Exists(fileToDeletePath))
+            if (File.Exists(recorder.RecordingPath))
             {
-                File.Delete(fileToDeletePath);
+                File.Delete(recorder.RecordingPath);
                 Console.WriteLine("Successfully deleted temp file");
             }
         }
@@ -345,30 +359,29 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        delegate void TimerMethods();    
+        delegate void TimerMethods();
+        delegate void ShowActiveRecording(Panel panel);
         private void JoinMeatingAndRecord()
         {
-            
-            // Join meating
+            // Show Active recording panel and fill the information
+            ShowActiveRecording showAndUpdate = new ShowActiveRecording(ShowAndUpdatePanel);
+            panelRecord.Invoke(showAndUpdate, panelActiveRecording);
+
+            // End time timer
+            timeElapsed = new TimeSpan(0);
+            timerIntervalSeconds = new TimeSpan(0, 0, timerEndtime.Interval / 1000);
+
+            TimerMethods initiateTimers = new TimerMethods(timerEndtime.Start);
+            panelRecord.Invoke(initiateTimers);
+
             teamsBot.StartDriver();
+            // Join meating
             if (teamsBot.ConnectToTeams(RN, password))
             {
                 if (teamsBot.ConnectToTeamsMeeting(nextScheduledLecture.Name))
                 {
                     // Record
                     recorder.StartRecording(nextScheduledLecture.Name);
-
-                    // Show Active recording panel
-                    ShowPanel(panelActiveRecording);
-
-                    // Update the information
-                    labelActiveStartTime.Text = nextScheduledLecture.StartTime.ToString();
-                    labelActiveEndTime.Text = nextScheduledLecture.EndTime.ToString();
-
-                    // End time timer
-                    TimerMethods initiateTimers = new TimerMethods(timerEndtime.Start);
-                    panelRecord.Invoke(initiateTimers);
-
                 }
                 else
                 {
@@ -378,10 +391,19 @@ namespace Auto_Lecture_Recorder
             }
             else
             {
+                panelMainWindows.Invoke(showAndUpdate, panelRecord);
                 Console.WriteLine("Wrong Credentials");
             }
 
             
+        }
+
+        private void ShowAndUpdatePanel(Panel panel)
+        {
+            ShowPanel(panel);
+            // Update the information
+            labelActiveStartTime.Text = nextScheduledLecture.StartTime.ToString();
+            labelActiveEndTime.Text = nextScheduledLecture.EndTime.ToString();
         }
 
 

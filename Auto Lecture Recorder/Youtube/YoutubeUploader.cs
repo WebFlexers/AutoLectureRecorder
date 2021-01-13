@@ -23,6 +23,7 @@ namespace Auto_Lecture_Recorder.Youtube
         string videoID;
         public Dictionary<string, Playlist> Playlists { get; set; } = new Dictionary<string, Playlist>();
         public bool authenticate = false;
+        public bool CurrentlyUploading { get; set; } = false;
         public long CurrentProgress { get; set; } = 0;
         public long videoSize { get; set; } = 0;
 
@@ -98,6 +99,7 @@ namespace Auto_Lecture_Recorder.Youtube
                     videosInsertRequest.ProgressChanged += videosInsertRequest_ProgressChanged;
                     videosInsertRequest.ResponseReceived += videosInsertRequest_ResponseReceived; //moving metadata to the videosInsertRequest_ResponseReceived() function.
 
+                    CurrentlyUploading = true;
 
                     await videosInsertRequest.UploadAsync();
                 }
@@ -147,7 +149,7 @@ namespace Auto_Lecture_Recorder.Youtube
                         break;
 
                     case UploadStatus.Completed:
-                        uploadComplete = true;
+                        CurrentlyUploading = false;
                         break;
 
                     case UploadStatus.Failed:
@@ -158,7 +160,6 @@ namespace Auto_Lecture_Recorder.Youtube
 
         }
 
-        bool uploadComplete = false;
         public bool UpdateProgressBar(System.Windows.Forms.ProgressBar bar)
         {
             if (videoSize != 0)
@@ -170,13 +171,14 @@ namespace Auto_Lecture_Recorder.Youtube
                     bar.Value = bar.Maximum;
             }
 
-            if (uploadComplete)
-            {
-                uploadComplete = false;
-                return true;
-            }  
+            if (CurrentlyUploading)
+                return false; 
             else
-                return false;
+            {
+                CurrentlyUploading = false;
+                return true;
+            }
+                
         }
 
         public void CreatePlaylist(string name)

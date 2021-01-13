@@ -16,7 +16,7 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
     public class Recorder
     {
         // For recording
-        private bool isRecording;
+        public bool IsRecording { get; set; } = false;
         ScreenRecorderLib.Recorder recorder;
         // Path of the folder where videos will be saved and video name
         public string VideoFolderPath { get; set; }
@@ -59,7 +59,7 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
 
         public void StartRecording(string fileName)
         {
-            if (isRecording)
+            if (IsRecording)
             {
                 throw new InvalidOperationException("A recording is already active");
             }
@@ -81,13 +81,14 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
 
             // Start recording
             recorder.Record(Path.Combine(VideoFolderPath, "temp_recording.mp4"));
-            isRecording = true;
+            IsRecording = true;
         }
 
         public void StopRecording()
         {
             if (recorder != null)
             {
+                IsRecording = false;
                 recorder.Stop();
             }
             
@@ -154,14 +155,14 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
 
         private void Rec_OnRecordingComplete(object sender, RecordingCompleteEventArgs e)
         {
-            isRecording = false;
+            IsRecording = false;
             CleanupResources();
         }
 
         private void Rec_OnRecordingFailed(object sender, RecordingFailedEventArgs e)
         {
             MessageBox.Show(e.Error, "Recording failed" ,MessageBoxButtons.OK, MessageBoxIcon.Error);
-            isRecording = false;
+            IsRecording = false;
             CleanupResources();
         }
 

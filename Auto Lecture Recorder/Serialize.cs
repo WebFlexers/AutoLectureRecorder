@@ -82,7 +82,7 @@ namespace Auto_Lecture_Recorder
         public static void DeserializeYoutubePlaylists(Youtube.YoutubeUploader youtubeUploader)
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("registration_info.alr", FileMode.OpenOrCreate, FileAccess.Read);
+            Stream stream = new FileStream("youtube_playlists.alr", FileMode.OpenOrCreate, FileAccess.Read);
 
             List<string> playlistsNames;
 
