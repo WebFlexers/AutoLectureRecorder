@@ -10,6 +10,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using System.Windows.Forms;
+using OpenQA.Selenium.Interactions;
 
 namespace Auto_Lecture_Recorder.BotController.Unipi
 {
@@ -95,6 +96,25 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
             {
                 return false;
             }            
-        }      
+        }
+
+        public int GetParticipantsNumber()
+        {
+            int participants = 0;
+
+            IWebElement showParticipantsBtn = driver.FindElement(By.Id("roster-button"));
+
+            //Simulating the mouse hover to toggle the toolbar
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(showParticipantsBtn).Perform();
+            showParticipantsBtn.Click();
+
+            //Creating a list with all the participants 
+            var participantsList = driver.FindElements(By.XPath("//li[contains(@data-tid, 'participantsInCall')]"));
+            foreach (var p in participantsList)
+                participants++;
+
+            return participants;
+        }
     }
 }

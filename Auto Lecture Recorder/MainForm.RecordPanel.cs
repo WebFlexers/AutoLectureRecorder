@@ -190,12 +190,32 @@ namespace Auto_Lecture_Recorder
 
 
 
+        private void timerCheckParticipants_Tick(object sender, EventArgs e)
+        {
+            if (timerEndtime.Enabled)
+            {
+                int autoQuitNum = Convert.ToInt32(textboxAutoQuitNum.GetText());
+                if (teamsBot.GetParticipantsNumber() < autoQuitNum)
+                {
+                    timerCheckParticipants.Stop();
+                    ExitLectureAndSave();
+                }
+            }
+            else
+            {
+                timerCheckParticipants.Stop();
+            }
+        }
+
+
 
         delegate void ScheduleNextLecture(object sender);
         TimeSpan timerIntervalSeconds;
         TimeSpan timeElapsed = new TimeSpan(0);
+        TimeSpan checkParticipantsTime = new TimeSpan(0, 45, 0);
         private void timerEndtime_Tick(object sender, EventArgs e)
         {
+            /* Find the remaining time of the lecture according to the set lecture end time */
             timerIntervalSeconds = new TimeSpan(0, 0, timerEndtime.Interval * 1000);
             timeElapsed.Add(timerIntervalSeconds);
             LabelActiveTimeElapsed.Text = timeElapsed.ToString();
@@ -208,39 +228,49 @@ namespace Auto_Lecture_Recorder
 
             if (remainingTime.TotalSeconds <= 0)
             {
-                timerEndtime.Stop();
-                recorder.StopRecording();
-                teamsBot.TerminateDriver();
-
-                // Schedule the next lecture
-                ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
-                panelRecord.Invoke(scheduleNextLecture, panelRecord);
-
-                // Rename the file
-                string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
-                string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");
-
-                // Move to the recording folder
-                MoveRecordingToRecFolder(recorder.RecordingPath, newVideoPath);
-
-                // Upload to youtube
-                if (checkboxSettingsYoutube.Checked)
-                {
-                    UploadRecording(newVideoPath, videoName, recorder.VideoName);
-                    panelYoutubeUpload.Show();
-                    labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
-                    labelYoutubeUploadStatus.Text = "Uploading...";
-                    progressBarYoutube.Value = 0;
-                    timerUpdateYoutubeProgressbar.Start();
-                }
-                
-
-                // Delete the temp recording
-                DeleteTempRecording();
-                    
+                ExitLectureAndSave();
             }
+
+            /* Start to check for participants number after 45 minutes */
+            if (checkParticipantsTime >= timeElapsed && !timerCheckParticipants.Enabled)
+            {
+                timerCheckParticipants.Start();
+            }
+
         }
         
+        private void ExitLectureAndSave()
+        {
+            timerEndtime.Stop();
+            recorder.StopRecording();
+            teamsBot.TerminateDriver();
+
+            // Schedule the next lecture
+            ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
+            panelRecord.Invoke(scheduleNextLecture, panelRecord);
+
+            // Rename the file
+            string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");
+
+            // Move to the recording folder
+            MoveRecordingToRecFolder(recorder.RecordingPath, newVideoPath);
+
+            // Upload to youtube
+            if (checkboxSettingsYoutube.Checked)
+            {
+                UploadRecording(newVideoPath, videoName, recorder.VideoName);
+                panelYoutubeUpload.Show();
+                labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
+                labelYoutubeUploadStatus.Text = "Uploading...";
+                progressBarYoutube.Value = 0;
+                timerUpdateYoutubeProgressbar.Start();
+            }
+
+            // Delete the temp recording
+            DeleteTempRecording();
+        }
+
         private void UploadRecording(string videoPath, string youtubeVideoName, string playlistName)
         {
             // Upload to youtube
@@ -323,8 +353,8 @@ namespace Auto_Lecture_Recorder
                     labelActiveEndTime.Text = nextScheduledLecture.EndTime.ToString();
 
                     // End time timer
-                    TimerMethods initiateTimerEndTime = new TimerMethods(timerEndtime.Start);
-                    panelRecord.Invoke(initiateTimerEndTime);
+                    TimerMethods initiateTimers = new TimerMethods(timerEndtime.Start);
+                    panelRecord.Invoke(initiateTimers);
 
                 }
                 else

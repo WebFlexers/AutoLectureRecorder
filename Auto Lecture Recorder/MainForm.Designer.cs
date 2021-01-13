@@ -166,6 +166,7 @@
             this.timerLoginProgress = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserVideo = new System.Windows.Forms.FolderBrowserDialog();
             this.timerUpdateYoutubeProgressbar = new System.Windows.Forms.Timer(this.components);
+            this.timerCheckParticipants = new System.Windows.Forms.Timer(this.components);
             this.panelMenu.SuspendLayout();
             this.panelRecord.SuspendLayout();
             this.panelAuthentication.SuspendLayout();
@@ -2001,6 +2002,11 @@
             this.timerUpdateYoutubeProgressbar.Interval = 1000;
             this.timerUpdateYoutubeProgressbar.Tick += new System.EventHandler(this.timerUpdateYoutubeProgressbar_Tick);
             // 
+            // timerCheckParticipants
+            // 
+            this.timerCheckParticipants.Interval = 10000;
+            this.timerCheckParticipants.Tick += new System.EventHandler(this.timerCheckParticipants_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2198,6 +2204,7 @@
         private System.Windows.Forms.Label labelYoutubeUploadStatus;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Button buttonYoutubeUpload;
+        private System.Windows.Forms.Timer timerCheckParticipants;
     }
 }
 
