@@ -92,6 +92,13 @@ namespace Auto_Lecture_Recorder
             teamsAuthenticated = true;
             labelLoginStatus.ForeColor = Color.FromArgb(151, 253, 30);
             labelLoginStatus.Text = "Logged in successfully!" + Environment.NewLine + "You can schedule lectures now";
+            labelLoginStatus.Visible = true;
+            // Serialize the result
+            List<string> registrationInfo = new List<string>();
+            registrationInfo.Add(RN);
+            registrationInfo.Add(password);
+
+            Serializer.SerializeRegistrationInfo(registrationInfo);
         }
 
         private void OnLoginFailure()

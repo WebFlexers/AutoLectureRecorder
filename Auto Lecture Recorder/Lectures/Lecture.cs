@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace Auto_Lecture_Recorder.Lectures
 {
+    [Serializable]
     public class Lecture
     {
         public string Name { get; set; }
@@ -15,6 +16,8 @@ namespace Auto_Lecture_Recorder.Lectures
         public TimeSpan EndTime { get; set; }
         public string Platform { get; set; }
         public bool Active { get; set; }
+
+        [field: NonSerialized]
         public ModernCheckbox CheckBox { get; set; }
 
         public Lecture(string name, TimeSpan startTime, TimeSpan endTime, string platform)

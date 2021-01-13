@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Auto_Lecture_Recorder.Lectures
 {
+    [Serializable]
     public class Day
     {
         public string Name { get; }

@@ -194,8 +194,18 @@ namespace Auto_Lecture_Recorder
         {
             if (timerEndtime.Enabled)
             {
-                int autoQuitNum = Convert.ToInt32(textboxAutoQuitNum.GetText());
-                if (teamsBot.GetParticipantsNumber() < autoQuitNum)
+                int participantsNumber = 0;
+                try
+                {
+                    participantsNumber = teamsBot.GetParticipantsNumber();
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine("Lefteris inted. The GetParticipants method threw an exception");
+                    Console.WriteLine(exception.Message);    
+                }
+
+                if (participantsNumber < minimumParticipantsLeft)
                 {
                     timerCheckParticipants.Stop();
                     ExitLectureAndSave();
@@ -265,6 +275,9 @@ namespace Auto_Lecture_Recorder
                 labelYoutubeUploadStatus.Text = "Uploading...";
                 progressBarYoutube.Value = 0;
                 timerUpdateYoutubeProgressbar.Start();
+
+                // Serialize youtube playlists
+                Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
             }
 
             // Delete the temp recording

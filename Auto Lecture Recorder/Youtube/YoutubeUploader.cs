@@ -21,7 +21,7 @@ namespace Auto_Lecture_Recorder.Youtube
     {
         UserCredential credential;
         string videoID;
-        Dictionary<string, Playlist> playlists = new Dictionary<string, Playlist>();
+        public Dictionary<string, Playlist> Playlists { get; set; } = new Dictionary<string, Playlist>();
         public bool authenticate = false;
         public long CurrentProgress { get; set; } = 0;
         public long videoSize { get; set; } = 0;
@@ -102,16 +102,16 @@ namespace Auto_Lecture_Recorder.Youtube
                     await videosInsertRequest.UploadAsync();
                 }
 
-                if (!playlists.ContainsKey(playlistName))
+                if (!Playlists.ContainsKey(playlistName))
                 {
                     CreatePlaylist(playlistName);
                     try
                     {
-                        playlists[playlistName] = await youtubeService.Playlists.Insert(playlists[playlistName], "snippet,status").ExecuteAsync();
+                        Playlists[playlistName] = await youtubeService.Playlists.Insert(Playlists[playlistName], "snippet,status").ExecuteAsync();
                     }
                     catch
                     {
-                        MessageBox.Show("Couldn't create playlist. Please contact the developers to cry for help");
+                        MessageBox.Show("Couldn't create playlist. If you manually deleted a playlist try manually recreating it");
                     }
                 }
 
@@ -123,7 +123,7 @@ namespace Auto_Lecture_Recorder.Youtube
                     var newPlaylistItem = new PlaylistItem();
                     newPlaylistItem.Snippet = new PlaylistItemSnippet();
 
-                    newPlaylistItem.Snippet.PlaylistId = playlists[playlistName].Id;
+                    newPlaylistItem.Snippet.PlaylistId = Playlists[playlistName].Id;
 
                     newPlaylistItem.Snippet.ResourceId = new ResourceId();
                     newPlaylistItem.Snippet.ResourceId.Kind = "youtube#video";
@@ -179,7 +179,7 @@ namespace Auto_Lecture_Recorder.Youtube
                 return false;
         }
 
-        private void CreatePlaylist(string name)
+        public void CreatePlaylist(string name)
         {
             // Create a new, private playlist in the authorized user's channel.
             var newPlaylist = new Playlist();
@@ -189,7 +189,7 @@ namespace Auto_Lecture_Recorder.Youtube
             newPlaylist.Status = new PlaylistStatus();
             newPlaylist.Status.PrivacyStatus = "private";
 
-            playlists.Add(name, newPlaylist);
+            Playlists.Add(name, newPlaylist);
         }
 
         void videosInsertRequest_ResponseReceived(Video video) //receiving video.id

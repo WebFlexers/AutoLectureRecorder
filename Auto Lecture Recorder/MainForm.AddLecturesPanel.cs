@@ -129,6 +129,8 @@ namespace Auto_Lecture_Recorder
             Lecture lecture = new Lecture(givenLectureName, startTime, endTime, platform);
             // Add the lecture to the correct day
             storedDay.Lectures.Add(lecture);
+            // Serialize all lectures
+            Serializer.SerializeWeekLectures(week);
             // Success message
             MessageBox.Show("Successfully added lecture!", "Success");
 

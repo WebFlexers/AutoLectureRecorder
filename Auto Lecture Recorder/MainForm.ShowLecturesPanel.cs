@@ -184,6 +184,8 @@ namespace Auto_Lecture_Recorder
             {
                 // Remove the lecture from the list
                 week[lectureDay].Lectures.Remove(lecture);
+                // Serialize the week
+                Serializer.SerializeWeekLectures(week);
                 // Redraw the lectures in the lecture panel
                 GenerateLectures(FindSelectedDay());
 
@@ -194,7 +196,7 @@ namespace Auto_Lecture_Recorder
 
         }
 
-        public String FindSelectedDay()
+        public string FindSelectedDay()
         {
             foreach (RadioButton day in panelDaysMenu.Controls)
             {

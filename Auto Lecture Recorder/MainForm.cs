@@ -29,11 +29,11 @@ namespace Auto_Lecture_Recorder
         int minimumParticipantsLeft = 5;
         // Responsive object
         Responsive responsive;
-        const int MENU_BUTTONS_NUM = 5; 
+        const int MENU_BUTTONS_NUM = 5;
         // Recorder
         Recorder recorder;
         // Youtube
-        YoutubeUploader youtubeUploader = new YoutubeUploader();
+        YoutubeUploader youtubeUploader;
 
         public MainForm()
         {
@@ -47,33 +47,56 @@ namespace Auto_Lecture_Recorder
             }
 
             teamsBot = new ChromeBot();
+            youtubeUploader = new YoutubeUploader();
 
+            // Load week from file if it exists or create a new week if not
+            week = Serializer.DeserializeWeekLectures();
 
+            if (week == null || week.Count != 7)
+            {
+                week = new Dictionary<string, Lectures.Day>();
+                week.Add("Monday", new Lectures.Day("Monday"));
+                week.Add("Tuesday", new Lectures.Day("Tuesday"));
+                week.Add("Wednesday", new Lectures.Day("Wednesday"));
+                week.Add("Thursday", new Lectures.Day("Thursday"));
+                week.Add("Friday", new Lectures.Day("Friday"));
+                week.Add("Saturday", new Lectures.Day("Saturday"));
+                week.Add("Sunday", new Lectures.Day("Sunday"));
+            }
+
+            // Load existing youtube playlists
+            Serializer.DeserializeYoutubePlaylists(youtubeUploader);
+
+            // Draw any existing lectures on the show lectures panel
+            GenerateLectures(FindSelectedDay());
         }
 
         // Make all control and its insides non flickering
         private void makeControlNonFlickering(Control control)
-        {        
+        {
             SetDoubleBuffered(control);
             foreach (Panel innerPanel in control.Controls.OfType<Panel>())
             {
                 makeControlNonFlickering(innerPanel);
-            }     
+            }
         }
         // List that contains all days of the week
         public Dictionary<string, Lectures.Day> week;
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Instanciate the week
-            week = new Dictionary<string, Lectures.Day>();
-            week.Add("Monday", new Lectures.Day("Monday"));
-            week.Add("Tuesday", new Lectures.Day("Tuesday"));
-            week.Add("Wednesday", new Lectures.Day("Wednesday"));
-            week.Add("Thursday", new Lectures.Day("Thursday"));
-            week.Add("Friday", new Lectures.Day("Friday"));
-            week.Add("Saturday", new Lectures.Day("Saturday"));
-            week.Add("Sunday", new Lectures.Day("Sunday"));
+            // Load registration info if it exists
+            List<string> registrationInfo = Serializer.DeserializeRegistrationInfo();
+            if (registrationInfo != null)
+            {
+                RN = registrationInfo[0];
+                password = registrationInfo[1];
+                OnLoginSuccess();
+                textboxRN.SetText(RN);
+                textboxPassword.SetText(password);
+            }
+                
+               
             // Instanciate recorder
             recorder = new Recorder();
             // Instanciate output and input devices
@@ -105,6 +128,16 @@ namespace Auto_Lecture_Recorder
         // Title bar functionality
         private void buttonExit_Click(object sender, EventArgs e)
         {
+            // Serialize everything for safety
+            Serializer.SerializeWeekLectures(week);
+            List<string> registrationInfo = new List<string>();
+
+            registrationInfo.Add(RN);
+            registrationInfo.Add(password);
+            Serializer.SerializeRegistrationInfo(registrationInfo);
+
+            Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
+
             Application.Exit();
         }
 

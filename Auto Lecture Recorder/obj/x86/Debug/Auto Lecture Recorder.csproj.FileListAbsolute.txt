@@ -33,3 +33,4 @@ C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x86\Debug\Auto Lecture Recorder.csproj.CopyComplete
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x86\Debug\Auto Lecture Recorder.exe
 C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x86\Debug\Auto Lecture Recorder.pdb
+C:\Users\Michalis\source\repos\Auto Lecture Recorder\Auto Lecture Recorder\obj\x86\Debug\Auto Lecture Recorder.csprojAssemblyReference.cache

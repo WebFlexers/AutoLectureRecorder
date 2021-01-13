@@ -173,6 +173,7 @@
       <DependentUpon>ModernTextbox.cs</DependentUpon>
     </Compile>
     <Compile Include="ScreenRecorder\Recorder.cs" />
+    <Compile Include="Serialize.cs" />
     <Compile Include="Youtube\YoutubeUploader.cs" />
     <EmbeddedResource Include="DropdownList.resx">
       <DependentUpon>DropdownList.cs</DependentUpon>
