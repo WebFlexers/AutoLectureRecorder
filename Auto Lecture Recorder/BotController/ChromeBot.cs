@@ -52,7 +52,10 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
             {
                 //Microsoft's Login Page
                 driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
-                
+
+                // Turn everything to lower case because capital letters create problems
+                string temp = AM.ToLower();
+                AM = temp;
 
                 //Filling email at Microsoft's login page
                 IWebElement emailInputBox = driver.FindElement(By.Id("i0116"));

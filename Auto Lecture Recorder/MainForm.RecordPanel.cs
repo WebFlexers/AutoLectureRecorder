@@ -205,7 +205,7 @@ namespace Auto_Lecture_Recorder
                     Console.WriteLine(exception.Message);    
                 }
 
-                if (participantsNumber < minimumParticipantsLeft)
+                if (participantsNumber < minimumParticipantsLeft && participantsNumber != 0)
                 {
                     timerCheckParticipants.Stop();
                     ExitLectureAndSave();
@@ -320,13 +320,13 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        private void MoveRecordingToRecFolder(string currentVideoName, string newVideoName)
+        private void MoveRecordingToRecFolder(string currentVideoName, string newVideoPath)
         {
             FileInfo recordingFile = new FileInfo(currentVideoName);
             if (recordingFile.Exists)
             {
-                Console.WriteLine(newVideoName);
-                recordingFile.MoveTo(newVideoName);   
+                Console.WriteLine(newVideoPath);
+                recordingFile.MoveTo(newVideoPath);   
             }
             else
             {
