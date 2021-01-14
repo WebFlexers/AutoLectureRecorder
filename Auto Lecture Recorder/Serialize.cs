@@ -110,6 +110,8 @@ namespace Auto_Lecture_Recorder
             if (stream.Length != 0)
             {
                 registrationInfo = (List<string>)formatter.Deserialize(stream);
+                if (registrationInfo.Count == 0)
+                    registrationInfo = null;
             }
             else
             {

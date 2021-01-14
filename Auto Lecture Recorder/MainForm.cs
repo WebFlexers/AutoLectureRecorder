@@ -132,14 +132,15 @@ namespace Auto_Lecture_Recorder
             {
                 RN = registrationInfo[0];
                 password = registrationInfo[1];
-                OnLoginSuccess();
                 textboxRN.SetText(RN);
                 textboxPassword.SetText(password);
+                if (!String.IsNullOrWhiteSpace(RN) && !String.IsNullOrWhiteSpace(password))
+                    OnLoginSuccess(); 
             }
-                
-               
+
             // Instanciate recorder
             recorder = new Recorder();
+
             // Instanciate output and input devices
             dropdownOutputDevice_Load(dropdownOutputDevices, EventArgs.Empty);
             dropdownInputDevice_Load(dropdownInputDevices, EventArgs.Empty);
@@ -503,7 +504,6 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-       
     }
 }
 
