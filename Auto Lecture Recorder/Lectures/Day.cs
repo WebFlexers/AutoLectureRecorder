@@ -32,7 +32,7 @@ namespace Auto_Lecture_Recorder.Lectures
                             (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
                         {
                             otherLecture.Active = false;
-                            otherLecture.CheckBox.Unckeck();
+                            otherLecture.CheckBox.Uncheck();
                         }
                     }
                 }
@@ -52,7 +52,7 @@ namespace Auto_Lecture_Recorder.Lectures
                                 (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
                             {
                                 otherLecture.Active = false;
-                                otherLecture.CheckBox.Unckeck();
+                                otherLecture.CheckBox.Uncheck();
                             }
                         }
                     }

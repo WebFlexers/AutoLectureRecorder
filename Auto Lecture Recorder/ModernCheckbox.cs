@@ -61,7 +61,7 @@ namespace Auto_Lecture_Recorder
         {
             if (Checked)
             {
-                Unckeck();
+                Uncheck();
             }
             else
             {
@@ -76,7 +76,7 @@ namespace Auto_Lecture_Recorder
             checkbox.Image = Properties.Resources.checkbox_clicked;
         }
 
-        public void Unckeck()
+        public void Uncheck()
         {
             Checked = false;
             label.ForeColor = Color.LightGray;

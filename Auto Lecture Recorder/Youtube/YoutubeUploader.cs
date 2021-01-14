@@ -22,7 +22,7 @@ namespace Auto_Lecture_Recorder.Youtube
         UserCredential credential;
         string videoID;
         public Dictionary<string, Playlist> Playlists { get; set; } = new Dictionary<string, Playlist>();
-        public bool authenticate = false;
+        public bool Authenticated { get; set; }
         public bool CurrentlyUploading { get; set; } = false;
         public long CurrentProgress { get; set; } = 0;
         public long videoSize { get; set; } = 0;
@@ -38,7 +38,7 @@ namespace Auto_Lecture_Recorder.Youtube
             //var playlistVideoAddTask = Task.Run(() => playlistVideoAdder(videoID));
             // await playlistVideoAddTask;
         }
-        public async void Authentication() //Authorization section
+        public async Task<bool> Authenticate() //Authorization section
         {
             try
             {
@@ -54,21 +54,21 @@ namespace Auto_Lecture_Recorder.Youtube
                         new FileDataStore(this.GetType().ToString())
                     );
                 }
-                authenticate = true;
+                Authenticated = true;
             }
             catch
             {
-                authenticate = false;
+                Authenticated = false;
             }
 
-           
+            return Authenticated;
 
         }
         private async void uploadVideo(string VideoFilePath, string VideoName, string playlistName, string Description)
         {
             //int counter = 0;
             //Path.Combine("client_id" + counter, ".json");
-            Authentication();
+            Authenticate();
                 
           
 
@@ -79,7 +79,7 @@ namespace Auto_Lecture_Recorder.Youtube
             });
 
 
-            if (authenticate == true)
+            if (Authenticated == true)
             {
                 //video creation
                 var video = new Video();

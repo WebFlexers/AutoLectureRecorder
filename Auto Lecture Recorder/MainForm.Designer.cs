@@ -1575,7 +1575,6 @@
             this.panelYoutubeUpload.Name = "panelYoutubeUpload";
             this.panelYoutubeUpload.Size = new System.Drawing.Size(854, 235);
             this.panelYoutubeUpload.TabIndex = 13;
-            this.panelYoutubeUpload.Visible = false;
             // 
             // labelYoutubeUploadStatus
             // 
@@ -1610,7 +1609,7 @@
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(853, 55);
             this.label22.TabIndex = 11;
-            this.label22.Text = "Video uploading status";
+            this.label22.Text = "Video uploading progress";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // progressBarYoutube
@@ -1629,7 +1628,6 @@
             this.checkboxSettingsYoutube.Size = new System.Drawing.Size(495, 34);
             this.checkboxSettingsYoutube.TabIndex = 1;
             this.checkboxSettingsYoutube.Load += new System.EventHandler(this.checkboxSettingsYoutube_Load);
-            this.checkboxSettingsYoutube.Click += new System.EventHandler(this.checkboxSettingsYoutube_Click);
             // 
             // panelSettingsSwitch
             // 
@@ -1725,8 +1723,8 @@
             // 
             // panelMainWindows
             // 
-            this.panelMainWindows.Controls.Add(this.panelActiveRecording);
             this.panelMainWindows.Controls.Add(this.panelSettings);
+            this.panelMainWindows.Controls.Add(this.panelActiveRecording);
             this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelAddLectures);
             this.panelMainWindows.Controls.Add(this.panelAuthentication);

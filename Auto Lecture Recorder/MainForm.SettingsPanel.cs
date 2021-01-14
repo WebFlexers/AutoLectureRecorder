@@ -67,64 +67,89 @@ namespace Auto_Lecture_Recorder
         }
 
         // Youtube Options
+        bool youtubeEnabled = false;
         private void checkboxSettingsYoutube_Load(object sender, EventArgs e)
         {
             checkboxSettingsYoutube.AddClickEvents(new EventHandler(checkboxSettingsYoutube_Click));
             checkboxSettingsYoutube.SetText("Automatically upload videos to youtube");
+            if (youtubeEnabled)
+                checkboxSettingsYoutube.Check();
+            else
+                checkboxSettingsYoutube.Uncheck();
         }
 
+        bool youtubeToggleInProgress = false;
         private void checkboxSettingsYoutube_Click(object sender, EventArgs e)
         {
+            if (!youtubeToggleInProgress)
+            {
+                Thread toggleThread = new Thread(ToggleAutoUpload);
+                toggleThread.Start();
+            }
+        }
+
+        delegate void ToggleYoutubeBox();
+        private async void ToggleAutoUpload()
+        {
+            youtubeToggleInProgress = true;
+
+            ToggleYoutubeBox checker = checkboxSettingsYoutube.Check;
+            ToggleYoutubeBox unchecker = checkboxSettingsYoutube.Uncheck;
+
             if (checkboxSettingsYoutube.Checked)
             {
-                checkboxSettingsYoutube.Unckeck();
+                panelSettings.Invoke(unchecker);
             }
-            else if (!youtubeUploader.authenticate)
+            else if (!youtubeEnabled)
             {
-                
+
                 var userResponse = MessageBox.Show("In order to automatically upload videos to your youtube channel you need to" +
-                                " authenticate your youtube account. " + Environment.NewLine + "Do you want to do it now?", 
+                                " authenticate your youtube account. " + Environment.NewLine + "Do you want to do it now?",
                                 "Authentication required", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
 
                 if (userResponse == DialogResult.Yes)
                 {
-                    // Authenticate youtube
-                    youtubeUploader.Authentication();
                     // Check if authenticated
-                    if (youtubeUploader.authenticate)
+                    if (await youtubeUploader.Authenticate())
                     {
-                        checkboxSettingsYoutube.Check();
+                        youtubeEnabled = true;
+                        panelSettings.Invoke(checker);
                     }
-                        
                     else
                     {
+                        youtubeEnabled = false;
                         MessageBox.Show("Failed to authenticate your youtube account. \nPlease try again", "Unable to authenticate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-                               
+
             }
             else
             {
-                checkboxSettingsYoutube.Check();
+                panelSettings.Invoke(checker);
             }
 
+            youtubeToggleInProgress = false;
         }
 
-        
 
         // Audio options
         // Dropdown on loads
+        string defaultOutputDevice = "Default"; 
         private void dropdownOutputDevice_Load(object sender, EventArgs e)
         {
-            // Set default
-            dropdownOutputDevices.AddDefaultOption("Default");
+            dropdownOutputDevices.AddOption("Default");
 
-            for (int i = recorder.OutputDevices.Count - 1; i > 0; i--)
+            for (int i = recorder.OutputDevices.Count - 1; i >= 0; i--)
             {
-                dropdownOutputDevices.AddOption(recorder.OutputDevices.ElementAt(i).Value);
+                string outputDevice = recorder.OutputDevices.ElementAt(i).Value;
+                if (!dropdownOutputDevices.ContainsOption(outputDevice))
+                    dropdownOutputDevices.AddOption(outputDevice);
             }
-            
+
+            // Set default
+            dropdownOutputDevices.AddDefaultOption(defaultOutputDevice);
+
             // To save the selection
             dropdownOutputDevices.AddSelectionClickEvent(new ToolStripItemClickedEventHandler(SaveOutputSelection));
         }
@@ -132,17 +157,23 @@ namespace Auto_Lecture_Recorder
         private void SaveOutputSelection(object sender, ToolStripItemClickedEventArgs e)
         {
             recorder.SelectedOutputDevice = recorder.OutputDevices.FirstOrDefault(name => name.Value == e.ClickedItem.Text).Key;
+            SerializeSettings();
         }
 
+        string defaultInputDevice = "Default";
         private void dropdownInputDevice_Load(object sender, EventArgs e)
         {
-            // Add default
-            dropdownInputDevices.AddDefaultOption("Default");
+            dropdownInputDevices.AddOption("Default");
 
-            for (int i = recorder.InputDevices.Count - 1; i > 0; i--)
+            for (int i = recorder.InputDevices.Count - 1; i >= 0; i--)
             {
-                dropdownInputDevices.AddOption(recorder.InputDevices.ElementAt(i).Value);
+                string inputDevice = recorder.InputDevices.ElementAt(i).Value;
+                if (!dropdownInputDevices.ContainsOption(inputDevice))
+                    dropdownInputDevices.AddOption(inputDevice);
             }
+
+            // Add default
+            dropdownInputDevices.AddDefaultOption(defaultInputDevice);
 
             dropdownInputDevices.AddSelectionClickEvent(new ToolStripItemClickedEventHandler(SaveInputSelection));
         }
@@ -150,23 +181,28 @@ namespace Auto_Lecture_Recorder
         private void SaveInputSelection(object sender, ToolStripItemClickedEventArgs e)
         {
             recorder.SelectedInputDevice = recorder.InputDevices.FirstOrDefault(name => name.Value == e.ClickedItem.Text).Key;
+            SerializeSettings();
         }
 
         // Checkboxes On Loads
+        bool recordOutput = true;
         private void checkboxOutputEnabled_Load(object sender, EventArgs e)
         {
             checkboxOutputEnabled.AddClickEvents(new EventHandler(checkboxOutputEnabled.Component_Click));
             checkboxOutputEnabled.AddClickEvents(new EventHandler(checkboxOutputEnabled_Click));
             checkboxOutputEnabled.SetText("Record audio output");
-            checkboxOutputEnabled.Check();
+            if (recordOutput)
+                checkboxOutputEnabled.Check();
         }
 
+        bool recordInput = true;
         private void checkboxInputEnabled_Load(object sender, EventArgs e)
         {
             checkboxInputEnabled.AddClickEvents(new EventHandler(checkboxInputEnabled.Component_Click));
             checkboxInputEnabled.AddClickEvents(new EventHandler(checkboxInputEnabled_Click));
             checkboxInputEnabled.SetText("Record audio input");
-            checkboxInputEnabled.Check();
+            if (recordInput)
+                checkboxInputEnabled.Check();
         }
 
         // Checkbox transfer value
@@ -180,7 +216,7 @@ namespace Auto_Lecture_Recorder
             {
                 recorder.Options.AudioOptions.IsOutputDeviceEnabled = false;
             }
-
+            SerializeSettings();
         }
 
         private void checkboxInputEnabled_Click(object sender, EventArgs e)
@@ -193,25 +229,31 @@ namespace Auto_Lecture_Recorder
             {
                 recorder.Options.AudioOptions.IsInputDeviceEnabled = false;
             }
+            SerializeSettings();
         }
 
         // Video Options
+        int defaultFPS = 30;
         private void dropdownFPS_Load(object sender, EventArgs e)
         {
             dropdownFPS.AddOption(15.ToString());
-            dropdownFPS.AddDefaultOption(30.ToString());
+            dropdownFPS.AddOption(30.ToString());
             dropdownFPS.AddOption(60.ToString());
+
+            dropdownFPS.AddDefaultOption(defaultFPS.ToString());
 
             dropdownFPS.AddSelectionClickEvent(new ToolStripItemClickedEventHandler(SaveFpsSelection));
         }
 
+        int defaultQuality = 70;
         private void dropdownQuality_Load(object sender, EventArgs e)
         {
             for (int i = 10; i <= 100; i += 10)
             {
                 dropdownQuality.AddOption(i.ToString());
             }
-            dropdownQuality.AddDefaultOption(70.ToString());
+
+            dropdownQuality.AddDefaultOption(defaultQuality.ToString());
 
             dropdownQuality.AddSelectionClickEvent(new ToolStripItemClickedEventHandler(SaveQualitySelection));
         }
@@ -219,11 +261,35 @@ namespace Auto_Lecture_Recorder
         private void SaveFpsSelection(object sender, ToolStripItemClickedEventArgs e)
         {
             recorder.Options.VideoOptions.Framerate = Convert.ToInt32(e.ClickedItem.Text);
+            SerializeSettings();
         }
 
         private void SaveQualitySelection(object sender, ToolStripItemClickedEventArgs e)
         {
             recorder.Options.VideoOptions.Quality = Convert.ToInt32(e.ClickedItem.Text);
+            SerializeSettings();
+        }
+
+        private void SerializeSettings()
+        {
+            Serializer.SerializeSettings(Convert.ToInt32(textboxAutoQuitNum.GetText()), dropdownInputDevices.GetText(),
+            dropdownOutputDevices.GetText(), checkboxInputEnabled.Checked, checkboxOutputEnabled.Checked,
+            Convert.ToInt32(dropdownFPS.GetText()), Convert.ToInt32(dropdownQuality.GetText()), 
+            checkboxSettingsYoutube.Checked);
+        }
+
+        private void DeserializeSettings()
+        {
+            object[] settings = Serializer.DeserializeSettings();
+            minimumParticipantsLeft = (int)settings[(int)Serializer.Settings.MinimumParticipants];
+            defaultInputDevice = (string)settings[(int)Serializer.Settings.InputDevice];
+            defaultOutputDevice = (string)settings[(int)Serializer.Settings.OutputDevice];
+            recordInput = (bool)settings[(int)Serializer.Settings.InputEnabled];
+            recordOutput = (bool)settings[(int)Serializer.Settings.OutputEnabled];
+            defaultFPS = (int)settings[(int)Serializer.Settings.Fps];
+            defaultQuality = (int)settings[(int)Serializer.Settings.Quality];
+            youtubeEnabled = (bool)settings[(int)Serializer.Settings.YoutubeEnabled];
         }
     }
+ 
 }

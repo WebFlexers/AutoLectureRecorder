@@ -37,9 +37,18 @@ namespace Auto_Lecture_Recorder
 
         public MainForm()
         {
+            // Load existing settings
+            object[] settings = Serializer.DeserializeSettings();
+            if (settings != null)
+            {
+                DeserializeSettings();
+            }
+            
             InitializeComponent();
+
             // Instanciate responsiveness
             responsive = new Responsive(panelMainWindows.Controls, 853, 696);
+
             // To eliminate flickering
             foreach (Control control in Controls)
             {
@@ -48,6 +57,10 @@ namespace Auto_Lecture_Recorder
 
             teamsBot = new ChromeBot();
             youtubeUploader = new YoutubeUploader();
+
+            // Check youtube authentication
+            Thread youtubeAuthenticator = new Thread(AuthenticateYoutube);
+            youtubeAuthenticator.Start();
 
             // Load week from file if it exists or create a new week if not
             week = Serializer.DeserializeWeekLectures();
@@ -65,10 +78,38 @@ namespace Auto_Lecture_Recorder
             }
 
             // Load existing youtube playlists
-            Serializer.DeserializeYoutubePlaylists(youtubeUploader);
+            Serializer.DeserializeYoutubePlaylists(youtubeUploader);      
 
             // Draw any existing lectures on the show lectures panel
             GenerateLectures(FindSelectedDay());
+        }
+
+        private async void AuthenticateYoutube()
+        {
+            if (youtubeEnabled)
+            {
+                youtubeUploader.Authenticated = false;
+                if (await youtubeUploader.Authenticate())
+                {
+                    youtubeEnabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Connection to youtube expired. If you want to auto upload videos please login to your account again by clicking the " +
+                                    "Automatically upload videos to youtube checkbox in Settings -> Youtube section",
+                                        "Unable to connect to Youtube", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    // Disable youtube upload
+                    youtubeEnabled = false;
+                    ToggleYoutubeBox unckecker = checkboxSettingsYoutube.Uncheck;
+                    panelSettings.Invoke(unckecker);
+                }
+            }
+        }
+
+        private void EnableCheckbox(ModernCheckbox checkbox)
+        {
+            checkbox.Enabled = true;
         }
 
         // Make all control and its insides non flickering
@@ -137,6 +178,8 @@ namespace Auto_Lecture_Recorder
             Serializer.SerializeRegistrationInfo(registrationInfo);
 
             Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
+
+            SerializeSettings();
 
             if (youtubeUploader.CurrentlyUploading)
             {
@@ -382,6 +425,33 @@ namespace Auto_Lecture_Recorder
             revertMenuImages();
         }
 
+        private void buttonAbortRecording_Click(object sender, EventArgs e)
+        {
+            var userResponse = MessageBox.Show("Are you sure you want to abort the recording? You will disconnect from the meating" +
+                                               " and the recording will be deleted.", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (userResponse == DialogResult.Yes)
+            {
+                // Show the recording panel
+                ShowPanel(panelRecord);
+
+                // Stop everything
+                timerEndtime.Stop();
+                recorder.StopRecording();
+
+                // Schedule the next lecture
+                ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
+                panelRecord.Invoke(scheduleNextLecture, panelRecord);
+
+                teamsBot.TerminateDriver();
+
+                // Delete the file
+                DeleteTempRecording();
+            }
+
+
+        }
+
 
 
 
@@ -433,32 +503,7 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        private void buttonAbortRecording_Click(object sender, EventArgs e)
-        {
-            var userResponse = MessageBox.Show("Are you sure you want to abort the recording? You will disconnect from the meating" +
-                                               " and the recording will be deleted.", "Confirmation" , MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (userResponse == DialogResult.Yes)
-            {
-                // Show the recording panel
-                ShowPanel(panelRecord);
-
-                // Stop everything
-                timerEndtime.Stop();
-                recorder.StopRecording();
-
-                // Schedule the next lecture
-                ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
-                panelRecord.Invoke(scheduleNextLecture, panelRecord);
-
-                teamsBot.TerminateDriver();
-
-                // Delete the file
-                DeleteTempRecording();       
-            }
-
-            
-        }
+       
     }
 }
 

@@ -7,14 +7,17 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Apis.YouTube.v3.Data;
+using System.Windows.Forms;
+using Auto_Lecture_Recorder;
 
 using Auto_Lecture_Recorder.Lectures;
+
 
 namespace Auto_Lecture_Recorder
 {
     public static class Serializer
     {
-        public static void SerializeWeekLectures(Dictionary<string, Day> week)
+        public static void SerializeWeekLectures(Dictionary<string, Lectures.Day> week)
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("lectures.alr", FileMode.OpenOrCreate, FileAccess.Write);
@@ -22,6 +25,26 @@ namespace Auto_Lecture_Recorder
             formatter.Serialize(stream, week);
 
             stream.Close();
+        }
+
+        public static Dictionary<string, Lectures.Day> DeserializeWeekLectures()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("lectures.alr", FileMode.OpenOrCreate, FileAccess.Read);
+
+            Dictionary<string, Lectures.Day> week;
+            if (stream.Length != 0)
+            {
+                week = (Dictionary<string, Lectures.Day>)formatter.Deserialize(stream);
+            }
+            else
+            {
+                week = null;
+            }
+
+            stream.Close();
+            return week;
+
         }
 
         public static void SerializeYoutubePlaylists(Dictionary<string, Playlist> playlists)
@@ -37,6 +60,25 @@ namespace Auto_Lecture_Recorder
             }
 
             formatter.Serialize(stream, playlistsNames);
+
+            stream.Close();
+        }
+
+        public static void DeserializeYoutubePlaylists(Youtube.YoutubeUploader youtubeUploader)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("youtube_playlists.alr", FileMode.OpenOrCreate, FileAccess.Read);
+
+            List<string> playlistsNames;
+
+            if (stream.Length != 0)
+            {
+                playlistsNames = (List<string>)formatter.Deserialize(stream);
+                foreach (string name in playlistsNames)
+                {
+                    youtubeUploader.CreatePlaylist(name);
+                }
+            }
 
             stream.Close();
         }
@@ -59,45 +101,6 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        public static Dictionary<string, Day> DeserializeWeekLectures()
-        {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("lectures.alr", FileMode.OpenOrCreate, FileAccess.Read);
-
-            Dictionary<string, Day> week;
-            if (stream.Length != 0)
-            {
-                week = (Dictionary<string, Day>)formatter.Deserialize(stream);
-            }
-            else
-            {
-                week = null;
-            }
-
-            stream.Close();
-            return week;
-                
-        }
-
-        public static void DeserializeYoutubePlaylists(Youtube.YoutubeUploader youtubeUploader)
-        {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("youtube_playlists.alr", FileMode.OpenOrCreate, FileAccess.Read);
-
-            List<string> playlistsNames;
-
-            if (stream.Length != 0)
-            {
-                playlistsNames = (List<string>)formatter.Deserialize(stream);
-                foreach (string name in playlistsNames)
-                {
-                    youtubeUploader.CreatePlaylist(name);
-                }
-            }
-
-            stream.Close();
-        }
-
         public static List<string> DeserializeRegistrationInfo()
         {
             IFormatter formatter = new BinaryFormatter();
@@ -116,5 +119,58 @@ namespace Auto_Lecture_Recorder
             stream.Close();
             return registrationInfo;
         }
+
+        public enum Settings
+        {
+            MinimumParticipants = 0,
+            InputDevice = 1,
+            OutputDevice = 2,
+            InputEnabled = 3,
+            OutputEnabled = 4,
+            Fps = 5,
+            Quality = 6,
+            YoutubeEnabled = 7
+        }
+
+        public static void SerializeSettings(int minParticipants, string inputDevice, string outputDevice,
+                                             bool inputEnabled, bool outputEnabled, int fps, int quality,
+                                             bool youtubeEnabled)
+        {
+            object[] settings = new object[8];
+            settings[(int)Settings.MinimumParticipants] = minParticipants;
+            settings[(int)Settings.InputDevice] = inputDevice;
+            settings[(int)Settings.OutputDevice] = outputDevice;
+            settings[(int)Settings.InputEnabled] = inputEnabled;
+            settings[(int)Settings.OutputEnabled] = outputEnabled;
+            settings[(int)Settings.Fps] = fps;
+            settings[(int)Settings.Quality] = quality;
+            settings[(int)Settings.YoutubeEnabled] = youtubeEnabled;
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("settings.alr", FileMode.OpenOrCreate, FileAccess.Write);
+
+            formatter.Serialize(stream, settings);
+
+            stream.Close();
+        }
+
+        public static object[] DeserializeSettings()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("settings.alr", FileMode.OpenOrCreate, FileAccess.Read);
+
+            object[] settings;
+            if (stream.Length != 0)
+            {
+                settings = (object[])formatter.Deserialize(stream);
+            }
+            else
+            {
+                settings = null;
+            }
+
+            stream.Close();
+            return settings;
+        } 
     }
 }

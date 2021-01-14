@@ -90,6 +90,19 @@ namespace Auto_Lecture_Recorder
             labelDropdown.Text = option;
         }
 
+        public bool ContainsOption(string option)
+        {
+            foreach (ToolStripMenuItem item in contextMenuStrip.Items)
+            {
+                if (item.Text.Equals(option))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void AddOption(string option)
         {
             // Create menu option
