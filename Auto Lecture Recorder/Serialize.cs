@@ -17,10 +17,13 @@ namespace Auto_Lecture_Recorder
 {
     public static class Serializer
     {
+        private static readonly string SAVE_LOCATION = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                                                                    "AutoLectureRecorder");
+
         public static void SerializeWeekLectures(Dictionary<string, Lectures.Day> week)
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("lectures.alr", FileMode.OpenOrCreate, FileAccess.Write);
+            Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "lectures.alr"), FileMode.OpenOrCreate, FileAccess.Write);
 
             formatter.Serialize(stream, week);
 
@@ -30,7 +33,7 @@ namespace Auto_Lecture_Recorder
         public static Dictionary<string, Lectures.Day> DeserializeWeekLectures()
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("lectures.alr", FileMode.OpenOrCreate, FileAccess.Read);
+            Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "lectures.alr"), FileMode.OpenOrCreate, FileAccess.Read);
 
             Dictionary<string, Lectures.Day> week;
             if (stream.Length != 0)
@@ -50,7 +53,7 @@ namespace Auto_Lecture_Recorder
         public static void SerializeYoutubePlaylists(Dictionary<string, Playlist> playlists)
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("youtube_playlists.alr", FileMode.OpenOrCreate, FileAccess.Write);
+            Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "youtube_playlists.alr"), FileMode.OpenOrCreate, FileAccess.Write);
 
             List<string> playlistsNames = new List<string>();
 
@@ -67,7 +70,7 @@ namespace Auto_Lecture_Recorder
         public static void DeserializeYoutubePlaylists(Youtube.YoutubeUploader youtubeUploader)
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("youtube_playlists.alr", FileMode.OpenOrCreate, FileAccess.Read);
+            Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "youtube_playlists.alr"), FileMode.OpenOrCreate, FileAccess.Read);
 
             List<string> playlistsNames;
 
@@ -88,7 +91,7 @@ namespace Auto_Lecture_Recorder
             if (registrationInfo.Count == 2)
             {
                 IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream("registration_info.alr", FileMode.OpenOrCreate, FileAccess.Write);
+                Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "registration_info.alr"), FileMode.OpenOrCreate, FileAccess.Write);
 
                 formatter.Serialize(stream, registrationInfo);
 
@@ -104,7 +107,7 @@ namespace Auto_Lecture_Recorder
         public static List<string> DeserializeRegistrationInfo()
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("registration_info.alr", FileMode.OpenOrCreate, FileAccess.Read);
+            Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "registration_info.alr"), FileMode.OpenOrCreate, FileAccess.Read);
 
             List<string> registrationInfo;
             if (stream.Length != 0)
@@ -149,7 +152,7 @@ namespace Auto_Lecture_Recorder
             settings[(int)Settings.YoutubeEnabled] = youtubeEnabled;
 
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("settings.alr", FileMode.OpenOrCreate, FileAccess.Write);
+            Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "settings.alr"), FileMode.OpenOrCreate, FileAccess.Write);
 
             formatter.Serialize(stream, settings);
 
@@ -159,7 +162,7 @@ namespace Auto_Lecture_Recorder
         public static object[] DeserializeSettings()
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("settings.alr", FileMode.OpenOrCreate, FileAccess.Read);
+            Stream stream = new FileStream(Path.Combine(SAVE_LOCATION, "settings.alr"), FileMode.OpenOrCreate, FileAccess.Read);
 
             object[] settings;
             if (stream.Length != 0)

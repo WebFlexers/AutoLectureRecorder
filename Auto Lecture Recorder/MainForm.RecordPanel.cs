@@ -244,6 +244,7 @@ namespace Auto_Lecture_Recorder
             /* Start to check for participants number after 45 minutes */
             if (timeElapsed >= checkParticipantsTime && !timerCheckParticipants.Enabled)
             {
+
                 timerCheckParticipants.Start();
             }
 
@@ -322,16 +323,12 @@ namespace Auto_Lecture_Recorder
 
         private void MoveRecordingToRecFolder(string currentVideoName, string newVideoPath)
         {
-            FileInfo recordingFile = new FileInfo(currentVideoName);
-            if (recordingFile.Exists)
+            if (File.Exists(currentVideoName))
             {
-                Console.WriteLine(newVideoPath);
-                recordingFile.MoveTo(newVideoPath);   
+                File.Move(currentVideoName, newVideoPath);
             }
             else
-            {
-                Console.WriteLine("Wrong path");
-            }
+                Console.WriteLine("");
         }
 
         private void DeleteTempRecording()

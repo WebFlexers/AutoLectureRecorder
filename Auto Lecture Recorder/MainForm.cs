@@ -461,26 +461,25 @@ namespace Auto_Lecture_Recorder
         // Temp
         private void button1_Click(object sender, EventArgs e)
         {
-            recorder.StartRecording(textboxLectureName.GetText());
+            recorder.StartRecording(week["Thursday"].Lectures[0].Name);
         }
 
 
         private void button3_Click(object sender, EventArgs e)
         {
-            recorder.StopRecording();
+            ExitLectureAndSave();
+            //// Make a new file name and path
+            //string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            //string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");
 
-            // Make a new file name and path
-            string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
-            string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");
-
-            // Move to the recording folder and change name
-            MoveRecordingToRecFolder(recorder.RecordingPath, newVideoPath);
+            //// Move to the recording folder and change name
+            //MoveRecordingToRecFolder(recorder.RecordingPath, newVideoPath);
         }
 
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(textboxLectureName.GetText());
+            Console.WriteLine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -504,6 +503,7 @@ namespace Auto_Lecture_Recorder
             }
         }
 
+      
     }
 }
 

@@ -48,7 +48,6 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
         {
             // Set default Video folder path
             VideoFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Auto Lecture Recorder");
-            VideoName = "ΜΑΘΗΜΑΤΙΚΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ";
             // Instanciate options
             LoadDefaultOptions();
             // Instanciate input and output devices
@@ -90,6 +89,7 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
             {
                 IsRecording = false;
                 recorder.Stop();
+                //recorder.Dispose();
             }
             
         }

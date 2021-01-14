@@ -148,6 +148,8 @@
             this.folderBrowserVideo = new System.Windows.Forms.FolderBrowserDialog();
             this.timerUpdateYoutubeProgressbar = new System.Windows.Forms.Timer(this.components);
             this.timerCheckParticipants = new System.Windows.Forms.Timer(this.components);
+            this.textboxPassword = new Auto_Lecture_Recorder.ModernTextBox();
+            this.textboxRN = new Auto_Lecture_Recorder.ModernTextBox();
             this.textboxAutoQuitNum = new Auto_Lecture_Recorder.ModernTextBox();
             this.dropdownQuality = new Auto_Lecture_Recorder.DropdownList();
             this.dropdownFPS = new Auto_Lecture_Recorder.DropdownList();
@@ -163,8 +165,6 @@
             this.dropdownPlatform = new Auto_Lecture_Recorder.DropdownList();
             this.dropdownDay = new Auto_Lecture_Recorder.DropdownList();
             this.textboxLectureName = new Auto_Lecture_Recorder.ModernTextBox();
-            this.textboxPassword = new Auto_Lecture_Recorder.ModernTextBox();
-            this.textboxRN = new Auto_Lecture_Recorder.ModernTextBox();
             this.modernCheckbox2 = new Auto_Lecture_Recorder.ModernCheckbox();
             this.panelMenu.SuspendLayout();
             this.panelRecord.SuspendLayout();
@@ -405,7 +405,6 @@
             this.buttonYoutubeUpload.TabIndex = 17;
             this.buttonYoutubeUpload.Text = "Upload to youtube";
             this.buttonYoutubeUpload.UseVisualStyleBackColor = true;
-            this.buttonYoutubeUpload.Visible = false;
             this.buttonYoutubeUpload.Click += new System.EventHandler(this.buttonYoutubeUpload_Click);
             // 
             // button6
@@ -427,7 +426,6 @@
             this.button5.TabIndex = 14;
             this.button5.Text = "Show";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button3
@@ -438,7 +436,6 @@
             this.button3.TabIndex = 13;
             this.button3.Text = "Stop";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button1
@@ -449,7 +446,6 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelCountdown
@@ -1558,8 +1554,8 @@
             // 
             // panelMainWindows
             // 
-            this.panelMainWindows.Controls.Add(this.panelAuthentication);
             this.panelMainWindows.Controls.Add(this.panelRecord);
+            this.panelMainWindows.Controls.Add(this.panelAuthentication);
             this.panelMainWindows.Controls.Add(this.panelSettings);
             this.panelMainWindows.Controls.Add(this.panelActiveRecording);
             this.panelMainWindows.Controls.Add(this.panelAddLectures);
@@ -1841,6 +1837,27 @@
             this.timerCheckParticipants.Interval = 10000;
             this.timerCheckParticipants.Tick += new System.EventHandler(this.timerCheckParticipants_Tick);
             // 
+            // textboxPassword
+            // 
+            this.textboxPassword.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxPassword.AutoSize = true;
+            this.textboxPassword.Location = new System.Drawing.Point(218, 256);
+            this.textboxPassword.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxPassword.Name = "textboxPassword";
+            this.textboxPassword.Size = new System.Drawing.Size(416, 30);
+            this.textboxPassword.TabIndex = 23;
+            this.textboxPassword.Load += new System.EventHandler(this.textboxPassword_Load);
+            // 
+            // textboxRN
+            // 
+            this.textboxRN.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxRN.AutoSize = true;
+            this.textboxRN.Location = new System.Drawing.Point(218, 145);
+            this.textboxRN.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxRN.Name = "textboxRN";
+            this.textboxRN.Size = new System.Drawing.Size(416, 30);
+            this.textboxRN.TabIndex = 21;
+            // 
             // textboxAutoQuitNum
             // 
             this.textboxAutoQuitNum.AutoSize = true;
@@ -1974,27 +1991,6 @@
             this.textboxLectureName.Name = "textboxLectureName";
             this.textboxLectureName.Size = new System.Drawing.Size(416, 30);
             this.textboxLectureName.TabIndex = 19;
-            // 
-            // textboxPassword
-            // 
-            this.textboxPassword.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textboxPassword.AutoSize = true;
-            this.textboxPassword.Location = new System.Drawing.Point(218, 256);
-            this.textboxPassword.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.textboxPassword.Name = "textboxPassword";
-            this.textboxPassword.Size = new System.Drawing.Size(416, 30);
-            this.textboxPassword.TabIndex = 23;
-            this.textboxPassword.Load += new System.EventHandler(this.textboxPassword_Load);
-            // 
-            // textboxRN
-            // 
-            this.textboxRN.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textboxRN.AutoSize = true;
-            this.textboxRN.Location = new System.Drawing.Point(218, 145);
-            this.textboxRN.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.textboxRN.Name = "textboxRN";
-            this.textboxRN.Size = new System.Drawing.Size(416, 30);
-            this.textboxRN.TabIndex = 21;
             // 
             // modernCheckbox2
             // 
