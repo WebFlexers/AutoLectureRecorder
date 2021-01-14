@@ -20,6 +20,11 @@ namespace Auto_Lecture_Recorder
         private static readonly string SAVE_LOCATION = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
                                                                     "AutoLectureRecorder");
 
+        static Serializer()
+        {
+            Directory.CreateDirectory(SAVE_LOCATION);
+        }
+
         public static void SerializeWeekLectures(Dictionary<string, Lectures.Day> week)
         {
             IFormatter formatter = new BinaryFormatter();
