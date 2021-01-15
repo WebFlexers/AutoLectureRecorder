@@ -16,6 +16,7 @@ using Auto_Lecture_Recorder.ScreenRecorder;
 using Auto_Lecture_Recorder.Youtube;
 using System.IO;
 using System.Security.AccessControl;
+using System.Globalization;
 
 namespace Auto_Lecture_Recorder
 {
@@ -47,7 +48,7 @@ namespace Auto_Lecture_Recorder
             for (int dayNum = 0; dayNum <= 7; dayNum++)
             {
                 // Get the day that the lecture will take place starting from today, since dayNum starts with 0
-                Lectures.Day lectureDay = week[DateTime.Now.AddDays(dayNum).ToString("dddd")];
+                Lectures.Day lectureDay = week[DateTime.Now.AddDays(dayNum).ToString("dddd", CultureInfo.CreateSpecificCulture("en-US"))];
                 // Get a list of lectures of the day defined by dayNum
                 List<Lecture> dayLectures = lectureDay.Lectures;
                 // Sort the lectures list by start time
@@ -195,20 +196,24 @@ namespace Auto_Lecture_Recorder
             if (timerEndtime.Enabled)
             {
                 int participantsNumber = 0;
-                try
-                {
-                    participantsNumber = teamsBot.GetParticipantsNumber();
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine("Lefteris inted. The GetParticipants method threw an exception");
-                    Console.WriteLine(exception.Message);    
-                }
 
-                if (participantsNumber < minimumParticipantsLeft && participantsNumber != 0)
+                if (minimumParticipantsLeft != 0)
                 {
-                    timerCheckParticipants.Stop();
-                    ExitLectureAndSave();
+                    try
+                    {
+                        participantsNumber = teamsBot.GetParticipantsNumber();
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine("Lefteris inted. The GetParticipants method threw an exception");
+                        Console.WriteLine(exception.Message);
+                    }
+
+                    if (participantsNumber < minimumParticipantsLeft && participantsNumber != 0)
+                    {
+                        timerCheckParticipants.Stop();
+                        ExitLectureAndSave();
+                    }
                 }
             }
             else

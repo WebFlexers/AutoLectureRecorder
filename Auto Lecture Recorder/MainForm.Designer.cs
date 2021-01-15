@@ -405,6 +405,7 @@
             this.buttonYoutubeUpload.TabIndex = 17;
             this.buttonYoutubeUpload.Text = "Upload to youtube";
             this.buttonYoutubeUpload.UseVisualStyleBackColor = true;
+            this.buttonYoutubeUpload.Visible = false;
             this.buttonYoutubeUpload.Click += new System.EventHandler(this.buttonYoutubeUpload_Click);
             // 
             // button6
@@ -426,6 +427,7 @@
             this.button5.TabIndex = 14;
             this.button5.Text = "Show";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button3
@@ -436,6 +438,7 @@
             this.button3.TabIndex = 13;
             this.button3.Text = "Stop";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button1
@@ -446,6 +449,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelCountdown
@@ -1554,8 +1558,8 @@
             // 
             // panelMainWindows
             // 
-            this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelAuthentication);
+            this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelSettings);
             this.panelMainWindows.Controls.Add(this.panelActiveRecording);
             this.panelMainWindows.Controls.Add(this.panelAddLectures);

@@ -23,7 +23,6 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\bin
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\bin\x86\Release\WebDriver.xml
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\bin\x86\Release\WebDriver.Support.xml
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\bin\x86\Release\ScreenRecorderLib.xml
-C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto Lecture Recorder.csprojAssemblyReference.cache
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto_Lecture_Recorder.DropdownList.resources
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto_Lecture_Recorder.MainForm.resources
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto_Lecture_Recorder.ModernCheckbox.resources
@@ -34,3 +33,4 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto Lecture Recorder.csproj.CopyComplete
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto Lecture Recorder.exe
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto Lecture Recorder.pdb
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\Auto Lecture Recorder\obj\x86\Release\Auto Lecture Recorder.csprojAssemblyReference.cache

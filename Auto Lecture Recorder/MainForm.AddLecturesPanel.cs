@@ -104,22 +104,22 @@ namespace Auto_Lecture_Recorder
                 // Get the given name
                 givenLectureName = textboxLectureName.GetText();
                 // If the given lecture name already exists in the given day display error message                       
-                if (storedDay.Lectures.Exists(storedLecture => storedLecture.Name.Equals(givenLectureName)))
-                {
-                    StringBuilder errorMessage = new StringBuilder();
-                    errorMessage.Append(givenLectureName);
-                    errorMessage.Append(" already exists on ");
-                    errorMessage.Append(storedDay.Name);
-                    errorMessage.Append("!");
-                    errorMessage.Append(Environment.NewLine);
-                    errorMessage.Append(Environment.NewLine);
-                    errorMessage.Append("If you want to modify the lecture remove it");
-                    errorMessage.Append(Environment.NewLine);
-                    errorMessage.Append("from the lectures section and add it again");
-                    MessageBox.Show(errorMessage.ToString(), "Lecture is already present", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //if (storedDay.Lectures.Exists(storedLecture => storedLecture.Name.Equals(givenLectureName)))
+                //{
+                //    StringBuilder errorMessage = new StringBuilder();
+                //    errorMessage.Append(givenLectureName);
+                //    errorMessage.Append(" already exists on ");
+                //    errorMessage.Append(storedDay.Name);
+                //    errorMessage.Append("!");
+                //    errorMessage.Append(Environment.NewLine);
+                //    errorMessage.Append(Environment.NewLine);
+                //    errorMessage.Append("If you want to modify the lecture remove it");
+                //    errorMessage.Append(Environment.NewLine);
+                //    errorMessage.Append("from the lectures section and add it again");
+                //    MessageBox.Show(errorMessage.ToString(), "Lecture is already present", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                    return;
-                }
+                //    return;
+                //}
 
             }
 
