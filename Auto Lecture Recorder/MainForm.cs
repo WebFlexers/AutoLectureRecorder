@@ -461,7 +461,7 @@ namespace Auto_Lecture_Recorder
         // Temp
         private void button1_Click(object sender, EventArgs e)
         {
-            recorder.StartRecording(week["Thursday"].Lectures[0].Name);
+            recorder.StartRecording(nextScheduledLecture.Name);
         }
 
 
@@ -503,7 +503,7 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        
+       
     }
 }
 

@@ -47,6 +47,8 @@ namespace Auto_Lecture_Recorder
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+            // Disable button until authentication is done
+            buttonLogin.Enabled = false;
             // Reset color
             labelLoginStatus.ForeColor = Color.FromArgb(42, 123, 245);
             // Enable label
@@ -64,6 +66,7 @@ namespace Auto_Lecture_Recorder
             loginThread.Start();
         }
 
+        delegate void EnableButton();
         delegate void LoginResult();
         private void AuthenticateUser(string RN, string password)
         {
@@ -84,6 +87,8 @@ namespace Auto_Lecture_Recorder
 
             teamsBot.HideBrowser = false;
             teamsBot.TerminateDriver();
+
+            Invoke((Action)(() => buttonLogin.Enabled = true));
         }
 
         private void OnLoginSuccess()

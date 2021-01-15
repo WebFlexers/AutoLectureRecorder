@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using ScreenRecorderLib;
+using System.Threading;
 
 namespace Auto_Lecture_Recorder.ScreenRecorder
 {
@@ -87,8 +88,11 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
         {
             if (recorder != null)
             {
-                IsRecording = false;
                 recorder.Stop();
+                while (IsRecording)
+                {
+                    Thread.Sleep(50);
+                }
                 //recorder.Dispose();
             }
             
@@ -155,15 +159,15 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
 
         private void Rec_OnRecordingComplete(object sender, RecordingCompleteEventArgs e)
         {
-            IsRecording = false;
             CleanupResources();
+            IsRecording = false;
         }
 
         private void Rec_OnRecordingFailed(object sender, RecordingFailedEventArgs e)
         {
-            MessageBox.Show(e.Error, "Recording failed" ,MessageBoxButtons.OK, MessageBoxIcon.Error);
-            IsRecording = false;
             CleanupResources();
+            MessageBox.Show(e.Error, "Recording failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            IsRecording = false;
         }
 
         private void _rec_OnStatusChanged(object sender, RecordingStatusEventArgs e)

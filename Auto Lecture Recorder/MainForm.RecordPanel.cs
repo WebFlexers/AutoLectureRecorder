@@ -255,10 +255,13 @@ namespace Auto_Lecture_Recorder
 
         }
         
-        private void ExitLectureAndSave()
+        private async void ExitLectureAndSave()
         {
             timerEndtime.Stop();
             teamsBot.TerminateDriver();
+
+            // Keep current lecture name
+            string lectureName = nextScheduledLecture.Name;
 
             // Schedule the next lecture
             ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
@@ -266,14 +269,17 @@ namespace Auto_Lecture_Recorder
 
             if (recorder.IsRecording)
             {
-                recorder.StopRecording();
+                // Rename the file
+                string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yy hh-mm-ss");
+                var path = Directory.CreateDirectory(Path.Combine(recorder.VideoFolderPath, lectureName));
+                string newVideoPath = Path.Combine(path.FullName, videoName + ".mp4");
+
+                Console.WriteLine(newVideoPath);
+
+                await Task.Run(() => recorder.StopRecording());
 
                 // Rename the file
-                string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
-                string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");
-
-                // Rename the file
-                MoveRecordingToRecFolder(recorder.RecordingPath, newVideoPath);
+                await MoveAndRenameRecording(recorder.RecordingPath, newVideoPath);
 
                 // Upload to youtube
                 if (checkboxSettingsYoutube.Checked)
@@ -301,8 +307,6 @@ namespace Auto_Lecture_Recorder
             }
             else
                 ShowPanel(panelRecord);
-            
-
         }
 
         private void UploadRecording(string videoPath, string youtubeVideoName, string playlistName)
@@ -326,14 +330,30 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-        private void MoveRecordingToRecFolder(string currentVideoName, string newVideoPath)
+        private async Task MoveAndRenameRecording(string sourceFile, string destinationFile)
         {
-            if (File.Exists(currentVideoName))
+            try
             {
-                File.Move(currentVideoName, newVideoPath);
+                using (FileStream sourceStream = File.Open(sourceFile, FileMode.Open))
+                {
+                    using (FileStream destinationStream = File.Create(destinationFile))
+                    {
+                        await sourceStream.CopyToAsync(destinationStream);
+                        sourceStream.Close();
+                        File.Delete(sourceFile);
+                    }
+                }
             }
-            else
-                Console.WriteLine("");
+            catch (IOException ioex)
+            {
+                MessageBox.Show("Recording failed");
+                Console.WriteLine("An IOException occured during move, " + ioex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Recording failed");
+                Console.WriteLine("An Exception occured during move, " + ex.Message);
+            }
         }
 
         private void DeleteTempRecording()
