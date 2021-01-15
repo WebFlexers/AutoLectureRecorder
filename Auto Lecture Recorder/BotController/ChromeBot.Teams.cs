@@ -107,17 +107,36 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
 
             IWebElement showParticipantsBtn = driver.FindElement(By.Id("roster-button"));
 
-            //Simulating the mouse hover to toggle the toolbar
-            Actions actions = new Actions(driver);
-            actions.MoveToElement(showParticipantsBtn).Perform();
-            showParticipantsBtn.Click();
+            try
+            {
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
 
-            //Creating a list with all the participants 
-            var participantsList = driver.FindElements(By.XPath("//li[contains(@data-tid, 'participantsInCall')]"));
-            foreach (var p in participantsList)
-                participants++;
+                var participantsList = driver.FindElements(By.XPath("//li[contains(@data-tid, 'participantsInCall')]"));
+                foreach (var p in participantsList)
+                    participants++;
 
-            return participants;
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitTime);
+
+                return participants;
+            }
+            catch
+            {
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitTime);
+
+                //Simulating the mouse hover to toggle the toolbar
+                Actions actions = new Actions(driver);
+                actions.MoveToElement(showParticipantsBtn).Perform();
+                showParticipantsBtn.Click();
+
+                //Creating a list with all the participants
+                var participantsList = driver.FindElements(By.XPath("//li[contains(@data-tid, 'participantsInCall')]"));
+                foreach (var p in participantsList)
+                    participants++;
+
+                return participants;
+            }
+
+            
         }
     }
 }
