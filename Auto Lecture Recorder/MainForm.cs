@@ -467,7 +467,7 @@ namespace Auto_Lecture_Recorder
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ExitLectureAndSave();
+            new Thread(() => ExitLectureAndSave()).Start();
             //// Make a new file name and path
             //string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yyyy");
             //string newVideoPath = Path.Combine(recorder.VideoFolderPath, videoName + ".mp4");

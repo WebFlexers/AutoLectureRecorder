@@ -212,7 +212,7 @@ namespace Auto_Lecture_Recorder
                     if (participantsNumber < minimumParticipantsLeft && participantsNumber != 0)
                     {
                         timerCheckParticipants.Stop();
-                        ExitLectureAndSave();
+                        new Thread(() => ExitLectureAndSave()).Start();
                     }
                 }
             }
@@ -243,13 +243,12 @@ namespace Auto_Lecture_Recorder
 
             if (remainingTime.TotalSeconds <= 0)
             {
-                ExitLectureAndSave();
+                new Thread(() => ExitLectureAndSave()).Start();
             }
 
             /* Start to check for participants number after 45 minutes */
             if (timeElapsed >= checkParticipantsTime && !timerCheckParticipants.Enabled)
             {
-
                 timerCheckParticipants.Start();
             }
 
@@ -257,6 +256,8 @@ namespace Auto_Lecture_Recorder
         
         private async void ExitLectureAndSave()
         {
+            Console.WriteLine("Empikame");
+
             timerEndtime.Stop();
             teamsBot.TerminateDriver();
 
@@ -280,28 +281,32 @@ namespace Auto_Lecture_Recorder
                 if (checkboxSettingsYoutube.Checked)
                 {
                     UploadRecording(newVideoPath, videoName, recorder.VideoName);
-                    panelYoutubeUpload.Show();
-                    labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
-                    labelYoutubeUploadStatus.Text = "Uploading...";
-                    progressBarYoutube.Value = 0;
+
+                    Invoke((Action)(() => {
+                        panelYoutubeUpload.Show();
+                        labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
+                        labelYoutubeUploadStatus.Text = "Uploading...";
+                        progressBarYoutube.Value = 0;
+                    }));
+                    
                     timerUpdateYoutubeProgressbar.Start();
 
                     // Serialize youtube playlists
                     Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
 
                     // Show the settings panel where youtube progress is shown
-                    ShowPanel(panelSettings);
-                    menuSettingsYoutube.PerformClick();
+                    Invoke((Action)(() => {
+                        ShowPanel(panelSettings);
+                        menuSettingsYoutube.PerformClick();
+                    }));
                     menuSettingsYoutube.Checked = true;
                 }
-                else
-                    ShowPanel(panelRecord);
 
                 // Delete the temp recording if it exists
                 DeleteTempRecording();
             }
             else
-                ShowPanel(panelRecord);
+                Invoke((Action)(() => ShowPanel(panelRecord)));
         }
 
         private void UploadRecording(string videoPath, string youtubeVideoName, string playlistName)
