@@ -260,9 +260,6 @@ namespace Auto_Lecture_Recorder
             timerEndtime.Stop();
             teamsBot.TerminateDriver();
 
-            // Keep current lecture name
-            string lectureName = nextScheduledLecture.Name;
-
             // Schedule the next lecture
             ScheduleNextLecture scheduleNextLecture = RefreshScheduledRecordings;
             panelRecord.Invoke(scheduleNextLecture, panelRecord);
@@ -271,10 +268,8 @@ namespace Auto_Lecture_Recorder
             {
                 // Rename the file
                 string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yy hh-mm-ss");
-                var path = Directory.CreateDirectory(Path.Combine(recorder.VideoFolderPath, lectureName));
+                var path = Directory.CreateDirectory(Path.Combine(recorder.VideoFolderPath, recorder.VideoName));
                 string newVideoPath = Path.Combine(path.FullName, videoName + ".mp4");
-
-                Console.WriteLine(newVideoPath);
 
                 await Task.Run(() => recorder.StopRecording());
 
