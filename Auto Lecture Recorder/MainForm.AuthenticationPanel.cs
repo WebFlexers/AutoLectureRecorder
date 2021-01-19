@@ -10,7 +10,7 @@ namespace Auto_Lecture_Recorder
 {
     partial class MainForm
     {
-        bool loggingIn = false;
+        bool IsLoggingIn = false;
         int dotsNum = 0;
 
         private void textboxPassword_Load(object sender, EventArgs e)
@@ -21,7 +21,7 @@ namespace Auto_Lecture_Recorder
         private void timerLoginProgress_Tick(object sender, EventArgs e)
         {
             // ... wait effect
-            if (loggingIn)
+            if (IsLoggingIn)
             {
                 dotsNum++;
                 StringBuilder dots = new StringBuilder();
@@ -54,7 +54,7 @@ namespace Auto_Lecture_Recorder
             // Enable label
             labelLoginStatus.Visible = true;
             // Progress report
-            loggingIn = true;
+            IsLoggingIn = true;
             timerLoginProgress_Tick(sender, e);
             timerLoginProgress.Start();
 
@@ -93,7 +93,7 @@ namespace Auto_Lecture_Recorder
 
         private void OnLoginSuccess()
         {
-            loggingIn = false;
+            IsLoggingIn = false;
             teamsAuthenticated = true;
             labelLoginStatus.ForeColor = Color.FromArgb(151, 253, 30);
             labelLoginStatus.Text = "Logged in successfully!" + Environment.NewLine + "You can schedule lectures now";
@@ -108,7 +108,7 @@ namespace Auto_Lecture_Recorder
 
         private void OnLoginFailure()
         {
-            loggingIn = false;
+            IsLoggingIn = false;
             teamsAuthenticated = false;
             labelLoginStatus.ForeColor = Color.FromArgb(225, 7, 6);
             labelLoginStatus.Text = "Login failed. Please make sure you entered" + Environment.NewLine +

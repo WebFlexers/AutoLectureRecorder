@@ -212,7 +212,7 @@ namespace Auto_Lecture_Recorder
                     if (participantsNumber < minimumParticipantsLeft && participantsNumber != 0)
                     {
                         timerCheckParticipants.Stop();
-                        new Thread(() => ExitLectureAndSave()).Start();
+                        new Thread(async () => await ExitLectureAndSave()).Start();
                     }
                 }
             }
@@ -243,7 +243,7 @@ namespace Auto_Lecture_Recorder
 
             if (remainingTime.TotalSeconds <= 0)
             {
-                new Thread(() => ExitLectureAndSave()).Start();
+                new Thread(async () => await ExitLectureAndSave()).Start();
             }
 
             /* Start to check for participants number after 45 minutes */
@@ -254,7 +254,7 @@ namespace Auto_Lecture_Recorder
 
         }
         
-        private async void ExitLectureAndSave()
+        private async Task ExitLectureAndSave()
         {
             Console.WriteLine("Empikame");
 
@@ -267,14 +267,27 @@ namespace Auto_Lecture_Recorder
 
             if (recorder.IsRecording)
             {
+                // Get to the correct screen
+                if (checkboxSettingsYoutube.Checked)
+                {
+                    // Show the settings panel where youtube progress is shown
+                    Invoke((Action)(() => {
+                        ShowPanel(panelSettings);
+                        menuSettingsYoutube.PerformClick();
+                        menuSettingsYoutube.Checked = true;
+                    })); 
+                }
+                else
+                    Invoke((Action)(() => ShowPanel(panelRecord)));
+
+                // Stop and save the recording
+                await Task.Run(() => recorder.StopRecording());
+
                 // Rename the file
                 string videoName = recorder.VideoName + " " + DateTime.Now.ToString("dd-MM-yy hh-mm-ss");
                 var path = Directory.CreateDirectory(Path.Combine(recorder.VideoFolderPath, recorder.VideoName));
                 string newVideoPath = Path.Combine(path.FullName, videoName + ".mp4");
 
-                await Task.Run(() => recorder.StopRecording());
-
-                // Rename the file
                 await MoveAndRenameRecording(recorder.RecordingPath, newVideoPath);
 
                 // Upload to youtube
@@ -287,19 +300,11 @@ namespace Auto_Lecture_Recorder
                         labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
                         labelYoutubeUploadStatus.Text = "Uploading...";
                         progressBarYoutube.Value = 0;
+                        timerUpdateYoutubeProgressbar.Start();
                     }));
                     
-                    timerUpdateYoutubeProgressbar.Start();
-
                     // Serialize youtube playlists
-                    Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists);
-
-                    // Show the settings panel where youtube progress is shown
-                    Invoke((Action)(() => {
-                        ShowPanel(panelSettings);
-                        menuSettingsYoutube.PerformClick();
-                    }));
-                    menuSettingsYoutube.Checked = true;
+                    Serializer.SerializeYoutubePlaylists(youtubeUploader.Playlists); 
                 }
 
                 // Delete the temp recording if it exists

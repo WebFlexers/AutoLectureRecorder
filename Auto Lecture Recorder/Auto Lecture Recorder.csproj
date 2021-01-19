@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8_graduation_cap.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -260,7 +260,6 @@
     <None Include="Resources\restore_down_20px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icons8_graduation_cap.ico" />
     <None Include="Resources\key_white_35px.png" />
     <None Include="Resources\key_blue_35px.png" />
     <None Include="Resources\checkbox_clicked.png" />
@@ -270,7 +269,9 @@
     <None Include="Resources\left_arrow_30px.png" />
     <None Include="Resources\right_arrow_30px.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.87.0.4280.8800\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.87.0.4280.8800\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

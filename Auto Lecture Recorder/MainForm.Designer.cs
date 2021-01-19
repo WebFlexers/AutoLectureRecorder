@@ -54,7 +54,9 @@
             this.panelAuthentication = new System.Windows.Forms.Panel();
             this.labelLoginStatus = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
+            this.textboxPassword = new Auto_Lecture_Recorder.ModernTextBox();
             this.label28 = new System.Windows.Forms.Label();
+            this.textboxRN = new Auto_Lecture_Recorder.ModernTextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.panelLectures = new System.Windows.Forms.Panel();
@@ -75,6 +77,7 @@
             this.daysMenuMonday = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
+            this.modernCheckbox2 = new Auto_Lecture_Recorder.ModernCheckbox();
             this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -84,41 +87,56 @@
             this.panelAddButton = new System.Windows.Forms.Panel();
             this.buttonAddSubject = new System.Windows.Forms.Button();
             this.panelEndTime = new System.Windows.Forms.Panel();
+            this.dropdownEndMin = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownEndHour = new Auto_Lecture_Recorder.DropdownList();
             this.label9 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.panelStartTime = new System.Windows.Forms.Panel();
+            this.dropdownStartMin = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownStartHour = new Auto_Lecture_Recorder.DropdownList();
             this.label16 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panelSelectPlatform = new System.Windows.Forms.Panel();
+            this.dropdownPlatform = new Auto_Lecture_Recorder.DropdownList();
             this.label15 = new System.Windows.Forms.Label();
             this.panelSubjectDay = new System.Windows.Forms.Panel();
+            this.dropdownDay = new Auto_Lecture_Recorder.DropdownList();
             this.label4 = new System.Windows.Forms.Label();
             this.panelSubjectName = new System.Windows.Forms.Panel();
+            this.textboxLectureName = new Auto_Lecture_Recorder.ModernTextBox();
             this.labelSubjectName = new System.Windows.Forms.Label();
             this.panelAddSubjectLabel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panelSettings = new System.Windows.Forms.Panel();
-            this.panelSettingsGeneral = new System.Windows.Forms.Panel();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.buttonBrowseLocation = new System.Windows.Forms.Button();
-            this.labelVideoLocation = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.panelSettingsRecording = new System.Windows.Forms.Panel();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.labelAudioOptions = new System.Windows.Forms.Label();
             this.panelSettingsYoutube = new System.Windows.Forms.Panel();
             this.panelYoutubeUpload = new System.Windows.Forms.Panel();
             this.labelYoutubeUploadStatus = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.progressBarYoutube = new System.Windows.Forms.ProgressBar();
+            this.checkboxSettingsYoutube = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.panelSettingsGeneral = new System.Windows.Forms.Panel();
+            this.textboxAutoQuitNum = new Auto_Lecture_Recorder.ModernTextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.buttonBrowseLocation = new System.Windows.Forms.Button();
+            this.labelVideoLocation = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.panelSettingsRecording = new System.Windows.Forms.Panel();
+            this.dropdownQuality = new Auto_Lecture_Recorder.DropdownList();
+            this.label25 = new System.Windows.Forms.Label();
+            this.dropdownFPS = new Auto_Lecture_Recorder.DropdownList();
+            this.label23 = new System.Windows.Forms.Label();
+            this.checkboxInputEnabled = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.checkboxOutputEnabled = new Auto_Lecture_Recorder.ModernCheckbox();
+            this.dropdownInputDevices = new Auto_Lecture_Recorder.DropdownList();
+            this.dropdownOutputDevices = new Auto_Lecture_Recorder.DropdownList();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.labelAudioOptions = new System.Windows.Forms.Label();
             this.panelSettingsSwitch = new System.Windows.Forms.Panel();
             this.menuSettingsYoutube = new System.Windows.Forms.RadioButton();
             this.menuSettingsGeneral = new System.Windows.Forms.RadioButton();
@@ -148,24 +166,6 @@
             this.folderBrowserVideo = new System.Windows.Forms.FolderBrowserDialog();
             this.timerUpdateYoutubeProgressbar = new System.Windows.Forms.Timer(this.components);
             this.timerCheckParticipants = new System.Windows.Forms.Timer(this.components);
-            this.textboxPassword = new Auto_Lecture_Recorder.ModernTextBox();
-            this.textboxRN = new Auto_Lecture_Recorder.ModernTextBox();
-            this.textboxAutoQuitNum = new Auto_Lecture_Recorder.ModernTextBox();
-            this.dropdownQuality = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownFPS = new Auto_Lecture_Recorder.DropdownList();
-            this.checkboxInputEnabled = new Auto_Lecture_Recorder.ModernCheckbox();
-            this.checkboxOutputEnabled = new Auto_Lecture_Recorder.ModernCheckbox();
-            this.dropdownInputDevices = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownOutputDevices = new Auto_Lecture_Recorder.DropdownList();
-            this.checkboxSettingsYoutube = new Auto_Lecture_Recorder.ModernCheckbox();
-            this.dropdownEndMin = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownEndHour = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownStartMin = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownStartHour = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownPlatform = new Auto_Lecture_Recorder.DropdownList();
-            this.dropdownDay = new Auto_Lecture_Recorder.DropdownList();
-            this.textboxLectureName = new Auto_Lecture_Recorder.ModernTextBox();
-            this.modernCheckbox2 = new Auto_Lecture_Recorder.ModernCheckbox();
             this.panelMenu.SuspendLayout();
             this.panelRecord.SuspendLayout();
             this.panelAuthentication.SuspendLayout();
@@ -186,10 +186,10 @@
             this.panelSubjectName.SuspendLayout();
             this.panelAddSubjectLabel.SuspendLayout();
             this.panelSettings.SuspendLayout();
-            this.panelSettingsGeneral.SuspendLayout();
-            this.panelSettingsRecording.SuspendLayout();
             this.panelSettingsYoutube.SuspendLayout();
             this.panelYoutubeUpload.SuspendLayout();
+            this.panelSettingsGeneral.SuspendLayout();
+            this.panelSettingsRecording.SuspendLayout();
             this.panelSettingsSwitch.SuspendLayout();
             this.panelMainWindows.SuspendLayout();
             this.panelActiveRecording.SuspendLayout();
@@ -405,6 +405,7 @@
             this.buttonYoutubeUpload.TabIndex = 17;
             this.buttonYoutubeUpload.Text = "Upload to youtube";
             this.buttonYoutubeUpload.UseVisualStyleBackColor = true;
+            this.buttonYoutubeUpload.Visible = false;
             this.buttonYoutubeUpload.Click += new System.EventHandler(this.buttonYoutubeUpload_Click);
             // 
             // button6
@@ -415,6 +416,7 @@
             this.button6.TabIndex = 15;
             this.button6.Text = "Join teams";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Visible = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
@@ -425,6 +427,7 @@
             this.button5.TabIndex = 14;
             this.button5.Text = "Show";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button3
@@ -435,6 +438,7 @@
             this.button3.TabIndex = 13;
             this.button3.Text = "Stop";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button1
@@ -445,6 +449,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelCountdown
@@ -553,6 +558,17 @@
             this.buttonLogin.UseVisualStyleBackColor = false;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
+            // textboxPassword
+            // 
+            this.textboxPassword.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxPassword.AutoSize = true;
+            this.textboxPassword.Location = new System.Drawing.Point(218, 256);
+            this.textboxPassword.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxPassword.Name = "textboxPassword";
+            this.textboxPassword.Size = new System.Drawing.Size(416, 30);
+            this.textboxPassword.TabIndex = 23;
+            this.textboxPassword.Load += new System.EventHandler(this.textboxPassword_Load);
+            // 
             // label28
             // 
             this.label28.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -564,6 +580,16 @@
             this.label28.TabIndex = 22;
             this.label28.Text = "Password";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textboxRN
+            // 
+            this.textboxRN.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxRN.AutoSize = true;
+            this.textboxRN.Location = new System.Drawing.Point(218, 145);
+            this.textboxRN.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxRN.Name = "textboxRN";
+            this.textboxRN.Size = new System.Drawing.Size(416, 30);
+            this.textboxRN.TabIndex = 21;
             // 
             // label27
             // 
@@ -886,6 +912,16 @@
             this.button2.TabIndex = 13;
             this.button2.UseVisualStyleBackColor = false;
             // 
+            // modernCheckbox2
+            // 
+            this.modernCheckbox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.modernCheckbox2.Checked = false;
+            this.modernCheckbox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modernCheckbox2.Location = new System.Drawing.Point(0, 209);
+            this.modernCheckbox2.Name = "modernCheckbox2";
+            this.modernCheckbox2.Size = new System.Drawing.Size(220, 40);
+            this.modernCheckbox2.TabIndex = 15;
+            // 
             // label11
             // 
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1009,6 +1045,24 @@
             this.panelEndTime.Size = new System.Drawing.Size(853, 130);
             this.panelEndTime.TabIndex = 6;
             // 
+            // dropdownEndMin
+            // 
+            this.dropdownEndMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownEndMin.Location = new System.Drawing.Point(455, 76);
+            this.dropdownEndMin.Name = "dropdownEndMin";
+            this.dropdownEndMin.Size = new System.Drawing.Size(91, 31);
+            this.dropdownEndMin.TabIndex = 24;
+            this.dropdownEndMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
+            // 
+            // dropdownEndHour
+            // 
+            this.dropdownEndHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownEndHour.Location = new System.Drawing.Point(307, 76);
+            this.dropdownEndHour.Name = "dropdownEndHour";
+            this.dropdownEndHour.Size = new System.Drawing.Size(91, 31);
+            this.dropdownEndHour.TabIndex = 23;
+            this.dropdownEndHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
+            // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -1064,6 +1118,24 @@
             this.panelStartTime.Size = new System.Drawing.Size(853, 135);
             this.panelStartTime.TabIndex = 5;
             // 
+            // dropdownStartMin
+            // 
+            this.dropdownStartMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownStartMin.Location = new System.Drawing.Point(455, 81);
+            this.dropdownStartMin.Name = "dropdownStartMin";
+            this.dropdownStartMin.Size = new System.Drawing.Size(91, 31);
+            this.dropdownStartMin.TabIndex = 18;
+            this.dropdownStartMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
+            // 
+            // dropdownStartHour
+            // 
+            this.dropdownStartHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownStartHour.Location = new System.Drawing.Point(307, 81);
+            this.dropdownStartHour.Name = "dropdownStartHour";
+            this.dropdownStartHour.Size = new System.Drawing.Size(91, 31);
+            this.dropdownStartHour.TabIndex = 17;
+            this.dropdownStartHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
+            // 
             // label16
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -1116,6 +1188,16 @@
             this.panelSelectPlatform.Size = new System.Drawing.Size(853, 93);
             this.panelSelectPlatform.TabIndex = 8;
             // 
+            // dropdownPlatform
+            // 
+            this.dropdownPlatform.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownPlatform.Location = new System.Drawing.Point(218, 39);
+            this.dropdownPlatform.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.dropdownPlatform.Name = "dropdownPlatform";
+            this.dropdownPlatform.Size = new System.Drawing.Size(416, 31);
+            this.dropdownPlatform.TabIndex = 9;
+            this.dropdownPlatform.Load += new System.EventHandler(this.dropdownPlatform_Load);
+            // 
             // label15
             // 
             this.label15.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1142,6 +1224,15 @@
             this.panelSubjectDay.Size = new System.Drawing.Size(853, 99);
             this.panelSubjectDay.TabIndex = 4;
             // 
+            // dropdownDay
+            // 
+            this.dropdownDay.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dropdownDay.Location = new System.Drawing.Point(218, 45);
+            this.dropdownDay.Name = "dropdownDay";
+            this.dropdownDay.Size = new System.Drawing.Size(416, 31);
+            this.dropdownDay.TabIndex = 7;
+            this.dropdownDay.Load += new System.EventHandler(this.dropdownDay_Load);
+            // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1167,6 +1258,16 @@
             this.panelSubjectName.Padding = new System.Windows.Forms.Padding(0, 5, 0, 20);
             this.panelSubjectName.Size = new System.Drawing.Size(853, 97);
             this.panelSubjectName.TabIndex = 3;
+            // 
+            // textboxLectureName
+            // 
+            this.textboxLectureName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textboxLectureName.AutoSize = true;
+            this.textboxLectureName.Location = new System.Drawing.Point(218, 44);
+            this.textboxLectureName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.textboxLectureName.Name = "textboxLectureName";
+            this.textboxLectureName.Size = new System.Drawing.Size(416, 30);
+            this.textboxLectureName.TabIndex = 19;
             // 
             // labelSubjectName
             // 
@@ -1209,9 +1310,9 @@
             // panelSettings
             // 
             this.panelSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.panelSettings.Controls.Add(this.panelSettingsYoutube);
             this.panelSettings.Controls.Add(this.panelSettingsGeneral);
             this.panelSettings.Controls.Add(this.panelSettingsRecording);
-            this.panelSettings.Controls.Add(this.panelSettingsYoutube);
             this.panelSettings.Controls.Add(this.panelSettingsSwitch);
             this.panelSettings.Controls.Add(this.label8);
             this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1219,6 +1320,80 @@
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(853, 696);
             this.panelSettings.TabIndex = 7;
+            // 
+            // panelSettingsYoutube
+            // 
+            this.panelSettingsYoutube.Controls.Add(this.panelYoutubeUpload);
+            this.panelSettingsYoutube.Controls.Add(this.checkboxSettingsYoutube);
+            this.panelSettingsYoutube.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSettingsYoutube.Location = new System.Drawing.Point(0, 104);
+            this.panelSettingsYoutube.Name = "panelSettingsYoutube";
+            this.panelSettingsYoutube.Size = new System.Drawing.Size(853, 592);
+            this.panelSettingsYoutube.TabIndex = 2;
+            // 
+            // panelYoutubeUpload
+            // 
+            this.panelYoutubeUpload.Controls.Add(this.labelYoutubeUploadStatus);
+            this.panelYoutubeUpload.Controls.Add(this.label32);
+            this.panelYoutubeUpload.Controls.Add(this.label22);
+            this.panelYoutubeUpload.Controls.Add(this.progressBarYoutube);
+            this.panelYoutubeUpload.Location = new System.Drawing.Point(-1, 133);
+            this.panelYoutubeUpload.Name = "panelYoutubeUpload";
+            this.panelYoutubeUpload.Size = new System.Drawing.Size(854, 235);
+            this.panelYoutubeUpload.TabIndex = 13;
+            // 
+            // labelYoutubeUploadStatus
+            // 
+            this.labelYoutubeUploadStatus.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelYoutubeUploadStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
+            this.labelYoutubeUploadStatus.Location = new System.Drawing.Point(0, 179);
+            this.labelYoutubeUploadStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.labelYoutubeUploadStatus.Name = "labelYoutubeUploadStatus";
+            this.labelYoutubeUploadStatus.Size = new System.Drawing.Size(855, 31);
+            this.labelYoutubeUploadStatus.TabIndex = 31;
+            this.labelYoutubeUploadStatus.Text = "Not uploading";
+            this.labelYoutubeUploadStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            this.label32.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label32.Location = new System.Drawing.Point(-1, 115);
+            this.label32.Margin = new System.Windows.Forms.Padding(0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(853, 55);
+            this.label32.TabIndex = 13;
+            this.label32.Text = "Uploading Status";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label22
+            // 
+            this.label22.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
+            this.label22.Location = new System.Drawing.Point(-1, 4);
+            this.label22.Margin = new System.Windows.Forms.Padding(0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(853, 55);
+            this.label22.TabIndex = 11;
+            this.label22.Text = "Video uploading progress";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // progressBarYoutube
+            // 
+            this.progressBarYoutube.Location = new System.Drawing.Point(199, 78);
+            this.progressBarYoutube.Name = "progressBarYoutube";
+            this.progressBarYoutube.Size = new System.Drawing.Size(452, 32);
+            this.progressBarYoutube.TabIndex = 12;
+            // 
+            // checkboxSettingsYoutube
+            // 
+            this.checkboxSettingsYoutube.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.checkboxSettingsYoutube.Checked = false;
+            this.checkboxSettingsYoutube.Location = new System.Drawing.Point(179, 52);
+            this.checkboxSettingsYoutube.Name = "checkboxSettingsYoutube";
+            this.checkboxSettingsYoutube.Size = new System.Drawing.Size(495, 34);
+            this.checkboxSettingsYoutube.TabIndex = 1;
+            this.checkboxSettingsYoutube.Load += new System.EventHandler(this.checkboxSettingsYoutube_Load);
             // 
             // panelSettingsGeneral
             // 
@@ -1233,6 +1408,15 @@
             this.panelSettingsGeneral.Name = "panelSettingsGeneral";
             this.panelSettingsGeneral.Size = new System.Drawing.Size(853, 592);
             this.panelSettingsGeneral.TabIndex = 32;
+            // 
+            // textboxAutoQuitNum
+            // 
+            this.textboxAutoQuitNum.AutoSize = true;
+            this.textboxAutoQuitNum.Location = new System.Drawing.Point(406, 310);
+            this.textboxAutoQuitNum.Name = "textboxAutoQuitNum";
+            this.textboxAutoQuitNum.Size = new System.Drawing.Size(40, 40);
+            this.textboxAutoQuitNum.TabIndex = 26;
+            this.textboxAutoQuitNum.Load += new System.EventHandler(this.textboxAutoQuitNum_Load);
             // 
             // label31
             // 
@@ -1320,6 +1504,14 @@
             this.panelSettingsRecording.Size = new System.Drawing.Size(853, 592);
             this.panelSettingsRecording.TabIndex = 19;
             // 
+            // dropdownQuality
+            // 
+            this.dropdownQuality.Location = new System.Drawing.Point(488, 450);
+            this.dropdownQuality.Name = "dropdownQuality";
+            this.dropdownQuality.Size = new System.Drawing.Size(123, 31);
+            this.dropdownQuality.TabIndex = 31;
+            this.dropdownQuality.Load += new System.EventHandler(this.dropdownQuality_Load);
+            // 
             // label25
             // 
             this.label25.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1332,6 +1524,14 @@
             this.label25.Text = "Quality";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // dropdownFPS
+            // 
+            this.dropdownFPS.Location = new System.Drawing.Point(242, 450);
+            this.dropdownFPS.Name = "dropdownFPS";
+            this.dropdownFPS.Size = new System.Drawing.Size(123, 31);
+            this.dropdownFPS.TabIndex = 29;
+            this.dropdownFPS.Load += new System.EventHandler(this.dropdownFPS_Load);
+            // 
             // label23
             // 
             this.label23.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1343,6 +1543,40 @@
             this.label23.TabIndex = 28;
             this.label23.Text = "FPS";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkboxInputEnabled
+            // 
+            this.checkboxInputEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.checkboxInputEnabled.Checked = false;
+            this.checkboxInputEnabled.Location = new System.Drawing.Point(189, 283);
+            this.checkboxInputEnabled.Name = "checkboxInputEnabled";
+            this.checkboxInputEnabled.Size = new System.Drawing.Size(347, 34);
+            this.checkboxInputEnabled.TabIndex = 24;
+            this.checkboxInputEnabled.Load += new System.EventHandler(this.checkboxInputEnabled_Load);
+            // 
+            // checkboxOutputEnabled
+            // 
+            this.checkboxOutputEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
+            this.checkboxOutputEnabled.Checked = false;
+            this.checkboxOutputEnabled.Location = new System.Drawing.Point(189, 166);
+            this.checkboxOutputEnabled.Name = "checkboxOutputEnabled";
+            this.checkboxOutputEnabled.Size = new System.Drawing.Size(347, 34);
+            this.checkboxOutputEnabled.TabIndex = 23;
+            this.checkboxOutputEnabled.Load += new System.EventHandler(this.checkboxOutputEnabled_Load);
+            // 
+            // dropdownInputDevices
+            // 
+            this.dropdownInputDevices.Location = new System.Drawing.Point(189, 241);
+            this.dropdownInputDevices.Name = "dropdownInputDevices";
+            this.dropdownInputDevices.Size = new System.Drawing.Size(474, 31);
+            this.dropdownInputDevices.TabIndex = 22;
+            // 
+            // dropdownOutputDevices
+            // 
+            this.dropdownOutputDevices.Location = new System.Drawing.Point(189, 128);
+            this.dropdownOutputDevices.Name = "dropdownOutputDevices";
+            this.dropdownOutputDevices.Size = new System.Drawing.Size(474, 31);
+            this.dropdownOutputDevices.TabIndex = 21;
             // 
             // label20
             // 
@@ -1393,70 +1627,6 @@
             this.labelAudioOptions.TabIndex = 18;
             this.labelAudioOptions.Text = "Audio options";
             this.labelAudioOptions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelSettingsYoutube
-            // 
-            this.panelSettingsYoutube.Controls.Add(this.panelYoutubeUpload);
-            this.panelSettingsYoutube.Controls.Add(this.checkboxSettingsYoutube);
-            this.panelSettingsYoutube.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelSettingsYoutube.Location = new System.Drawing.Point(0, 104);
-            this.panelSettingsYoutube.Name = "panelSettingsYoutube";
-            this.panelSettingsYoutube.Size = new System.Drawing.Size(853, 592);
-            this.panelSettingsYoutube.TabIndex = 2;
-            // 
-            // panelYoutubeUpload
-            // 
-            this.panelYoutubeUpload.Controls.Add(this.labelYoutubeUploadStatus);
-            this.panelYoutubeUpload.Controls.Add(this.label32);
-            this.panelYoutubeUpload.Controls.Add(this.label22);
-            this.panelYoutubeUpload.Controls.Add(this.progressBarYoutube);
-            this.panelYoutubeUpload.Location = new System.Drawing.Point(-1, 133);
-            this.panelYoutubeUpload.Name = "panelYoutubeUpload";
-            this.panelYoutubeUpload.Size = new System.Drawing.Size(854, 235);
-            this.panelYoutubeUpload.TabIndex = 13;
-            // 
-            // labelYoutubeUploadStatus
-            // 
-            this.labelYoutubeUploadStatus.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelYoutubeUploadStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(123)))), ((int)(((byte)(245)))));
-            this.labelYoutubeUploadStatus.Location = new System.Drawing.Point(0, 179);
-            this.labelYoutubeUploadStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.labelYoutubeUploadStatus.Name = "labelYoutubeUploadStatus";
-            this.labelYoutubeUploadStatus.Size = new System.Drawing.Size(855, 31);
-            this.labelYoutubeUploadStatus.TabIndex = 31;
-            this.labelYoutubeUploadStatus.Text = "Not uploading";
-            this.labelYoutubeUploadStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label32
-            // 
-            this.label32.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
-            this.label32.Location = new System.Drawing.Point(-1, 115);
-            this.label32.Margin = new System.Windows.Forms.Padding(0);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(853, 55);
-            this.label32.TabIndex = 13;
-            this.label32.Text = "Uploading Status";
-            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label22
-            // 
-            this.label22.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(147)))), ((int)(((byte)(41)))));
-            this.label22.Location = new System.Drawing.Point(-1, 4);
-            this.label22.Margin = new System.Windows.Forms.Padding(0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(853, 55);
-            this.label22.TabIndex = 11;
-            this.label22.Text = "Video uploading progress";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // progressBarYoutube
-            // 
-            this.progressBarYoutube.Location = new System.Drawing.Point(199, 78);
-            this.progressBarYoutube.Name = "progressBarYoutube";
-            this.progressBarYoutube.Size = new System.Drawing.Size(452, 32);
-            this.progressBarYoutube.TabIndex = 12;
             // 
             // panelSettingsSwitch
             // 
@@ -1552,9 +1722,9 @@
             // 
             // panelMainWindows
             // 
+            this.panelMainWindows.Controls.Add(this.panelSettings);
             this.panelMainWindows.Controls.Add(this.panelRecord);
             this.panelMainWindows.Controls.Add(this.panelAuthentication);
-            this.panelMainWindows.Controls.Add(this.panelSettings);
             this.panelMainWindows.Controls.Add(this.panelActiveRecording);
             this.panelMainWindows.Controls.Add(this.panelAddLectures);
             this.panelMainWindows.Controls.Add(this.panelLectures);
@@ -1835,171 +2005,6 @@
             this.timerCheckParticipants.Interval = 10000;
             this.timerCheckParticipants.Tick += new System.EventHandler(this.timerCheckParticipants_Tick);
             // 
-            // textboxPassword
-            // 
-            this.textboxPassword.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textboxPassword.AutoSize = true;
-            this.textboxPassword.Location = new System.Drawing.Point(218, 256);
-            this.textboxPassword.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.textboxPassword.Name = "textboxPassword";
-            this.textboxPassword.Size = new System.Drawing.Size(416, 30);
-            this.textboxPassword.TabIndex = 23;
-            this.textboxPassword.Load += new System.EventHandler(this.textboxPassword_Load);
-            // 
-            // textboxRN
-            // 
-            this.textboxRN.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textboxRN.AutoSize = true;
-            this.textboxRN.Location = new System.Drawing.Point(218, 145);
-            this.textboxRN.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.textboxRN.Name = "textboxRN";
-            this.textboxRN.Size = new System.Drawing.Size(416, 30);
-            this.textboxRN.TabIndex = 21;
-            // 
-            // textboxAutoQuitNum
-            // 
-            this.textboxAutoQuitNum.AutoSize = true;
-            this.textboxAutoQuitNum.Location = new System.Drawing.Point(406, 310);
-            this.textboxAutoQuitNum.Name = "textboxAutoQuitNum";
-            this.textboxAutoQuitNum.Size = new System.Drawing.Size(40, 40);
-            this.textboxAutoQuitNum.TabIndex = 26;
-            this.textboxAutoQuitNum.Load += new System.EventHandler(this.textboxAutoQuitNum_Load);
-            // 
-            // dropdownQuality
-            // 
-            this.dropdownQuality.Location = new System.Drawing.Point(488, 450);
-            this.dropdownQuality.Name = "dropdownQuality";
-            this.dropdownQuality.Size = new System.Drawing.Size(123, 31);
-            this.dropdownQuality.TabIndex = 31;
-            this.dropdownQuality.Load += new System.EventHandler(this.dropdownQuality_Load);
-            // 
-            // dropdownFPS
-            // 
-            this.dropdownFPS.Location = new System.Drawing.Point(242, 450);
-            this.dropdownFPS.Name = "dropdownFPS";
-            this.dropdownFPS.Size = new System.Drawing.Size(123, 31);
-            this.dropdownFPS.TabIndex = 29;
-            this.dropdownFPS.Load += new System.EventHandler(this.dropdownFPS_Load);
-            // 
-            // checkboxInputEnabled
-            // 
-            this.checkboxInputEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.checkboxInputEnabled.Checked = false;
-            this.checkboxInputEnabled.Location = new System.Drawing.Point(189, 283);
-            this.checkboxInputEnabled.Name = "checkboxInputEnabled";
-            this.checkboxInputEnabled.Size = new System.Drawing.Size(347, 34);
-            this.checkboxInputEnabled.TabIndex = 24;
-            this.checkboxInputEnabled.Load += new System.EventHandler(this.checkboxInputEnabled_Load);
-            // 
-            // checkboxOutputEnabled
-            // 
-            this.checkboxOutputEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.checkboxOutputEnabled.Checked = false;
-            this.checkboxOutputEnabled.Location = new System.Drawing.Point(189, 166);
-            this.checkboxOutputEnabled.Name = "checkboxOutputEnabled";
-            this.checkboxOutputEnabled.Size = new System.Drawing.Size(347, 34);
-            this.checkboxOutputEnabled.TabIndex = 23;
-            this.checkboxOutputEnabled.Load += new System.EventHandler(this.checkboxOutputEnabled_Load);
-            // 
-            // dropdownInputDevices
-            // 
-            this.dropdownInputDevices.Location = new System.Drawing.Point(189, 241);
-            this.dropdownInputDevices.Name = "dropdownInputDevices";
-            this.dropdownInputDevices.Size = new System.Drawing.Size(474, 31);
-            this.dropdownInputDevices.TabIndex = 22;
-            // 
-            // dropdownOutputDevices
-            // 
-            this.dropdownOutputDevices.Location = new System.Drawing.Point(189, 128);
-            this.dropdownOutputDevices.Name = "dropdownOutputDevices";
-            this.dropdownOutputDevices.Size = new System.Drawing.Size(474, 31);
-            this.dropdownOutputDevices.TabIndex = 21;
-            // 
-            // checkboxSettingsYoutube
-            // 
-            this.checkboxSettingsYoutube.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.checkboxSettingsYoutube.Checked = false;
-            this.checkboxSettingsYoutube.Location = new System.Drawing.Point(179, 52);
-            this.checkboxSettingsYoutube.Name = "checkboxSettingsYoutube";
-            this.checkboxSettingsYoutube.Size = new System.Drawing.Size(495, 34);
-            this.checkboxSettingsYoutube.TabIndex = 1;
-            this.checkboxSettingsYoutube.Load += new System.EventHandler(this.checkboxSettingsYoutube_Load);
-            // 
-            // dropdownEndMin
-            // 
-            this.dropdownEndMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownEndMin.Location = new System.Drawing.Point(455, 76);
-            this.dropdownEndMin.Name = "dropdownEndMin";
-            this.dropdownEndMin.Size = new System.Drawing.Size(91, 31);
-            this.dropdownEndMin.TabIndex = 24;
-            this.dropdownEndMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
-            // 
-            // dropdownEndHour
-            // 
-            this.dropdownEndHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownEndHour.Location = new System.Drawing.Point(307, 76);
-            this.dropdownEndHour.Name = "dropdownEndHour";
-            this.dropdownEndHour.Size = new System.Drawing.Size(91, 31);
-            this.dropdownEndHour.TabIndex = 23;
-            this.dropdownEndHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
-            // 
-            // dropdownStartMin
-            // 
-            this.dropdownStartMin.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownStartMin.Location = new System.Drawing.Point(455, 81);
-            this.dropdownStartMin.Name = "dropdownStartMin";
-            this.dropdownStartMin.Size = new System.Drawing.Size(91, 31);
-            this.dropdownStartMin.TabIndex = 18;
-            this.dropdownStartMin.Load += new System.EventHandler(this.dropdownStartMin_Load);
-            // 
-            // dropdownStartHour
-            // 
-            this.dropdownStartHour.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownStartHour.Location = new System.Drawing.Point(307, 81);
-            this.dropdownStartHour.Name = "dropdownStartHour";
-            this.dropdownStartHour.Size = new System.Drawing.Size(91, 31);
-            this.dropdownStartHour.TabIndex = 17;
-            this.dropdownStartHour.Load += new System.EventHandler(this.dropdownStartHour_Load);
-            // 
-            // dropdownPlatform
-            // 
-            this.dropdownPlatform.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownPlatform.Location = new System.Drawing.Point(218, 39);
-            this.dropdownPlatform.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.dropdownPlatform.Name = "dropdownPlatform";
-            this.dropdownPlatform.Size = new System.Drawing.Size(416, 31);
-            this.dropdownPlatform.TabIndex = 9;
-            this.dropdownPlatform.Load += new System.EventHandler(this.dropdownPlatform_Load);
-            // 
-            // dropdownDay
-            // 
-            this.dropdownDay.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dropdownDay.Location = new System.Drawing.Point(218, 45);
-            this.dropdownDay.Name = "dropdownDay";
-            this.dropdownDay.Size = new System.Drawing.Size(416, 31);
-            this.dropdownDay.TabIndex = 7;
-            this.dropdownDay.Load += new System.EventHandler(this.dropdownDay_Load);
-            // 
-            // textboxLectureName
-            // 
-            this.textboxLectureName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textboxLectureName.AutoSize = true;
-            this.textboxLectureName.Location = new System.Drawing.Point(218, 44);
-            this.textboxLectureName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.textboxLectureName.Name = "textboxLectureName";
-            this.textboxLectureName.Size = new System.Drawing.Size(416, 30);
-            this.textboxLectureName.TabIndex = 19;
-            // 
-            // modernCheckbox2
-            // 
-            this.modernCheckbox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(66)))));
-            this.modernCheckbox2.Checked = false;
-            this.modernCheckbox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modernCheckbox2.Location = new System.Drawing.Point(0, 209);
-            this.modernCheckbox2.Name = "modernCheckbox2";
-            this.modernCheckbox2.Size = new System.Drawing.Size(220, 40);
-            this.modernCheckbox2.TabIndex = 15;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2044,11 +2049,11 @@
             this.panelSubjectName.PerformLayout();
             this.panelAddSubjectLabel.ResumeLayout(false);
             this.panelSettings.ResumeLayout(false);
+            this.panelSettingsYoutube.ResumeLayout(false);
+            this.panelYoutubeUpload.ResumeLayout(false);
             this.panelSettingsGeneral.ResumeLayout(false);
             this.panelSettingsGeneral.PerformLayout();
             this.panelSettingsRecording.ResumeLayout(false);
-            this.panelSettingsYoutube.ResumeLayout(false);
-            this.panelYoutubeUpload.ResumeLayout(false);
             this.panelSettingsSwitch.ResumeLayout(false);
             this.panelMainWindows.ResumeLayout(false);
             this.panelMainWindows.PerformLayout();

@@ -493,7 +493,7 @@ namespace Auto_Lecture_Recorder
         {
             if (checkboxSettingsYoutube.Checked)
             {
-                UploadRecording("C:/Users/Michalis/Documents/Auto Lecture Recorder/ΜΑΘΗΜΑΤΙΚΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ 08-01-2021.mp4", 
+                UploadRecording("C:/Users/Michalis/Documents/Auto Lecture Recorder/ΜΑΘΗΜΑΤΙΚΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ 08-01-2021.mp4",
                                 "Μαθηματικός Προγραμματισμός", "Test playlist");
                 panelYoutubeUpload.Show();
                 labelYoutubeUploadStatus.ForeColor = Color.FromArgb(42, 123, 245);
@@ -503,7 +503,7 @@ namespace Auto_Lecture_Recorder
             }
         }
 
-      
+     
     }
 }
 

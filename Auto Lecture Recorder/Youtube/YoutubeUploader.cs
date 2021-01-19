@@ -68,9 +68,6 @@ namespace Auto_Lecture_Recorder.Youtube
         {
             //int counter = 0;
             //Path.Combine("client_id" + counter, ".json");
-            Authenticate();
-                
-          
 
             var youtubeService = new YouTubeService(new BaseClientService.Initializer()
             {
@@ -79,7 +76,7 @@ namespace Auto_Lecture_Recorder.Youtube
             });
 
 
-            if (Authenticated == true)
+            if (await Authenticate())
             {
                 //video creation
                 var video = new Video();

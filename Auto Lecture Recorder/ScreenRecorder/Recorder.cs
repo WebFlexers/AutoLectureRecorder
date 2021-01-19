@@ -91,7 +91,7 @@ namespace Auto_Lecture_Recorder.ScreenRecorder
                 recorder.Stop();
                 while (IsRecording)
                 {
-                    Thread.Sleep(50);
+                    Thread.Sleep(100);
                 }
                 //recorder.Dispose();
             }

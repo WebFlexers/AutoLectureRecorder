@@ -16,7 +16,7 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
 {
     partial class ChromeBot
     {
-        const int waitTime = 20; //seconds                
+        const int waitTime = 30; //seconds                
         public void GoToTeamsMenu() => driver.Url = "https://teams.microsoft.com/_#/school//?ctx=teamsGrid";       
         public bool ConnectToTeams(string AM, string password)
         {
@@ -44,15 +44,19 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
                 usernameUnipiInputBox.SendKeys(AM);
                 IWebElement passwordUnipiInputBox = driver.FindElement(By.Id("password"));
                 passwordUnipiInputBox.SendKeys(password);
-                
+
 
                 //Login button
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(900);
                 IWebElement loginUnipiBtn = driver.FindElement(By.Id("submitForm"));
                 loginUnipiBtn.Click();
 
                 //No stay sign in page
                 IWebElement NoStaySignInBtn = driver.FindElement(By.Id("idBtn_Back"));
                 NoStaySignInBtn.Click();
+
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(waitTime);
+
                 return true;
             }
             catch(Exception e)
@@ -109,7 +113,7 @@ namespace Auto_Lecture_Recorder.BotController.Unipi
 
             try
             {
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
                 var participantsList = driver.FindElements(By.XPath("//li[contains(@data-tid, 'participantsInCall')]"));
                 foreach (var p in participantsList)
