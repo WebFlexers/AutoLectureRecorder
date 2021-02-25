@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoLectureRecorder"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+        Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged">
         <WindowChrome.WindowChrome>
-            <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+            <WindowChrome GlassFrameThickness="0" CaptionHeight="32" CornerRadius="0" ResizeBorderThickness="32"  UseAeroCaptionButtons="False" />
         </WindowChrome.WindowChrome>
 
     <Grid>
@@ -16,8 +16,13 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
         <!--Menu grid-->
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -56,7 +61,7 @@
         </Grid>
 
         <!--TitleBar-->
-        <Grid Grid.Column="1" Background="#232742">
+        <Grid Grid.Column="1" Grid.Row="0" Background="#232742">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="1*"/>
@@ -71,15 +76,36 @@
 
             <Grid.Resources>
                 <Style TargetType="Button">
-                    <!--<Image Source="images/"></Image>-->
+                    <Setter Property="Background" Value="#232742"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center" 
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Margin="4"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="#454D73"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </Grid.Resources>
 
-            <Button x:Name="ButtonExit" Grid.Column="3">
-                
+            <Button x:Name="ButtonExit" Grid.Column="3" Click="ButtonExit_Click">
+                <Image x:Name="ImageExit" Source="/x_24px.png"/>
             </Button>
-            <Button x:Name="ButtonResize" Grid.Column="2"/>
-            <Button x:Name="ButtonWindowState" Grid.Column="1"/>
+            <Button x:Name="ButtonResize" Grid.Column="2" Click="ButtonResize_Click">
+                <Image x:Name="ImageResize" Source="/maximize_button_18px.png" Margin="4"/>
+            </Button>
+            <Button x:Name="ButtonWindowState" Grid.Column="1" Click="ButtonWindowState_Click">
+                <Image x:Name="ImageWindowState" Source="/minus_20px.png"/>
+            </Button>
         </Grid>
         
         

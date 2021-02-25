@@ -32,5 +32,37 @@ namespace AutoLectureRecorder
             Brush pressedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#454D73");
             button.Background = button.Background.Equals(initialBrush) ? pressedBrush : initialBrush;
         }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void ButtonResize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+                ImageResize.Source = new BitmapImage(new Uri("/restore_down_20px.png", UriKind.Relative));
+            }
+            else if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+                ImageResize.Source = new BitmapImage(new Uri("/maximize_button_18px.png", UriKind.Relative));
+            }
+        }
+
+        private void ButtonWindowState_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+                ImageResize.Source = new BitmapImage(new Uri("/maximize_button_18px.png", UriKind.Relative));
+            else if (this.WindowState == WindowState.Maximized)
+                ImageResize.Source = new BitmapImage(new Uri("/restore_down_20px.png", UriKind.Relative));
+        }
     }
 }
