@@ -1,0 +1,57 @@
+﻿<Window x:Class="AutoLectureRecorder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoLectureRecorder"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" MaxWidth="200"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Menu grid-->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#333856"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <EventSetter Event="Click" Handler="ButtonMenu_Click"></EventSetter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="#454D73"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
+
+            <Button x:Name="MenuRecord" Grid.Row="0"/>
+            <Button x:Name="MenuLectures" Grid.Row="1"/>
+            <Button x:Name="MenuAddLectures" Grid.Row="2"/>
+            <Button x:Name="MenuYoutube" Grid.Row="3"/>
+            <Button x:Name="MenuSettings" Grid.Row="4"/>
+        </Grid>
+        
+        
+        
+    </Grid>
+</Window>
