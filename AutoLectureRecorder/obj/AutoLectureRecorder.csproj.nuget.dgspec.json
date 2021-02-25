@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Michalis\\source\\repos\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {}
+    "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Michalis\\source\\repos\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {
+    "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Michalis\\source\\repos\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+        "projectUniqueName": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
         "projectName": "AutoLectureRecorder",
-        "projectPath": "C:\\Users\\Michalis\\source\\repos\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+        "projectPath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
         "packagesPath": "C:\\Users\\Michalis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Michalis\\source\\repos\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
+        "outputPath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoLectureRecorder"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996">
+        Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+        <WindowChrome.WindowChrome>
+            <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+        </WindowChrome.WindowChrome>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" MaxWidth="200"/>
@@ -50,7 +54,33 @@
             <Button x:Name="MenuYoutube" Grid.Row="3"/>
             <Button x:Name="MenuSettings" Grid.Row="4"/>
         </Grid>
-        
+
+        <!--TitleBar-->
+        <Grid Grid.Column="1" Background="#232742">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="32"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Button">
+                        
+                </Style>
+            </Grid.Resources>
+
+            <Button x:Name="ButtonExit" Grid.Column="3">
+                
+            </Button>
+            <Button x:Name="ButtonResize" Grid.Column="2"/>
+            <Button x:Name="ButtonWindowState" Grid.Column="1"/>
+        </Grid>
         
         
     </Grid>

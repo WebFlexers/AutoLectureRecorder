@@ -30,7 +30,6 @@ namespace AutoLectureRecorder
             Button button = sender as Button;
             Brush initialBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#333856");
             Brush pressedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#454D73");
-            initialBrush.
             button.Background = button.Background.Equals(initialBrush) ? pressedBrush : initialBrush;
         }
     }
