@@ -5,109 +5,167 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoLectureRecorder"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged">
-        <WindowChrome.WindowChrome>
-            <WindowChrome GlassFrameThickness="0" CaptionHeight="32" CornerRadius="0" ResizeBorderThickness="32"  UseAeroCaptionButtons="False" />
-        </WindowChrome.WindowChrome>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="Segoe UI"
+        Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="SingleBorderWindow" 
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged" FontSize="14">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" MaxWidth="200"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+    <!-- Custom titlebar  -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="0" 
+                          NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
+    <Border BorderThickness="0">
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                    <!--Add to avoid border disappearing when window is maximised-->
+                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                                 Value="Maximized">
+                        <Setter Property="Margin" Value="8"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                                 Value="Normal">
+                        <Setter Property="Margin" Value="0"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
 
-        <!--Menu grid-->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
 
-            <Grid.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Background" Value="#333856"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <EventSetter Event="Click" Handler="ButtonMenu_Click"></EventSetter>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" TargetName="border" Value="#454D73"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Grid.Resources>
 
-            <Button x:Name="MenuRecord" Grid.Row="0"/>
-            <Button x:Name="MenuLectures" Grid.Row="1"/>
-            <Button x:Name="MenuAddLectures" Grid.Row="2"/>
-            <Button x:Name="MenuYoutube" Grid.Row="3"/>
-            <Button x:Name="MenuSettings" Grid.Row="4"/>
-        </Grid>
-
-        <!--TitleBar-->
-        <Grid Grid.Column="1" Grid.Row="0" Background="#232742">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-
+        <!-- Main Grid -->
+        <Grid Background="#eef5fa">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="32"/>
-                <ColumnDefinition Width="32"/>
-                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="1*" MaxWidth="150"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Background" Value="#232742"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center" 
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Margin="4"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" TargetName="border" Value="#454D73"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
 
-            <Button x:Name="ButtonExit" Grid.Column="3" Click="ButtonExit_Click">
-                <Image x:Name="ImageExit" Source="/x_24px.png"/>
-            </Button>
-            <Button x:Name="ButtonResize" Grid.Column="2" Click="ButtonResize_Click">
-                <Image x:Name="ImageResize" Source="/maximize_button_18px.png" Margin="4"/>
-            </Button>
-            <Button x:Name="ButtonWindowState" Grid.Column="1" Click="ButtonWindowState_Click">
-                <Image x:Name="ImageWindowState" Source="/minus_20px.png"/>
-            </Button>
+            <!--TitleBar-->
+            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="32"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center" 
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Margin="4"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" TargetName="border" Value="#454D73"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                        <GradientStop Color="#FF183A56"/>
+                        <GradientStop Color="#FF204D72" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <Button x:Name="ButtonExit" Grid.Column="3" Click="ButtonExit_Click">
+                    <Image x:Name="ImageExit" Source="/x_24px.png"/>
+                </Button>
+                <Button x:Name="ButtonResize" Grid.Column="2" Click="ButtonResize_Click">
+                    <Image x:Name="ImageResize" Source="/maximize_button_18px.png" Margin="4"/>
+                </Button>
+                <Button x:Name="ButtonWindowState" Grid.Column="1" Click="ButtonWindowState_Click">
+                    <Image x:Name="ImageWindowState" Source="/minus_20px.png"/>
+                </Button>
+            </Grid>
+            
+
+            <!--Menu grid-->
+            <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="56"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF183A56" Offset="0"/>
+                        <GradientStop Color="#FF204D72" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <TextBlock Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" Background="#FF1BCDCF" TextWrapping="NoWrap" LineStackingStrategy="MaxHeight" FontWeight="Regular" TextAlignment="Center">
+                    Auto Lecture <LineBreak/> Recorder
+                </TextBlock>
+
+
+                <ListView Width="150" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="0">
+
+                    <ListViewItem x:Name="MenuRecord" Height="60" Foreground="#FFEEF5FA" IsSelected="True">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Source="/record_50px.png" Width="34"/>
+                            <TextBlock Text="Record" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="MenuLectures" Height="60" Foreground="#FFEEF5FA">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Source="/lectures_50px.png" Width="34"/>
+                            <TextBlock Text="Lectures" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="MenuYoutube" Height="60" Foreground="#FFEEF5FA">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Source="/youtube_50px.png" Width="34"/>
+                            <TextBlock Text="Upload" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="MenuSettings" Height="60" Foreground="#FFEEF5FA">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Source="/settings_50px.png" Width="34"/>
+                            <TextBlock Text="Settings" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+
+                <Image Grid.Row="4" Margin="0,0,0,15" Width="90" Height="90" Source="/graduation_cap_100px.png" Stretch="Uniform"/>
+            </Grid>
+
+            <!-- Main Frame -->
+            <Frame x:Name="FrameMain" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"/>
+
         </Grid>
-        
-        
-    </Grid>
+    </Border>
 </Window>
