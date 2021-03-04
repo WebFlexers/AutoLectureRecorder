@@ -47,6 +47,10 @@
             "MaterialDesignThemes": {
               "target": "Package",
               "version": "[4.0.0, )"
+            },
+            "morelinq": {
+              "target": "Package",
+              "version": "[3.3.2, )"
             }
           },
           "imports": [

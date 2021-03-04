@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "owNERJTr/oxMYNxm3JUpQn88N8UYN1taQlLqLqj52+FbVyayuYHywkkTNhZ720Q+GG42qzUyoKkwkpIOsxCFUQ==",
+  "dgSpecHash": "j0dRu4aRK7h3kr7CkBxl/oph3ogesbgxUoPoaXpUn2z8TqlrzN9GHj6J89qRzDgYqsNCzqa3H9YaZLe2SOMEDw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Michalis\\.nuget\\packages\\materialdesigncolors\\2.0.0\\materialdesigncolors.2.0.0.nupkg.sha512",
-    "C:\\Users\\Michalis\\.nuget\\packages\\materialdesignthemes\\4.0.0\\materialdesignthemes.4.0.0.nupkg.sha512"
+    "C:\\Users\\Michalis\\.nuget\\packages\\materialdesignthemes\\4.0.0\\materialdesignthemes.4.0.0.nupkg.sha512",
+    "C:\\Users\\Michalis\\.nuget\\packages\\morelinq\\3.3.2\\morelinq.3.3.2.nupkg.sha512"
   ],
   "logs": []
 }

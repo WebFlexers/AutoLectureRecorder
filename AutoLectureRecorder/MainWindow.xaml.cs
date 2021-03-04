@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoLectureRecorder.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,14 +26,12 @@ namespace AutoLectureRecorder
             InitializeComponent();
         }
 
-        private void ButtonMenu_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            Brush initialBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#333856");
-            Brush pressedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#454D73");
-            button.Background = button.Background.Equals(initialBrush) ? pressedBrush : initialBrush;
+            MenuRecord.IsSelected = true;
         }
 
+        #region Titlebar
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -43,12 +42,12 @@ namespace AutoLectureRecorder
             if (this.WindowState == WindowState.Normal)
             {
                 this.WindowState = WindowState.Maximized;
-                ImageResize.Source = new BitmapImage(new Uri("/restore_down_20px.png", UriKind.Relative));
+                ResizeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.WindowRestore;             
             }
             else if (this.WindowState == WindowState.Maximized)
             {
                 this.WindowState = WindowState.Normal;
-                ImageResize.Source = new BitmapImage(new Uri("/maximize_button_18px.png", UriKind.Relative));
+                ResizeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.WindowMaximize;
             }
         }
 
@@ -60,9 +59,58 @@ namespace AutoLectureRecorder
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (this.WindowState == WindowState.Normal)
-                ImageResize.Source = new BitmapImage(new Uri("/maximize_button_18px.png", UriKind.Relative));
+                ResizeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.WindowMaximize;
             else if (this.WindowState == WindowState.Maximized)
-                ImageResize.Source = new BitmapImage(new Uri("/restore_down_20px.png", UriKind.Relative));
+                ResizeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.WindowRestore;
         }
+        #endregion
+
+        #region Menu
+        RecordPage recordPage;
+        AddLecture addLecture;
+        Lectures lectures;
+
+        private void MenuRecord_Selected(object sender, RoutedEventArgs e)
+        {
+            if (recordPage == null)
+                recordPage = new RecordPage();
+
+            FrameMain.Content = recordPage;
+        }
+
+        private void MenuLectures_Selected(object sender, RoutedEventArgs e)
+        {
+            ShowLecturesSection();
+        }
+
+        private void MenuYoutube_Selected(object sender, RoutedEventArgs e)
+        {
+            ShowAddLecturesSection();
+        }
+
+        private void MenuSettings_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /* Used to change frame content from another page or window */
+        public void ShowAddLecturesSection()
+        {
+            if (addLecture == null)
+                addLecture = new AddLecture();
+
+            FrameMain.Content = addLecture;
+        }
+
+        public void ShowLecturesSection()
+        {
+            if (lectures == null)
+                lectures = new Lectures();
+
+            FrameMain.Content = lectures;
+        }
+        #endregion
+
+        
     }
 }

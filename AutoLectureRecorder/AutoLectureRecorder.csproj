@@ -12,6 +12,7 @@
     <None Remove="lectures_50px.png" />
     <None Remove="maximize_button_18px.png" />
     <None Remove="minus_20px.png" />
+    <None Remove="Pages\record_button_off.png" />
     <None Remove="record_50px.png" />
     <None Remove="restore_down_20px.png" />
     <None Remove="settings_50px.png" />
@@ -21,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,7 @@
     <Resource Include="lectures_50px.png" />
     <Resource Include="maximize_button_18px.png" />
     <Resource Include="minus_20px.png" />
+    <Resource Include="Pages\record_button_off.png" />
     <Resource Include="record_50px.png" />
     <Resource Include="restore_down_20px.png" />
     <Resource Include="settings_50px.png" />

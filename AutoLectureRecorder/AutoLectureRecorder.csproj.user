@@ -7,7 +7,33 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Pages\AddLecture.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Lectures.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\RecordPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Structure\LectureModel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\AddLecture.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Lectures.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\RecordPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Structure\LectureModel.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

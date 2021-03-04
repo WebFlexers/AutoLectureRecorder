@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\App.xaml
-11151548125
+5827036511
 
-5-714567747
-194852410057
-MainWindow.xaml;
+11-71563839
+1951759980087
+MainWindow.xaml;Pages\AddLecture.xaml;Pages\Lectures.xaml;Pages\RecordPage.xaml;Structure\LectureModel.xaml;
 
-False
+True
 
