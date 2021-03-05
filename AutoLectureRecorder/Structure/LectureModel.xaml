@@ -4,23 +4,56 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoLectureRecorder.Structure"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="270" d:DesignWidth="220">
 
     <Border BorderThickness="1" BorderBrush="Black">
         <StackPanel Background="#FFEDEFEE">
-            <Border Height="65" Background="#FF183A56" BorderBrush="Black" BorderThickness="0 0 0 1">
-                <TextBlock 
-                x:Name="TextBlockName"
-                VerticalAlignment="Center"
-                TextAlignment="Center"
-                TextWrapping="Wrap"
-                TextTrimming="CharacterEllipsis"
-                FontSize="22" 
-                FontWeight="DemiBold" 
-                Foreground="WhiteSmoke">
-                Lecture Name
-                </TextBlock>
+            <Border Height="65" Background="#FF204D72" BorderBrush="Black" BorderThickness="0 0 0 1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="28"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="*"/>
+                        
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="2"
+                        x:Name="TextBlockName"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap"
+                        TextTrimming="CharacterEllipsis"
+                        FontSize="22" 
+                        FontWeight="DemiBold" 
+                        Foreground="WhiteSmoke">
+                        Lecture Name
+                    </TextBlock>
+
+                    <Button 
+                        x:Name="ButtonDelete" 
+                        Padding="0" 
+                        Grid.Column="1" 
+                        HorizontalContentAlignment="Center" 
+                        Height="28" Width="28" 
+                        Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonDelete_Click">
+                        <materialDesign:PackIcon 
+                            Height="28"
+                            Width="28"
+                            HorizontalAlignment="Center" 
+                            x:Name="ExitIcon" 
+                            Kind="Close" 
+                            Foreground="Red"
+                         />
+                    </Button>
+                </Grid>
             </Border>
 
             <!-- Meeting link -->
@@ -78,7 +111,7 @@
                 HorizontalAlignment="Center"
                 BorderBrush="#0E3C6C"
                 FontSize="16"
-                Margin="0,8,0,4">
+                Margin="0,8,0,4" Checked="CheckboxYoutube_Checked" Unchecked="CheckboxYoutube_Unchecked">
 
                     <TextBlock Margin="0,-3,0,0">
                         Upload to youtube
@@ -91,7 +124,7 @@
                 Style="{StaticResource MaterialDesignAccentCheckBox}"
                 
                 BorderBrush="#0E3C6C"
-                FontSize="16">
+                FontSize="16" Checked="CheckboxEnabled_Checked" Unchecked="CheckboxEnabled_Unchecked">
 
                     <TextBlock Margin="0,-3,0,0">
                         Enabled

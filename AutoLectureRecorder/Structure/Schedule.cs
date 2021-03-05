@@ -72,5 +72,10 @@ namespace AutoLectureRecorder.Structure
                 lecturesByDay[lecture.Day].Add(lecture);
             }
         }
+
+        public static void DeleteLecture(Lecture lecture)
+        {
+            lecturesByDay[lecture.Day].Remove(lecture);
+        }
     }
 }

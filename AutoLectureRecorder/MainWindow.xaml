@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="Segoe UI"
         Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="SingleBorderWindow" 
-        WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged" FontSize="14" Loaded="Window_Loaded">
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged" FontSize="14" Loaded="Window_Loaded" Icon="/graduation_cap_100px.png">
 
     <!-- Custom titlebar  -->
     <WindowChrome.WindowChrome>
@@ -55,7 +55,7 @@
             </Grid.RowDefinitions>
 
             <!--TitleBar-->
-            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
@@ -92,9 +92,9 @@
             
 
             <!--Menu grid-->
-            <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
+            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="56"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
@@ -109,7 +109,7 @@
                     </LinearGradientBrush>
                 </Grid.Background>
 
-                <TextBlock Grid.Row="0" Foreground="WhiteSmoke" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" Background="Transparent" TextAlignment="Center">
+                <TextBlock Grid.Row="0" Padding="0,28,0,15" Foreground="WhiteSmoke" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" Background="Transparent" TextAlignment="Center">
                     Auto Lecture <LineBreak/> Recorder
                 </TextBlock>
 

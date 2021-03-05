@@ -22,6 +22,30 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Days Menu -->
+        <Border Grid.ColumnSpan="3">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                    <GradientStop Color="#FF183A56"/>
+                    <GradientStop Color="#FF204D72" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <ListView Grid.ColumnSpan="3" FontSize="18" FontWeight="DemiBold" Foreground="WhiteSmoke">
+            <ListViewItem Content="Monday" HorizontalContentAlignment="Center"/>
+            <ListViewItem Content="Tuesday" HorizontalContentAlignment="Center"/>
+            <ListViewItem Content="Wednesday" HorizontalContentAlignment="Center"/>
+            <ListViewItem Content="Thursday" HorizontalContentAlignment="Center"/>
+            <ListViewItem Content="Friday" HorizontalContentAlignment="Center"/>
+            <ListViewItem Content="Saturday" HorizontalContentAlignment="Center"/>
+            <ListViewItem Content="Sunday" HorizontalContentAlignment="Center"/>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="7"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1">
             <Structure:LectureModel Grid.Column="1" Grid.Row="1" Margin="10" Width="210" MaxHeight="270"/>
             <Structure:LectureModel Grid.Column="1" Grid.Row="1" Margin="10" Width="210" MaxHeight="270"/>

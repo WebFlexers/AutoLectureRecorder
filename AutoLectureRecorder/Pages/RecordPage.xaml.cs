@@ -34,6 +34,8 @@ namespace AutoLectureRecorder.Pages
         DispatcherTimer timerStartLecture;
         private void Load()
         {
+            // Hide next lecture and time
+            HideUI();
             // Initiate the timer
             timerStartLecture = new DispatcherTimer();
             timerStartLecture.IsEnabled = false;
@@ -49,6 +51,7 @@ namespace AutoLectureRecorder.Pages
                 RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#AD2817");
                 IsRecordButtonClicked = false;
                 timerStartLecture.Stop();
+                HideUI();
             }
             else
             {
@@ -57,7 +60,9 @@ namespace AutoLectureRecorder.Pages
                     RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#DD331D");
                     IsRecordButtonClicked = true;
                     TextBlockNextLecture.Text = nextLecture.Name;
+                    RecordTimer_Tick(sender, EventArgs.Empty);
                     timerStartLecture.Start();
+                    ShowUI();
                 }
             }
         }
@@ -138,6 +143,18 @@ namespace AutoLectureRecorder.Pages
         private async Task StartLecture()
         {
 
+        }
+
+        private void ShowUI()
+        {
+            StackPanelNextLecture.Visibility = Visibility.Visible;
+            StackPanelStartTime.Visibility = Visibility.Visible;
+        }
+
+        private void HideUI()
+        {
+            StackPanelNextLecture.Visibility = Visibility.Hidden;
+            StackPanelStartTime.Visibility = Visibility.Hidden;
         }
     }
 }

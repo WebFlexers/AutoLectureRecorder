@@ -41,11 +41,16 @@
             Height="56" 
             Padding="0,13,0,0" 
             TextAlignment="Center" 
-            FontSize="24"
-            FontWeight="Bold"
-            Foreground="#FF183A56" 
-            Background="#E1E3E2"
+            FontSize="22"
+            FontWeight="DemiBold"
+            Foreground="WhiteSmoke" 
             >
+            <TextBlock.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                    <GradientStop Color="#FF183A56"/>
+                    <GradientStop Color="#FF204D72" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.Background>
             Add Lectures
          </TextBlock>
 

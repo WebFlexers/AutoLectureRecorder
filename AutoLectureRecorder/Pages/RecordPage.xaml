@@ -48,9 +48,16 @@
         </Grid.Resources>
 
 
-        <Border Grid.ColumnSpan="3" Background="#E1E3E2"/>
-        <TextBlock Grid.ColumnSpan="3" TextAlignment="Center" Foreground="#FF183A56"
-                   VerticalAlignment="Center" FontSize="20" FontWeight="Heavy" > 
+        <Border Grid.ColumnSpan="3">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                    <GradientStop Color="#FF183A56"/>
+                    <GradientStop Color="#FF204D72" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <TextBlock Grid.ColumnSpan="3" TextAlignment="Center" Foreground="WhiteSmoke"
+                   VerticalAlignment="Center" FontSize="22" FontWeight="DemiBold" > 
             Press the button to schedule lectures
         </TextBlock>
 
@@ -90,32 +97,24 @@
         </Button>
 
 
-        <StackPanel x:Name="NextLecturePanel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="0,20,0,20" Background="#E1E3E2">
-            <Viewbox Width="280" Margin="0,10,0,0">
-                <TextBlock TextAlignment="Center" VerticalAlignment="Center">
+        <StackPanel x:Name="StackPanelNextLecture" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="0,20,0,20" Background="#E1E3E2">
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="19" Margin="0,10,0,0">
                     Next Lecture to be recorded is:
-                </TextBlock>
-            </Viewbox>
+            </TextBlock>
 
-            <Viewbox Width="190">
-                <TextBlock x:Name="TextBlockNextLecture" TextAlignment="Center" Padding="0,0,0,10" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#D51E1C">
+            <TextBlock x:Name="TextBlockNextLecture" FontSize="19" TextAlignment="Center" Padding="0,0,0,10" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#D51E1C">
                     Concrete mathematics
-                </TextBlock>
-            </Viewbox>
+            </TextBlock>
 
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Margin="0,20,0,0">
-            <Viewbox  Width="100">
-                <TextBlock TextAlignment="Center" VerticalAlignment="Center">
+        <StackPanel x:Name="StackPanelStartTime" Grid.Row="3" Grid.Column="1" Margin="0,20,0,0">
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="19">
                     Starting in
-                </TextBlock>
-            </Viewbox>
-            <Viewbox  Width="80">
-                <TextBlock x:Name="TextBlockTime" TextAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#D51E1C">
+            </TextBlock>
+            <TextBlock x:Name="TextBlockTime" FontSize="19" TextAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#D51E1C">
                     00.00.00
-                </TextBlock>
-            </Viewbox>
+            </TextBlock>
         </StackPanel>
 
     </Grid>
