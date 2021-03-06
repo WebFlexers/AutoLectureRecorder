@@ -36,6 +36,7 @@ namespace AutoLectureRecorder.Structure
             CheckboxEnabled.IsChecked = lecture.IsLectureActive;
         }
 
+        #region Checkboxes functionality
         private void CheckboxEnabled_Checked(object sender, RoutedEventArgs e)
         {
             if (Lecture != null)
@@ -59,6 +60,7 @@ namespace AutoLectureRecorder.Structure
             if (Lecture != null)
                 Lecture.IsAutoUploadActive = false;
         }
+        #endregion
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -68,9 +70,13 @@ namespace AutoLectureRecorder.Structure
                                                 MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                 if (userResponse == MessageBoxResult.Yes)
+                {
                     Schedule.DeleteLecture(Lecture);
-            }
-         
+                    MainWindow window = (MainWindow)Application.Current.MainWindow;
+                    window.RemoveLecture(Lecture);
+                }
+            }      
         }
+
     }
 }

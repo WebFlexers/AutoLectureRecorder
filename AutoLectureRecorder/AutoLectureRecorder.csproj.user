@@ -10,6 +10,9 @@
     <Compile Update="Pages\AddLecture.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\LectureModelsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Lectures.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -25,6 +28,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\AddLecture.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\LectureModelsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Lectures.xaml">

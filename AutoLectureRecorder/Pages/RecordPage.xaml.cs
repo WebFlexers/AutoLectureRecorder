@@ -17,6 +17,7 @@ using AutoLectureRecorder.Structure;
 using System.Linq;
 using MoreLinq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace AutoLectureRecorder.Pages
 {
@@ -44,6 +45,7 @@ namespace AutoLectureRecorder.Pages
         }
 
         bool IsRecordButtonClicked = false;
+        /* Starts or stops the timer to the next lecture and updates the UI accordingly */
         private void ButtonRecord_Click(object sender, RoutedEventArgs e)
         {
             if (IsRecordButtonClicked)
@@ -64,6 +66,9 @@ namespace AutoLectureRecorder.Pages
                     timerStartLecture.Start();
                     ShowUI();
                 }
+                else
+                    MessageBox.Show("No active lectures were found. Create or activate lectures to continue", "Unable to schedule lectures",
+                                    MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -128,19 +133,19 @@ namespace AutoLectureRecorder.Pages
             var remainingTimeWithDays = remainingTime.Add(TimeSpan.FromDays(daysDistance));
 
             if (remainingTimeWithDays.Days > 0)
-                TextBlockTime.Text = remainingTimeWithDays.ToString("dd\\:hh\\:mm\\:ss");
+                TextBlockTime.Text = remainingTimeWithDays.ToString("d\\:hh\\:mm\\:ss");
             else
                 TextBlockTime.Text = remainingTimeWithDays.ToString("hh\\:mm\\:ss");
 
             if (remainingTimeWithDays <= TimeSpan.Zero)
             {
                 timerStartLecture.Stop();
-                StartLecture();
+                new Thread(StartLecture).Start();
             }
         }
 
 
-        private async Task StartLecture()
+        private void StartLecture()
         {
 
         }

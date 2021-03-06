@@ -30,6 +30,7 @@ namespace AutoLectureRecorder.Structure
             private set { }
         }
 
+        public static string[] AllDays { get; set; } = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         public static Dictionary<string, int> AllDaysIndexes { get; set; } = new Dictionary<string, int>();
 
         static Schedule()

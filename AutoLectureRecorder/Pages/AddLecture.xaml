@@ -11,7 +11,6 @@
       xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf">
 
-
     <StackPanel Background="#FFEDEFEE" HorizontalAlignment="Stretch">
         <!-- Button style -->
         <StackPanel.Resources>
@@ -35,7 +34,8 @@
                 </Setter>
             </Style>
         </StackPanel.Resources>
-        
+
+
         <TextBlock 
             Grid.ColumnSpan="3" 
             Height="56" 
@@ -52,27 +52,26 @@
                 </LinearGradientBrush>
             </TextBlock.Background>
             Add Lectures
-         </TextBlock>
+        </TextBlock>
 
         <!-- Lecture Name -->
         <TextBlock 
-            Grid.ColumnSpan="3"  
-            Padding="0,20,0,0" 
-            TextAlignment="Center" 
-            FontSize="18" 
-            FontWeight="DemiBold" >
-            Lecture Name
+        Padding="0,20,0,0" 
+        TextAlignment="Center" 
+        FontSize="18" 
+        FontWeight="DemiBold" >
+        Lecture Name
         </TextBlock>
 
         <TextBox
-            x:Name="TextboxLectureName"
-            Style="{StaticResource MaterialDesignTextBox}"
-            wpf:TextFieldAssist.UnderlineBrush = "#0E3C6C"
-            MaxWidth="300"
-            BorderBrush="#0E3C6C"
-            CaretBrush="#0E3C6C"
-            FontSize="16"
-            >
+        x:Name="TextboxLectureName"
+        Style="{StaticResource MaterialDesignTextBox}"
+        wpf:TextFieldAssist.UnderlineBrush = "#0E3C6C"
+        MaxWidth="300"
+        BorderBrush="#0E3C6C"
+        CaretBrush="#0E3C6C"
+        FontSize="16"
+        >
         </TextBox>
 
         <!-- Meeting -->
@@ -84,7 +83,7 @@
             FontWeight="DemiBold" >
             Meeting link
         </TextBlock>
-        
+
         <TextBox
             x:Name="TextboxLink"
             Style="{StaticResource MaterialDesignTextBox}"
@@ -113,13 +112,13 @@
             BorderBrush="#0E3C6C"
             MaxWidth="300"
             FontSize="16">
-            <ComboBoxItem IsSelected="True"> Monday </ComboBoxItem>
-            <ComboBoxItem> Tuesday </ComboBoxItem>
-            <ComboBoxItem> Wednesday </ComboBoxItem>
-            <ComboBoxItem> Thursday </ComboBoxItem>
-            <ComboBoxItem> Friday </ComboBoxItem>
-            <ComboBoxItem> Saturday </ComboBoxItem>
-            <ComboBoxItem> Sunday </ComboBoxItem>
+            <ComboBoxItem IsSelected="True">Monday</ComboBoxItem>
+            <ComboBoxItem>Tuesday</ComboBoxItem>
+            <ComboBoxItem>Wednesday</ComboBoxItem>
+            <ComboBoxItem>Thursday</ComboBoxItem>
+            <ComboBoxItem>Friday</ComboBoxItem>
+            <ComboBoxItem>Saturday</ComboBoxItem>
+            <ComboBoxItem>Sunday</ComboBoxItem>
         </ComboBox>
 
         <!-- Start time -->
@@ -163,10 +162,10 @@
             <wpf:TimePicker.Resources>
                 <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0E3C6C" />
                 <SolidColorBrush x:Key="MaterialDesignBody" Color="#0E3C6C" />
-                
+
             </wpf:TimePicker.Resources>
         </wpf:TimePicker>
-        
+
         <!-- Youtube checkbox -->
         <CheckBox
             x:Name="CheckboxYoutube"

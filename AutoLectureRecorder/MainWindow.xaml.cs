@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Pages;
+using AutoLectureRecorder.Structure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace AutoLectureRecorder
         public MainWindow()
         {
             InitializeComponent();
+            // Instantiate lectures to avoid null exception
+            lectures = new Lectures();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -111,6 +114,16 @@ namespace AutoLectureRecorder
         }
         #endregion
 
-        
+        #region Update data
+        public void AddNewLectureModels()
+        {
+            lectures.AddNewLectureModels();
+        }
+
+        public void RemoveLecture(Lecture lecture)
+        {
+            lectures.RemoveLectureModel(lecture);
+        }
+        #endregion
     }
 }

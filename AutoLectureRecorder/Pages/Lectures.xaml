@@ -10,18 +10,16 @@
       Title="Lectures">
 
     <Grid Background="#FFEDEFEE">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="56"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="56"/>
-        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="56"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Yellow" />
+        </Grid.Resources>
+        
         <!-- Days Menu -->
         <Border Grid.ColumnSpan="3">
             <Border.Background>
@@ -32,13 +30,13 @@
             </Border.Background>
         </Border>
         <ListView Grid.ColumnSpan="3" FontSize="18" FontWeight="DemiBold" Foreground="WhiteSmoke">
-            <ListViewItem Content="Monday" HorizontalContentAlignment="Center"/>
-            <ListViewItem Content="Tuesday" HorizontalContentAlignment="Center"/>
-            <ListViewItem Content="Wednesday" HorizontalContentAlignment="Center"/>
-            <ListViewItem Content="Thursday" HorizontalContentAlignment="Center"/>
-            <ListViewItem Content="Friday" HorizontalContentAlignment="Center"/>
-            <ListViewItem Content="Saturday" HorizontalContentAlignment="Center"/>
-            <ListViewItem Content="Sunday" HorizontalContentAlignment="Center"/>
+            <ListViewItem x:Name="ListViewItemMonday" Content="Monday" HorizontalContentAlignment="Center" Selected="ListViewItemMonday_Selected"/>
+            <ListViewItem Content="Tuesday" HorizontalContentAlignment="Center" Selected="ListViewItemTuesday_Selected"/>
+            <ListViewItem Content="Wednesday" HorizontalContentAlignment="Center" Selected="ListViewItemWednesday_Selected"/>
+            <ListViewItem Content="Thursday" HorizontalContentAlignment="Center" Selected="ListViewItemThursday_Selected"/>
+            <ListViewItem Content="Friday" HorizontalContentAlignment="Center" Selected="ListViewItemFriday_Selected"/>
+            <ListViewItem Content="Saturday" HorizontalContentAlignment="Center" Selected="ListViewItemSaturday_Selected"/>
+            <ListViewItem Content="Sunday" HorizontalContentAlignment="Center" Selected="ListViewItemSunday_Selected"/>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="7"/>
@@ -46,17 +44,8 @@
             </ListView.ItemsPanel>
         </ListView>
         
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1">
-            <Structure:LectureModel Grid.Column="1" Grid.Row="1" Margin="10" Width="210" MaxHeight="270"/>
-            <Structure:LectureModel Grid.Column="1" Grid.Row="1" Margin="10" Width="210" MaxHeight="270"/>
-            <Structure:LectureModel Grid.Column="1" Grid.Row="1" Margin="10" Width="210" MaxHeight="270"/>
-        </StackPanel>
+        <!-- Lectures frame -->
+        <Frame x:Name="FrameDayLectures" Grid.Row="1" NavigationUIVisibility="Hidden"/>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2">
-            <Structure:LectureModel Grid.Column="1" Grid.Row="2" Margin="10" Width="210" MaxHeight="270"/>
-            <Structure:LectureModel Grid.Column="1" Grid.Row="2" Margin="10" Width="210" MaxHeight="270"/>
-            <Structure:LectureModel Grid.Column="1" Grid.Row="2" Margin="10" Width="210" MaxHeight="270"/>
-        </StackPanel>
-        
     </Grid>
 </Page>
