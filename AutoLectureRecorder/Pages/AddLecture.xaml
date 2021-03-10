@@ -81,19 +81,18 @@
             TextAlignment="Center" 
             FontSize="18" 
             FontWeight="DemiBold" >
-            Meeting link
+            Meeting Team
         </TextBlock>
 
-        <TextBox
-            x:Name="TextboxLink"
-            Style="{StaticResource MaterialDesignTextBox}"
-            wpf:TextFieldAssist.UnderlineBrush = "#0E3C6C"
-            MaxWidth="300"
+        <ComboBox
+            x:Name="ComboboxMeeting"
+            Style="{StaticResource MaterialDesignComboBox}"
+            wpf:TextFieldAssist.UnderlineBrush="#0E3C6C"
             BorderBrush="#0E3C6C"
-            CaretBrush="#0E3C6C"
-            FontSize="16"
-            >
-        </TextBox>
+            MaxWidth="300"
+            FontSize="16">
+            <ComboBoxItem IsSelected="True">Μεταγλωττιστές</ComboBoxItem>
+        </ComboBox>
 
         <!-- Day -->
         <TextBlock 

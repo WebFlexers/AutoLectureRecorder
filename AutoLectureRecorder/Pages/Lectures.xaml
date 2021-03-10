@@ -16,10 +16,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid.Resources>
-            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Yellow" />
-        </Grid.Resources>
-        
         <!-- Days Menu -->
         <Border Grid.ColumnSpan="3">
             <Border.Background>

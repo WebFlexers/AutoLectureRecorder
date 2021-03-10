@@ -49,27 +49,30 @@ namespace AutoLectureRecorder.Pages
         private void ButtonRecord_Click(object sender, RoutedEventArgs e)
         {
             if (IsRecordButtonClicked)
-            {
-                RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#AD2817");
-                IsRecordButtonClicked = false;
-                timerStartLecture.Stop();
-                HideUI();
-            }
+                DeactivateRecordButton();
+            else if (CanStartLecture())
+                ActivateRecordButton();
             else
-            {
-                if (CanStartLecture())
-                {
-                    RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#DD331D");
-                    IsRecordButtonClicked = true;
-                    TextBlockNextLecture.Text = nextLecture.Name;
-                    RecordTimer_Tick(sender, EventArgs.Empty);
-                    timerStartLecture.Start();
-                    ShowUI();
-                }
-                else
-                    MessageBox.Show("No active lectures were found. Create or activate lectures to continue", "Unable to schedule lectures",
-                                    MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+                MessageBox.Show("No active lectures were found. Create or activate lectures to continue", "Unable to schedule lectures",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private void DeactivateRecordButton()
+        {
+            RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#AD2817");
+            IsRecordButtonClicked = false;
+            timerStartLecture.Stop();
+            HideUI();
+        }
+
+        private void ActivateRecordButton()
+        {
+            RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#DD331D");
+            IsRecordButtonClicked = true;
+            TextBlockNextLecture.Text = nextLecture.Name;
+            RecordTimer_Tick(ButtonRecord, EventArgs.Empty);
+            timerStartLecture.Start();
+            ShowUI();
         }
 
         bool IsUserLoggedIn = true;
@@ -144,6 +147,15 @@ namespace AutoLectureRecorder.Pages
             }
         }
 
+        public void UpdateNextLecture()
+        {
+            nextLecture = FindNextLecture();
+
+            if (nextLecture == null)
+                DeactivateRecordButton();
+            else
+                TextBlockNextLecture.Text = nextLecture.Name;
+        }
 
         private void StartLecture()
         {

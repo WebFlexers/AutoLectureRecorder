@@ -28,7 +28,7 @@ namespace AutoLectureRecorder.Structure
         {
             Lecture = lecture;
 
-            TextBlockLink.Text = lecture.MeetingLink;
+            TextBlockLink.Text = lecture.MeetingTeam;
             TextBlockName.Text = lecture.Name;
             TextBlockStartTime.Text = lecture.StartTime.ToString("hh\\:mm\\:ss");
             TextBlockEndTime.Text = lecture.EndTime.ToString("hh\\:mm\\:ss");

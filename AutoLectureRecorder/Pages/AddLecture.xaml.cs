@@ -31,11 +31,11 @@ namespace AutoLectureRecorder.Pages
                 }
 
                 string name = TextboxLectureName.Text;
-                string meetingLink = TextboxLink.Text;
+                string meetingTeam = ComboboxMeeting.Text;
                 string day = ComboboxDay.Text;
                 bool isYoutubeActive = CheckboxYoutube.IsChecked.Value;
 
-                Lecture lecture = new Lecture(name, startTime, endTime, meetingLink, isYoutubeActive, day);
+                Lecture lecture = new Lecture(name, startTime, endTime, meetingTeam, isYoutubeActive, day);
                 Schedule.AddLecture(lecture);
                 ((MainWindow)Application.Current.MainWindow).AddNewLectureModels();
 
@@ -55,9 +55,9 @@ namespace AutoLectureRecorder.Pages
                 IsUnputCorrect = false;
             }
                 
-            if (string.IsNullOrWhiteSpace(TextboxLink.Text))
+            if (string.IsNullOrWhiteSpace(ComboboxMeeting.Text))
             {
-                TextboxLink.BorderBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom("#AD2817"));
+                ComboboxMeeting.BorderBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom("#AD2817"));
                 IsUnputCorrect = false;
             }
 

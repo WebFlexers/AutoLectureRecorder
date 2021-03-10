@@ -63,7 +63,7 @@
 
 
 
-        <Button Grid.Column="1" Grid.Row="1" Click="ButtonRecord_Click">
+        <Button x:Name="ButtonRecord" Grid.Column="1" Grid.Row="1" Click="ButtonRecord_Click">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

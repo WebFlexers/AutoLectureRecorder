@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace AutoLectureRecorder.Structure
 {
+    [Serializable]
     public class Lecture
     {
         public string Name { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public string MeetingLink { get; set; }
+        public string MeetingTeam { get; set; }
         public bool IsLectureActive { get; set; }
         public bool IsAutoUploadActive { get; set; }
         public string Day { get; set; }
@@ -26,7 +27,7 @@ namespace AutoLectureRecorder.Structure
             if (StartTime >= EndTime)
                 throw new Exception("The end time must be greater than the start time");
 
-            MeetingLink = link;
+            MeetingTeam = link;
             IsAutoUploadActive = isAutoUploadActive;
             IsLectureActive = true;
             Day = day;

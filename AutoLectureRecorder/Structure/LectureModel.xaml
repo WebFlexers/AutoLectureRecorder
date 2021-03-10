@@ -45,8 +45,8 @@
                         Height="28" Width="28" 
                         Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonDelete_Click">
                         <materialDesign:PackIcon 
-                            Height="28"
-                            Width="28"
+                            Height="25"
+                            Width="25"
                             HorizontalAlignment="Center" 
                             x:Name="ExitIcon" 
                             Kind="Close" 
@@ -60,7 +60,7 @@
             <TextBlock
                 TextAlignment="Center"
                 FontSize="20">
-                Meeting link
+                Meeting Team
             </TextBlock>
 
             <TextBlock
@@ -70,7 +70,7 @@
                 FontSize="16"
                 Padding="5,0,5,0"
                 FontWeight="Thin">
-                Meeting link
+                Meeting team
             </TextBlock>
             
             <!-- Start Time -->

@@ -24,14 +24,18 @@ namespace AutoLectureRecorder
     {
         public MainWindow()
         {
+            // Deserialize
+            Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
+
             InitializeComponent();
+
             // Instantiate lectures to avoid null exception
             lectures = new Lectures();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MenuRecord.IsSelected = true;
+            MenuRecord.IsSelected = true;  
         }
 
         #region Titlebar
@@ -118,12 +122,17 @@ namespace AutoLectureRecorder
         public void AddNewLectureModels()
         {
             lectures.AddNewLectureModels();
+            recordPage.UpdateNextLecture();
+            Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
         }
 
         public void RemoveLecture(Lecture lecture)
         {
             lectures.RemoveLectureModel(lecture);
+            recordPage.UpdateNextLecture();
+            Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
         }
+
         #endregion
     }
 }

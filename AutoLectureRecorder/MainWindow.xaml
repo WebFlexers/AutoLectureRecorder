@@ -11,16 +11,73 @@
         TextElement.FontSize="14"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="Segoe UI"
         Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="SingleBorderWindow" 
-        WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged" FontSize="14" Loaded="Window_Loaded" Icon="/graduation_cap_100px.png">
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged" FontSize="14" Loaded="Window_Loaded" 
+        Icon="/graduation_cap_100px.png" Background="Transparent">
 
     <!-- Custom titlebar  -->
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="0" 
-                          NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="100" 
+                          NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="true" />
     </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <Storyboard x:Key="MenuMove0">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="MenuMove1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="60">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="MenuMove2">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="MenuMove3">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="180">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuRecord">
+            <BeginStoryboard x:Name="Move0_BeginStoryboard" Storyboard="{StaticResource MenuMove0}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuLectures">
+            <BeginStoryboard x:Name="Move1_BeginStoryboard" Storyboard="{StaticResource MenuMove1}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuYoutube">
+            <BeginStoryboard x:Name="Move2_BeginStoryboard" Storyboard="{StaticResource MenuMove2}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuSettings">
+            <BeginStoryboard x:Name="Move3_BeginStoryboard" Storyboard="{StaticResource MenuMove3}"/>
+        </EventTrigger>
+    </Window.Triggers>
 
     <Border BorderThickness="0">
         <Border.Style>
@@ -39,10 +96,9 @@
             </Style>
         </Border.Style>
 
-
-
         <!-- Main Grid -->
         <Grid Background="#eef5fa">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" MaxWidth="150"/>
                 <ColumnDefinition Width="1*"/>
@@ -71,7 +127,9 @@
                         <GradientStop Color="#FF204D72" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                
+
+                <Border Background="#1BCDCF" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,31,0,0" Height="1"/>
+
                 <!-- Titlebar buttons -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <Button x:Name="ButtonWindowState" Style="{StaticResource MaterialDesignFlatButton}"
@@ -109,7 +167,9 @@
                     </LinearGradientBrush>
                 </Grid.Background>
 
-                <TextBlock Grid.Row="0" Padding="0,28,0,15" Foreground="WhiteSmoke" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" Background="Transparent" TextAlignment="Center">
+                <Border Background="#1BCDCF" VerticalAlignment="Top" Margin="0,31,0,0" Height="1"/>
+
+                <TextBlock Grid.Row="0" Padding="0,40,0,15" Foreground="WhiteSmoke" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" Background="Transparent" TextAlignment="Center">
                     Auto Lecture <LineBreak/> Recorder
                 </TextBlock>
 
@@ -141,6 +201,21 @@
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
+
+                <Grid Grid.RowSpan="5" Width="5" Margin="145,32,0,0" HorizontalAlignment="Left">
+                    <Rectangle Fill="#1BCDCF" Width="2" HorizontalAlignment="Right"/>
+                    <Ellipse x:Name="ellipse" Width="10" Height="10" VerticalAlignment="Top" Fill="#1BCDCF" Margin="0,131,0,0" 
+                 RenderTransformOrigin="0.5, 0.5">
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                </Grid>
 
                 <Image Grid.Row="4" Margin="0,0,0,15" Width="90" Height="90" Source="/graduation_cap_100px.png" Stretch="Uniform"/>
             </Grid>

@@ -44,12 +44,12 @@ namespace AutoLectureRecorder.Structure
             AllDaysIndexes.Add("Sunday", 6);
 
             // Sample lectures
-            string day = "Tuesday";
-            string Name = "Papoutsi";
-            TimeSpan startTime = TimeSpan.FromHours(8);
-            TimeSpan endTime = TimeSpan.FromHours(12);
-            string link = "https://teams.microsoft.com/l/team/19%3ae9a50d26030d499a91374868e9929d5a%40thread.tacv2/conversations?groupId=79b569eb-c74f-4cf9-ae09-620de80ee253&tenantId=d9c8dee3-558b-483d-b502-d31fa0cb24de";
-            AddLecture(new Lecture(Name, startTime, endTime, link, true, day));
+            //string day = "Tuesday";
+            //string Name = "Papoutsi";
+            //TimeSpan startTime = TimeSpan.FromHours(8);
+            //TimeSpan endTime = TimeSpan.FromHours(12);
+            //string link = "https://teams.microsoft.com/l/team/19%3ae9a50d26030d499a91374868e9929d5a%40thread.tacv2/conversations?groupId=79b569eb-c74f-4cf9-ae09-620de80ee253&tenantId=d9c8dee3-558b-483d-b502-d31fa0cb24de";
+            //AddLecture(new Lecture(Name, startTime, endTime, link, true, day));
         }
 
         // Retrieve a list of the given day's lectures
@@ -77,6 +77,17 @@ namespace AutoLectureRecorder.Structure
         public static void DeleteLecture(Lecture lecture)
         {
             lecturesByDay[lecture.Day].Remove(lecture);
+        }
+
+        /* For serialization */
+        public static Dictionary<string, List<Lecture>> GetSerializableData()
+        {
+            return lecturesByDay;
+        }
+
+        public static void LoadSchedule(Dictionary<string, List<Lecture>> weekLectures)
+        {
+            lecturesByDay = weekLectures;
         }
     }
 }
