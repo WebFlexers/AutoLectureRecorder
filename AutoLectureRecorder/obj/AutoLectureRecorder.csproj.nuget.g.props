@@ -17,6 +17,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\Michalis\.nuget\packages\newtonsoft.json\10.0.3</PkgNewtonsoft_Json>
     <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">C:\Users\Michalis\.nuget\packages\materialdesignthemes\4.0.0</PkgMaterialDesignThemes>
   </PropertyGroup>
 </Project>

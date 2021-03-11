@@ -8,5 +8,11 @@ namespace AutoLectureRecorder.Structure
     {
         public static string RegistrationNumber { get; set; }
         public static string Password { get; set; }
+
+        public static void AddUser(string registrationNumber, string password)
+        {
+            RegistrationNumber = registrationNumber;
+            Password = password;
+        }
     }
 }

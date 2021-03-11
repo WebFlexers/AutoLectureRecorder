@@ -3,7 +3,7 @@
     "additionalProbingPaths": [
       "C:\\Users\\Michalis\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\Michalis\\.nuget\\packages",
-      "C:\\Microsoft\\Xamarin\\NuGet"
+      "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
     ]
   }
 }

@@ -120,7 +120,7 @@ namespace AutoLectureRecorder.Structure {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AutoLectureRecorder;V1.0.0.0;component/structure/lecturemodel.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AutoLectureRecorder;component/structure/lecturemodel.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Structure\LectureModel.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
