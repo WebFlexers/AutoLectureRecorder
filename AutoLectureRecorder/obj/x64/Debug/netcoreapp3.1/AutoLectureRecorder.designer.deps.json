@@ -287,6 +287,7 @@
           }
         }
       },
+      "ScreenRecorderLib/3.1.1": {},
       "Selenium.WebDriver/3.141.0": {
         "dependencies": {
           "Newtonsoft.Json": "10.0.3"
@@ -1476,6 +1477,13 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
+    },
+    "ScreenRecorderLib/3.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V79BiutbSMggdlNFjwbVyVmt1UgBr04ShOt3+bSflWjQ3NKpS16uuEgRjq7sAQtmtI/Yl2eB0hJACXSk4LkeuQ==",
+      "path": "screenrecorderlib/3.1.1",
+      "hashPath": "screenrecorderlib.3.1.1.nupkg.sha512"
     },
     "Selenium.WebDriver/3.141.0": {
       "type": "package",

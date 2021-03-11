@@ -56,6 +56,10 @@
               "target": "Package",
               "version": "[4.0.0, )"
             },
+            "ScreenRecorderLib": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "Selenium.WebDriver": {
               "target": "Package",
               "version": "[3.141.0, )"

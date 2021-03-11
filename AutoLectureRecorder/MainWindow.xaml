@@ -217,7 +217,7 @@
                     </Ellipse>
                 </Grid>
 
-                <Image Grid.Row="4" Margin="0,0,0,15" Width="90" Height="90" Source="/graduation_cap_100px.png" Stretch="Uniform"/>
+                <Image Grid.Row="4" Margin="0,0,0,15" Width="90" Height="90" Source="/graduation_cap_100px.png" Stretch="Uniform" PreviewMouseDown="Image_PreviewMouseDown"/>
             </Grid>
 
             <!-- Main Frame -->

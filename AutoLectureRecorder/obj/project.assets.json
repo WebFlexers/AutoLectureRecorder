@@ -349,6 +349,12 @@
           }
         }
       },
+      "ScreenRecorderLib/3.1.1": {
+        "type": "package",
+        "build": {
+          "build/ScreenRecorderLib.targets": {}
+        }
+      },
       "Selenium.WebDriver/3.141.0": {
         "type": "package",
         "dependencies": {
@@ -1967,6 +1973,22 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "ScreenRecorderLib/3.1.1": {
+      "sha512": "V79BiutbSMggdlNFjwbVyVmt1UgBr04ShOt3+bSflWjQ3NKpS16uuEgRjq7sAQtmtI/Yl2eB0hJACXSk4LkeuQ==",
+      "type": "package",
+      "path": "screenrecorderlib/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/ScreenRecorderLib.targets",
+        "build/x64/ScreenRecorderLib.dll",
+        "build/x64/ScreenRecorderLib.xml",
+        "build/x86/ScreenRecorderLib.dll",
+        "build/x86/ScreenRecorderLib.xml",
+        "screenrecorderlib.3.1.1.nupkg.sha512",
+        "screenrecorderlib.nuspec"
       ]
     },
     "Selenium.WebDriver/3.141.0": {
@@ -5416,6 +5438,7 @@
       "DotNetSeleniumExtras.WaitHelpers >= 3.11.0",
       "LoadingIndicators.WPF >= 0.0.1",
       "MaterialDesignThemes >= 4.0.0",
+      "ScreenRecorderLib >= 3.1.1",
       "Selenium.WebDriver >= 3.141.0",
       "Selenium.WebDriver.ChromeDriver >= 89.0.4389.2300",
       "morelinq >= 3.3.2"
@@ -5476,6 +5499,10 @@
           "MaterialDesignThemes": {
             "target": "Package",
             "version": "[4.0.0, )"
+          },
+          "ScreenRecorderLib": {
+            "target": "Package",
+            "version": "[3.1.1, )"
           },
           "Selenium.WebDriver": {
             "target": "Package",

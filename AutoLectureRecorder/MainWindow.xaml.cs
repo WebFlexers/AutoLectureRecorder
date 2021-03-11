@@ -1,7 +1,9 @@
 ﻿using AutoLectureRecorder.Pages;
+using AutoLectureRecorder.Selenium;
 using AutoLectureRecorder.Structure;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -134,5 +136,14 @@ namespace AutoLectureRecorder
         }
 
         #endregion
+
+        ScreenRecorder recorder = new ScreenRecorder();
+        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (recorder.IsRecording)
+                recorder.EndRecording();
+            else
+                recorder.CreateRecording();
+        }
     }
 }

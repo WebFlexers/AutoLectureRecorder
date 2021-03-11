@@ -11,9 +11,11 @@
           "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
           "LoadingIndicators.WPF": "0.0.1",
           "MaterialDesignThemes": "4.0.0",
+          "ScreenRecorderLib": "3.1.1",
           "Selenium.WebDriver": "3.141.0",
           "Selenium.WebDriver.ChromeDriver": "89.0.4389.2300",
-          "morelinq": "3.3.2"
+          "morelinq": "3.3.2",
+          "ScreenRecorderLib.Reference": "1.0.7705.34855"
         },
         "runtime": {
           "AutoLectureRecorder.dll": {}
@@ -206,6 +208,7 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
+      "ScreenRecorderLib/3.1.1": {},
       "Selenium.WebDriver/3.141.0": {
         "dependencies": {
           "Newtonsoft.Json": "10.0.3"
@@ -877,6 +880,14 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
+      },
+      "ScreenRecorderLib.Reference/1.0.7705.34855": {
+        "runtime": {
+          "ScreenRecorderLib.dll": {
+            "assemblyVersion": "1.0.7705.34855",
+            "fileVersion": "3.1.1.0"
+          }
+        }
       }
     }
   },
@@ -1074,6 +1085,13 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
+    },
+    "ScreenRecorderLib/3.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V79BiutbSMggdlNFjwbVyVmt1UgBr04ShOt3+bSflWjQ3NKpS16uuEgRjq7sAQtmtI/Yl2eB0hJACXSk4LkeuQ==",
+      "path": "screenrecorderlib/3.1.1",
+      "hashPath": "screenrecorderlib.3.1.1.nupkg.sha512"
     },
     "Selenium.WebDriver/3.141.0": {
       "type": "package",
@@ -1522,6 +1540,11 @@
       "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "ScreenRecorderLib.Reference/1.0.7705.34855": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
