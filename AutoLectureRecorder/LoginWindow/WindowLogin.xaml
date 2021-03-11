@@ -4,27 +4,136 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoLectureRecorder.LoginWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="WindowLogin" Height="500" Width="800" WindowStartupLocation="CenterScreen" Icon="/LoginWindow/graduation_cap_100px.png">
-    <Grid>
+        Title="WindowLogin" Height="600" Width="1100" WindowStartupLocation="CenterScreen" Icon="/LoginWindow/graduation_cap_100px.png">
+
+    <Grid Background="#FAFAFA">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-
-        <Image 
-            Source="/LoginWindow/LoginFormLeft.jpg" 
+        
+        <!-- Left Side -->
+        <Grid Grid.Column="0">
+            <Image 
+            Source="/LoginWindow/LoginFormLeft.png" 
             Stretch="Fill"
             RenderOptions.BitmapScalingMode="Fant"/>
+        </Grid>
 
+        <!-- Right Side -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <StackPanel>
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+
+                    <Style TargetType="PasswordBox">
+                        <Setter Property="PasswordChar" Value="*"/>
+                        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="Padding" Value="1"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="AllowDrop" Value="true"/>
+                        <Setter Property="Template">
+                            
+                            <Setter.Value>
+                                <ControlTemplate TargetType="PasswordBox">
+                                    <Border CornerRadius="20" x:Name="Bd" Background="#FFFFFF" BorderBrush="Black" BorderThickness="1" OpacityMask="{x:Null}">
+                                        <ScrollViewer SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" x:Name="PART_ContentHost" Template="{DynamicResource ScrollViewerControlTemplate1}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                            
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+
+                <TextBlock
+                    TextAlignment="Center"
+                    FontSize="32"
+                    Text="SIGN IN">
+                </TextBlock>
                 
+                <TextBlock
+                    TextAlignment="Center"
+                    FontSize="24"
+                    Text="to your organization's account ">
+                </TextBlock>
+                
+                <TextBox
+                    x:Name="TextBoxRN"
+                    TextAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    FontSize="16"
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    MaxWidth="350"
+                    Height="40"
+                    Margin="0,20,0,0"
+                    Background="#FFFFFF"
+                    >
+
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="20" />
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </TextBox.Style>
+
+                    <TextBox.Effect>
+                        <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                    </TextBox.Effect>
+                </TextBox>
+
+                <PasswordBox
+                    x:Name="TextBoxPassword"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    FontSize="16"
+                    MaxWidth="350"
+                    BorderThickness="1"
+                    Height="40"
+                    Margin="0,15,0,0"
+                    Background="#FFFFFF"
+                    >
+
+                    <PasswordBox.Effect>
+                        <DropShadowEffect BlurRadius="5" Direction="-90" RenderingBias="Quality" ShadowDepth="1"/>
+                    </PasswordBox.Effect>
+                </PasswordBox>
+
+                <Button
+                    Margin="0,20,0,0"
+                    MaxWidth="350"
+                    BorderThickness="10">
+
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="130"/>
+                        </Style>
+                    </Button.Resources>
+
+                </Button>
+
             </StackPanel>
 
             <TextBlock 
