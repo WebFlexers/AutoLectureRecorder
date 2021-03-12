@@ -24,17 +24,15 @@ namespace AutoLectureRecorder
     /// </summary>
     public partial class MainWindow : Window
     {
-        ChromeBot chromeBot;
-        public MainWindow(ChromeBot bot)
+        public MainWindow()
         {
-            chromeBot = bot;
             // Deserialize
             Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
 
             InitializeComponent();
 
             // Instantiate lectures to avoid null exception
-            lectures = new Lectures();
+            lecturesPage = new Lectures();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -78,15 +76,21 @@ namespace AutoLectureRecorder
 
         #region Menu
         RecordPage recordPage;
-        AddLecture addLecture;
-        Lectures lectures;
+        AddLecture addLecturePage;
+        Lectures lecturesPage;
+        Upload uploadPage;
 
         private void MenuRecord_Selected(object sender, RoutedEventArgs e)
         {
             if (recordPage == null)
-                recordPage = new RecordPage(chromeBot);
+                recordPage = new RecordPage();
 
             FrameMain.Content = recordPage;
+        }
+
+        private void MenuAddLectures_Selected(object sender, RoutedEventArgs e)
+        {
+            ShowAddLecturesSection();
         }
 
         private void MenuLectures_Selected(object sender, RoutedEventArgs e)
@@ -96,7 +100,10 @@ namespace AutoLectureRecorder
 
         private void MenuYoutube_Selected(object sender, RoutedEventArgs e)
         {
-            ShowAddLecturesSection();
+            if (uploadPage == null)
+                uploadPage = new Upload();
+
+            FrameMain.Content = uploadPage;
         }
 
         private void MenuSettings_Selected(object sender, RoutedEventArgs e)
@@ -107,45 +114,57 @@ namespace AutoLectureRecorder
         /* Used to change frame content from another page or window */
         public void ShowAddLecturesSection()
         {
-            if (addLecture == null)
-                addLecture = new AddLecture();
+            if (addLecturePage == null)
+                addLecturePage = new AddLecture();
 
-            FrameMain.Content = addLecture;
+            FrameMain.Content = addLecturePage;
         }
 
         public void ShowLecturesSection()
         {
-            if (lectures == null)
-                lectures = new Lectures();
+            if (lecturesPage == null)
+                lecturesPage = new Lectures();
 
-            FrameMain.Content = lectures;
+            FrameMain.Content = lecturesPage;
         }
         #endregion
 
         #region Update data
         public void AddNewLectureModels()
         {
-            lectures.AddNewLectureModels();
+            lecturesPage.AddNewLectureModels();
             recordPage.UpdateNextLecture();
             Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
         }
 
         public void RemoveLecture(Lecture lecture)
         {
-            lectures.RemoveLectureModel(lecture);
+            lecturesPage.RemoveLectureModel(lecture);
             recordPage.UpdateNextLecture();
             Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
         }
 
         #endregion
 
-        ScreenRecorder recorder = new ScreenRecorder();
+        /* Close all chrome processes */
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (recorder.IsRecording)
-                recorder.EndRecording();
-            else
-                recorder.CreateRecording();
+            Process[] chromeInstances = Process.GetProcessesByName("chrome");
+
+            foreach (Process p in chromeInstances)
+                p.Kill();
+
+            Process[] chromeDriverInstances = Process.GetProcessesByName("chromedriver");
+
+            foreach (Process p in chromeDriverInstances)
+                p.Kill();
+
+            Process[] chromeDriverConhost = Process.GetProcessesByName("conhost");
+
+            foreach (Process p in chromeDriverConhost)
+                p.Kill();
         }
+
+        
     }
 }

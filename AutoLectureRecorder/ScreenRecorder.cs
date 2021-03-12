@@ -69,22 +69,33 @@ namespace AutoLectureRecorder
 
             IsRecording = true;
         }
-        public void EndRecording()
+
+        public bool WillUploadToYoutube { get; set; } = false;
+        public void EndRecording(bool uploadToYoutube)
         {
+            WillUploadToYoutube = uploadToYoutube;
             recorder.Stop();
         }
+
         private void Rec_OnRecordingComplete(object sender, RecordingCompleteEventArgs e)
         {
             //Get the file path if recorded to a file
             string path = e.FilePath;
             Trace.WriteLine("Success!");
             IsRecording = false;
+
+            if (WillUploadToYoutube)
+            {
+
+            }
         }
+
         private void Rec_OnRecordingFailed(object sender, RecordingFailedEventArgs e)
         {
             Trace.WriteLine(e.Error);
             IsRecording = false;
         }
+
         private void Rec_OnStatusChanged(object sender, RecordingStatusEventArgs e)
         {
             RecorderStatus status = e.Status;

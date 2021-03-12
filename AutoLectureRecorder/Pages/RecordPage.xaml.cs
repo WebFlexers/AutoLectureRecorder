@@ -27,9 +27,8 @@ namespace AutoLectureRecorder.Pages
     /// </summary>
     public partial class RecordPage : Page
     {
-        public RecordPage(ChromeBot bot)
+        public RecordPage()
         {
-            chromeBot = bot;
             InitializeComponent();
             Load();
         }
@@ -54,7 +53,7 @@ namespace AutoLectureRecorder.Pages
                 StopLecture();
             //DeactivateRecordButton();
             else if (CanStartLecture())
-                StartLecture();
+                new Thread(() => StartLecture()).Start();
             //ActivateRecordButton();
             else
                 MessageBox.Show("No active lectures were found. Create or activate lectures to continue", "Unable to schedule lectures",
@@ -162,12 +161,10 @@ namespace AutoLectureRecorder.Pages
         }
 
         ScreenRecorder recorder = new ScreenRecorder();
-        ChromeBot chromeBot;
         private void StartLecture()
         {
-            chromeBot.HideBrowser = false;
-            chromeBot.StartDriver();
-            if (chromeBot.ConnectToMeetingByName("ΒΔ"))
+            Chrome.Bot.HideBrowser = false;
+            if (Chrome.Bot.ConnectToMeetingByName("ΒΔ"))
             {
                 recorder.CreateRecording();
                 //Task.Delay(nextLecture.EndTime - nextLecture.StartTime).ContinueWith(o => { StopLecture(); });
@@ -176,7 +173,7 @@ namespace AutoLectureRecorder.Pages
 
         private void StopLecture()
         {
-            recorder.EndRecording();
+            recorder.EndRecording(nextLecture.IsAutoUploadActive);
         }
 
         private void ShowUI()

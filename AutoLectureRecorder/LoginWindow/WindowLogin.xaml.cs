@@ -21,16 +21,13 @@ namespace AutoLectureRecorder.LoginWindow
     /// </summary>
     public partial class WindowLogin : Window
     {
-        ChromeBot chromeBot;
-
         public WindowLogin()
         {
             InitializeComponent();
             new Thread(() =>
             {
-                chromeBot = new ChromeBot();
-                chromeBot.HideBrowser = true;
-                chromeBot.StartDriver();
+                Chrome.Bot.HideBrowser = true;
+                Chrome.Bot.StartDriver();
             }).Start();   
         }
 
@@ -44,14 +41,14 @@ namespace AutoLectureRecorder.LoginWindow
 
             Thread thread = new Thread(() =>
             {
-                if (chromeBot.AuthenticateUser(registrationNum, password))
+                if (Chrome.Bot.AuthenticateUser(registrationNum, password))
                 {
                     User.AddUser(registrationNum, password);
 
                     Dispatcher.Invoke(() =>
                     {
                         LoadingIndicator.Visibility = Visibility.Hidden;
-                        MainWindow main = new MainWindow(chromeBot);
+                        MainWindow main = new MainWindow();
                         main.Owner = this;
                         this.Hide();
                         main.ShowDialog();

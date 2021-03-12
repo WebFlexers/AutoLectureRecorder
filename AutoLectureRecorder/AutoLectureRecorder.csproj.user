@@ -22,6 +22,9 @@
     <Compile Update="Pages\RecordPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\Upload.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Structure\LectureModel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +46,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\RecordPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Upload.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Structure\LectureModel.xaml">

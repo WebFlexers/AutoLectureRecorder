@@ -72,7 +72,7 @@ namespace AutoLectureRecorder.Structure
                 if (userResponse == MessageBoxResult.Yes)
                 {
                     Schedule.DeleteLecture(Lecture);
-                    MainWindow window = (MainWindow)Application.Current.MainWindow;
+                    MainWindow window = (MainWindow)Application.Current.Windows[1];
                     window.RemoveLecture(Lecture);
                 }
             }      
