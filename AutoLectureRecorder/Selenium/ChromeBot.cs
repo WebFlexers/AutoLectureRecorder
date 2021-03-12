@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 
 namespace AutoLectureRecorder.Selenium
 {
-    partial class ChromeBot
+    public partial class ChromeBot
     {
         const int waitTime = 30; //seconds    
 

@@ -51,7 +51,7 @@ namespace AutoLectureRecorder.LoginWindow
                     Dispatcher.Invoke(() =>
                     {
                         LoadingIndicator.Visibility = Visibility.Hidden;
-                        MainWindow main = new MainWindow();
+                        MainWindow main = new MainWindow(chromeBot);
                         main.Owner = this;
                         this.Hide();
                         main.ShowDialog();

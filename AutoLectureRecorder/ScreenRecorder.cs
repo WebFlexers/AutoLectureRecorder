@@ -83,7 +83,6 @@ namespace AutoLectureRecorder
         private void Rec_OnRecordingFailed(object sender, RecordingFailedEventArgs e)
         {
             Trace.WriteLine(e.Error);
-            Trace.WriteLine("RIP");
             IsRecording = false;
         }
         private void Rec_OnStatusChanged(object sender, RecordingStatusEventArgs e)

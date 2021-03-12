@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace AutoLectureRecorder.Selenium
 {
-    partial class ChromeBot
+    public partial class ChromeBot
     {
         const string cookieFileName = "profile.alr";
 
@@ -86,7 +86,7 @@ namespace AutoLectureRecorder.Selenium
             LoadCookies(null, cookieFileName);
         }
 
-        public void ConnectToMeetingByName(string name)
+        public bool ConnectToMeetingByName(string name)
         {
             try
             {
@@ -122,12 +122,14 @@ namespace AutoLectureRecorder.Selenium
                 preJoinCallBtn.Click();
 
                 onMeeting = true;
+
+                return true;
             }   
             catch (Exception ex)
             {            
                 TerminateDriver();
                 Console.WriteLine("An error occured while connecting to meeting: " + ex.Message);
-                throw ex;
+                return false;
             }
         }
 

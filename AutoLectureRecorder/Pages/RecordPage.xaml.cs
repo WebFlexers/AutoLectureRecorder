@@ -18,6 +18,7 @@ using System.Linq;
 using MoreLinq;
 using System.Threading.Tasks;
 using System.Threading;
+using AutoLectureRecorder.Selenium;
 
 namespace AutoLectureRecorder.Pages
 {
@@ -26,8 +27,9 @@ namespace AutoLectureRecorder.Pages
     /// </summary>
     public partial class RecordPage : Page
     {
-        public RecordPage()
+        public RecordPage(ChromeBot bot)
         {
+            chromeBot = bot;
             InitializeComponent();
             Load();
         }
@@ -49,9 +51,11 @@ namespace AutoLectureRecorder.Pages
         private void ButtonRecord_Click(object sender, RoutedEventArgs e)
         {
             if (IsRecordButtonClicked)
-                DeactivateRecordButton();
+                StopLecture();
+            //DeactivateRecordButton();
             else if (CanStartLecture())
-                ActivateRecordButton();
+                StartLecture();
+            //ActivateRecordButton();
             else
                 MessageBox.Show("No active lectures were found. Create or activate lectures to continue", "Unable to schedule lectures",
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -157,9 +161,22 @@ namespace AutoLectureRecorder.Pages
                 TextBlockNextLecture.Text = nextLecture.Name;
         }
 
+        ScreenRecorder recorder = new ScreenRecorder();
+        ChromeBot chromeBot;
         private void StartLecture()
         {
+            chromeBot.HideBrowser = false;
+            chromeBot.StartDriver();
+            if (chromeBot.ConnectToMeetingByName("ΒΔ"))
+            {
+                recorder.CreateRecording();
+                //Task.Delay(nextLecture.EndTime - nextLecture.StartTime).ContinueWith(o => { StopLecture(); });
+            }
+        }
 
+        private void StopLecture()
+        {
+            recorder.EndRecording();
         }
 
         private void ShowUI()

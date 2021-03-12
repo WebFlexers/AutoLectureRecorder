@@ -24,8 +24,10 @@ namespace AutoLectureRecorder
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        ChromeBot chromeBot;
+        public MainWindow(ChromeBot bot)
         {
+            chromeBot = bot;
             // Deserialize
             Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
 
@@ -82,7 +84,7 @@ namespace AutoLectureRecorder
         private void MenuRecord_Selected(object sender, RoutedEventArgs e)
         {
             if (recordPage == null)
-                recordPage = new RecordPage();
+                recordPage = new RecordPage(chromeBot);
 
             FrameMain.Content = recordPage;
         }

@@ -18,7 +18,7 @@
 
     <!-- Custom titlebar  -->
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="100" 
+        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="70" 
                           NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="true" />
     </WindowChrome.WindowChrome>
 
