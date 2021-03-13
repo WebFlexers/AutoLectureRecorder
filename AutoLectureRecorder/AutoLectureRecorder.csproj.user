@@ -22,7 +22,7 @@
     <Compile Update="Pages\RecordPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\Upload.xaml.cs">
+    <Compile Update="Pages\YoutubeAuthenticate.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Structure\LectureModel.xaml.cs">
@@ -48,7 +48,7 @@
     <Page Update="Pages\RecordPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\Upload.xaml">
+    <Page Update="Pages\YoutubeAuthenticate.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Structure\LectureModel.xaml">
