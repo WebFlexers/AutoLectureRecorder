@@ -1,9 +1,13 @@
-﻿using ScreenRecorderLib;
+﻿using AutoLectureRecorder.Pages;
+using ScreenRecorderLib;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Windows.Controls;
+using System.Windows.Threading;
+using YoutubeAPI;
 
 namespace AutoLectureRecorder
 {
@@ -71,22 +75,24 @@ namespace AutoLectureRecorder
         }
 
         public bool WillUploadToYoutube { get; set; } = false;
-        public void EndRecording(bool uploadToYoutube)
+        public void EndRecording(bool uploadToYoutube, ProgressBar progressBar)
         {
             WillUploadToYoutube = uploadToYoutube;
+            _progressBar = progressBar;
             recorder.Stop();
         }
 
-        private void Rec_OnRecordingComplete(object sender, RecordingCompleteEventArgs e)
+        ProgressBar _progressBar;
+        private async void Rec_OnRecordingComplete(object sender, RecordingCompleteEventArgs e)
         {
             //Get the file path if recorded to a file
-            string path = e.FilePath;
             Trace.WriteLine("Success!");
             IsRecording = false;
 
             if (WillUploadToYoutube)
             {
-
+                YoutubeUploader youtube = new YoutubeUploader();
+                await youtube.UploadVideo(@"G:\ΠΑΠΕΙ\4o εξάμηνο\Πληροφορική στην εκπαίδευση\2021-03-12 12-27-40.mkv", "TestVideo", "A description", _progressBar);
             }
         }
 

@@ -2,6 +2,7 @@
 using AutoLectureRecorder.Structure;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -53,7 +54,7 @@ namespace AutoLectureRecorder.LoginWindow
                         this.Hide();
                         main.ShowDialog();
                     });
-                    
+
                 }
                 else
                 {
@@ -71,6 +72,17 @@ namespace AutoLectureRecorder.LoginWindow
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        //Temp
+        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Trace.WriteLine(Environment.CurrentDirectory);
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
     }
 }

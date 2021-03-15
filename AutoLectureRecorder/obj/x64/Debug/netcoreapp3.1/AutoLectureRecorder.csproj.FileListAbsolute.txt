@@ -5,6 +5,11 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\AutoLectureRecorder.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\AutoLectureRecorder.pdb
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\SeleniumExtras.WaitHelpers.dll
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\Google.Apis.dll
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\Google.Apis.Auth.PlatformServices.dll
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\Google.Apis.Auth.dll
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\Google.Apis.Core.dll
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\Google.Apis.YouTube.v3.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\LoadingIndicators.WPF.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\MaterialDesignColors.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
@@ -13,14 +18,14 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\WebDriver.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\ScreenRecorderLib.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\ScreenRecorderLib.xml
-C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.csprojAssemblyReference.cache
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\LoginWindow\WindowLogin.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\MainWindow.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\AddLecture.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\LectureModelsPage.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\Lectures.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\RecordPage.g.cs
-C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\Upload.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\Youtube.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\YoutubeAuthenticate.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Structure\LectureModel.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\App.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder_MarkupCompile.cache
@@ -32,7 +37,8 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\LectureModelsPage.baml
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\Lectures.baml
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\RecordPage.baml
-C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\Upload.baml
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\Youtube.baml
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\YoutubeAuthenticate.baml
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Structure\LectureModel.baml
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.g.resources
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.AssemblyInfoInputs.cache
@@ -42,3 +48,5 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.pdb
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.genruntimeconfig.cache
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\VideoUploadStatus.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\VideoUploadStatus.baml

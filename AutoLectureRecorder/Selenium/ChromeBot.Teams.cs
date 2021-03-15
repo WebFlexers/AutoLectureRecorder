@@ -110,10 +110,18 @@ namespace AutoLectureRecorder.Selenium
                 IWebElement lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, '" + name + "')]"));
                 lessonCardBtn.Click();
 
-                //Wait 20 minutes until Join button appears
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20*60));
-                IWebElement joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));
-                joinBtn.Click();
+                try
+                {
+                    //Wait 20 minutes until Join button appears
+                    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20 * 60));
+                    IWebElement joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));
+                    joinBtn.Click();
+                }
+                catch
+                {
+                    TerminateDriver();
+                    return false;
+                }
 
                 IWebElement noAudioMicBtn = driver.FindElement(By.XPath("//button[contains(@track-summary, 'Continue in call/meetup without device access')]"));
                 noAudioMicBtn.Click();
@@ -126,7 +134,7 @@ namespace AutoLectureRecorder.Selenium
                 return true;
             }   
             catch (Exception ex)
-            {            
+            {
                 TerminateDriver();
                 Console.WriteLine("An error occured while connecting to meeting: " + ex.Message);
                 return false;

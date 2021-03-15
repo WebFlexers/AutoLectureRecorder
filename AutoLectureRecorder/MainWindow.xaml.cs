@@ -3,7 +3,9 @@ using AutoLectureRecorder.Structure;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using YoutubeAPI;
 
 namespace AutoLectureRecorder
 {
@@ -18,9 +20,6 @@ namespace AutoLectureRecorder
             Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
 
             InitializeComponent();
-
-            // Instantiate lectures to avoid null exception
-            lecturesPage = new Lectures();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -65,8 +64,9 @@ namespace AutoLectureRecorder
         #region Menu
         RecordPage recordPage;
         AddLecture addLecturePage;
-        Lectures lecturesPage;
-        Upload uploadPage;
+        Lectures lecturesPage = new Lectures();
+        YoutubeAuthenticate youtubeAuthenticate;
+        Youtube youtube = new Youtube();
 
         private void MenuRecord_Selected(object sender, RoutedEventArgs e)
         {
@@ -88,10 +88,21 @@ namespace AutoLectureRecorder
 
         private void MenuYoutube_Selected(object sender, RoutedEventArgs e)
         {
-            if (uploadPage == null)
-                uploadPage = new Upload();
+            if (YoutubeUploader.IsAuthenticated)
+            {
+                if (youtube == null)
+                    youtube = new Youtube();
 
-            FrameMain.Content = uploadPage;
+                FrameMain.Content = youtube;
+            }
+            else
+            {
+                if (youtubeAuthenticate == null)
+                    youtubeAuthenticate = new YoutubeAuthenticate();
+
+                FrameMain.Content = youtubeAuthenticate;
+            }
+            
         }
 
         private void MenuSettings_Selected(object sender, RoutedEventArgs e)
@@ -132,6 +143,10 @@ namespace AutoLectureRecorder
             Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
         }
 
+        public ProgressBar CreateYoutubeProgressBar(Lecture lecture)
+        {
+            return youtube.CreateProgressBar(lecture);
+        }
         #endregion
 
         /* Close all chrome processes */

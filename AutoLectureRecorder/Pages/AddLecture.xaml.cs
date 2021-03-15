@@ -32,12 +32,14 @@ namespace AutoLectureRecorder.Pages
 
                 string name = TextboxLectureName.Text;
                 string meetingTeam = ComboboxMeeting.Text;
-                string day = ComboboxDay.Text;
+                string day = ComboboxDay.Text; 
                 bool isYoutubeActive = CheckboxYoutube.IsChecked.Value;
 
                 Lecture lecture = new Lecture(name, startTime, endTime, meetingTeam, isYoutubeActive, day);
                 Schedule.AddLecture(lecture);
-                ((MainWindow)Application.Current.Windows[1]).AddNewLectureModels();
+                
+                int countWindows = Application.Current.Windows.Count;
+                ((MainWindow)(Application.Current.Windows[countWindows-1])).AddNewLectureModels();
 
                 MessageBox.Show("Lecture added successfully!");
             }

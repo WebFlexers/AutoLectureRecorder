@@ -163,17 +163,21 @@ namespace AutoLectureRecorder.Pages
         ScreenRecorder recorder = new ScreenRecorder();
         private void StartLecture()
         {
-            Chrome.Bot.HideBrowser = false;
-            if (Chrome.Bot.ConnectToMeetingByName("ΒΔ"))
-            {
-                recorder.CreateRecording();
-                //Task.Delay(nextLecture.EndTime - nextLecture.StartTime).ContinueWith(o => { StopLecture(); });
-            }
+            //Chrome.Bot.HideBrowser = false;
+            //if (Chrome.Bot.ConnectToMeetingByName("ΒΔ"))
+            //{
+            //    recorder.CreateRecording();
+            //    //Task.Delay(nextLecture.EndTime - nextLecture.StartTime).ContinueWith(o => { StopLecture(); });
+            //}
+            recorder.CreateRecording();
+            IsRecordButtonClicked = true;
         }
 
         private void StopLecture()
         {
-            recorder.EndRecording(nextLecture.IsAutoUploadActive);
+            ProgressBar progressBar = ((MainWindow)Application.Current.Windows[0]).CreateYoutubeProgressBar(nextLecture);
+            recorder.EndRecording(nextLecture.IsAutoUploadActive, progressBar);
+            IsRecordButtonClicked = false;
         }
 
         private void ShowUI()

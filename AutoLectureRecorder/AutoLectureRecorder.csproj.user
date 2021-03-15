@@ -22,6 +22,12 @@
     <Compile Update="Pages\RecordPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\VideoUploadStatus.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Youtube.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\YoutubeAuthenticate.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +52,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\RecordPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\VideoUploadStatus.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Youtube.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\YoutubeAuthenticate.xaml">

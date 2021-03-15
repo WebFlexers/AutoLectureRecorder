@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\App.xaml
-8-889701792
+1035300894
 
-20803118442
-20010616879
-LoginWindow\WindowLogin.xaml;MainWindow.xaml;Pages\AddLecture.xaml;Pages\LectureModelsPage.xaml;Pages\Lectures.xaml;Pages\RecordPage.xaml;Pages\YoutubeAuthenticate.xaml;Structure\LectureModel.xaml;
+231045771136
+2051803027141
+LoginWindow\WindowLogin.xaml;MainWindow.xaml;Pages\AddLecture.xaml;Pages\LectureModelsPage.xaml;Pages\Lectures.xaml;Pages\RecordPage.xaml;Pages\VideoUploadStatus.xaml;Pages\Youtube.xaml;Pages\YoutubeAuthenticate.xaml;Structure\LectureModel.xaml;
 
-False
+True
 

@@ -81,7 +81,7 @@
                     Width="70" 
                     Margin="10"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top"/>
+                    VerticalAlignment="Top" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     Margin="0,12,0,0"
@@ -90,7 +90,7 @@
                     Foreground="#FAFAFA"
                     TextWrapping="Wrap"
                     MaxWidth="200"
-                    Text="Auto Lecture Recorder">
+                    Text="Auto Lecture Recorder" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown">
                 </TextBlock>
 
                 <StackPanel VerticalAlignment="Center">

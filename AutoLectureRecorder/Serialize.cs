@@ -10,7 +10,7 @@ namespace AutoLectureRecorder
 {
     public static class Serialize
     {
-        private static string DataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        public static string DataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                                                                     "AutoLectureRecorder");
         static Serialize()
         {
