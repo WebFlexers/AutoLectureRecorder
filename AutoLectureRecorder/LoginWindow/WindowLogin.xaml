@@ -90,7 +90,7 @@
                     Foreground="#FAFAFA"
                     TextWrapping="Wrap"
                     MaxWidth="200"
-                    Text="Auto Lecture Recorder" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown">
+                    Text="Auto Lecture Recorder">
                 </TextBlock>
 
                 <StackPanel VerticalAlignment="Center">

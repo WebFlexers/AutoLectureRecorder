@@ -50,3 +50,4 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.genruntimeconfig.cache
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\VideoUploadStatus.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\VideoUploadStatus.baml
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.csprojAssemblyReference.cache

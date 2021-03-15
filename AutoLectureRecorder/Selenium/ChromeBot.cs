@@ -21,7 +21,6 @@ namespace AutoLectureRecorder.Selenium
         IWebDriver driver;
 
         List<string[]> cookiesList = new List<string[]>();
-        public string WindowHandle { get => driver.CurrentWindowHandle; }
 
         //Settings
         public bool HideBrowser = false;
@@ -45,46 +44,31 @@ namespace AutoLectureRecorder.Selenium
 
         public void StartDriver()
         {
-            try
-            {
-                if (!isDriverRunning)
-                {
-                    isDriverRunning = true;
+            ChromeOptions chromeOptions = new ChromeOptions();
+            var driverService = ChromeDriverService.CreateDefaultService();
 
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    var driverService = ChromeDriverService.CreateDefaultService();
-
-                    //Disable mic
-                    chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_mic", 2);
-                    //Disable camera
-                    chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_camera", 2);
-                    //General Options
-                    chromeOptions.AddAdditionalCapability("browser", "Chrome", true);
-                    chromeOptions.AddAdditionalCapability("browser_version", "70.0", true);
-                    chromeOptions.AddAdditionalCapability("os", "Windows", true);
-                    chromeOptions.AddAdditionalCapability("os_version", "10", true);
-                    //Arguments
-                    chromeOptions.AddArgument("--disable-extensions");
-                    chromeOptions.AddArgument("--disable-default-apps");
-                    if (HideBrowser == true) chromeOptions.AddArgument("--headless");
-                    //Services
-                    if (HideCommandLine == true) driverService.HideCommandPromptWindow = true;
-
-                    driver = new ChromeDriver(driverService, chromeOptions);
-
-                    WaitForSeconds(waitTime);
-                    if (MaximizeBrowser == true)
-                        driver.Manage().Window.Maximize();
-                }
-            } 
-            catch 
-            {
-                isDriverRunning = false;
-                if (driver != null)
-                    CloseFocusedBrowser();
-                TerminateDriver();
-            }
+            //Disable mic
+            chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_mic", 2);
+            //Disable camera
+            chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_camera", 2);
+            //General Options
+            chromeOptions.AddAdditionalCapability("browser", "Chrome", true);
+            chromeOptions.AddAdditionalCapability("browser_version", "70.0", true);
+            chromeOptions.AddAdditionalCapability("os", "Windows", true);
+            chromeOptions.AddAdditionalCapability("os_version", "10", true);
+            //Arguments
+            chromeOptions.AddArgument("--disable-extensions");
+            chromeOptions.AddArgument("--disable-default-apps");
+            if (HideBrowser == true) chromeOptions.AddArgument("--headless");
+            //Services
+            if (HideCommandLine == true) driverService.HideCommandPromptWindow = true;   
             
+            driver = new ChromeDriver(driverService, chromeOptions);
+            isDriverRunning = true;
+
+            WaitForSeconds(waitTime);
+            if(MaximizeBrowser == true)
+                driver.Manage().Window.Maximize();
         }        
         
         private void SaveCookiesToList()
@@ -96,7 +80,7 @@ namespace AutoLectureRecorder.Selenium
                 cookiesList.Add(tempList);
                 Console.WriteLine(tempCookie.Name + ", " + tempCookie.Expiry);
             }
-        }
+        }      
 
         private void SaveCookiesToFile(List<string[]> cookiesList)      
         {           
@@ -120,7 +104,7 @@ namespace AutoLectureRecorder.Selenium
         private void LoadCookies(string url, string filename)
         {
             if (driver == null || !isDriverRunning) return;
-            if (!File.Exists(cookieFileName)) return;
+            if (!File.Exists(filename)) return;
 
             try
             {
@@ -142,6 +126,7 @@ namespace AutoLectureRecorder.Selenium
                 {
                     cookie = new Cookie(tmpCkInfo[0], tmpCkInfo[1]);
                     driver.Manage().Cookies.AddCookie(cookie);
+                    Console.WriteLine(cookie.Name);
                 }
 
                 RefreshCurrentPage();
@@ -157,6 +142,5 @@ namespace AutoLectureRecorder.Selenium
             driver.Manage().Cookies.DeleteAllCookies(); //delete all cookies
             Thread.Sleep(7000); //wait 7 seconds to clear cookies
         }
-
     }
 }

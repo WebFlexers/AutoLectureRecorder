@@ -40,6 +40,7 @@ namespace AutoLectureRecorder.LoginWindow
             ButtonAddLecture.IsEnabled = false;
             LoadingIndicator.Visibility = Visibility.Visible;
 
+            
             Thread thread = new Thread(() =>
             {
                 if (Chrome.Bot.AuthenticateUser(registrationNum, password))
@@ -72,17 +73,6 @@ namespace AutoLectureRecorder.LoginWindow
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        //Temp
-        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Trace.WriteLine(Environment.CurrentDirectory);
-        }
-
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
         }
     }
 }

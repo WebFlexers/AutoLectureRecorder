@@ -10,6 +10,9 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using System.Threading;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AutoLectureRecorder.Selenium
 {
@@ -20,13 +23,33 @@ namespace AutoLectureRecorder.Selenium
         public string teamsHomePagetUrl = "https://teams.microsoft.com/_#/school//?ctx=teamsGrid";
         public bool onMeeting = false;
 
-        public bool AuthenticateUser(string AM, string password)
+        public void GoToTeamsMenu()
         {
+            if (driver == null || !isDriverRunning)
+            {
+                StartDriver();
+                LoadCookies(null, cookieFileName);
+                Thread.Sleep(3000);
+            }
+            else
+            {
+                if (!driver.Url.Equals(teamsHomePagetUrl))
+                {
+                    driver.Url = teamsHomePagetUrl;
+                }
+            }
+        }
+
+        public bool AuthenticateUser(string AM, string password)
+        {            
             try
             {
-                HideBrowser = true;
-                StartDriver();
-
+                if (driver == null)
+                {
+                    HideBrowser = true;
+                    StartDriver();
+                }
+                
                 //-----------------------------------Microsoft's Login Page-----------------------------------
                 driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
 
@@ -75,19 +98,49 @@ namespace AutoLectureRecorder.Selenium
             }
             catch (Exception ex)
             {
-                Trace.WriteLine("An error occured while authenticating user: " + ex.Message);
+                Console.WriteLine("An error occured while authenticating user: " + ex.Message);
                 return false;
             }
         }
 
-        public void GoToTeamsMenu()
+        public bool IsCookieExpired(string cookieName)
         {
-            StartDriver();
-            LoadCookies(null, cookieFileName);
+            if (!File.Exists(cookieFileName)) return true;
+
+            //Get Cookies from file
+            try
+            {               
+                Stream stream = new FileStream(cookieFileName, FileMode.Open);
+                IFormatter formatter = new BinaryFormatter();
+                List<string[]> cookiesList = (List<string[]>)formatter.Deserialize(stream);
+                stream.Close();
+
+                //Search for cookie TSPREAUTHCOOKIE
+                foreach (string[] cookie in cookiesList)
+                {
+                    if (cookie[0].Equals(cookieName))
+                    {
+                        //Compare times
+                        DateTime currentTime = DateTime.Now;
+                        Console.WriteLine(currentTime.ToString());
+                        DateTime cookieExpiry = DateTime.Parse(cookie[3]);
+                        Console.WriteLine(cookieExpiry.ToString());
+                        int x = TimeSpan.Compare(currentTime.TimeOfDay, cookieExpiry.TimeOfDay);
+                        //Check if current date is longer than expiry date
+                        if (x == -1) return false;
+                        else return true;
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return true;
+            }           
         }
 
         public bool ConnectToMeetingByName(string name)
-        {
+        {            
             try
             {
                 if (driver == null || !isDriverRunning)
@@ -110,18 +163,10 @@ namespace AutoLectureRecorder.Selenium
                 IWebElement lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, '" + name + "')]"));
                 lessonCardBtn.Click();
 
-                try
-                {
-                    //Wait 20 minutes until Join button appears
-                    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20 * 60));
-                    IWebElement joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));
-                    joinBtn.Click();
-                }
-                catch
-                {
-                    TerminateDriver();
-                    return false;
-                }
+                //Wait 20 minutes until Join button appears
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20*60));
+                IWebElement joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));
+                joinBtn.Click();
 
                 IWebElement noAudioMicBtn = driver.FindElement(By.XPath("//button[contains(@track-summary, 'Continue in call/meetup without device access')]"));
                 noAudioMicBtn.Click();
@@ -130,18 +175,17 @@ namespace AutoLectureRecorder.Selenium
                 preJoinCallBtn.Click();
 
                 onMeeting = true;
-
                 return true;
             }   
             catch (Exception ex)
-            {
+            {            
                 TerminateDriver();
                 Console.WriteLine("An error occured while connecting to meeting: " + ex.Message);
                 return false;
             }
         }
 
-        private void LeaveMeeting()
+        public void LeaveMeeting()
         {
             if (!onMeeting) return;
 
@@ -168,6 +212,7 @@ namespace AutoLectureRecorder.Selenium
         public int GetParticipantsNumber()
         {
             if (!onMeeting) return 0;
+
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             int participants = 0;
             IWebElement showParticipantsBtn = driver.FindElement(By.Id("roster-button"));
@@ -201,6 +246,7 @@ namespace AutoLectureRecorder.Selenium
             {
                 if (driver == null || !isDriverRunning)
                 {
+                    HideBrowser = true;
                     StartDriver();
                     LoadCookies(null, cookieFileName);
                     Thread.Sleep(3000);
@@ -213,8 +259,8 @@ namespace AutoLectureRecorder.Selenium
                 
                 List<string> meetingsList = new List<string>();
                 //Find cards container
-                Thread.Sleep(5000);
-                IWebElement cardsContainer = driver.FindElement(By.XPath("//*[@id='favorite-teams-panel']"));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));               
+                IWebElement cardsContainer = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='favorite-teams-panel']")));
                 //Retrieve number of cards
                 int cardsNum = int.Parse(cardsContainer.GetAttribute("set-size"));
                 Console.WriteLine("Number of cards: " + cardsNum);
@@ -224,7 +270,7 @@ namespace AutoLectureRecorder.Selenium
                 foreach (var card in cardsList)
                     meetingsList.Add(card.Text);
 
-                TerminateDriver();
+                TerminateDriver(); 
 
                 return meetingsList;
             }
