@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:AutoLectureRecorder"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -24,7 +25,7 @@
 
     <Window.Resources>
         <Storyboard x:Key="MenuMove0">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Ellipse">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <BackEase EasingMode="EaseInOut"/>
@@ -34,7 +35,7 @@
         </Storyboard>
 
         <Storyboard x:Key="MenuMove1">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Ellipse">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="60">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <BackEase EasingMode="EaseInOut"/>
@@ -44,7 +45,7 @@
         </Storyboard>
 
         <Storyboard x:Key="MenuMove2">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Ellipse">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <BackEase EasingMode="EaseInOut"/>
@@ -54,7 +55,7 @@
         </Storyboard>
 
         <Storyboard x:Key="MenuMove3">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Ellipse">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="180">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <BackEase EasingMode="EaseInOut"/>
@@ -64,7 +65,7 @@
         </Storyboard>
 
         <Storyboard x:Key="MenuMove4">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ellipse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Ellipse">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="240">
                     <EasingDoubleKeyFrame.EasingFunction>
                         <BackEase EasingMode="EaseInOut"/>
@@ -76,19 +77,19 @@
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuRecord">
-            <BeginStoryboard x:Name="Move0_BeginStoryboard" Storyboard="{StaticResource MenuMove0}"/>
+            <BeginStoryboard x:Name="Move0BeginStoryboard" Storyboard="{StaticResource MenuMove0}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuAddLectures">
-            <BeginStoryboard x:Name="Move1_BeginStoryboard" Storyboard="{StaticResource MenuMove1}"/>
+            <BeginStoryboard x:Name="Move1BeginStoryboard" Storyboard="{StaticResource MenuMove1}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuLectures">
-            <BeginStoryboard x:Name="Move2_BeginStoryboard" Storyboard="{StaticResource MenuMove2}"/>
+            <BeginStoryboard x:Name="Move2BeginStoryboard" Storyboard="{StaticResource MenuMove2}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuYoutube">
-            <BeginStoryboard x:Name="Move3_BeginStoryboard" Storyboard="{StaticResource MenuMove3}"/>
+            <BeginStoryboard x:Name="Move3BeginStoryboard" Storyboard="{StaticResource MenuMove3}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ListBoxItem.Selected" SourceName="MenuSettings">
-            <BeginStoryboard x:Name="Move4_BeginStoryboard" Storyboard="{StaticResource MenuMove4}"/>
+            <BeginStoryboard x:Name="Move4BeginStoryboard" Storyboard="{StaticResource MenuMove4}"/>
         </EventTrigger>
     </Window.Triggers>
 
@@ -145,6 +146,47 @@
 
                 <!-- Titlebar buttons -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="ButtonProfile" Background="Transparent" Width="50" Margin="0,0,10,0"
+                            WindowChrome.IsHitTestVisibleInChrome="True" BorderThickness="0" Cursor="Hand">
+
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="MainContextMenu" PlacementRectangle="{Binding RelativeSource={RelativeSource Self}}">
+                                <MenuItem Header="P19165">
+                                    <MenuItem.Icon>
+                                        <Image Source="/student_male_64px.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Logout" Click="MenuItem_Click">
+                                    <MenuItem.Icon>
+                                        <Image Source="/logout_rounded_left_50px.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                            </ContextMenu>
+                        </Button.ContextMenu>
+
+                        <Button.Triggers>
+                            <EventTrigger SourceName="ButtonProfile" RoutedEvent="Button.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainContextMenu" Storyboard.TargetProperty="(ContextMenu.IsOpen)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <sys:Boolean>True</sys:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+
+                        <Button.Content>
+                            <materialDesign:PackIcon x:Name="ProfileIcon" HorizontalAlignment="Center" Width="30" Height="22" Kind="AccountCircle" Foreground="#1BCDCF"/>
+                        </Button.Content>
+                                        
+                    </Button>
+                    
                     <Button x:Name="ButtonWindowState" Style="{StaticResource MaterialDesignFlatButton}"
                             Click="ButtonWindowState_Click" WindowChrome.IsHitTestVisibleInChrome="True">
                         <materialDesign:PackIcon x:Name="MinimizeIcon" Kind="WindowMinimize" Foreground="#E6E8E7"/>
@@ -223,7 +265,7 @@
 
                 <Grid Grid.RowSpan="5" Width="5" Margin="145,32,0,0" HorizontalAlignment="Left">
                     <Rectangle Fill="#1BCDCF" Width="2" HorizontalAlignment="Right"/>
-                    <Ellipse x:Name="ellipse" Width="10" Height="10" VerticalAlignment="Top" Fill="#1BCDCF" Margin="0,131,0,0" 
+                    <Ellipse x:Name="Ellipse" Width="10" Height="10" VerticalAlignment="Top" Fill="#1BCDCF" Margin="0,131,0,0" 
                  RenderTransformOrigin="0.5, 0.5">
                         <Ellipse.RenderTransform>
                             <TransformGroup>

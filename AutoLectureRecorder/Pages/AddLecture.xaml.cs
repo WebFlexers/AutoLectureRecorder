@@ -38,8 +38,7 @@ namespace AutoLectureRecorder.Pages
                 Lecture lecture = new Lecture(name, startTime, endTime, meetingTeam, isYoutubeActive, day);
                 Schedule.AddLecture(lecture);
                 
-                int countWindows = Application.Current.Windows.Count;
-                ((MainWindow)(Application.Current.Windows[countWindows-1])).AddNewLectureModels();
+                ((MainWindow)Application.Current.Windows[1]).AddNewLectureModels();
 
                 MessageBox.Show("Lecture added successfully!");
             }

@@ -46,5 +46,37 @@ namespace AutoLectureRecorder
             return lecturesByDay;
 
         }
+
+        public static void SerializeUserData(string registrationNum, string password)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(Path.Combine(DataDirectory, "user.alr"), FileMode.OpenOrCreate, FileAccess.Write);
+
+            string[] userData = { registrationNum, password };
+
+            formatter.Serialize(stream, userData);
+
+            stream.Close();
+        }
+
+        public static string[] DeserializeUserData()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(Path.Combine(DataDirectory, "user.alr"), FileMode.OpenOrCreate, FileAccess.Read);
+
+            string[] userData;
+            if (stream.Length != 0)
+            {
+                userData = (string[])formatter.Deserialize(stream);
+            }
+            else
+            {
+                userData = null;
+            }
+
+            stream.Close();
+            return userData;
+
+        }
     }
 }

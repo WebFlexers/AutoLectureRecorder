@@ -9,7 +9,30 @@ namespace AutoLectureRecorder.Structure
         public static string RegistrationNumber { get; set; }
         public static string Password { get; set; }
 
-        public static void AddUser(string registrationNumber, string password)
+        static User()
+        {
+            string[] userData = Serialize.DeserializeUserData();
+            if (userData != null)
+            {
+                RegistrationNumber = userData[0];
+                Password = userData[1];
+            }
+            
+        }
+
+        public static bool IsLoggedIn()
+        {
+            if (RegistrationNumber != null && Password != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void UpdateUserData(string registrationNumber, string password)
         {
             RegistrationNumber = registrationNumber;
             Password = password;

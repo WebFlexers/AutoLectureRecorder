@@ -175,7 +175,7 @@ namespace AutoLectureRecorder.Pages
 
         private void StopLecture()
         {
-            ProgressBar progressBar = ((MainWindow)Application.Current.Windows[0]).CreateYoutubeProgressBar(nextLecture);
+            ProgressBar progressBar = ((MainWindow)Application.Current.Windows[1]).CreateYoutubeProgressBar(nextLecture);
             recorder.EndRecording(nextLecture.IsAutoUploadActive, progressBar);
             IsRecordButtonClicked = false;
         }

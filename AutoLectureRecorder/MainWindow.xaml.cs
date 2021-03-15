@@ -2,6 +2,7 @@
 using AutoLectureRecorder.Structure;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -59,6 +60,20 @@ namespace AutoLectureRecorder
             else if (this.WindowState == WindowState.Maximized)
                 ResizeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.WindowRestore;
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            string userFile = Path.Combine(Serialize.DataDirectory, "user.alr");
+            if (File.Exists(userFile))
+            {
+                File.Delete(userFile);
+                User.RegistrationNumber = null;
+                User.Password = null;
+            }
+
+            this.Close();
+        }
+
         #endregion
 
         #region Menu
@@ -168,6 +183,6 @@ namespace AutoLectureRecorder
                 p.Kill();
         }
 
-        
+
     }
 }

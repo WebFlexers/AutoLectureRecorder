@@ -25,11 +25,19 @@ namespace AutoLectureRecorder.LoginWindow
         public WindowLogin()
         {
             InitializeComponent();
-            new Thread(() =>
+
+            if (User.IsLoggedIn())
             {
-                Chrome.Bot.HideBrowser = true;
-                Chrome.Bot.StartDriver();
-            }).Start();   
+                ShowMainWindow();
+            }
+            else
+            {
+                new Thread(() =>
+                {
+                    Chrome.Bot.HideBrowser = true;
+                    Chrome.Bot.StartDriver();
+                }).Start();
+            }
         }
 
         private void ButtonAddLecture_Click(object sender, RoutedEventArgs e)
@@ -40,34 +48,46 @@ namespace AutoLectureRecorder.LoginWindow
             ButtonAddLecture.IsEnabled = false;
             LoadingIndicator.Visibility = Visibility.Visible;
 
-            
-            Thread thread = new Thread(() =>
+            if (User.Password != password || User.RegistrationNumber != registrationNum)
             {
-                if (Chrome.Bot.AuthenticateUser(registrationNum, password))
+                Thread thread = new Thread(() =>
                 {
-                    User.AddUser(registrationNum, password);
-
-                    Dispatcher.Invoke(() =>
+                    if (Chrome.Bot.AuthenticateUser(registrationNum, password))
                     {
-                        LoadingIndicator.Visibility = Visibility.Hidden;
-                        MainWindow main = new MainWindow();
-                        main.Owner = this;
-                        this.Hide();
-                        main.ShowDialog();
-                    });
+                        User.UpdateUserData(registrationNum, password);
+                        Serialize.SerializeUserData(registrationNum, password);
 
-                }
-                else
-                {
-                    Dispatcher.Invoke(() => LoadingIndicator.Visibility = Visibility.Hidden);
-                    Dispatcher.Invoke(() => ButtonAddLecture.IsEnabled = true);
-                    MessageBox.Show("The given credentials are not valid", "Unable to authenticate user", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                        Dispatcher.Invoke(() => ShowMainWindow());
+                    }
+                    else
+                    {
+                        Dispatcher.Invoke(() => LoadingIndicator.Visibility = Visibility.Hidden);
+                        Dispatcher.Invoke(() => ButtonAddLecture.IsEnabled = true);
+                        MessageBox.Show("The given credentials are not valid", "Unable to authenticate user", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
 
-            });
+                });
 
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
+            }
+            else
+            {
+                ShowMainWindow();
+            }
+        }   
+
+        private void ShowMainWindow()
+        {
+            LoadingIndicator.Visibility = Visibility.Hidden;
+            MainWindow main = new MainWindow();
+            this.Hide();
+            if (main.ShowDialog() != null)
+            {
+                LoadingIndicator.Visibility = Visibility.Hidden;
+                ButtonAddLecture.IsEnabled = true;
+                this.Show();
+            }
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
