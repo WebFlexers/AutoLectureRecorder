@@ -50,11 +50,9 @@ namespace AutoLectureRecorder.Pages
         private void ButtonRecord_Click(object sender, RoutedEventArgs e)
         {
             if (IsRecordButtonClicked)
-                StopLecture();
-            //DeactivateRecordButton();
+                DeactivateRecordButton();
             else if (CanStartLecture())
-                new Thread(() => StartLecture()).Start();
-            //ActivateRecordButton();
+                ActivateRecordButton();
             else
                 MessageBox.Show("No active lectures were found. Create or activate lectures to continue", "Unable to schedule lectures",
                                 MessageBoxButton.OK, MessageBoxImage.Warning);

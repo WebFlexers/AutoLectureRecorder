@@ -40,13 +40,19 @@ namespace AutoLectureRecorder.Structure
         private void CheckboxEnabled_Checked(object sender, RoutedEventArgs e)
         {
             if (Lecture != null)
+            {
                 Lecture.IsLectureActive = true;
+                Schedule.DisableConflictingLectures(Lecture);
+            }
+                
         }
 
         private void CheckboxEnabled_Unchecked(object sender, RoutedEventArgs e)
         {
             if (Lecture != null)
+            {
                 Lecture.IsLectureActive = false;
+            }
         }
 
         private void CheckboxYoutube_Checked(object sender, RoutedEventArgs e)
@@ -77,6 +83,5 @@ namespace AutoLectureRecorder.Structure
                 }
             }      
         }
-
     }
 }

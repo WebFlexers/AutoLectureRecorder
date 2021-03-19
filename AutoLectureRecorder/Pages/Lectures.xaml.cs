@@ -23,6 +23,7 @@ namespace AutoLectureRecorder.Pages
         {
             InitializeComponent();
             LoadDaysLectures();
+            LoadExistingLectures();
         }
 
         /* One page for each model */
@@ -38,6 +39,15 @@ namespace AutoLectureRecorder.Pages
                 index++;
             }
             ListViewItemMonday.IsSelected = true;
+        }
+
+        /// <summary>
+        /// Deserialize lectures and display them
+        /// </summary>
+        public void LoadExistingLectures()
+        {
+            Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
+            AddNewLectureModels();
         }
 
         /* Add to each page every lecture that doesn't already exist in them */

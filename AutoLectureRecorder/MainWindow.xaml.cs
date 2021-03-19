@@ -17,10 +17,9 @@ namespace AutoLectureRecorder
     {
         public MainWindow()
         {
-            // Deserialize
-            Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
-
             InitializeComponent();
+
+            MenuItemRN.Header = User.RegistrationNumber;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

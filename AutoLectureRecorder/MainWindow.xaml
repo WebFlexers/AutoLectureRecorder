@@ -151,7 +151,7 @@
 
                         <Button.ContextMenu>
                             <ContextMenu x:Name="MainContextMenu" PlacementRectangle="{Binding RelativeSource={RelativeSource Self}}">
-                                <MenuItem Header="P19165">
+                                <MenuItem x:Name="MenuItemRN" Header="SampleRN">
                                     <MenuItem.Icon>
                                         <Image Source="/student_male_64px.png"/>
                                     </MenuItem.Icon>

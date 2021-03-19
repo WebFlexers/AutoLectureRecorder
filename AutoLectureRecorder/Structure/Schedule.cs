@@ -89,5 +89,44 @@ namespace AutoLectureRecorder.Structure
         {
             lecturesByDay = weekLectures;
         }
+
+        /* Gets the lecture that will be kept and disables all the conflicting ones */
+        public static void DisableConflictingLectures(Lecture keptLecture)
+        {
+            // Find the conflicting lectures and disable them
+            if (keptLecture.IsLectureActive)
+            {
+                foreach (Lecture otherLecture in lecturesByDay[keptLecture.Day])
+                {
+                    if (keptLecture != otherLecture && otherLecture.IsLectureActive)
+                    {
+                        if ((otherLecture.StartTime >= keptLecture.StartTime && otherLecture.StartTime <= keptLecture.EndTime) ||
+                            (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
+                        {
+                            otherLecture.IsLectureActive = false;
+                        }
+}
+                }
+            }
+        }
+
+        public static void DisableConflictingLectures(string day)
+        {
+            foreach (Lecture keptLecture in lecturesByDay[day])
+            {
+                if (keptLecture.IsLectureActive)
+                    foreach (Lecture otherLecture in lecturesByDay[day])
+                    {
+                        if (keptLecture != otherLecture && otherLecture.IsLectureActive)
+                        {
+                            if ((otherLecture.StartTime >= keptLecture.StartTime && otherLecture.StartTime <= keptLecture.EndTime) ||
+                                (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
+                            {
+                                otherLecture.IsLectureActive = false;
+                            }
+                        }
+                    }
+            }
+        }
     }
 }

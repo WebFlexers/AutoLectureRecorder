@@ -111,7 +111,7 @@
                 HorizontalAlignment="Center"
                 BorderBrush="#0E3C6C"
                 FontSize="16"
-                Margin="0,8,0,4" Checked="CheckboxYoutube_Checked" Unchecked="CheckboxYoutube_Unchecked">
+                Margin="0,8,0,4" Checked="CheckboxYoutube_Checked" Unchecked="CheckboxYoutube_Unchecked" Background="#FF0E3C6C">
 
                     <TextBlock Margin="0,-3,0,0">
                         Upload to youtube
@@ -124,7 +124,7 @@
                 Style="{StaticResource MaterialDesignAccentCheckBox}"
                 
                 BorderBrush="#0E3C6C"
-                FontSize="16" Checked="CheckboxEnabled_Checked" Unchecked="CheckboxEnabled_Unchecked">
+                FontSize="16" Checked="CheckboxEnabled_Checked" Unchecked="CheckboxEnabled_Unchecked" Background="#FF0E3C6C">
 
                     <TextBlock Margin="0,-3,0,0">
                         Enabled

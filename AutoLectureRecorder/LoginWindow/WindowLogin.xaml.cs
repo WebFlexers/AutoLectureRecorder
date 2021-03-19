@@ -82,12 +82,16 @@ namespace AutoLectureRecorder.LoginWindow
             LoadingIndicator.Visibility = Visibility.Hidden;
             MainWindow main = new MainWindow();
             this.Hide();
-            if (main.ShowDialog() != null)
+
+            main.ShowDialog();
+            try
             {
                 LoadingIndicator.Visibility = Visibility.Hidden;
                 ButtonAddLecture.IsEnabled = true;
                 this.Show();
             }
+            catch { }
+            
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
