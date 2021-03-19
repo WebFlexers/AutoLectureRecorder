@@ -18,6 +18,9 @@ namespace AutoLectureRecorder.Structure
         public bool IsAutoUploadActive { get; set; }
         public string Day { get; set; }
 
+        [NonSerialized]
+        public LectureModel Model;
+
         public Lecture(string name, TimeSpan startTime, TimeSpan endTime, string link, bool isAutoUploadActive, string day)
         {
             Name = name;
@@ -33,5 +36,10 @@ namespace AutoLectureRecorder.Structure
             Day = day;
         }
 
+        public void InitializeModel()
+        {
+            Model = new LectureModel();
+            Model.LoadLecture(this);
+        }
     }
 }

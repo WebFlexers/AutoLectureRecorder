@@ -35,6 +35,7 @@ namespace AutoLectureRecorder.Structure
 
         static Schedule()
         {
+            // Add numbers to days
             AllDaysIndexes.Add("Monday", 0);
             AllDaysIndexes.Add("Tuesday", 1);
             AllDaysIndexes.Add("Wednesday", 2);
@@ -42,7 +43,6 @@ namespace AutoLectureRecorder.Structure
             AllDaysIndexes.Add("Friday", 4);
             AllDaysIndexes.Add("Saturday", 5);
             AllDaysIndexes.Add("Sunday", 6);
-
             // Sample lectures
             //string day = "Tuesday";
             //string Name = "Papoutsi";
@@ -88,6 +88,14 @@ namespace AutoLectureRecorder.Structure
         public static void LoadSchedule(Dictionary<string, List<Lecture>> weekLectures)
         {
             lecturesByDay = weekLectures;
+            if (lecturesByDay == null)
+            {
+                // Initialize days dictionary
+                foreach (string day in AllDays)
+                {
+                    lecturesByDay.Add(day, new List<Lecture>());
+                }
+            }
         }
 
         /* Gets the lecture that will be kept and disables all the conflicting ones */
@@ -104,6 +112,7 @@ namespace AutoLectureRecorder.Structure
                             (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
                         {
                             otherLecture.IsLectureActive = false;
+                            otherLecture.Model.CheckboxEnabled.IsChecked = false;
                         }
 }
                 }
@@ -112,21 +121,23 @@ namespace AutoLectureRecorder.Structure
 
         public static void DisableConflictingLectures(string day)
         {
-            foreach (Lecture keptLecture in lecturesByDay[day])
-            {
-                if (keptLecture.IsLectureActive)
-                    foreach (Lecture otherLecture in lecturesByDay[day])
-                    {
-                        if (keptLecture != otherLecture && otherLecture.IsLectureActive)
+            if (lecturesByDay.ContainsKey(day))
+                foreach (Lecture keptLecture in lecturesByDay[day])
+                {
+                    if (keptLecture.IsLectureActive)
+                        foreach (Lecture otherLecture in lecturesByDay[day])
                         {
-                            if ((otherLecture.StartTime >= keptLecture.StartTime && otherLecture.StartTime <= keptLecture.EndTime) ||
-                                (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
+                            if (keptLecture != otherLecture && otherLecture.IsLectureActive)
                             {
-                                otherLecture.IsLectureActive = false;
+                                if ((otherLecture.StartTime >= keptLecture.StartTime && otherLecture.StartTime <= keptLecture.EndTime) ||
+                                    (otherLecture.StartTime <= keptLecture.StartTime && otherLecture.EndTime >= keptLecture.StartTime))
+                                {
+                                    otherLecture.IsLectureActive = false;
+                                    otherLecture.Model.CheckboxEnabled.IsChecked = false;
+                                }
                             }
                         }
-                    }
-            }
+                }
         }
     }
 }

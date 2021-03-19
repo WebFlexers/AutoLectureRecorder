@@ -25,13 +25,14 @@ namespace AutoLectureRecorder.Pages
     {
         string Day { get; set; }
         List<Lecture> Lectures { get; set; } = new List<Lecture>();
-        List<LectureModel> Models { get; set; } = new List<LectureModel>();
+        //List<LectureModel> Models { get; set; } = new List<LectureModel>();
         public LectureModelsPage(string day)
         {
             Day = day;
             InitializeComponent();
 
-            LoadLectures(); 
+            LoadLectures();
+            Schedule.DisableConflictingLectures(day);
         }
 
         /* Initializes the list of lectures and creates the models */
@@ -42,21 +43,17 @@ namespace AutoLectureRecorder.Pages
                 foreach (Lecture lecture in lectures)
                 {
                     Lectures.Add(lecture);
-                    var model = CreateLectureModel(lecture);
-                    Models.Add(model);
-                    WrapPanelLectures.Children.Add(model);
+                    ConfigureLectureModel(lecture);
+                    WrapPanelLectures.Children.Add(lecture.Model);
                 }
         }
 
         /* Returns a new lecture model */
-        private LectureModel CreateLectureModel(Lecture lecture)
+        private void ConfigureLectureModel(Lecture lecture)
         {
-            LectureModel model = new LectureModel();
-            model.LoadLecture(lecture);
-            model.Margin = new Thickness(25, 0, 25, 25);
-            model.Width = 210;
-
-            return model;
+            lecture.InitializeModel();
+            lecture.Model.Margin = new Thickness(25, 0, 25, 25);
+            lecture.Model.Width = 210;
         }
 
         /* Finds the lectures that exist in Schedule 
@@ -75,9 +72,8 @@ namespace AutoLectureRecorder.Pages
                         foreach (Lecture lecture in newLectures)
                         {
                             Lectures.Add(lecture);
-                            var model = CreateLectureModel(lecture);
-                            Models.Add(model);
-                            WrapPanelLectures.Children.Add(model);
+                            ConfigureLectureModel(lecture);
+                            WrapPanelLectures.Children.Add(lecture.Model);
 
                             InvalidateVisual();
                         }
@@ -92,14 +88,9 @@ namespace AutoLectureRecorder.Pages
             {
                 Lectures.Remove(lecture);
 
-                var model = Models.Where(l => l.Lecture == lecture).FirstOrDefault();
-                if (model != null)
-                {
-                    Models.Remove(model);
-                    WrapPanelLectures.Children.Remove(model);
-                    InvalidateVisual();
-                    return true;
-                }
+                WrapPanelLectures.Children.Remove(lecture.Model);
+                InvalidateVisual();
+                return true;
             }
 
             return false;

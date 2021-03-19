@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,13 @@ namespace AutoLectureRecorder.Pages
         public Lectures()
         {
             InitializeComponent();
+            var weekLectures = Serialize.DeserializeWeekLectures();
+            foreach (var keyValuePair in weekLectures)
+            {
+                Trace.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.ToString());
+                Trace.WriteLine("-------------------");
+            }
+            Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
             LoadDaysLectures();
             LoadExistingLectures();
         }
@@ -46,7 +54,6 @@ namespace AutoLectureRecorder.Pages
         /// </summary>
         public void LoadExistingLectures()
         {
-            Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
             AddNewLectureModels();
         }
 
