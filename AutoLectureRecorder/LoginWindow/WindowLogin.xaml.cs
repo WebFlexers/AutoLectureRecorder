@@ -25,6 +25,7 @@ namespace AutoLectureRecorder.LoginWindow
         public WindowLogin()
         {
             InitializeComponent();
+            User.LoadUser();
 
             if (User.IsLoggedIn())
             {
@@ -55,7 +56,7 @@ namespace AutoLectureRecorder.LoginWindow
                     if (Chrome.Bot.AuthenticateUser(registrationNum, password))
                     {
                         User.UpdateUserData(registrationNum, password);
-                        Serialize.SerializeUserData(registrationNum, password);
+                        Serialize.SerializeUserData(registrationNum, password, null);
 
                         Dispatcher.Invoke(() => ShowMainWindow());
                     }

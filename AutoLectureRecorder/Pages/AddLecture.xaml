@@ -9,11 +9,26 @@
       Title="AddLecture"
       Foreground="#0E3C6C"
       xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+      xmlns:loadin="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
     xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf">
 
-    <StackPanel Background="#FFEDEFEE" HorizontalAlignment="Stretch">
-        <!-- Button style -->
-        <StackPanel.Resources>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingWave.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingThreeDots.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingFlipPlane.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingPulse.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingDoubleBounce.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Colors.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid>
+
+        <Grid.Resources>
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#FF183A56"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -33,10 +48,16 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-        </StackPanel.Resources>
+        </Grid.Resources>
+        
+        <StackPanel x:Name="StackPanelMain" Background="#FFEDEFEE" HorizontalAlignment="Stretch">
+            <!-- Button style -->
+            <StackPanel.Resources>
+                
+            </StackPanel.Resources>
 
 
-        <TextBlock 
+            <TextBlock 
             Grid.ColumnSpan="3" 
             Height="56" 
             Padding="0,13,0,0" 
@@ -45,25 +66,25 @@
             FontWeight="DemiBold"
             Foreground="WhiteSmoke" 
             >
-            <TextBlock.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
-                    <GradientStop Color="#FF183A56"/>
-                    <GradientStop Color="#FF204D72" Offset="1"/>
-                </LinearGradientBrush>
-            </TextBlock.Background>
+                <TextBlock.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                        <GradientStop Color="#FF183A56"/>
+                        <GradientStop Color="#FF204D72" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Background>
             Add Lectures
-        </TextBlock>
+            </TextBlock>
 
-        <!-- Lecture Name -->
-        <TextBlock 
+            <!-- Lecture Name -->
+            <TextBlock 
         Padding="0,20,0,0" 
         TextAlignment="Center" 
         FontSize="18" 
         FontWeight="DemiBold" >
         Lecture Name
-        </TextBlock>
+            </TextBlock>
 
-        <TextBox
+            <TextBox
         x:Name="TextboxLectureName"
         Style="{StaticResource MaterialDesignTextBox}"
         wpf:TextFieldAssist.UnderlineBrush = "#0E3C6C"
@@ -72,101 +93,100 @@
         CaretBrush="#0E3C6C"
         FontSize="16"
         >
-        </TextBox>
+            </TextBox>
 
-        <!-- Meeting -->
-        <TextBlock 
+            <!-- Meeting -->
+            <TextBlock 
             Grid.ColumnSpan="3"  
             Padding="0,20,0,0" 
             TextAlignment="Center" 
             FontSize="18" 
             FontWeight="DemiBold" >
             Meeting Team
-        </TextBlock>
+            </TextBlock>
 
-        <ComboBox
+            <ComboBox
             x:Name="ComboboxMeeting"
             Style="{StaticResource MaterialDesignComboBox}"
             wpf:TextFieldAssist.UnderlineBrush="#0E3C6C"
             BorderBrush="#0E3C6C"
             MaxWidth="300"
             FontSize="16">
-            <ComboBoxItem IsSelected="True">Μεταγλωττιστές</ComboBoxItem>
-        </ComboBox>
+            </ComboBox>
 
-        <!-- Day -->
-        <TextBlock 
-            Grid.ColumnSpan="3"  
-            Padding="0,20,0,0" 
-            TextAlignment="Center" 
-            FontSize="18" 
-            FontWeight="DemiBold" >
-            Day
-        </TextBlock>
+            <!-- Day -->
+            <TextBlock 
+                Grid.ColumnSpan="3"  
+                Padding="0,20,0,0" 
+                TextAlignment="Center" 
+                FontSize="18" 
+                FontWeight="DemiBold" >
+                Day
+            </TextBlock>
 
-        <ComboBox
+            <ComboBox
             x:Name="ComboboxDay"
             Style="{StaticResource MaterialDesignComboBox}"
             wpf:TextFieldAssist.UnderlineBrush="#0E3C6C"
             BorderBrush="#0E3C6C"
             MaxWidth="300"
             FontSize="16">
-            <ComboBoxItem IsSelected="True">Monday</ComboBoxItem>
-            <ComboBoxItem>Tuesday</ComboBoxItem>
-            <ComboBoxItem>Wednesday</ComboBoxItem>
-            <ComboBoxItem>Thursday</ComboBoxItem>
-            <ComboBoxItem>Friday</ComboBoxItem>
-            <ComboBoxItem>Saturday</ComboBoxItem>
-            <ComboBoxItem>Sunday</ComboBoxItem>
-        </ComboBox>
+                <ComboBoxItem IsSelected="True">Monday</ComboBoxItem>
+                <ComboBoxItem>Tuesday</ComboBoxItem>
+                <ComboBoxItem>Wednesday</ComboBoxItem>
+                <ComboBoxItem>Thursday</ComboBoxItem>
+                <ComboBoxItem>Friday</ComboBoxItem>
+                <ComboBoxItem>Saturday</ComboBoxItem>
+                <ComboBoxItem>Sunday</ComboBoxItem>
+            </ComboBox>
 
-        <!-- Start time -->
-        <TextBlock 
+            <!-- Start time -->
+            <TextBlock 
             Grid.ColumnSpan="3"  
             Padding="0,20,0,0" 
             TextAlignment="Center" 
             FontSize="18" 
             FontWeight="DemiBold" >
             Start Time
-        </TextBlock>
+            </TextBlock>
 
-        <wpf:TimePicker 
+            <wpf:TimePicker 
             x:Name="TimePickerStartTime" 
             wpf:TextFieldAssist.UnderlineBrush="#0E3C6C" 
             BorderBrush="#0E3C6C"  
             Width="150" Height="32">
-            <wpf:TimePicker.Resources>
-                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0E3C6C" />
-                <SolidColorBrush x:Key="SecondaryAccentBrush" Color="Gray"/>
-                <SolidColorBrush x:Key="MaterialDesignBody" Color="#0E3C6C" />
-            </wpf:TimePicker.Resources>
-        </wpf:TimePicker>
+                <wpf:TimePicker.Resources>
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0E3C6C" />
+                    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="Gray"/>
+                    <SolidColorBrush x:Key="MaterialDesignBody" Color="#0E3C6C" />
+                </wpf:TimePicker.Resources>
+            </wpf:TimePicker>
 
 
-        <!-- End time -->
-        <TextBlock 
+            <!-- End time -->
+            <TextBlock 
             Grid.ColumnSpan="3"  
             Padding="0,20,0,0" 
             TextAlignment="Center" 
             FontSize="18" 
             FontWeight="DemiBold" >
             End Time
-        </TextBlock>
+            </TextBlock>
 
-        <wpf:TimePicker 
+            <wpf:TimePicker 
             x:Name="TimePickerEndTime" 
             wpf:TextFieldAssist.UnderlineBrush="#0E3C6C" 
             BorderBrush="#0E3C6C" 
             Width="150" Height="32">
-            <wpf:TimePicker.Resources>
-                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0E3C6C" />
-                <SolidColorBrush x:Key="MaterialDesignBody" Color="#0E3C6C" />
+                <wpf:TimePicker.Resources>
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0E3C6C" />
+                    <SolidColorBrush x:Key="MaterialDesignBody" Color="#0E3C6C" />
 
-            </wpf:TimePicker.Resources>
-        </wpf:TimePicker>
+                </wpf:TimePicker.Resources>
+            </wpf:TimePicker>
 
-        <!-- Youtube checkbox -->
-        <CheckBox
+            <!-- Youtube checkbox -->
+            <CheckBox
             x:Name="CheckboxYoutube"
             IsChecked="True"
             Style="{StaticResource MaterialDesignAccentCheckBox}"
@@ -175,13 +195,13 @@
             FontSize="16"
             Margin="0,40">
 
-            <TextBlock Margin="0,-3,0,0">
+                <TextBlock Margin="0,-3,0,0">
                 Automatically upload to youtube
-            </TextBlock>
-        </CheckBox>
+                </TextBlock>
+            </CheckBox>
 
-        <!-- Submit Button -->
-        <Button
+            <!-- Submit Button -->
+            <Button
             x:Name="ButtonAddLecture"
             Margin="0,10,0,0"
             Width="300"
@@ -191,15 +211,73 @@
             Foreground="WhiteSmoke"
             FontSize="14" Click="ButtonAddLecture_Click">
 
-            Add Lecture
-        </Button>
+                Add Lecture
+            </Button>
 
-        <!--<Button.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
-                <GradientStop Color="#FF183A56"/>
-                <GradientStop Color="#FF204D72" Offset="1"/>
-            </LinearGradientBrush>
-        </Button.Background>-->
+            <Button
+                x:Name="ButtonUpdateTeams2"
+                Margin="0,10,0,0"
+                Width="300"
+                Height="32"
+                wpf:RippleAssist.Feedback = "Black"
+                Foreground="WhiteSmoke"
+                FontSize="14"
+                Content="Update Teams" Click="ButtonUpdateTeams2_Click"/>
 
-    </StackPanel>
+        </StackPanel>
+
+        <StackPanel 
+            x:Name="StackPanelLoadingTeams" 
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Visibility="Hidden">
+            
+            <TextBlock
+                TextWrapping="Wrap"
+                MaxWidth="390"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center"
+                FontSize="18"
+                FontWeight="DemiBold"
+                Text="Retrieving your teams from Microsoft">
+                
+            </TextBlock>
+            
+            <!-- Loading icon-->
+            <loadin:LoadingIndicator 
+                Visibility="Visible" 
+                Foreground="#FF204D72" 
+                Margin="0,15,0,0"
+                Style="{DynamicResource LoadingIndicatorThreeDotsStyle}"/>
+        </StackPanel>
+
+        <StackPanel
+            x:Name="StackPanelNoTeamsFound"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Visibility="Hidden">
+            
+            <TextBlock
+                TextWrapping="Wrap"
+                MaxWidth="350"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center"
+                FontSize="18"
+                FontWeight="DemiBold"
+                Text="Your account doesn't belong in any teams. Enter a team and click the update button to continue">
+
+            </TextBlock>
+
+            <Button
+                x:Name="ButtonUpdateTeams"
+                Margin="0,10,0,0"
+                Width="300"
+                Height="32"
+                wpf:RippleAssist.Feedback = "Black"
+                Foreground="WhiteSmoke"
+                FontSize="14"
+                Content="Update Teams" Click="ButtonUpdateTeams_Click"/>
+        </StackPanel>
+        
+    </Grid>
 </Page>

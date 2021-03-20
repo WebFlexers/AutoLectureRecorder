@@ -4,20 +4,22 @@ using System.Text;
 
 namespace AutoLectureRecorder.Structure
 {
+    [Serializable]
     public static class User
     {
         public static string RegistrationNumber { get; set; }
         public static string Password { get; set; }
+        public static List<string> MicrosoftTeams { get; set; }
 
-        static User()
+        public static void LoadUser()
         {
-            string[] userData = Serialize.DeserializeUserData();
+            object[] userData = Serialize.DeserializeUserData();
             if (userData != null)
             {
-                RegistrationNumber = userData[0];
-                Password = userData[1];
+                RegistrationNumber = (string)userData[0];
+                Password = (string)userData[1];
+                MicrosoftTeams = (List<string>)userData[2];
             }
-            
         }
 
         public static bool IsLoggedIn()
@@ -36,6 +38,13 @@ namespace AutoLectureRecorder.Structure
         {
             RegistrationNumber = registrationNumber;
             Password = password;
+        }
+
+        public static void UpdateUserData(string registrationNumber, string password, List<string> microsoftTeams)
+        {
+            RegistrationNumber = registrationNumber;
+            Password = password;
+            MicrosoftTeams = microsoftTeams;
         }
     }
 }

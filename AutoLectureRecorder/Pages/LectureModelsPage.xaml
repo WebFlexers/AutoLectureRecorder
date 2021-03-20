@@ -27,5 +27,17 @@
 
             </WrapPanel>
         </ScrollViewer>
+
+        <TextBlock
+            x:Name="TextBlockNoLectures"
+            TextWrapping="Wrap"
+            MaxWidth="390"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TextAlignment="Center"
+            FontSize="18"
+            Text="No lectures are scheduled for the selected day. Go to Add Questions section to get started!"
+            >
+        </TextBlock>
     </Grid>
 </Page>

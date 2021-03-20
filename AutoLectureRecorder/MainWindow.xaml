@@ -283,7 +283,7 @@
 
             <!-- Main Frame -->
             <Frame x:Name="FrameMain" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" NavigationUIVisibility="Hidden"/>
-
+            
         </Grid>
     </Border>
 </Window>

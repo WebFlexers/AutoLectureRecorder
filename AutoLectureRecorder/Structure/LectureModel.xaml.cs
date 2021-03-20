@@ -43,8 +43,8 @@ namespace AutoLectureRecorder.Structure
             {
                 Lecture.IsLectureActive = true;
                 Schedule.DisableConflictingLectures(Lecture);
+                Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
             }
-                
         }
 
         private void CheckboxEnabled_Unchecked(object sender, RoutedEventArgs e)
@@ -52,6 +52,7 @@ namespace AutoLectureRecorder.Structure
             if (Lecture != null)
             {
                 Lecture.IsLectureActive = false;
+                Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
             }
         }
 

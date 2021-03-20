@@ -45,11 +45,11 @@ namespace AutoLectureRecorder.Pages
             timerStartLecture.Tick += RecordTimer_Tick;
         }
 
-        bool IsRecordButtonClicked = false;
+        bool _isRecordButtonClicked = false;
         /* Starts or stops the timer to the next lecture and updates the UI accordingly */
         private void ButtonRecord_Click(object sender, RoutedEventArgs e)
         {
-            if (IsRecordButtonClicked)
+            if (_isRecordButtonClicked)
                 DeactivateRecordButton();
             else if (CanStartLecture())
                 ActivateRecordButton();
@@ -61,7 +61,7 @@ namespace AutoLectureRecorder.Pages
         private void DeactivateRecordButton()
         {
             RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#AD2817");
-            IsRecordButtonClicked = false;
+            _isRecordButtonClicked = false;
             timerStartLecture.Stop();
             HideUI();
         }
@@ -69,7 +69,7 @@ namespace AutoLectureRecorder.Pages
         private void ActivateRecordButton()
         {
             RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#DD331D");
-            IsRecordButtonClicked = true;
+            _isRecordButtonClicked = true;
             TextBlockNextLecture.Text = nextLecture.Name;
             RecordTimer_Tick(ButtonRecord, EventArgs.Empty);
             timerStartLecture.Start();
@@ -161,21 +161,33 @@ namespace AutoLectureRecorder.Pages
         ScreenRecorder recorder = new ScreenRecorder();
         private void StartLecture()
         {
-            //Chrome.Bot.HideBrowser = false;
-            //if (Chrome.Bot.ConnectToMeetingByName("ΒΔ"))
-            //{
-            //    recorder.CreateRecording();
-            //    //Task.Delay(nextLecture.EndTime - nextLecture.StartTime).ContinueWith(o => { StopLecture(); });
-            //}
-            recorder.CreateRecording();
-            IsRecordButtonClicked = true;
+            Chrome.Bot.HideBrowser = false;
+            if (Chrome.Bot.ConnectToMeetingByName(nextLecture.MeetingTeam))
+            {
+                recorder.CreateRecording(nextLecture.Name);
+                _isRecordButtonClicked = true;
+            }
+            else
+            {
+                Trace.WriteLine("Failed to connect to teams meating " + nextLecture.MeetingTeam);
+            }
         }
 
         private void StopLecture()
         {
-            ProgressBar progressBar = ((MainWindow)Application.Current.Windows[1]).CreateYoutubeProgressBar(nextLecture);
+            ProgressBar progressBar = null;
+            if (nextLecture.IsAutoUploadActive)
+            {
+                progressBar = ((MainWindow)Application.Current.Windows[1]).CreateYoutubeProgressBar(nextLecture);
+            }
+
             recorder.EndRecording(nextLecture.IsAutoUploadActive, progressBar);
-            IsRecordButtonClicked = false;
+
+            if (_isRecordButtonClicked)
+            {
+                UpdateNextLecture();
+                ActivateRecordButton();
+            }
         }
 
         private void ShowUI()

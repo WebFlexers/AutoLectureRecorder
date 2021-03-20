@@ -12,9 +12,9 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\App.xaml
 1035300894
 
-231045771136
+24658494771
 2051803027141
 LoginWindow\WindowLogin.xaml;MainWindow.xaml;Pages\AddLecture.xaml;Pages\LectureModelsPage.xaml;Pages\Lectures.xaml;Pages\RecordPage.xaml;Pages\VideoUploadStatus.xaml;Pages\Youtube.xaml;Pages\YoutubeAuthenticate.xaml;Structure\LectureModel.xaml;
 
-False
+True
 

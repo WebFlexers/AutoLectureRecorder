@@ -33,6 +33,7 @@ namespace AutoLectureRecorder.Pages
 
             LoadLectures();
             Schedule.DisableConflictingLectures(day);
+            SetNoLecturesWarningVisibility();
         }
 
         /* Initializes the list of lectures and creates the models */
@@ -46,6 +47,27 @@ namespace AutoLectureRecorder.Pages
                     ConfigureLectureModel(lecture);
                     WrapPanelLectures.Children.Add(lecture.Model);
                 }
+        }
+
+        /* Sets the no lectures warning textblock to visible or invisible accordingly */
+        private void SetNoLecturesWarningVisibility()
+        {
+            var lectures = Schedule.GetLecturesByDay(Day);
+            if (lectures != null)
+            {
+                if (lectures.Count > 0)
+                {
+                    TextBlockNoLectures.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    TextBlockNoLectures.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                TextBlockNoLectures.Visibility = Visibility.Visible;
+            }
         }
 
         /* Returns a new lecture model */
@@ -69,14 +91,18 @@ namespace AutoLectureRecorder.Pages
                     List<Lecture> newLectures = allLectures.Except(Lectures).ToList();
 
                     if (newLectures.Count > 0)
+                    {
                         foreach (Lecture lecture in newLectures)
                         {
                             Lectures.Add(lecture);
                             ConfigureLectureModel(lecture);
                             WrapPanelLectures.Children.Add(lecture.Model);
-
-                            InvalidateVisual();
+                            Schedule.DisableConflictingLectures(lecture);
                         }
+                        SetNoLecturesWarningVisibility();
+                        InvalidateVisual();
+                    }
+                        
                 }
             }), DispatcherPriority.Background);
         }
@@ -89,6 +115,7 @@ namespace AutoLectureRecorder.Pages
                 Lectures.Remove(lecture);
 
                 WrapPanelLectures.Children.Remove(lecture.Model);
+                SetNoLecturesWarningVisibility();
                 InvalidateVisual();
                 return true;
             }

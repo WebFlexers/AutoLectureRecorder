@@ -47,27 +47,27 @@ namespace AutoLectureRecorder
 
         }
 
-        public static void SerializeUserData(string registrationNum, string password)
+        public static void SerializeUserData(string registrationNum, string password, List<string> microsoftTeams)
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(Path.Combine(DataDirectory, "user.alr"), FileMode.OpenOrCreate, FileAccess.Write);
 
-            string[] userData = { registrationNum, password };
+            object[] userData = { registrationNum, password, microsoftTeams };
 
             formatter.Serialize(stream, userData);
 
             stream.Close();
         }
 
-        public static string[] DeserializeUserData()
+        public static object[] DeserializeUserData()
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(Path.Combine(DataDirectory, "user.alr"), FileMode.OpenOrCreate, FileAccess.Read);
 
-            string[] userData;
+            object[] userData;
             if (stream.Length != 0)
             {
-                userData = (string[])formatter.Deserialize(stream);
+                userData = (object[])formatter.Deserialize(stream);
             }
             else
             {

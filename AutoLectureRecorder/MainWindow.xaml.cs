@@ -18,7 +18,7 @@ namespace AutoLectureRecorder
         public MainWindow()
         {
             InitializeComponent();
-
+           
             MenuItemRN.Header = User.RegistrationNumber;
         }
 
@@ -68,6 +68,7 @@ namespace AutoLectureRecorder
                 File.Delete(userFile);
                 User.RegistrationNumber = null;
                 User.Password = null;
+                User.MicrosoftTeams = null;
             }
 
             this.Close();
@@ -77,7 +78,7 @@ namespace AutoLectureRecorder
 
         #region Menu
         RecordPage recordPage;
-        AddLecture addLecturePage;
+        AddLecture addLecturePage = new AddLecture();
         Lectures lecturesPage = new Lectures();
         YoutubeAuthenticate youtubeAuthenticate;
         Youtube youtube = new Youtube();
@@ -104,10 +105,7 @@ namespace AutoLectureRecorder
         {
             if (YoutubeUploader.IsAuthenticated)
             {
-                if (youtube == null)
-                    youtube = new Youtube();
-
-                FrameMain.Content = youtube;
+                ShowYoutubeSection();
             }
             else
             {
@@ -139,6 +137,14 @@ namespace AutoLectureRecorder
                 lecturesPage = new Lectures();
 
             FrameMain.Content = lecturesPage;
+        }
+
+        public void ShowYoutubeSection()
+        {
+            if (youtube == null)
+                youtube = new Youtube();
+
+            FrameMain.Content = youtube;
         }
         #endregion
 

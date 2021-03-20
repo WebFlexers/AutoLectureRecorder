@@ -19,6 +19,7 @@
             TextWrapping="Wrap"
             TextTrimming="CharacterEllipsis"
             MaxWidth="300"
+            MaxHeight="70"
             Text="Sample super long lecture name to test boundaries">
             </TextBlock>
 

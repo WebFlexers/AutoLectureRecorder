@@ -29,7 +29,7 @@ namespace AutoLectureRecorder.Pages
                 Trace.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.ToString());
                 Trace.WriteLine("-------------------");
             }
-            Schedule.LoadSchedule(Serialize.DeserializeWeekLectures());
+            Schedule.LoadSchedule(weekLectures);
             LoadDaysLectures();
             LoadExistingLectures();
         }

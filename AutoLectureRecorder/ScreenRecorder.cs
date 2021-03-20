@@ -1,10 +1,12 @@
 ﻿using AutoLectureRecorder.Pages;
+using AutoLectureRecorder.Structure;
 using ScreenRecorderLib;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using YoutubeAPI;
@@ -17,6 +19,7 @@ namespace AutoLectureRecorder
         public Dictionary<string, string> AudioOutputDevices { get => Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices); }
         public static string SelectedInputDevice { get { return Options.AudioOptions.AudioInputDevice; } set { Options.AudioOptions.AudioInputDevice = value; } }
         public static string SelectedOutputDevice { get { return Options.AudioOptions.AudioOutputDevice; } set { Options.AudioOptions.AudioOutputDevice = value; } }
+        public static string RecordingPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Recorder", "temp.mp4");
         public List<RecordableWindow> RecordableWindows { get => Recorder.GetWindows(); }
         public bool IsRecording { get; set; } = false;
         
@@ -59,19 +62,32 @@ namespace AutoLectureRecorder
             }
         };
 
-        Recorder recorder;
-        public void CreateRecording()
+        Recorder _recorder;
+        string _lectureName;
+        public void CreateRecording(string lectureName)
         {
-            recorder = Recorder.CreateRecorder(Options);
-            recorder.OnRecordingComplete += Rec_OnRecordingComplete;
-            recorder.OnRecordingFailed += Rec_OnRecordingFailed;
-            recorder.OnStatusChanged += Rec_OnStatusChanged;
+            new Thread(() => RecordIfNoRecordingIsActive(lectureName)).Start();
+        }
 
-            //Record to a file
-            string videoPath = Path.Combine(Path.GetTempPath(), "test.mp4");
-            recorder.Record(videoPath);
+        private void RecordIfNoRecordingIsActive(string lectureName)
+        {
+            if (IsRecording)
+            {
+                Thread.Sleep(5000);
+            }
+            else
+            {
+                _recorder = Recorder.CreateRecorder(Options);
+                _recorder.OnRecordingComplete += Rec_OnRecordingComplete;
+                _recorder.OnRecordingFailed += Rec_OnRecordingFailed;
+                _recorder.OnStatusChanged += Rec_OnStatusChanged;
 
-            IsRecording = true;
+                //Record to a file
+                _lectureName = lectureName;
+                _recorder.Record(RecordingPath);
+
+                IsRecording = true;
+            }
         }
 
         public bool WillUploadToYoutube { get; set; } = false;
@@ -79,20 +95,34 @@ namespace AutoLectureRecorder
         {
             WillUploadToYoutube = uploadToYoutube;
             _progressBar = progressBar;
-            recorder.Stop();
+            _recorder.Stop();
         }
 
         ProgressBar _progressBar;
         private async void Rec_OnRecordingComplete(object sender, RecordingCompleteEventArgs e)
         {
             //Get the file path if recorded to a file
-            Trace.WriteLine("Success!");
+            Trace.WriteLine("Successfully saved recording!");
+            string newFile = Path.Combine(Settings.VideoDirectory, _lectureName, DateTime.Now.ToString("dd-MM-yy hh-mm-ss") + ".mp4");
+
+            try
+            {
+                File.Move(RecordingPath, newFile);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+                IsRecording = false;
+                return;
+            }
+
             IsRecording = false;
 
             if (WillUploadToYoutube)
             {
                 YoutubeUploader youtube = new YoutubeUploader();
-                await youtube.UploadVideo(@"G:\ΠΑΠΕΙ\4o εξάμηνο\Πληροφορική στην εκπαίδευση\2021-03-12 12-27-40.mkv", "TestVideo", "A description", _progressBar);
+                string description = "Your daily lecture delivery powered by Auto Lecture Recorder";
+                await youtube.UploadVideo(newFile, _lectureName, description, _progressBar);
             }
         }
 

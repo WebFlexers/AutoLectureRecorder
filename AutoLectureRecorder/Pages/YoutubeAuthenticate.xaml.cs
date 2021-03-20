@@ -31,7 +31,7 @@ namespace AutoLectureRecorder.Pages
                 YoutubeUploader youtube = new YoutubeUploader();
                 if (await youtube.Authenticate())
                 {
-
+                    ((MainWindow)Application.Current.Windows[1]).ShowYoutubeSection();
                 }
                 else
                     MessageBox.Show("Unable to connect to your youtube account", "Failed to authenticate", MessageBoxButton.OK, MessageBoxImage.Warning);
