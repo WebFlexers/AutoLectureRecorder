@@ -159,35 +159,74 @@ namespace AutoLectureRecorder.Pages
         }
 
         ScreenRecorder recorder = new ScreenRecorder();
+        bool _isLectureActive = false;
         private void StartLecture()
         {
             Chrome.Bot.HideBrowser = false;
             if (Chrome.Bot.ConnectToMeetingByName(nextLecture.MeetingTeam))
             {
+                _isLectureActive = true;
+                // Schedule stop lecture
+                try
+                {
+                    Task.Delay(nextLecture.EndTime - DateTime.Now.TimeOfDay).ContinueWith(_ => { StopLecture(); });
+                    Task.Delay(TimeSpan.FromMinutes(30)).ContinueWith(_ => { CheckParticipants(); });
+                }
+                catch (Exception e)
+                {
+                    Trace.WriteLine("End time scheduling failed with error message: " + e.Message);
+                    Chrome.Bot.TerminateDriver();
+                    return;
+                }
+                // Start recording
                 recorder.CreateRecording(nextLecture.Name);
                 _isRecordButtonClicked = true;
             }
             else
             {
-                Trace.WriteLine("Failed to connect to teams meating " + nextLecture.MeetingTeam);
+                Trace.WriteLine("Failed to connect to teams meeting " + nextLecture.MeetingTeam);
             }
         }
 
         private void StopLecture()
         {
-            ProgressBar progressBar = null;
-            if (nextLecture.IsAutoUploadActive)
+            if (_isLectureActive)
             {
-                progressBar = ((MainWindow)Application.Current.Windows[1]).CreateYoutubeProgressBar(nextLecture);
+                ProgressBar progressBar = null;
+                if (nextLecture.IsAutoUploadActive)
+                {
+                    progressBar = ((MainWindow)Application.Current.Windows[1]).CreateYoutubeProgressBar(nextLecture);
+                }
+
+                recorder.EndRecording(nextLecture.IsAutoUploadActive, progressBar);
+
+                if (_isRecordButtonClicked)
+                {
+                    UpdateNextLecture();
+                    ActivateRecordButton();
+                }
+
+                _isLectureActive = false;
             }
+        }
 
-            recorder.EndRecording(nextLecture.IsAutoUploadActive, progressBar);
-
-            if (_isRecordButtonClicked)
+        private void CheckParticipants()
+        {
+            try
             {
-                UpdateNextLecture();
-                ActivateRecordButton();
-            }
+                while (_isLectureActive)
+                {
+                    if (Chrome.Bot.GetParticipantsNumber() <= 25)
+                    {
+                        StopLecture();
+                    }
+                    Thread.Sleep(TimeSpan.FromMinutes(5));
+                }
+            } 
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            } 
         }
 
         private void ShowUI()

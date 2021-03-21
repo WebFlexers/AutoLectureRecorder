@@ -67,7 +67,7 @@ namespace YoutubeAPI
 
 
         ProgressBar _progressBar;
-        public async Task UploadVideo(string VideoFilePath, string VideoName, string Description, ProgressBar progressBar)
+        public async Task UploadVideo(string VideoFilePath, string VideoName, string Description, string playlistName, ProgressBar progressBar)
         {
             if (IsAuthenticated) {
                 bool authenticate = await Authenticate();
@@ -107,7 +107,7 @@ namespace YoutubeAPI
                 // Define and execute the API request
                 var request = youtubeService.Playlists.List("snippet,contentDetails");
                 PlaylistListResponse response = new PlaylistListResponse();
-                request.MaxResults = 25;
+                request.MaxResults = 30;
                 request.Mine = true; //mine is true means that we are refering to our own channel, the one that is currently authenticated
                 response = await request.ExecuteAsync(); //await response
 
@@ -116,7 +116,7 @@ namespace YoutubeAPI
                 bool playlistIsFound = false;
                 foreach (var playlist in response.Items)
                 {
-                    if (playlist.Snippet.Title.Contains(VideoName))
+                    if (playlist.Snippet.Title.Contains(playlistName))
                     {
                         playlistIsFound = true;
                         var newPlaylistItem = new PlaylistItem();
@@ -136,7 +136,7 @@ namespace YoutubeAPI
                     //create a playlist
                     var newPlaylist = new Playlist();
                     newPlaylist.Snippet = new PlaylistSnippet();
-                    newPlaylist.Snippet.Title = VideoName;
+                    newPlaylist.Snippet.Title = playlistName;
                     newPlaylist.Snippet.Description = "";
                     newPlaylist.Status = new PlaylistStatus();
                     newPlaylist.Status.PrivacyStatus = "private";

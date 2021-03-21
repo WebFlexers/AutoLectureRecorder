@@ -47,7 +47,7 @@ namespace AutoLectureRecorder
                 Channels = AudioChannels.Stereo,
                 IsAudioEnabled = true,
                 IsInputDeviceEnabled = true,
-                IsOutputDeviceEnabled = true,                
+                IsOutputDeviceEnabled = true,
                 AudioInputDevice = null,
                 AudioOutputDevice = null
             },
@@ -103,7 +103,8 @@ namespace AutoLectureRecorder
         {
             //Get the file path if recorded to a file
             Trace.WriteLine("Successfully saved recording!");
-            string newFile = Path.Combine(Settings.VideoDirectory, _lectureName, DateTime.Now.ToString("dd-MM-yy hh-mm-ss") + ".mp4");
+            string videoName = DateTime.Now.ToString("dd-MM-yy hh-mm-ss");
+            string newFile = Path.Combine(Settings.VideoDirectory, _lectureName, videoName + ".mp4");
 
             try
             {
@@ -121,8 +122,8 @@ namespace AutoLectureRecorder
             if (WillUploadToYoutube)
             {
                 YoutubeUploader youtube = new YoutubeUploader();
-                string description = "Your daily lecture delivery powered by Auto Lecture Recorder";
-                await youtube.UploadVideo(newFile, _lectureName, description, _progressBar);
+                string description = "Your daily lecture delivery powered by Auto Lecture Recorder!";
+                await youtube.UploadVideo(newFile, videoName, description, _lectureName, _progressBar);
             }
         }
 

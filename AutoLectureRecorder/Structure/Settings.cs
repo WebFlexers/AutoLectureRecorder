@@ -13,7 +13,7 @@ namespace AutoLectureRecorder.Structure
         {
             if (VideoDirectory == null)
             {
-                VideoDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                VideoDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Auto Lecture Recorder");
             }    
         }
     }
