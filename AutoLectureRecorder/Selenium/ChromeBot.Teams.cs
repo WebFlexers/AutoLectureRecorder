@@ -29,7 +29,6 @@ namespace AutoLectureRecorder.Selenium
             {
                 StartDriver();
                 LoadCookies(null, cookieFileName);
-                Thread.Sleep(3000);
             }
             else
             {
@@ -45,11 +44,8 @@ namespace AutoLectureRecorder.Selenium
             try
             {
                 if (driver == null)
-                {
-                    HideBrowser = true;
-                    StartDriver();
-                }
-                
+                   StartDriver();
+
                 //-----------------------------------Microsoft's Login Page-----------------------------------
                 driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
 
@@ -66,7 +62,7 @@ namespace AutoLectureRecorder.Selenium
                 nextEmailBtn.Click();
 
                 SaveCookiesToList();
-                Thread.Sleep(3000);
+                // Thread.Sleep(3000);
 
                 //-----------------------------------Unipi page-----------------------------------
                 //Filling UNIPI form
@@ -80,14 +76,14 @@ namespace AutoLectureRecorder.Selenium
                 loginUnipiBtn.Click();
 
                 SaveCookiesToList();
-                Thread.Sleep(3000);
+                // Thread.Sleep(3000);
 
                 //Stay sign in page
                 IWebElement NoStaySignInBtn = driver.FindElement(By.Id("idSIButton9"));
                 NoStaySignInBtn.Click();
 
                 SaveCookiesToList();
-                Thread.Sleep(3000);
+                // Thread.Sleep(3000);
 
                 //Serialize cookieList
                 SaveCookiesToFile(cookiesList);
@@ -98,7 +94,8 @@ namespace AutoLectureRecorder.Selenium
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while authenticating user: " + ex.Message);
+                TerminateDriver();
+                Trace.WriteLine("An error occured while authenticating user: " + ex.Message);
                 return false;
             }
         }
@@ -122,9 +119,7 @@ namespace AutoLectureRecorder.Selenium
                     {
                         //Compare times
                         DateTime currentTime = DateTime.Now;
-                        Console.WriteLine(currentTime.ToString());
                         DateTime cookieExpiry = DateTime.Parse(cookie[3]);
-                        Console.WriteLine(cookieExpiry.ToString());
                         int x = TimeSpan.Compare(currentTime.TimeOfDay, cookieExpiry.TimeOfDay);
                         //Check if current date is longer than expiry date
                         if (x == -1) return false;
@@ -140,31 +135,21 @@ namespace AutoLectureRecorder.Selenium
         }
 
         public bool ConnectToMeetingByName(string name)
-        {            
+        {                      
             try
             {
-                if (driver == null || !isDriverRunning)
-                {
-                    StartDriver();
-                    LoadCookies(null, cookieFileName);
-                    Thread.Sleep(3000);
-                }
-                else
-                {
-                    if (!driver.Url.Equals(teamsHomePagetUrl))
-                    {
-                        if (onMeeting) LeaveMeeting();
-                        driver.Url = teamsHomePagetUrl;
-                    }
-                }
-                Thread.Sleep(3000);
+                if (driver != null || isDriverRunning) TerminateDriver();
+
+                StartDriver();
+                LoadCookies(null, cookieFileName);
+                onMeeting = false;
 
                 //Clicking to specific team
                 IWebElement lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, '" + name + "')]"));
                 lessonCardBtn.Click();
 
                 //Wait 20 minutes until Join button appears
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20*60));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20 * 60));
                 IWebElement joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));
                 joinBtn.Click();
 
@@ -180,7 +165,7 @@ namespace AutoLectureRecorder.Selenium
             catch (Exception ex)
             {            
                 TerminateDriver();
-                Console.WriteLine("An error occured while connecting to meeting: " + ex.Message);
+                Trace.WriteLine("An error occured while connecting to meeting: " + ex.Message);
                 return false;
             }
         }
@@ -190,7 +175,7 @@ namespace AutoLectureRecorder.Selenium
             if (!onMeeting) return;
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            IWebElement leaveCallBtn = driver.FindElement(By.Id("roster-button"));
+            IWebElement leaveCallBtn = driver.FindElement(By.Id("hangup-button"));
             //try to click the button
             try
             {
@@ -249,7 +234,6 @@ namespace AutoLectureRecorder.Selenium
                     HideBrowser = true;
                     StartDriver();
                     LoadCookies(null, cookieFileName);
-                    Thread.Sleep(3000);
                 }
                 else
                 {
@@ -263,12 +247,14 @@ namespace AutoLectureRecorder.Selenium
                 IWebElement cardsContainer = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='favorite-teams-panel']")));
                 //Retrieve number of cards
                 int cardsNum = int.Parse(cardsContainer.GetAttribute("set-size"));
-                Console.WriteLine("Number of cards: " + cardsNum);
+                Trace.WriteLine("Number of cards: " + cardsNum);
                 //Get text from cards
-                Thread.Sleep(3000);
-                var cardsList = driver.FindElements(By.XPath("//*[@class='team-name-text']"));
+                var cardsList = cardsContainer.FindElements(By.XPath("//h1[@data-tid='team-name-text']"));
                 foreach (var card in cardsList)
+                {
+                    Trace.WriteLine(card.Text);
                     meetingsList.Add(card.Text);
+                }
 
                 TerminateDriver(); 
 
@@ -276,7 +262,7 @@ namespace AutoLectureRecorder.Selenium
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while getting meetings: " + ex.Message);
+                Trace.WriteLine("An error occured while getting meetings: " + ex.Message);
                 TerminateDriver();
                 return default;
             }            

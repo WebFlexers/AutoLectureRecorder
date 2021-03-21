@@ -15,7 +15,7 @@
         FontFamily="Segoe UI"
         Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="SingleBorderWindow" 
         WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged" FontSize="14" Loaded="Window_Loaded" 
-        Icon="/graduation_cap_100px.png" Background="Transparent">
+        Icon="/graduation_cap_100px.png" Background="Transparent" Closed="Window_Closed">
 
     <!-- Custom titlebar  -->
     <WindowChrome.WindowChrome>

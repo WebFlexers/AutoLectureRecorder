@@ -11,12 +11,13 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace AutoLectureRecorder.Selenium
 {
     public partial class ChromeBot
     {
-        const int waitTime = 30; //seconds    
+        const int waitTime = 60; //seconds    
 
         IWebDriver driver;
 
@@ -56,9 +57,15 @@ namespace AutoLectureRecorder.Selenium
             chromeOptions.AddAdditionalCapability("browser_version", "70.0", true);
             chromeOptions.AddAdditionalCapability("os", "Windows", true);
             chromeOptions.AddAdditionalCapability("os_version", "10", true);
+            chromeOptions.AddAdditionalCapability("useAutomationExtension", false);
             //Arguments
             chromeOptions.AddArgument("--disable-extensions");
             chromeOptions.AddArgument("--disable-default-apps");
+            chromeOptions.AddArguments("--window-size=1920,1080");
+            chromeOptions.AddArguments("--disable-gpu");
+            chromeOptions.AddArguments("--disable-extensions");
+            chromeOptions.AddArguments("--proxy-server='direct://'");
+            chromeOptions.AddArguments("--proxy-bypass-list=*");
             if (HideBrowser == true) chromeOptions.AddArgument("--headless");
             //Services
             if (HideCommandLine == true) driverService.HideCommandPromptWindow = true;   
@@ -78,7 +85,7 @@ namespace AutoLectureRecorder.Selenium
             {
                 string[] tempList = { tempCookie.Name, tempCookie.Value, tempCookie.Domain, tempCookie.Expiry.ToString() };
                 cookiesList.Add(tempList);
-                Console.WriteLine(tempCookie.Name + ", " + tempCookie.Expiry);
+                Trace.WriteLine(tempCookie.Name + ", " + tempCookie.Expiry);
             }
         }      
 
@@ -93,11 +100,11 @@ namespace AutoLectureRecorder.Selenium
                 IFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(stream, cookiesList);
                 stream.Close();
-                Console.WriteLine("Cookies saved successfully!");
+                Trace.WriteLine("Cookies saved successfully!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while saving cookie: " + ex.Message);
+                Trace.WriteLine("An error occured while saving cookie: " + ex.Message);
             }
         }
 
@@ -115,32 +122,29 @@ namespace AutoLectureRecorder.Selenium
                 stream.Close();
 
                 ClearBrowserCache();
-                Thread.Sleep(2000);
+                // Thread.Sleep(2000);
 
                 if (string.IsNullOrEmpty(url)) driver.Url = teamsHomePagetUrl;
                 else driver.Url = url;
 
                 //Load cookies
-                Cookie cookie;
                 foreach (string[] tmpCkInfo in new_cookiesList)
                 {
-                    cookie = new Cookie(tmpCkInfo[0], tmpCkInfo[1]);
-                    driver.Manage().Cookies.AddCookie(cookie);
-                    Console.WriteLine(cookie.Name);
+                    driver.Manage().Cookies.AddCookie(new Cookie(tmpCkInfo[0], tmpCkInfo[1]));
                 }
 
                 RefreshCurrentPage();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occured while loading cookie: " + ex.Message);
+                Trace.WriteLine("An error occured while loading cookie: " + ex.Message);
             }
         }
 
         private void ClearBrowserCache()
         {
             driver.Manage().Cookies.DeleteAllCookies(); //delete all cookies
-            Thread.Sleep(7000); //wait 7 seconds to clear cookies
+            // Thread.Sleep(7000); //wait 7 seconds to clear cookies
         }
     }
 }

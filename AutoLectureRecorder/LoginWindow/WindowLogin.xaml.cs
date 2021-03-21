@@ -92,7 +92,7 @@ namespace AutoLectureRecorder.LoginWindow
                 this.Show();
             }
             catch { }
-            
+            Chrome.Bot.StartDriver();
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)

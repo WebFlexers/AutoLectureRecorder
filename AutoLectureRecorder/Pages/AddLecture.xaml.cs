@@ -18,38 +18,9 @@ namespace AutoLectureRecorder.Pages
         public AddLecture()
         {
             InitializeComponent();
-            new Thread(() => LoadTeams()).Start();
-        }
-
-        #region LoadTeamsToCombobox
-        /* Load, add to the meetings combobox and serialize the microsoft teams 
-         * using selenium  and show or hide the wait message accordingly */
-        private void LoadTeams()
-        {
             if (User.MicrosoftTeams == null)
             {
-                Dispatcher.Invoke(() => ShowWaitMessage()); 
-                List<string> microsoftTeams = Chrome.Bot.GetMeetings();
-                if (microsoftTeams != null)
-                {
-                    if (microsoftTeams.Count > 0)
-                    {
-                        Dispatcher.Invoke(() => {
-                            foreach (string team in microsoftTeams)
-                            {
-                                Trace.WriteLine(team);
-                                ComboboxMeeting.Items.Add(team);
-                            }
-                        });
-                        User.MicrosoftTeams = microsoftTeams;
-                        Serialize.SerializeUserData(User.RegistrationNumber, User.Password, User.MicrosoftTeams);
-                        Dispatcher.Invoke(() => ShowAddLectureForm());
-                    }
-                    else
-                    {
-                        Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
-                    }
-                }
+                new Thread(() => LoadTeams()).Start();
             }
             else
             {
@@ -62,6 +33,42 @@ namespace AutoLectureRecorder.Pages
                     ShowAddLectureForm();
                 });
             }
+        }
+
+        #region LoadTeamsToCombobox
+        /* Load, add to the meetings combobox and serialize the microsoft teams 
+         * using selenium  and show or hide the wait message accordingly */
+        private void LoadTeams()
+        {
+            Dispatcher.Invoke(() => ShowWaitMessage()); 
+            List<string> microsoftTeams = Chrome.Bot.GetMeetings();
+            if (microsoftTeams != null)
+            {
+                if (microsoftTeams.Count > 0)
+                {
+                    Dispatcher.Invoke(() => {
+                        for (int i = microsoftTeams.Count - 1; i >= 0; i--)
+                        {
+                            Trace.WriteLine(microsoftTeams[i]);
+                            if (string.IsNullOrWhiteSpace(microsoftTeams[i]))
+                            {
+                                microsoftTeams.RemoveAt(i);
+                            }
+                            else
+                            {
+                                ComboboxMeeting.Items.Add(microsoftTeams[i]);
+                            }
+                        }
+                    });
+                    User.MicrosoftTeams = microsoftTeams;
+                    Serialize.SerializeUserData(User.RegistrationNumber, User.Password, User.MicrosoftTeams);
+                    Dispatcher.Invoke(() => ShowAddLectureForm());
+                }
+                else
+                {
+                    Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
+                }
+            }        
         }
 
         private void ShowWaitMessage()

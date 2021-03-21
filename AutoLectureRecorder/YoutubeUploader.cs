@@ -112,7 +112,7 @@ namespace YoutubeAPI
                 response = await request.ExecuteAsync(); //await response
 
 
-                Console.WriteLine(response.Items.Count);
+                Trace.WriteLine(response.Items.Count);
                 bool playlistIsFound = false;
                 foreach (var playlist in response.Items)
                 {
@@ -205,12 +205,12 @@ namespace YoutubeAPI
                 request.Mine = true; //mine is true means that we are refering to our own channel
                 response = await request.ExecuteAsync(); //await response
 
-                Console.WriteLine(response.Items.Count);
+                Trace.WriteLine(response.Items.Count);
 
                 foreach (var playlist in response.Items)
                 {
                     //MessageBox.Show(playlist.Snippet.Title);
-                    Console.WriteLine(playlist.Id);
+                    Trace.WriteLine(playlist.Id);
                 }
             }else 
             { }

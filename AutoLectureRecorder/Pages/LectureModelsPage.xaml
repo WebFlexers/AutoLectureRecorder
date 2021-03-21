@@ -36,7 +36,7 @@
             VerticalAlignment="Center"
             TextAlignment="Center"
             FontSize="18"
-            Text="No lectures are scheduled for the selected day. Go to Add Questions section to get started!"
+            Text="No lectures are scheduled for the selected day. Go to Add Lectures section to get started!"
             >
         </TextBlock>
     </Grid>

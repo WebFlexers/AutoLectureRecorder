@@ -18,7 +18,6 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\WebDriver.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\ScreenRecorderLib.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\ScreenRecorderLib.xml
-C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.csprojAssemblyReference.cache
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\LoginWindow\WindowLogin.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\MainWindow.g.cs
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\Pages\AddLecture.g.cs
@@ -51,3 +50,4 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.dll
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.pdb
 C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.genruntimeconfig.cache
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.csprojAssemblyReference.cache

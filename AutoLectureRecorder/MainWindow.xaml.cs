@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Pages;
+using AutoLectureRecorder.Selenium;
 using AutoLectureRecorder.Structure;
 using System;
 using System.Diagnostics;
@@ -70,6 +71,8 @@ namespace AutoLectureRecorder
                 User.Password = null;
                 User.MicrosoftTeams = null;
             }
+
+            Chrome.Bot.TerminateDriver();
 
             this.Close();
         }
@@ -188,6 +191,9 @@ namespace AutoLectureRecorder
                 p.Kill();
         }
 
-
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Chrome.Bot.TerminateDriver();
+        }
     }
 }
