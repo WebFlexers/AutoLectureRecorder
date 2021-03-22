@@ -19,7 +19,7 @@ namespace AutoLectureRecorder
         public Dictionary<string, string> AudioOutputDevices { get => Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices); }
         public static string SelectedInputDevice { get { return Options.AudioOptions.AudioInputDevice; } set { Options.AudioOptions.AudioInputDevice = value; } }
         public static string SelectedOutputDevice { get { return Options.AudioOptions.AudioOutputDevice; } set { Options.AudioOptions.AudioOutputDevice = value; } }
-        public static string RecordingPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Recorder", "temp.mp4");
+        public static string RecordingPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AutoLectureRecorder", "Recorder", "temp.mp4");
         public List<RecordableWindow> RecordableWindows { get => Recorder.GetWindows(); }
         public bool IsRecording { get; set; } = false;
         
@@ -84,6 +84,12 @@ namespace AutoLectureRecorder
 
                 //Record to a file
                 _lectureName = lectureName;
+
+                if (File.Exists(RecordingPath))
+                {
+                    File.Delete(RecordingPath);
+                }
+
                 _recorder.Record(RecordingPath);
 
                 IsRecording = true;
@@ -104,15 +110,19 @@ namespace AutoLectureRecorder
             //Get the file path if recorded to a file
             Trace.WriteLine("Successfully saved recording!");
             string videoName = DateTime.Now.ToString("dd-MM-yy hh-mm-ss");
-            string newFile = Path.Combine(Settings.VideoDirectory, _lectureName, videoName + ".mp4");
-
+            string directoryPath = Path.Combine(Settings.VideoDirectory, _lectureName);
+            string newFile = Path.Combine(directoryPath, videoName + ".mp4");
+            
             try
             {
-                File.Move(RecordingPath, newFile);
+                Directory.CreateDirectory(directoryPath);
+                File.Move(RecordingPath, newFile, true);
             }
             catch (Exception ex)
             {
                 Trace.WriteLine(ex.Message);
+                Trace.WriteLine(RecordingPath);
+                Trace.WriteLine(newFile);
                 IsRecording = false;
                 return;
             }

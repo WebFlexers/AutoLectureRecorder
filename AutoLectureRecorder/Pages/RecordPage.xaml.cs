@@ -42,7 +42,7 @@ namespace AutoLectureRecorder.Pages
             timerStartLecture = new DispatcherTimer();
             timerStartLecture.IsEnabled = false;
             timerStartLecture.Interval = TimeSpan.FromSeconds(1);
-            timerStartLecture.Tick += RecordTimer_Tick;
+            timerStartLecture.Tick += TimerStartLecture_Tick;
         }
 
         bool _isRecordButtonClicked = false;
@@ -71,7 +71,7 @@ namespace AutoLectureRecorder.Pages
             RecordEllipse.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#DD331D");
             _isRecordButtonClicked = true;
             TextBlockNextLecture.Text = nextLecture.Name;
-            RecordTimer_Tick(ButtonRecord, EventArgs.Empty);
+            TimerStartLecture_Tick(ButtonRecord, EventArgs.Empty);
             timerStartLecture.Start();
             ShowUI();
         }
@@ -120,7 +120,7 @@ namespace AutoLectureRecorder.Pages
         }
 
         TimeSpan remainingTime;
-        private void RecordTimer_Tick(object sender, EventArgs e)
+        private void TimerStartLecture_Tick(object sender, EventArgs e)
         {
             // Compute how many days far is the next lecture from today
             int todayIndex = Schedule.AllDaysIndexes[Schedule.Today];
@@ -192,18 +192,35 @@ namespace AutoLectureRecorder.Pages
         {
             if (_isLectureActive)
             {
-                ProgressBar progressBar = null;
-                if (nextLecture.IsAutoUploadActive)
-                {
-                    progressBar = ((MainWindow)Application.Current.Windows[1]).CreateYoutubeProgressBar(nextLecture);
-                }
+                Trace.WriteLine("Stop Lecture Started");
+                Chrome.Bot.TerminateDriver();
 
+                Trace.WriteLine("Exited chrome driva");
+                ProgressBar progressBar = null;
+                Dispatcher.Invoke(() => 
+                {
+                    if (nextLecture.IsAutoUploadActive)
+                    {
+                        progressBar = ((MainWindow)Application.Current.Windows[1]).CreateYoutubeProgressBar(nextLecture);
+                    }
+                });
+                
+                Trace.WriteLine("Made it to end recording");
                 recorder.EndRecording(nextLecture.IsAutoUploadActive, progressBar);
 
+                Trace.WriteLine("_isRecordButtonClicked is " + _isRecordButtonClicked);
                 if (_isRecordButtonClicked)
                 {
-                    UpdateNextLecture();
-                    ActivateRecordButton();
+                    Trace.WriteLine("Update next lecture started");
+                    Dispatcher.Invoke(() =>
+                    {
+                        DeactivateRecordButton();
+                        if (CanStartLecture())
+                        {
+                            ActivateRecordButton();
+                        }
+                    });
+
                 }
 
                 _isLectureActive = false;

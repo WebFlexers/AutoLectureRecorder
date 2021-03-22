@@ -45,8 +45,12 @@ namespace AutoLectureRecorder.Pages
                 if (StackPanelProgressbars.Children[ix] is VideoUploadStatus)
                 {
                     var videoUploadStatus = (VideoUploadStatus)StackPanelProgressbars.Children[ix];
-                    if (videoUploadStatus.Progressbar.Value != videoUploadStatus.Progressbar.Maximum)  
+                    if (videoUploadStatus.Progressbar.Value != videoUploadStatus.Progressbar.Maximum)
+                    {
+                        _progressBarUserControls.Remove(videoUploadStatus);
                         StackPanelProgressbars.Children.Remove(videoUploadStatus);
+                    }
+                        
                 }    
             }
         }

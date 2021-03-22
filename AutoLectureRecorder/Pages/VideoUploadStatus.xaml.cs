@@ -26,7 +26,7 @@ namespace AutoLectureRecorder.Pages
             InitializeComponent();
         }
 
-        public ProgressBar Progressbar { get => ProgressBarLecture; private set { } }
+        public ProgressBar Progressbar { get => ProgressBarLecture; set { ProgressBarLecture = value; } }
 
         public void Init(Lecture lecture)
         {

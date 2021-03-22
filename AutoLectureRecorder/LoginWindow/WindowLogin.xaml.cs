@@ -90,9 +90,9 @@ namespace AutoLectureRecorder.LoginWindow
                 LoadingIndicator.Visibility = Visibility.Hidden;
                 ButtonAddLecture.IsEnabled = true;
                 this.Show();
+                Chrome.Bot.StartDriver();
             }
-            catch { }
-            Chrome.Bot.StartDriver();
+            catch { }  
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
