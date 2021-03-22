@@ -163,6 +163,10 @@ namespace AutoLectureRecorder.Pages
         private void StartLecture()
         {
             Chrome.Bot.HideBrowser = false;
+            if (Chrome.Bot.IsCookieExpired("TSPREAUTHCOOKIE"))
+            {
+                Chrome.Bot.AuthenticateUser(User.RegistrationNumber, User.Password);
+            }
             if (Chrome.Bot.ConnectToMeetingByName(nextLecture.MeetingTeam))
             {
                 _isLectureActive = true;
