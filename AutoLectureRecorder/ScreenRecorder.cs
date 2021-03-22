@@ -46,7 +46,7 @@ namespace AutoLectureRecorder
                 Bitrate = AudioBitrate.bitrate_128kbps,
                 Channels = AudioChannels.Stereo,
                 IsAudioEnabled = true,
-                IsInputDeviceEnabled = true,
+                IsInputDeviceEnabled = false,
                 IsOutputDeviceEnabled = true,
                 AudioInputDevice = null,
                 AudioOutputDevice = null
