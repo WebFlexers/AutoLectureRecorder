@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoLectureRecorder.Selenium;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,7 +25,7 @@ namespace AutoLectureRecorder.Structure
 
         public static bool IsLoggedIn()
         {
-            if (RegistrationNumber != null && Password != null)
+            if (RegistrationNumber != null && Password != null /*&& Chrome.Bot.IsCookieExpired()*/)
             {
                 return true;
             }

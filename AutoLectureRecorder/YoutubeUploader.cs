@@ -44,7 +44,7 @@ namespace YoutubeAPI
         {
             try
             {
-                using (var stream = new FileStream("client_id3.json", FileMode.Open, FileAccess.Read))
+                using (var stream = new FileStream("client_id2.json", FileMode.Open, FileAccess.Read))
                 {
                     credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.Load(stream).Secrets,

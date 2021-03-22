@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using YoutubeAPI;
@@ -71,29 +72,33 @@ namespace AutoLectureRecorder
 
         private void RecordIfNoRecordingIsActive(string lectureName)
         {
-            if (IsRecording)
+            while (!IsRecording)
             {
-                Thread.Sleep(5000);
-            }
-            else
-            {
-                _recorder = Recorder.CreateRecorder(Options);
-                _recorder.OnRecordingComplete += Rec_OnRecordingComplete;
-                _recorder.OnRecordingFailed += Rec_OnRecordingFailed;
-                _recorder.OnStatusChanged += Rec_OnStatusChanged;
-
-                //Record to a file
-                _lectureName = lectureName;
-
-                if (File.Exists(RecordingPath))
+                if (IsRecording)
                 {
-                    File.Delete(RecordingPath);
+                    Thread.Sleep(5000);
                 }
+                else
+                {
+                    _recorder = Recorder.CreateRecorder(Options);
+                    _recorder.OnRecordingComplete += Rec_OnRecordingComplete;
+                    _recorder.OnRecordingFailed += Rec_OnRecordingFailed;
+                    _recorder.OnStatusChanged += Rec_OnStatusChanged;
 
-                _recorder.Record(RecordingPath);
+                    //Record to a file
+                    _lectureName = lectureName;
 
-                IsRecording = true;
+                    if (File.Exists(RecordingPath))
+                    {
+                        File.Delete(RecordingPath);
+                    }
+
+                    _recorder.Record(RecordingPath);
+
+                    IsRecording = true;
+                }
             }
+            
         }
 
         public bool WillUploadToYoutube { get; set; } = false;
@@ -133,7 +138,19 @@ namespace AutoLectureRecorder
             {
                 YoutubeUploader youtube = new YoutubeUploader();
                 string description = "Your daily lecture delivery powered by Auto Lecture Recorder!";
-                await youtube.UploadVideo(newFile, videoName, description, _lectureName, _progressBar);
+                try
+                {
+                    await youtube.UploadVideo(newFile, videoName, description, _lectureName, _progressBar);
+                }
+                catch (Google.GoogleApiException ex)
+                {
+                    Trace.WriteLine(ex);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex);
+                }
+                
             }
         }
 

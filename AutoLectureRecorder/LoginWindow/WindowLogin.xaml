@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:loadin="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
         mc:Ignorable="d"
-        Title="WindowLogin" Height="600" Width="1100" WindowStartupLocation="CenterScreen" Icon="/LoginWindow/graduation_cap_100px.png" ResizeMode="NoResize" WindowStyle="None">
+        Title="WindowLogin" Height="600" Width="1100" WindowStartupLocation="CenterScreen" Icon="/LoginWindow/graduation_cap_100px.png" ResizeMode="NoResize" WindowStyle="None" Closed="Window_Closed">
 
     <!-- Custom titlebar  -->
     <WindowChrome.WindowChrome>

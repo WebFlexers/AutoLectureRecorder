@@ -90,6 +90,8 @@ namespace AutoLectureRecorder.LoginWindow
                 LoadingIndicator.Visibility = Visibility.Hidden;
                 ButtonAddLecture.IsEnabled = true;
                 this.Show();
+                Chrome.Bot.TerminateDriver();
+                Chrome.Bot.HideBrowser = true;
                 Chrome.Bot.StartDriver();
             }
             catch { }  
@@ -98,6 +100,11 @@ namespace AutoLectureRecorder.LoginWindow
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Chrome.Bot.TerminateDriver();
         }
     }
 }
