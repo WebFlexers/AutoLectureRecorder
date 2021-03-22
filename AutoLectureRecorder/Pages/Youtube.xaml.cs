@@ -38,14 +38,14 @@ namespace AutoLectureRecorder.Pages
             return videoUploadStatus.Progressbar;
         }
 
-        private void ButtonAddLecture_Click(object sender, RoutedEventArgs e)
+        private void ButtonClearDownloads_Click(object sender, RoutedEventArgs e)
         {
             for (int ix = StackPanelProgressbars.Children.Count - 1; ix >= 0; ix--)
             {
                 if (StackPanelProgressbars.Children[ix] is VideoUploadStatus)
                 {
                     var videoUploadStatus = (VideoUploadStatus)StackPanelProgressbars.Children[ix];
-                    if (videoUploadStatus.Progressbar.Value != videoUploadStatus.Progressbar.Maximum)
+                    if (videoUploadStatus.Progressbar.Value == videoUploadStatus.Progressbar.Maximum)
                     {
                         _progressBarUserControls.Remove(videoUploadStatus);
                         StackPanelProgressbars.Children.Remove(videoUploadStatus);

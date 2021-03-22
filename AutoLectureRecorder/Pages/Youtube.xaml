@@ -113,7 +113,7 @@
             
             Foreground="WhiteSmoke"
             FontSize="14"
-            Content = "Clear finished uploads" Click="ButtonAddLecture_Click">
+            Content = "Clear finished uploads" Click="ButtonClearDownloads_Click">
 
         </Button>
 
