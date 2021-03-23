@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using YoutubeAPI;
+using SettingsPage = AutoLectureRecorder.Pages.SettingsPage;
 
 namespace AutoLectureRecorder
 {
@@ -85,7 +86,7 @@ namespace AutoLectureRecorder
         Lectures lecturesPage = new Lectures();
         YoutubeAuthenticate youtubeAuthenticate;
         Youtube youtube = new Youtube();
-
+        SettingsPage settingsPage = new SettingsPage();
         private void MenuRecord_Selected(object sender, RoutedEventArgs e)
         {
             if (recordPage == null)
@@ -122,7 +123,10 @@ namespace AutoLectureRecorder
 
         private void MenuSettings_Selected(object sender, RoutedEventArgs e)
         {
+            if(settingsPage == null)
+                settingsPage = new SettingsPage();
 
+            FrameMain.Content = settingsPage;
         }
 
         /* Used to change frame content from another page or window */
