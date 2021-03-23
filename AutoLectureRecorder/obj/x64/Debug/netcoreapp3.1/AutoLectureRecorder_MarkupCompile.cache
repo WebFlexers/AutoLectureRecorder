@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\
 AutoLectureRecorder
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\App.xaml
-11-542273176
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\App.xaml
+111892622134
 
-23-1697993554
-205-1218313972
+231267849503
+2051803027141
 LoginWindow\WindowLogin.xaml;MainWindow.xaml;Pages\AddLecture.xaml;Pages\LectureModelsPage.xaml;Pages\Lectures.xaml;Pages\RecordPage.xaml;Pages\SettingsPage.xaml;Pages\VideoUploadStatus.xaml;Pages\Youtube.xaml;Pages\YoutubeAuthenticate.xaml;Structure\LectureModel.xaml;
 
 False

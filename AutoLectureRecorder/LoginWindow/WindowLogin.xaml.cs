@@ -63,7 +63,7 @@ namespace AutoLectureRecorder.LoginWindow
             ButtonAddLecture.IsEnabled = false;
             LoadingIndicator.Visibility = Visibility.Visible;
 
-            if (ChromeBot.IsCookieExpired("TSPREAUTHCOOKIE") || User.Password != password || User.RegistrationNumber != registrationNum)
+            if (User.Password != password || User.RegistrationNumber != registrationNum)
             {
                 Thread thread = new Thread(() =>
                 {
@@ -122,7 +122,8 @@ namespace AutoLectureRecorder.LoginWindow
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            new Thread(() => ChromeBot.TerminateDriver()).Start();
+            if (ChromeBot != null)
+                new Thread(() => ChromeBot.TerminateDriver()).Start();
         }
     }
 }

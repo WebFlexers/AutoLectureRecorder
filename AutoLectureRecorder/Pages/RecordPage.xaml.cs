@@ -221,6 +221,7 @@ namespace AutoLectureRecorder.Pages
             else
             {
                 Trace.WriteLine("Failed to connect to teams meeting " + nextLecture.MeetingTeam);
+                TerminateBot();
             }
         }
 

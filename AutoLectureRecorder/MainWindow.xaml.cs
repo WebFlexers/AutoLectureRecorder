@@ -97,6 +97,7 @@ namespace AutoLectureRecorder
             _allPages.Add(_lecturesPage);
             _allPages.Add(_youtubeAuthenticate);
             _allPages.Add(_youtube);
+            _allPages.Add(_settingsPage);
             _addLecturePage = new AddLecture();
             _lecturesPage = new Lectures();
             _youtube = new Youtube();
