@@ -94,7 +94,7 @@
         </StackPanel>
 
 
-        <!--<Border Background="#1BCDCF" Grid.Row="2" Height="1"/>-->
+        <Border Background="#1BCDCF" Grid.Row="2" Height="1"/>
 
     </Grid>
 </Page>
