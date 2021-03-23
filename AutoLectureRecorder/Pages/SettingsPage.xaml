@@ -10,13 +10,12 @@
     <Grid Background="#FFEDEFEE">
         <Grid.RowDefinitions>
             <RowDefinition Height="56"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="1.4*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+
         
         <Grid.Resources>
             <Style TargetType="Button">
@@ -59,11 +58,11 @@
         </TextBlock>
 
         <!--Record settings section-->
-        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel  HorizontalAlignment="Center" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" >
+        <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel  HorizontalAlignment="Center"  Orientation="Horizontal" VerticalAlignment="Center" >
                 <Button
                     IsEnabled="False" 
-                    x:Name="ButtonYoutubeSettings"
+                    x:Name="ButtonRecorderSettings"
                     Width="50"
                     Height="50"
                     Foreground="WhiteSmoke"
@@ -77,11 +76,11 @@
         </StackPanel>
         
         <!--Youtube settings section-->
-        <StackPanel Grid.Row="1" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel  HorizontalAlignment="Center" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+        <StackPanel Grid.Row="3"   Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel  HorizontalAlignment="Center" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
                 <Button
                     IsEnabled="False" 
-                    x:Name="ButtonRecorderSettings"
+                    x:Name="ButtonYoutubeSettings"
                     Width="50"
                     Height="50"
                     Foreground="WhiteSmoke"
@@ -95,8 +94,7 @@
         </StackPanel>
 
 
-        <StackPanel  Grid.Column="0"  Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Orientation="Horizontal"  HorizontalAlignment="Center">
-            <Border Background="#1BCDCF"  Width="1"/>
-        </StackPanel>
+        <Border Background="#1BCDCF" Grid.Row="2" Height="1"/>
+
     </Grid>
 </Page>
