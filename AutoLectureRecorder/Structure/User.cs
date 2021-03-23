@@ -25,7 +25,7 @@ namespace AutoLectureRecorder.Structure
 
         public static bool IsLoggedIn()
         {
-            if ((RegistrationNumber == null && Password == null) || Chrome.Bot.IsCookieExpired("TSPREAUTHCOOKIE"))
+            if ((RegistrationNumber == null && Password == null) || ChromeBot.IsCookieExpired("TSPREAUTHCOOKIE"))
             {
                 return false;
             }

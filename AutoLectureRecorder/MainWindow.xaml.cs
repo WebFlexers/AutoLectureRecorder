@@ -2,8 +2,10 @@
 using AutoLectureRecorder.Selenium;
 using AutoLectureRecorder.Structure;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,7 +21,7 @@ namespace AutoLectureRecorder
         public MainWindow()
         {
             InitializeComponent();
-           
+            InstanciatePages();
             MenuItemRN.Header = User.RegistrationNumber;
         }
 
@@ -72,7 +74,7 @@ namespace AutoLectureRecorder
                 User.MicrosoftTeams = null;
             }
 
-            Chrome.Bot.TerminateDriver();
+            TerminateChromeDrivers();
 
             this.Close();
         }
@@ -80,18 +82,32 @@ namespace AutoLectureRecorder
         #endregion
 
         #region Menu
-        RecordPage recordPage;
-        AddLecture addLecturePage = new AddLecture();
-        Lectures lecturesPage = new Lectures();
-        YoutubeAuthenticate youtubeAuthenticate;
-        Youtube youtube = new Youtube();
+        List<Page> _allPages = new List<Page>();
+        RecordPage _recordPage;
+        AddLecture _addLecturePage;
+        Lectures _lecturesPage;
+        YoutubeAuthenticate _youtubeAuthenticate;
+        Youtube _youtube;
+
+        private void InstanciatePages()
+        {
+            _allPages.Add(_recordPage);
+            _allPages.Add(_addLecturePage);
+            _allPages.Add(_lecturesPage);
+            _allPages.Add(_youtubeAuthenticate);
+            _allPages.Add(_youtube);
+            _addLecturePage = new AddLecture();
+            _lecturesPage = new Lectures();
+            _youtube = new Youtube();
+        }
+        
 
         private void MenuRecord_Selected(object sender, RoutedEventArgs e)
         {
-            if (recordPage == null)
-                recordPage = new RecordPage();
+            if (_recordPage == null)
+                _recordPage = new RecordPage();
 
-            FrameMain.Content = recordPage;
+            FrameMain.Content = _recordPage;
         }
 
         private void MenuAddLectures_Selected(object sender, RoutedEventArgs e)
@@ -112,10 +128,10 @@ namespace AutoLectureRecorder
             }
             else
             {
-                if (youtubeAuthenticate == null)
-                    youtubeAuthenticate = new YoutubeAuthenticate();
+                if (_youtubeAuthenticate == null)
+                    _youtubeAuthenticate = new YoutubeAuthenticate();
 
-                FrameMain.Content = youtubeAuthenticate;
+                FrameMain.Content = _youtubeAuthenticate;
             }
             
         }
@@ -128,47 +144,47 @@ namespace AutoLectureRecorder
         /* Used to change frame content from another page or window */
         public void ShowAddLecturesSection()
         {
-            if (addLecturePage == null)
-                addLecturePage = new AddLecture();
+            if (_addLecturePage == null)
+                _addLecturePage = new AddLecture();
 
-            FrameMain.Content = addLecturePage;
+            FrameMain.Content = _addLecturePage;
         }
 
         public void ShowLecturesSection()
         {
-            if (lecturesPage == null)
-                lecturesPage = new Lectures();
+            if (_lecturesPage == null)
+                _lecturesPage = new Lectures();
 
-            FrameMain.Content = lecturesPage;
+            FrameMain.Content = _lecturesPage;
         }
 
         public void ShowYoutubeSection()
         {
-            if (youtube == null)
-                youtube = new Youtube();
+            if (_youtube == null)
+                _youtube = new Youtube();
 
-            FrameMain.Content = youtube;
+            FrameMain.Content = _youtube;
         }
         #endregion
 
         #region Update data
         public void AddNewLectureModels()
         {
-            lecturesPage.AddNewLectureModels();
-            recordPage.UpdateNextLecture();
+            _lecturesPage.AddNewLectureModels();
+            _recordPage.UpdateNextLecture();
             Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
         }
 
         public void RemoveLecture(Lecture lecture)
         {
-            lecturesPage.RemoveLectureModel(lecture);
-            recordPage.UpdateNextLecture();
+            _lecturesPage.RemoveLectureModel(lecture);
+            _recordPage.UpdateNextLecture();
             Serialize.SerializeWeekLectures(Schedule.GetSerializableData());
         }
 
         public ProgressBar CreateYoutubeProgressBar(Lecture lecture)
         {
-            return youtube.CreateProgressBar(lecture);
+            return _youtube.CreateProgressBar(lecture);
         }
         #endregion
 
@@ -193,7 +209,19 @@ namespace AutoLectureRecorder
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Chrome.Bot.TerminateDriver();
+            TerminateChromeDrivers();
+        }
+
+        private void TerminateChromeDrivers()
+        {
+            foreach (Page page in _allPages)
+            {
+                var pageWithChrome = page as IChrome;
+                if (pageWithChrome != null)
+                {
+                    new Thread(() => pageWithChrome.TerminateBot()).Start();
+                }
+            }
         }
     }
 }

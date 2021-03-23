@@ -25,10 +25,23 @@ namespace AutoLectureRecorder.Pages
     /// <summary>
     /// Interaction logic for RecordPage.xaml
     /// </summary>
-    public partial class RecordPage : Page
+    public partial class RecordPage : Page, IChrome
     {
+        public ChromeBot ChromeBot { get; set; }
+
+        public void LoadBot()
+        {
+            ChromeBot = new ChromeBot();
+        }
+
+        public void TerminateBot()
+        {
+            new Thread(() => ChromeBot.TerminateDriver()).Start();
+        }
+
         public RecordPage()
         {
+            LoadBot();
             InitializeComponent();
             Load();
         }
@@ -162,22 +175,31 @@ namespace AutoLectureRecorder.Pages
         bool _isLectureActive = false;
         private void StartLecture()
         {
-            Chrome.Bot.HideBrowser = false;
+            ChromeBot.HideBrowser = false;
 
-            if (Chrome.Bot.IsCookieExpired("TSPREAUTHCOOKIE"))
+            if (ChromeBot.IsCookieExpired("TSPREAUTHCOOKIE"))
             {
-                try
+                if (ChromeBot.AuthenticateUser(User.RegistrationNumber, User.Password))
                 {
-                    Chrome.Bot.AuthenticateUser(User.RegistrationNumber, User.Password);
+                    Trace.WriteLine("Succesfully authenticated");
                 }
-                catch
+                else
                 {
+                    // Schedule next lecture
+                    Dispatcher.Invoke(() =>
+                    {
+                        DeactivateRecordButton();
+                        if (CanStartLecture())
+                        {
+                            ActivateRecordButton();
+                        }
+                    });
                     Trace.Fail("Failed to authenticate user in chrome bot. Exiting lecture");
                     return;
                 }
             }
 
-            if (Chrome.Bot.ConnectToMeetingByName(nextLecture.MeetingTeam))
+            if (ChromeBot.ConnectToMeetingByName(nextLecture.MeetingTeam))
             {
                 _isLectureActive = true;
                 // Schedule stop lecture
@@ -189,7 +211,7 @@ namespace AutoLectureRecorder.Pages
                 catch (Exception e)
                 {
                     Trace.WriteLine("End time scheduling failed with error message: " + e.Message);
-                    Chrome.Bot.TerminateDriver();
+                    ChromeBot.TerminateDriver();
                     return;
                 }
                 // Start recording
@@ -207,7 +229,7 @@ namespace AutoLectureRecorder.Pages
             if (_isLectureActive)
             {
                 Trace.WriteLine("Stop Lecture Started");
-                Chrome.Bot.TerminateDriver();
+                ChromeBot.TerminateDriver();
 
                 Trace.WriteLine("Exited chrome driva");
                 ProgressBar progressBar = null;

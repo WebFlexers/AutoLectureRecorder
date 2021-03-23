@@ -40,7 +40,7 @@ namespace AutoLectureRecorder.Selenium
             {
                 driver.Quit();
                 isDriverRunning = false;
-            }             
+            }
         }
 
         public void StartDriver()

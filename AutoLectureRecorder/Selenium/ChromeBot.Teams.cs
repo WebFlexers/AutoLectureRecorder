@@ -65,6 +65,7 @@ namespace AutoLectureRecorder.Selenium
                 // Thread.Sleep(3000);
 
                 //-----------------------------------Unipi page-----------------------------------
+                WaitForSeconds(10);
                 //Filling UNIPI form
                 IWebElement usernameUnipiInputBox = driver.FindElement(By.Id("username"));
                 usernameUnipiInputBox.SendKeys(AM);
@@ -88,19 +89,20 @@ namespace AutoLectureRecorder.Selenium
                 //Serialize cookieList
                 SaveCookiesToFile(cookiesList);
 
-                TerminateDriver();
+                WaitForSeconds(waitTime);
 
                 return true;
             }
             catch (Exception ex)
             {
+                WaitForSeconds(waitTime);
                 TerminateDriver();
                 Trace.WriteLine("An error occured while authenticating user: " + ex.Message);
                 return false;
             }
         }
 
-        public bool IsCookieExpired(string cookieName)
+        public static bool IsCookieExpired(string cookieName)
         {
             if (!File.Exists(cookieFileName)) return true;
 
@@ -138,9 +140,9 @@ namespace AutoLectureRecorder.Selenium
         {                      
             try
             {
-                if (driver != null || isDriverRunning) TerminateDriver();
+                if (driver == null)
+                    StartDriver();
 
-                StartDriver();
                 LoadCookies(null, cookieFileName);
                 onMeeting = false;
 

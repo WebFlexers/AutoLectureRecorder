@@ -20,11 +20,25 @@ namespace AutoLectureRecorder.LoginWindow
     /// <summary>
     /// Interaction logic for WindowLogin.xaml
     /// </summary>
-    public partial class WindowLogin : Window
+    public partial class WindowLogin : Window, IChrome
     {
+        #region IChrome Implementation
+        public ChromeBot ChromeBot { get; set; }
+        public void LoadBot()
+        {
+            ChromeBot = new ChromeBot();
+            ChromeBot.HideBrowser = true;
+        }
+        public void TerminateBot()
+        {
+            ChromeBot.TerminateDriver();
+        }
+        #endregion
+
         public WindowLogin()
         {
             InitializeComponent();
+            
             User.LoadUser();
 
             if (User.IsLoggedIn())
@@ -33,10 +47,10 @@ namespace AutoLectureRecorder.LoginWindow
             }
             else
             {
+                LoadBot();
                 new Thread(() =>
                 {
-                    Chrome.Bot.HideBrowser = true;
-                    Chrome.Bot.StartDriver();
+                    ChromeBot.StartDriver();
                 }).Start();
             }
         }
@@ -49,12 +63,13 @@ namespace AutoLectureRecorder.LoginWindow
             ButtonAddLecture.IsEnabled = false;
             LoadingIndicator.Visibility = Visibility.Visible;
 
-            if (User.Password != password || User.RegistrationNumber != registrationNum)
+            if (ChromeBot.IsCookieExpired("TSPREAUTHCOOKIE") || User.Password != password || User.RegistrationNumber != registrationNum)
             {
                 Thread thread = new Thread(() =>
                 {
-                    if (Chrome.Bot.AuthenticateUser(registrationNum, password))
+                    if (ChromeBot.AuthenticateUser(registrationNum, password))
                     {
+                        ChromeBot.TerminateDriver();
                         User.UpdateUserData(registrationNum, password);
                         Serialize.SerializeUserData(registrationNum, password, null);
 
@@ -62,6 +77,7 @@ namespace AutoLectureRecorder.LoginWindow
                     }
                     else
                     {
+                        ChromeBot.StartDriver();
                         Dispatcher.Invoke(() => LoadingIndicator.Visibility = Visibility.Hidden);
                         Dispatcher.Invoke(() => ButtonAddLecture.IsEnabled = true);
                         MessageBox.Show("The given credentials are not valid", "Unable to authenticate user", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -90,9 +106,11 @@ namespace AutoLectureRecorder.LoginWindow
                 LoadingIndicator.Visibility = Visibility.Hidden;
                 ButtonAddLecture.IsEnabled = true;
                 this.Show();
-                Chrome.Bot.TerminateDriver();
-                Chrome.Bot.HideBrowser = true;
-                Chrome.Bot.StartDriver();
+
+                if (ChromeBot == null)
+                    LoadBot();
+
+                ChromeBot.StartDriver();
             }
             catch { }  
         }
@@ -104,7 +122,7 @@ namespace AutoLectureRecorder.LoginWindow
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Chrome.Bot.TerminateDriver();
+            new Thread(() => ChromeBot.TerminateDriver()).Start();
         }
     }
 }

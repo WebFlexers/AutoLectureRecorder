@@ -13,10 +13,23 @@ namespace AutoLectureRecorder.Pages
     /// <summary>
     /// Interaction logic for AddLecture.xaml
     /// </summary>
-    public partial class AddLecture : Page
+    public partial class AddLecture : Page, IChrome
     {
+        public ChromeBot ChromeBot { get; set; }
+
+        public void LoadBot()
+        {
+            ChromeBot = new ChromeBot();
+        }
+
+        public void TerminateBot()
+        {
+            new Thread(() => ChromeBot.TerminateDriver()).Start();
+        }
+
         public AddLecture()
         {
+            LoadBot();
             InitializeComponent();
             if (User.MicrosoftTeams == null)
             {
@@ -35,13 +48,15 @@ namespace AutoLectureRecorder.Pages
             }
         }
 
+        
+
         #region LoadTeamsToCombobox
         /* Load, add to the meetings combobox and serialize the microsoft teams 
          * using selenium  and show or hide the wait message accordingly */
         private void LoadTeams()
         {
             Dispatcher.Invoke(() => ShowWaitMessage()); 
-            List<string> microsoftTeams = Chrome.Bot.GetMeetings();
+            List<string> microsoftTeams = ChromeBot.GetMeetings();
             if (microsoftTeams != null)
             {
                 if (microsoftTeams.Count > 0)
@@ -185,7 +200,9 @@ namespace AutoLectureRecorder.Pages
 
             return IsUnputCorrect;
         }
+
+       
         #endregion
-   
+
     }
 }
