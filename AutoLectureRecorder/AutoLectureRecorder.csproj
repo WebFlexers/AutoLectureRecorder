@@ -17,11 +17,7 @@
     <None Remove="logout_rounded_left_50px.png" />
     <None Remove="maximize_button_18px.png" />
     <None Remove="minus_20px.png" />
-    <None Remove="Pages\record_50px.png" />
     <None Remove="Pages\record_button_on.png" />
-    <None Remove="Pages\video_record_50px.png" />
-    <None Remove="Pages\youtubeSettings_50px.png" />
-    <None Remove="Pages\youtube_50px.png" />
     <None Remove="record_50px.png" />
     <None Remove="restore_down_20px.png" />
     <None Remove="settings_50px.png" />
@@ -51,11 +47,7 @@
     <Resource Include="logout_rounded_left_50px.png" />
     <Resource Include="maximize_button_18px.png" />
     <Resource Include="minus_20px.png" />
-    <Resource Include="Pages\record_50px.png" />
     <Resource Include="Pages\record_button_on.png" />
-    <Resource Include="Pages\video_record_50px.png" />
-    <Resource Include="Pages\youtubeSettings_50px.png" />
-    <Resource Include="Pages\youtube_50px.png" />
     <Resource Include="record_50px.png" />
     <Resource Include="restore_down_20px.png" />
     <Resource Include="settings_50px.png" />

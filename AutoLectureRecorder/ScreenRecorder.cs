@@ -11,7 +11,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using YoutubeAPI;
-using Settings = AutoLectureRecorder.Structure.Settings;
 
 namespace AutoLectureRecorder
 {
