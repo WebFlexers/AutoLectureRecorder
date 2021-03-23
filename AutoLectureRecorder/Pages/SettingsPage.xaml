@@ -1,0 +1,100 @@
+﻿<Page x:Class="AutoLectureRecorder.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutoLectureRecorder.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Settings">
+    <Grid Background="#FFEDEFEE">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="#FFEEF5FA"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="#FFEEF5FA"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <Border Grid.ColumnSpan="2">
+            <Border.Background  >
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                    <GradientStop Color="#FF183A56"/>
+                    <GradientStop Color="#FF204D72" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <TextBlock  Grid.ColumnSpan="2"
+            TextAlignment="Center"
+            FontSize="22"
+            Text="Settings"
+            FontWeight="SemiBold"
+            Foreground="WhiteSmoke"
+            VerticalAlignment="Center">
+        </TextBlock>
+
+        <!--Record settings section-->
+        <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel  HorizontalAlignment="Center"  Orientation="Horizontal" VerticalAlignment="Center" >
+                <Button
+                    IsEnabled="False" 
+                    x:Name="ButtonRecorderSettings"
+                    Width="50"
+                    Height="50"
+                    Foreground="WhiteSmoke"
+                    FontSize="14"
+                    Background="#FFEDEFEE" >
+                    <Image Source="/Pages/record_50px.png" Width="34" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+                <TextBlock Text="Record Settings" TextAlignment="Center" VerticalAlignment="Center"  />
+
+            </StackPanel>
+        </StackPanel>
+
+        <!--Youtube settings section-->
+        <StackPanel Grid.Row="3"   Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel  HorizontalAlignment="Center" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                <Button
+                    IsEnabled="False" 
+                    x:Name="ButtonYoutubeSettings"
+                    Width="50"
+                    Height="50"
+                    Foreground="WhiteSmoke"
+                    FontSize="14"
+                    Background="#FFEDEFEE" >
+                    <Image Source="/Pages/youtube_50px.png" Width="34"/>
+                </Button>
+                <TextBlock Text="Youtube Settings" TextAlignment="Center" VerticalAlignment="Center" />
+
+            </StackPanel>
+        </StackPanel>
+
+
+        <!--<Border Background="#1BCDCF" Grid.Row="2" Height="1"/>-->
+
+    </Grid>
+</Page>

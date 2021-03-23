@@ -88,6 +88,7 @@ namespace AutoLectureRecorder
         Lectures _lecturesPage;
         YoutubeAuthenticate _youtubeAuthenticate;
         Youtube _youtube;
+        SettingsPage _settingsPage;
 
         private void InstanciatePages()
         {
@@ -138,7 +139,10 @@ namespace AutoLectureRecorder
 
         private void MenuSettings_Selected(object sender, RoutedEventArgs e)
         {
+            if (_settingsPage == null)
+                _settingsPage = new SettingsPage();
 
+            FrameMain.Content = _settingsPage;
         }
 
         /* Used to change frame content from another page or window */
