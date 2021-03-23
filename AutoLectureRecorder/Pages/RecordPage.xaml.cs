@@ -265,21 +265,21 @@ namespace AutoLectureRecorder.Pages
 
         private void CheckParticipants()
         {
-            //try
-            //{
-            //    while (_isLectureActive)
-            //    {
-            //        if (Chrome.Bot.GetParticipantsNumber() <= 20)
-            //        {
-            //            StopLecture();
-            //        }
-            //        Thread.Sleep(TimeSpan.FromMinutes(5));
-            //    }
-            //} 
-            //catch (Exception e)
-            //{
-            //    Trace.WriteLine(e.Message);
-            //} 
+            try
+            {
+                while (_isLectureActive)
+                {
+                    if (ChromeBot.GetParticipantsNumber() <= 20)
+                    {
+                        StopLecture();
+                    }
+                    Thread.Sleep(TimeSpan.FromMinutes(5));
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
         }
 
         private void ShowUI()
