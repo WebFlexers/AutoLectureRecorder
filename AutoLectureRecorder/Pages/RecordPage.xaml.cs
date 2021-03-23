@@ -32,6 +32,7 @@ namespace AutoLectureRecorder.Pages
         public void LoadBot()
         {
             ChromeBot = new ChromeBot();
+            ChromeBot.HideBrowser = true;
         }
 
         public void TerminateBot()
@@ -175,17 +176,19 @@ namespace AutoLectureRecorder.Pages
         bool _isLectureActive = false;
         private void StartLecture()
         {
-            ChromeBot.HideBrowser = false;
+            ChromeBot.HideBrowser = true;
 
             if (ChromeBot.IsCookieExpired("TSPREAUTHCOOKIE"))
             {
                 if (ChromeBot.AuthenticateUser(User.RegistrationNumber, User.Password))
                 {
+                    ChromeBot.TerminateDriver();
                     Trace.WriteLine("Succesfully authenticated");
                 }
                 else
                 {
                     // Schedule next lecture
+                    ChromeBot.TerminateDriver();
                     Dispatcher.Invoke(() =>
                     {
                         DeactivateRecordButton();
@@ -199,6 +202,8 @@ namespace AutoLectureRecorder.Pages
                 }
             }
 
+            ChromeBot.HideBrowser = false;
+            ChromeBot.StartDriver();
             if (ChromeBot.ConnectToMeetingByName(nextLecture.MeetingTeam))
             {
                 _isLectureActive = true;
@@ -221,6 +226,15 @@ namespace AutoLectureRecorder.Pages
             else
             {
                 Trace.WriteLine("Failed to connect to teams meeting " + nextLecture.MeetingTeam);
+                // Schedule next lecture
+                Dispatcher.Invoke(() =>
+                {
+                    DeactivateRecordButton();
+                    if (CanStartLecture())
+                    {
+                        ActivateRecordButton();
+                    }
+                });
                 TerminateBot();
             }
         }

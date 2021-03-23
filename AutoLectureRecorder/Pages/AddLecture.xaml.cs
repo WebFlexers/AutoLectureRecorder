@@ -20,6 +20,7 @@ namespace AutoLectureRecorder.Pages
         public void LoadBot()
         {
             ChromeBot = new ChromeBot();
+            ChromeBot.HideBrowser = true;
         }
 
         public void TerminateBot()
@@ -55,8 +56,21 @@ namespace AutoLectureRecorder.Pages
          * using selenium  and show or hide the wait message accordingly */
         private void LoadTeams()
         {
-            Dispatcher.Invoke(() => ShowWaitMessage()); 
-            List<string> microsoftTeams = ChromeBot.GetMeetings();
+            Dispatcher.Invoke(() => ShowWaitMessage());
+
+            List<string> microsoftTeams;
+
+            try
+            {
+                microsoftTeams = ChromeBot.GetMeetings();
+            }
+            catch (Exception e)
+            {
+                Trace.Fail("An error occured while getting the meetings " + e.Message);
+                Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
+                return;
+            }
+
             if (microsoftTeams != null)
             {
                 if (microsoftTeams.Count > 0)

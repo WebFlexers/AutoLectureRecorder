@@ -18,10 +18,16 @@ namespace AutoLectureRecorder.Selenium
 {
     public partial class ChromeBot
     {
-        const string cookieFileName = "profile.alr";
+        static string cookieFileName; //"profile.alr";
 
         public string teamsHomePagetUrl = "https://teams.microsoft.com/_#/school//?ctx=teamsGrid";
         public bool onMeeting = false;
+
+        public ChromeBot() 
+        {
+            string directory = Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AutoLectureRecorder", "ChromeBot")).ToString();
+            cookieFileName =  Path.Combine(directory, "profile.alr");
+        }
 
         public void GoToTeamsMenu()
         {
@@ -233,7 +239,6 @@ namespace AutoLectureRecorder.Selenium
             {
                 if (driver == null || !isDriverRunning)
                 {
-                    HideBrowser = true;
                     StartDriver();
                     LoadCookies(null, cookieFileName);
                 }

@@ -16,3 +16,15 @@ C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Relea
 C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder.dll
 C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder.pdb
 C:\Users\Michalis\source\repos\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder.genruntimeconfig.cache
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder.csprojAssemblyReference.cache
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\Pages\LectureModelsPage.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\Pages\Lectures.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\Pages\RecordPage.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\Pages\SettingsPage.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\Pages\VideoUploadStatus.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\Pages\Youtube.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\Pages\YoutubeAuthenticate.g.cs
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder_MarkupCompile.cache
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder_MarkupCompile.lref
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder.dll
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\Release\netcoreapp3.1\AutoLectureRecorder.pdb

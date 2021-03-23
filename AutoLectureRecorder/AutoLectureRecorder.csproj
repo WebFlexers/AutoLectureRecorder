@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>graduation_cap_100px.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
