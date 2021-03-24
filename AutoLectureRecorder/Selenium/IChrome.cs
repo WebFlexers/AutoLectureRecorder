@@ -7,7 +7,7 @@ namespace AutoLectureRecorder.Selenium
     public interface IChrome
     {
         public ChromeBot ChromeBot { get; set; }
-        public void LoadBot();
+        public void LoadBot(ChromeBot bot); 
         public void TerminateBot();
     }
 }

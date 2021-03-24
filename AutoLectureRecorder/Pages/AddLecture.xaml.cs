@@ -17,20 +17,20 @@ namespace AutoLectureRecorder.Pages
     {
         public ChromeBot ChromeBot { get; set; }
 
-        public void LoadBot()
+        public void LoadBot(ChromeBot bot)
         {
-            ChromeBot = new ChromeBot();
-            ChromeBot.HideBrowser = true;
+            ChromeBot = bot;
+            ChromeBot.IsBrowserHidden = true;
         }
 
         public void TerminateBot()
         {
-            new Thread(() => ChromeBot.TerminateDriver()).Start();
+            ChromeBot.TerminateDriver();
         }
 
-        public AddLecture()
+        public AddLecture(ChromeBot bot)
         {
-            LoadBot();
+            LoadBot(bot);
             InitializeComponent();
             if (User.MicrosoftTeams == null)
             {
@@ -41,7 +41,6 @@ namespace AutoLectureRecorder.Pages
                 Dispatcher.Invoke(() => {
                     foreach (string team in User.MicrosoftTeams)
                     {
-                        Trace.WriteLine(team);
                         ComboboxMeeting.Items.Add(team);
                     }
                     ShowAddLectureForm();
@@ -58,46 +57,64 @@ namespace AutoLectureRecorder.Pages
         {
             Dispatcher.Invoke(() => ShowWaitMessage());
 
-            List<string> microsoftTeams;
+            List<string> microsoftTeams = null;
+            string errorMessage = null;
 
-            try
+            // If microsoft teams is null that means the user just got authenticated
+            // Otherwise the authenticate user method must be called to get to the point where meating cards are
+            if (User.MicrosoftTeams == null)
             {
                 microsoftTeams = ChromeBot.GetMeetings();
             }
-            catch (Exception e)
+            else 
             {
-                Trace.Fail("An error occured while getting the meetings " + e.Message);
-                Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
-                return;
-            }
-
-            if (microsoftTeams != null)
-            {
-                if (microsoftTeams.Count > 0)
+                ChromeBot.StartDriver();
+                if (ChromeBot.AuthenticateUser(User.RegistrationNumber, User.Password, ref errorMessage))
                 {
-                    Dispatcher.Invoke(() => {
-                        for (int i = microsoftTeams.Count - 1; i >= 0; i--)
-                        {
-                            Trace.WriteLine(microsoftTeams[i]);
-                            if (string.IsNullOrWhiteSpace(microsoftTeams[i]))
-                            {
-                                microsoftTeams.RemoveAt(i);
-                            }
-                            else
-                            {
-                                ComboboxMeeting.Items.Add(microsoftTeams[i]);
-                            }
-                        }
-                    });
-                    User.MicrosoftTeams = microsoftTeams;
-                    Serialize.SerializeUserData(User.RegistrationNumber, User.Password, User.MicrosoftTeams);
-                    Dispatcher.Invoke(() => ShowAddLectureForm());
+                    microsoftTeams = ChromeBot.GetMeetings();
                 }
                 else
                 {
+                    Trace.WriteLine("An error occured while authenticating to get the meetings");
+                    MessageBox.Show(errorMessage, "Unable to get meetings", MessageBoxButton.OK, MessageBoxImage.Warning);
                     Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
+                    return;
                 }
-            }        
+                ChromeBot.TerminateDriver();
+            }
+
+            if (microsoftTeams == null)
+            {
+                Trace.WriteLine("An error occured while getting the meetings");
+                Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
+                return;
+            }
+              
+            if (microsoftTeams.Count > 0)
+            {
+                Dispatcher.Invoke(() => {
+                    for (int i = microsoftTeams.Count - 1; i >= 0; i--)
+                    {
+                        Trace.WriteLine(microsoftTeams[i]);
+                        if (string.IsNullOrWhiteSpace(microsoftTeams[i]))
+                        {
+                            microsoftTeams.RemoveAt(i);
+                        }
+                    }
+                    foreach (string card in microsoftTeams)
+                    {
+                        ComboboxMeeting.Items.Add(card);
+                    }
+                });
+
+                User.MicrosoftTeams = microsoftTeams;
+                Serialize.SerializeUserData(User.RegistrationNumber, User.Password, User.MicrosoftTeams);
+                Dispatcher.Invoke(() => ShowAddLectureForm());
+            }
+            else
+            {
+                Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
+            }      
         }
 
         private void ShowWaitMessage()

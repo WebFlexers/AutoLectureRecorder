@@ -29,10 +29,10 @@ namespace AutoLectureRecorder.Pages
     {
         public ChromeBot ChromeBot { get; set; }
 
-        public void LoadBot()
+        public void LoadBot(ChromeBot bot)
         {
-            ChromeBot = new ChromeBot();
-            ChromeBot.HideBrowser = true;
+            ChromeBot = bot;
+            ChromeBot.IsBrowserHidden = false;
         }
 
         public void TerminateBot()
@@ -42,7 +42,7 @@ namespace AutoLectureRecorder.Pages
 
         public RecordPage()
         {
-            LoadBot();
+            LoadBot(new ChromeBot());
             InitializeComponent();
             Load();
         }
@@ -176,35 +176,9 @@ namespace AutoLectureRecorder.Pages
         bool _isLectureActive = false;
         private void StartLecture()
         {
-            ChromeBot.HideBrowser = true;
-
-            if (ChromeBot.IsCookieExpired("TSPREAUTHCOOKIE"))
-            {
-                if (ChromeBot.AuthenticateUser(User.RegistrationNumber, User.Password))
-                {
-                    ChromeBot.TerminateDriver();
-                    Trace.WriteLine("Succesfully authenticated");
-                }
-                else
-                {
-                    // Schedule next lecture
-                    ChromeBot.TerminateDriver();
-                    Dispatcher.Invoke(() =>
-                    {
-                        DeactivateRecordButton();
-                        if (CanStartLecture())
-                        {
-                            ActivateRecordButton();
-                        }
-                    });
-                    Trace.Fail("Failed to authenticate user in chrome bot. Exiting lecture");
-                    return;
-                }
-            }
-
-            ChromeBot.HideBrowser = false;
             ChromeBot.StartDriver();
-            if (ChromeBot.ConnectToMeetingByName(nextLecture.MeetingTeam))
+
+            if (ChromeBot.ConnectToMeetingByName(nextLecture.MeetingTeam, User.RegistrationNumber, User.Password))
             {
                 _isLectureActive = true;
                 // Schedule stop lecture
@@ -235,7 +209,7 @@ namespace AutoLectureRecorder.Pages
                         ActivateRecordButton();
                     }
                 });
-                TerminateBot();
+                ChromeBot.TerminateDriver();
             }
         }
 
@@ -279,21 +253,21 @@ namespace AutoLectureRecorder.Pages
 
         private void CheckParticipants()
         {
-            try
-            {
-                while (_isLectureActive)
-                {
-                    if (ChromeBot.GetParticipantsNumber() <= 20)
-                    {
-                        StopLecture();
-                    }
-                    Thread.Sleep(TimeSpan.FromMinutes(5));
-                }
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.Message);
-            }
+            //try
+            //{
+            //    while (_isLectureActive)
+            //    {
+            //        if (ChromeBot.GetParticipantsNumber() <= 20)
+            //        {
+            //            StopLecture();
+            //        }
+            //        Thread.Sleep(TimeSpan.FromMinutes(5));
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Trace.WriteLine(e.Message);
+            //}
         }
 
         private void ShowUI()

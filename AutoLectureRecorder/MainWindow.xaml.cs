@@ -18,8 +18,10 @@ namespace AutoLectureRecorder
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        ChromeBot _chromeBot;
+        public MainWindow(ChromeBot bot)
         {
+            _chromeBot = bot;
             InitializeComponent();
             InstanciatePages();
             MenuItemRN.Header = User.RegistrationNumber;
@@ -98,7 +100,7 @@ namespace AutoLectureRecorder
             _allPages.Add(_youtubeAuthenticate);
             _allPages.Add(_youtube);
             _allPages.Add(_settingsPage);
-            _addLecturePage = new AddLecture();
+            _addLecturePage = new AddLecture(_chromeBot);
             _lecturesPage = new Lectures();
             _youtube = new Youtube();
         }
@@ -150,7 +152,7 @@ namespace AutoLectureRecorder
         public void ShowAddLecturesSection()
         {
             if (_addLecturePage == null)
-                _addLecturePage = new AddLecture();
+                _addLecturePage = new AddLecture(_chromeBot);
 
             FrameMain.Content = _addLecturePage;
         }
@@ -221,8 +223,7 @@ namespace AutoLectureRecorder
         {
             foreach (Page page in _allPages)
             {
-                var pageWithChrome = page as IChrome;
-                if (pageWithChrome != null)
+                if (page is IChrome pageWithChrome)
                 {
                     new Thread(() => pageWithChrome.TerminateBot()).Start();
                 }
