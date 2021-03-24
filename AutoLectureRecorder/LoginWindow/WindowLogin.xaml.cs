@@ -116,7 +116,13 @@ namespace AutoLectureRecorder.LoginWindow
         private void Window_Closed(object sender, EventArgs e)
         {
             if (ChromeBot != null)
-                new Thread(() => ChromeBot.TerminateDriver()).Start();
+                ChromeBot.TerminateDriver();
+
+            // Kill any remaining chrome driver processes
+            Process[] chromeDriverInstances = Process.GetProcessesByName("chromedriver");
+
+            foreach (Process p in chromeDriverInstances)
+                p.Kill(true);
         }
     }
 }

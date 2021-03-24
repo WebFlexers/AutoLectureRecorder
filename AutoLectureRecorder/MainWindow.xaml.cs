@@ -198,20 +198,10 @@ namespace AutoLectureRecorder
         /* Close all chrome processes */
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Process[] chromeInstances = Process.GetProcessesByName("chrome");
+            //Process[] chromeDriverInstances = Process.GetProcessesByName("chromedriver");
 
-            foreach (Process p in chromeInstances)
-                p.Kill();
-
-            Process[] chromeDriverInstances = Process.GetProcessesByName("chromedriver");
-
-            foreach (Process p in chromeDriverInstances)
-                p.Kill();
-
-            Process[] chromeDriverConhost = Process.GetProcessesByName("conhost");
-
-            foreach (Process p in chromeDriverConhost)
-                p.Kill();
+            //foreach (Process p in chromeDriverInstances)
+            //    p.Kill();
         }
 
         private void Window_Closed(object sender, EventArgs e)

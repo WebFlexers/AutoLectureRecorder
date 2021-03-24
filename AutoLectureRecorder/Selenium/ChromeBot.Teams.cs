@@ -66,6 +66,7 @@ namespace AutoLectureRecorder.Selenium
                 {
                     var error = driver.FindElement(By.Id("msg"));
                     ImplicitWait(WAIT_SECONDS);
+                    errorMessage = "Wrong registration number or password";
                     return false;
                 }
                 catch (NoSuchElementException e)
