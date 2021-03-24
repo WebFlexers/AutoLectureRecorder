@@ -264,7 +264,7 @@
                 TextAlignment="Center"
                 FontSize="18"
                 FontWeight="DemiBold"
-                Text="Your account doesn't belong in any teams. Enter a team and click the update button to continue">
+                Text="No teams were loaded. Make sure your account belongs to at least one team and try again">
 
             </TextBlock>
 
