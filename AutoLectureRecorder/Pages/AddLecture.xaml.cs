@@ -51,9 +51,10 @@ namespace AutoLectureRecorder.Pages
 
 
         #region LoadTeamsToCombobox
+       
+        bool isAtLeastOneTeamPresent = true;
         /* Load, add to the meetings combobox and serialize the microsoft teams 
          * using selenium  and show or hide the wait message accordingly */
-        bool isAtLeastOneTeamPresent = true;
         private void LoadTeams()
         {
             Dispatcher.Invoke(() => ShowWaitMessage());
@@ -61,8 +62,8 @@ namespace AutoLectureRecorder.Pages
             List<string> microsoftTeams = null;
             string errorMessage = null;
             
-            // If microsoft teams is null that means the user just got authenticated
-            // Otherwise the authenticate user method must be called to get to the point where meating cards are
+            // If microsoft teams is null that means the user just got authenticated so chrome has reached the point where the meeting cards are located
+            // Otherwise the authenticate user method must be called to get to the location of the meeting cards
             if (User.MicrosoftTeams == null && isAtLeastOneTeamPresent)
             {
                 microsoftTeams = ChromeBot.GetMeetings();

@@ -16,5 +16,5 @@ C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\App.x
 2051803027141
 LoginWindow\WindowLogin.xaml;MainWindow.xaml;Pages\AddLecture.xaml;Pages\LectureModelsPage.xaml;Pages\Lectures.xaml;Pages\RecordPage.xaml;Pages\SettingsPage.xaml;Pages\VideoUploadStatus.xaml;Pages\Youtube.xaml;Pages\YoutubeAuthenticate.xaml;Structure\LectureModel.xaml;
 
-True
+False
 
