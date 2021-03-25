@@ -81,7 +81,7 @@ namespace AutoLectureRecorder.Pages
                     Dispatcher.Invoke(() => ShowEmptyTeamsListMessage());
                     return;
                 }
-                ChromeBot.TerminateDriver();
+                ChromeBot.TerminateDriver(); 
             }
 
             if (microsoftTeams == null)
