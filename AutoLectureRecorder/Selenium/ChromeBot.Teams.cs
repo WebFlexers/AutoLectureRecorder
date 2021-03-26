@@ -113,6 +113,7 @@ namespace AutoLectureRecorder.Selenium
                 var joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));
                 joinBtn.Click();
 
+                ImplicitWait(TimeSpan.FromSeconds(WAIT_SECONDS));
                 var noAudioMicBtn = driver.FindElement(By.XPath("//button[contains(@track-summary, 'Continue in call/meetup without device access')]"));
                 noAudioMicBtn.Click();
 
