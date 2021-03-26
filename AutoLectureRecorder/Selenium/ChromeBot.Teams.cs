@@ -61,17 +61,17 @@ namespace AutoLectureRecorder.Selenium
                 loginUnipiBtn.Click();
 
                 // Check for errors
-                ImplicitWait(5);
+                ImplicitWait(TimeSpan.FromSeconds(5));
                 try
                 {
                     var error = driver.FindElement(By.Id("msg"));
-                    ImplicitWait(WAIT_SECONDS);
+                    ImplicitWait(TimeSpan.FromSeconds(WAIT_SECONDS));
                     errorMessage = "Wrong registration number or password";
                     return false;
                 }
                 catch (NoSuchElementException e)
                 {
-                    ImplicitWait(WAIT_SECONDS);
+                    ImplicitWait(TimeSpan.FromSeconds(WAIT_SECONDS));
                     //Click no on Stay signed in
                     var noStaySignIn = driver.FindElement(By.XPath("//*[@id='idBtn_Back']"));
                     noStaySignIn.Click();
@@ -99,7 +99,7 @@ namespace AutoLectureRecorder.Selenium
                 GoToTeams(registrationNum, password);
 
                 //Clicking to specific team
-                ImplicitWait(120);
+                ImplicitWait(TimeSpan.FromSeconds(120));
                 var lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, '" + meetingName + "')]"));
                 lessonCardBtn.Click();
 
@@ -107,7 +107,7 @@ namespace AutoLectureRecorder.Selenium
                 var notificationsDisable = driver.FindElement(By.XPath("/html/body/div[1]/div/div/div[2]/div/button[2]"));
                 notificationsDisable.Click();
 
-                ImplicitWait(WAIT_SECONDS);
+                ImplicitWait(TimeSpan.FromSeconds(0));
                 //Wait 30 minutes until Join button appears
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(30));
                 var joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));

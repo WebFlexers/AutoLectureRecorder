@@ -31,8 +31,8 @@ namespace AutoLectureRecorder.Selenium
         private bool isDriverRunning { get => driver != null; }
 
         public void CloseFocusedBrowser() => driver.Close();       
-        public void RefreshCurrentPage() => driver.Navigate().Refresh();        
-        public void ImplicitWait(int seconds) => driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(seconds);
+        public void RefreshCurrentPage() => driver.Navigate().Refresh();
+        public void ImplicitWait(TimeSpan timeSpan) => driver.Manage().Timeouts().ImplicitWait = timeSpan;
 
         public void TerminateDriver()
         {
@@ -74,7 +74,7 @@ namespace AutoLectureRecorder.Selenium
             
             driver = new ChromeDriver(driverService, chromeOptions);
 
-            ImplicitWait(WAIT_SECONDS);
+            ImplicitWait(TimeSpan.FromSeconds(30));
 
             if (IsBrowserMaximized) driver.Manage().Window.Maximize();
         }        

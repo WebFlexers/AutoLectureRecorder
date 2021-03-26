@@ -1,0 +1,255 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "AutoLectureRecorder/1.0.0": {
+        "dependencies": {
+          "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
+          "Google.Apis.YouTube.v3": "1.50.0.2238",
+          "LoadingIndicators.WPF": "0.0.1",
+          "MaterialDesignThemes": "4.0.0",
+          "ScreenRecorderLib": "3.1.1",
+          "Selenium.WebDriver": "3.141.0",
+          "Selenium.WebDriver.ChromeDriver": "89.0.4389.2300",
+          "morelinq": "3.3.2",
+          "ScreenRecorderLib.Reference": "1.0.7705.34855"
+        },
+        "runtime": {
+          "AutoLectureRecorder.dll": {}
+        }
+      },
+      "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+        "dependencies": {
+          "Selenium.WebDriver": "3.141.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {
+            "assemblyVersion": "3.11.0.0",
+            "fileVersion": "3.11.0.0"
+          }
+        }
+      },
+      "Google.Apis/1.50.0": {
+        "dependencies": {
+          "Google.Apis.Core": "1.50.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.dll": {
+            "assemblyVersion": "1.50.0.0",
+            "fileVersion": "1.50.0.0"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.50.0": {
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Core": "1.50.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {
+            "assemblyVersion": "1.50.0.0",
+            "fileVersion": "1.50.0.0"
+          },
+          "lib/netstandard2.0/Google.Apis.Auth.dll": {
+            "assemblyVersion": "1.50.0.0",
+            "fileVersion": "1.50.0.0"
+          }
+        }
+      },
+      "Google.Apis.Core/1.50.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {
+            "assemblyVersion": "1.50.0.0",
+            "fileVersion": "1.50.0.0"
+          }
+        }
+      },
+      "Google.Apis.YouTube.v3/1.50.0.2238": {
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.YouTube.v3.dll": {
+            "assemblyVersion": "1.50.0.2238",
+            "fileVersion": "1.50.0.2238"
+          }
+        }
+      },
+      "LoadingIndicators.WPF/0.0.1": {
+        "runtime": {
+          "lib/LoadingIndicators.WPF.dll": {
+            "assemblyVersion": "0.0.1.0",
+            "fileVersion": "0.0.1.0"
+          }
+        }
+      },
+      "MaterialDesignColors/2.0.0": {
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignColors.dll": {
+            "assemblyVersion": "2.0.0.2422",
+            "fileVersion": "2.0.0.2422"
+          }
+        }
+      },
+      "MaterialDesignThemes/4.0.0": {
+        "dependencies": {
+          "MaterialDesignColors": "2.0.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll": {
+            "assemblyVersion": "4.0.0.2422",
+            "fileVersion": "4.0.0.2422"
+          }
+        }
+      },
+      "morelinq/3.3.2": {
+        "runtime": {
+          "lib/netstandard2.0/MoreLinq.dll": {
+            "assemblyVersion": "3.3.2.0",
+            "fileVersion": "3.3.2.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
+      "ScreenRecorderLib/3.1.1": {},
+      "Selenium.WebDriver/3.141.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/WebDriver.dll": {
+            "assemblyVersion": "3.141.0.0",
+            "fileVersion": "3.141.0.0"
+          }
+        }
+      },
+      "Selenium.WebDriver.ChromeDriver/89.0.4389.2300": {},
+      "ScreenRecorderLib.Reference/1.0.7705.34855": {
+        "runtime": {
+          "ScreenRecorderLib.dll": {
+            "assemblyVersion": "1.0.7705.34855",
+            "fileVersion": "3.1.1.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AutoLectureRecorder/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xc6jVVl5ymgk3ZNWnC/KHxkEup1QpnwYbrwF+NQoCOGERsD8YMlLwmsX4lGhLXCLo/YQTRTIwlKCN9E/doGUNg==",
+      "path": "dotnetseleniumextras.waithelpers/3.11.0",
+      "hashPath": "dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512"
+    },
+    "Google.Apis/1.50.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qV0wmPVM03YU2dEi8uir+9Ee8MwoH8ELwMVbDX3fuf2NUbweY43fAQ7P20xbq/4nhgOP/maWzrjNlw8WkD4hyw==",
+      "path": "google.apis/1.50.0",
+      "hashPath": "google.apis.1.50.0.nupkg.sha512"
+    },
+    "Google.Apis.Auth/1.50.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-y6hqXcDzTA5tj3Qasr97anpIc+gGJC9QlWJnGSRvp7o4/c4b4Bd5tBgqyJKhgfBMo+HugXGcYh17Kvm5SB3v6g==",
+      "path": "google.apis.auth/1.50.0",
+      "hashPath": "google.apis.auth.1.50.0.nupkg.sha512"
+    },
+    "Google.Apis.Core/1.50.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-E/ioNStr2z0LXXAaGR7bnbRQqozjFb12mi5zs/Bm4c2ZH9uoKOxz9FbQkNRq4R3yHif5gxt3nh8Ei7g9qRiYxQ==",
+      "path": "google.apis.core/1.50.0",
+      "hashPath": "google.apis.core.1.50.0.nupkg.sha512"
+    },
+    "Google.Apis.YouTube.v3/1.50.0.2238": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ikvbIDus+/wK4dWF0Pet1ABmklOVj33JIcBa5+RUmoOMaqb9GbDvJL384uiI7/a04KAGUmhxjdYd5TJu1HYVTg==",
+      "path": "google.apis.youtube.v3/1.50.0.2238",
+      "hashPath": "google.apis.youtube.v3.1.50.0.2238.nupkg.sha512"
+    },
+    "LoadingIndicators.WPF/0.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JHiYQH5WeyL1IZt5snGQJf012dHifnJehgdNV++0nxoTCqR+5BvboqJ8ZT5WDI97E1hr3Lh/q/X9zfDPWnP4iw==",
+      "path": "loadingindicators.wpf/0.0.1",
+      "hashPath": "loadingindicators.wpf.0.0.1.nupkg.sha512"
+    },
+    "MaterialDesignColors/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+JoghC3QRK0u9Wul1To1ORjcfTbFTVzFPjJ02H7VREOdNzIIn427e8G9gP9hXu9pm1r2OneLnoCG/lTma5cG2w==",
+      "path": "materialdesigncolors/2.0.0",
+      "hashPath": "materialdesigncolors.2.0.0.nupkg.sha512"
+    },
+    "MaterialDesignThemes/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+n5oWHuRiYL/gUw2XfQHCRZqHtU8KbrdurgU0IcO98Zsyhw4BvggodfXY8veRtbjjmM9EJ/sG2yKBrgPOGX4JQ==",
+      "path": "materialdesignthemes/4.0.0",
+      "hashPath": "materialdesignthemes.4.0.0.nupkg.sha512"
+    },
+    "morelinq/3.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MQc8GppZJLmjvcpEdf3EkC6ovsp7gRWt2e5mC7dcIOrgwSc+yjFd3JQ0iRqr3XrUT6rb/phv0IkEmBtbfVA7AQ==",
+      "path": "morelinq/3.3.2",
+      "hashPath": "morelinq.3.3.2.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+    },
+    "ScreenRecorderLib/3.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V79BiutbSMggdlNFjwbVyVmt1UgBr04ShOt3+bSflWjQ3NKpS16uuEgRjq7sAQtmtI/Yl2eB0hJACXSk4LkeuQ==",
+      "path": "screenrecorderlib/3.1.1",
+      "hashPath": "screenrecorderlib.3.1.1.nupkg.sha512"
+    },
+    "Selenium.WebDriver/3.141.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wPqzXO3f79DzqauTZSzLMKiaBCN0Z2Mv7KvWP+hnV6EL88zh/pJJnFtdIR1X5wa3hsTOpF/bBJs45rz7kArsiA==",
+      "path": "selenium.webdriver/3.141.0",
+      "hashPath": "selenium.webdriver.3.141.0.nupkg.sha512"
+    },
+    "Selenium.WebDriver.ChromeDriver/89.0.4389.2300": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/lnt6U3hogvJtFBP9l9Vm3F7zVBTClCANeVzcyWwyUf/uW686KEgGU+9x6sebstjd02qrmvcP42MKHTID1tq/A==",
+      "path": "selenium.webdriver.chromedriver/89.0.4389.2300",
+      "hashPath": "selenium.webdriver.chromedriver.89.0.4389.2300.nupkg.sha512"
+    },
+    "ScreenRecorderLib.Reference/1.0.7705.34855": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

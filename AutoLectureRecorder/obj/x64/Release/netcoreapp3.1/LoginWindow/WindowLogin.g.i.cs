@@ -121,7 +121,7 @@ namespace AutoLectureRecorder.LoginWindow {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AutoLectureRecorder;component/loginwindow/windowlogin.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AutoLectureRecorder;V1.0.0.0;component/loginwindow/windowlogin.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\LoginWindow\WindowLogin.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
