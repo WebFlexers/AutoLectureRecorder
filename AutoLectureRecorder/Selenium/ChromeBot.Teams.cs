@@ -98,15 +98,16 @@ namespace AutoLectureRecorder.Selenium
 
                 GoToTeams(registrationNum, password);
 
-                //Clicking to specific team
                 ImplicitWait(TimeSpan.FromSeconds(120));
-                var lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, '" + meetingName + "')]"));
-                lessonCardBtn.Click();
 
                 //Disable the stupid turn on notifications popup
                 var notificationsDisable = driver.FindElement(By.XPath("/html/body/div[1]/div/div/div[2]/div/button[2]"));
                 notificationsDisable.Click();
 
+                //Clicking to specific team
+                var lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, '" + meetingName + "')]"));
+                lessonCardBtn.Click();
+               
                 ImplicitWait(TimeSpan.FromSeconds(0));
                 //Wait 30 minutes until Join button appears
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(30));
