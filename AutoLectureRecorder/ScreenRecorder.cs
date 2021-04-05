@@ -49,7 +49,7 @@ namespace AutoLectureRecorder
                 IsAudioEnabled = true,
                 IsInputDeviceEnabled = false,
                 IsOutputDeviceEnabled = true,
-                AudioInputDevice = null,
+                AudioInputDevice = null, // Null means default
                 AudioOutputDevice = null
             },
 
@@ -72,7 +72,7 @@ namespace AutoLectureRecorder
 
         private void RecordIfNoRecordingIsActive(string lectureName)
         {
-            while (!IsRecording)
+            while (true)
             {
                 if (IsRecording)
                 {
@@ -96,6 +96,7 @@ namespace AutoLectureRecorder
                     _recorder.Record(RecordingPath);
 
                     IsRecording = true;
+                    break;
                 }
             }
             

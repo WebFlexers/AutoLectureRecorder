@@ -12,6 +12,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using OpenQA.Selenium.Support.UI;
 
 namespace AutoLectureRecorder.Selenium
 {
@@ -19,7 +20,7 @@ namespace AutoLectureRecorder.Selenium
     {
         const int WAIT_SECONDS = 60; //seconds    
 
-        IWebDriver driver;
+        IWebDriver _driver;
 
         List<string[]> cookiesList = new List<string[]>();
 
@@ -28,22 +29,23 @@ namespace AutoLectureRecorder.Selenium
         public bool IsBrowserMaximized { get; set; } = true;
         public bool IsCommandlineHidden { get; set; } = true;
 
-        private bool isDriverRunning { get => driver != null; }
+        private bool isDriverRunning { get => _driver != null; }
 
-        public void CloseFocusedBrowser() => driver.Close();       
-        public void RefreshCurrentPage() => driver.Navigate().Refresh();
-        public void ImplicitWait(TimeSpan timeSpan) => driver.Manage().Timeouts().ImplicitWait = timeSpan;
+        public void CloseFocusedBrowser() => _driver.Close();       
+        public void RefreshCurrentPage() => _driver.Navigate().Refresh();
 
         public void TerminateDriver()
         {
             if (isDriverRunning)
             {
-                driver.Quit();
+                _driver.Quit();
             }
         }
 
         public void StartDriver()
         {
+            TerminateDriver();
+
             ChromeOptions chromeOptions = new ChromeOptions();
             var driverService = ChromeDriverService.CreateDefaultService();
 
@@ -72,11 +74,9 @@ namespace AutoLectureRecorder.Selenium
             //Services
             if (IsCommandlineHidden) driverService.HideCommandPromptWindow = true;   
             
-            driver = new ChromeDriver(driverService, chromeOptions);
+            _driver = new ChromeDriver(driverService, chromeOptions);
 
-            ImplicitWait(TimeSpan.FromSeconds(30));
-
-            if (IsBrowserMaximized) driver.Manage().Window.Maximize();
+            if (IsBrowserMaximized) _driver.Manage().Window.Maximize();
         }        
        
     }

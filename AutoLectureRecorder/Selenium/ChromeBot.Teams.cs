@@ -14,74 +14,127 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
+using SeleniumExtras.WaitHelpers;
 
 namespace AutoLectureRecorder.Selenium
 {
     public partial class ChromeBot
     {
-        static string cookieFileName; //"profile.alr";
-
         public string teamsHomePagetUrl = "https://teams.microsoft.com/_#/school//?ctx=teamsGrid";
         public bool onMeeting = false;
+
+        private IWebElement WaitToFindElement(By locator)
+        {
+            return WaitToFindElement(locator, TimeSpan.FromSeconds(WAIT_SECONDS));
+        }
+        private IWebElement WaitToFindElement(By locator, TimeSpan waitTime)
+        {
+            for (int i = 0; i < 3; i++) {
+                try
+                {
+                    WebDriverWait wait = new WebDriverWait(_driver, waitTime);
+                    wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(locator));
+                    return _driver.FindElement(locator);
+                }
+                catch (StaleElementReferenceException) 
+                {
+                    Thread.Sleep(2000);
+                }
+            }
+            return null;
+        }
+
+        private IWebElement WaitToFindEitherElement(By[] locators)
+        {
+            return WaitToFindEitherElement(locators, TimeSpan.FromSeconds(WAIT_SECONDS));
+        }
+
+        private IWebElement WaitToFindEitherElement(By[] locators, TimeSpan waitTime)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                try
+                {
+                    return new WebDriverWait(_driver, waitTime).Until(AnyElementExists(locators));
+                }
+                catch (StaleElementReferenceException)
+                {
+                    Thread.Sleep(2000);
+                }
+            }
+            return null;
+        }
+
+        private Func<IWebDriver, IWebElement> AnyElementExists(By[] locators)
+        {
+            return (driver) =>
+            {
+                foreach (By locator in locators)
+                {
+                    IReadOnlyCollection<IWebElement> elements = _driver.FindElements(locator);
+                    if (elements.Any())
+                    {
+                        return elements.ElementAt(0);
+                    }
+                }
+
+                return null;
+            };
+        }
 
         public bool AuthenticateUser(string registrationNum, string password, ref string errorMessage)
         {            
             try
             {
-                if (driver == null)
+                if (_driver == null)
                    StartDriver();
 
                 //-----------------------------------Microsoft's Login Page-----------------------------------
-                driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
+                _driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
 
                 // Turn everything to lower case because capital letters create problems
                 string temp = registrationNum.ToLower();
                 registrationNum = temp;
 
-                // form-control ltr_override input ext-input text-box ext-text-box has-error ext-has-error
-
                 //Filling email at Microsoft's login page
-                var emailInputBox = driver.FindElement(By.Id("i0116"));
+                var emailInputBox = WaitToFindElement(By.Id("i0116"));
                 emailInputBox.SendKeys(registrationNum + "@unipi.gr");
 
                 //Click NextBtn at Microsoft's login page
-                var nextEmailBtn = driver.FindElement(By.XPath("//input[@type='submit']"));
+                var nextEmailBtn = WaitToFindElement(By.XPath("//input[@type='submit']"));
                 nextEmailBtn.Click();
 
                 //-----------------------------------Unipi page-----------------------------------
 
                 //Filling UNIPI form
-                var usernameUnipiInputBox = driver.FindElement(By.Id("username"));
+                var usernameUnipiInputBox = WaitToFindElement(By.Id("username"));
                 usernameUnipiInputBox.SendKeys(registrationNum);
-                var passwordUnipiInputBox = driver.FindElement(By.Id("password"));
+                var passwordUnipiInputBox = WaitToFindElement(By.Id("password"));
                 passwordUnipiInputBox.SendKeys(password);
 
                 //Login button
-                var loginUnipiBtn = driver.FindElement(By.Id("submitForm"));
+                var loginUnipiBtn = _driver.FindElement(By.Id("submitForm"));
                 loginUnipiBtn.Click();
 
-                // Check for errors
-                ImplicitWait(TimeSpan.FromSeconds(5));
-                try
+                By[] locators = { By.Id("msg"), By.XPath("//*[@id='idBtn_Back']") };
+                var foundElement = WaitToFindEitherElement(locators);
+                if (string.IsNullOrWhiteSpace(foundElement.Text))
                 {
-                    var error = driver.FindElement(By.Id("msg"));
-                    ImplicitWait(TimeSpan.FromSeconds(WAIT_SECONDS));
-                    errorMessage = "Wrong registration number or password";
-                    return false;
-                }
-                catch (NoSuchElementException e)
-                {
-                    ImplicitWait(TimeSpan.FromSeconds(WAIT_SECONDS));
-                    //Click no on Stay signed in
-                    var noStaySignIn = driver.FindElement(By.XPath("//*[@id='idBtn_Back']"));
-                    noStaySignIn.Click();
+                    Trace.WriteLine("The no button text is: " + foundElement.Text);
                     return true;
                 }
+                else
+                {
+                    errorMessage = foundElement.Text;
+                    Trace.WriteLine("The error is: " + errorMessage);
+                    return false;
+                }
+                
             }
             catch (Exception ex)
             {
                 TerminateDriver();
-                errorMessage = "An error occured while authenticating user. Try again";
+                errorMessage = "An unusual error occured while authenticating user. Try again";
                 Trace.WriteLine(errorMessage + ": " + ex.Message);
                 return false;
             }
@@ -93,32 +146,26 @@ namespace AutoLectureRecorder.Selenium
             {
                 onMeeting = false;
 
-                if (driver == null)
+                if (_driver == null)
                     StartDriver();
 
                 GoToTeams(registrationNum, password);
 
-                ImplicitWait(TimeSpan.FromSeconds(120));
-
                 //Disable the stupid turn on notifications popup
-                var notificationsDisable = driver.FindElement(By.XPath("/html/body/div[1]/div/div/div[2]/div/button[2]"));
+                var notificationsDisable = WaitToFindElement(By.XPath("/html/body/div[1]/div/div/div[2]/div/button[2]"), TimeSpan.FromMinutes(2));
                 notificationsDisable.Click();
 
                 //Clicking to specific team
-                var lessonCardBtn = driver.FindElement(By.XPath("//div[contains(@data-tid, '" + meetingName + "')]"));
+                var lessonCardBtn = WaitToFindElement(By.XPath("//div[contains(@data-tid, '" + meetingName + "')]"));
                 lessonCardBtn.Click();
-               
-                ImplicitWait(TimeSpan.FromSeconds(0));
-                //Wait 30 minutes until Join button appears
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMinutes(30));
-                var joinBtn = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//button[contains(@data-tid, 'join-btn')]")));
+
+                var joinBtn = WaitToFindElement(By.XPath("//button[contains(@data-tid, 'join-btn')]"), TimeSpan.FromMinutes(30));
                 joinBtn.Click();
 
-                ImplicitWait(TimeSpan.FromSeconds(WAIT_SECONDS));
-                var noAudioMicBtn = driver.FindElement(By.XPath("//button[contains(@track-summary, 'Continue in call/meetup without device access')]"));
+                var noAudioMicBtn = WaitToFindElement(By.XPath("//button[contains(@track-summary, 'Continue in call/meetup without device access')]"));
                 noAudioMicBtn.Click();
 
-                var preJoinCallBtn = driver.FindElement(By.XPath("//button[contains(@data-tid, 'prejoin-join-button')]"));
+                var preJoinCallBtn = WaitToFindElement(By.XPath("//button[contains(@data-tid, 'prejoin-join-button')]"));
                 preJoinCallBtn.Click();
 
                 onMeeting = true;
@@ -152,34 +199,34 @@ namespace AutoLectureRecorder.Selenium
             try
             {
                 //-----------------------------------Microsoft's Login Page-----------------------------------
-                driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
+                _driver.Url = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
 
                 // Turn everything to lower case because capital letters create problems
                 string temp = registrationNum.ToLower();
                 registrationNum = temp;
 
                 //Filling email at Microsoft's login page
-                var emailInputBox = driver.FindElement(By.Id("i0116"));
+                var emailInputBox = WaitToFindElement(By.Id("i0116"));
                 emailInputBox.SendKeys(registrationNum + "@unipi.gr");
 
                 //Click NextBtn at Microsoft's login page
-                var nextEmailBtn = driver.FindElement(By.XPath("//input[@type='submit']"));
+                var nextEmailBtn = WaitToFindElement(By.XPath("//input[@type='submit']"));
                 nextEmailBtn.Click();
 
                 //-----------------------------------Unipi page-----------------------------------
 
                 //Filling UNIPI form
-                var usernameUnipiInputBox = driver.FindElement(By.Id("username"));
+                var usernameUnipiInputBox = WaitToFindElement(By.Id("username"));
                 usernameUnipiInputBox.SendKeys(registrationNum);
-                var passwordUnipiInputBox = driver.FindElement(By.Id("password"));
+                var passwordUnipiInputBox = WaitToFindElement(By.Id("password"));
                 passwordUnipiInputBox.SendKeys(password);
 
                 //Login button
-                var loginUnipiBtn = driver.FindElement(By.Id("submitForm"));
+                var loginUnipiBtn = WaitToFindElement(By.Id("submitForm"));
                 loginUnipiBtn.Click();
 
                 //Click no on Stay signed in
-                var noStaySignIn = driver.FindElement(By.XPath("//*[@id='idBtn_Back']"));
+                var noStaySignIn = WaitToFindElement(By.XPath("//*[@id='idBtn_Back']"));
                 noStaySignIn.Click();
 
                 return true;
@@ -196,18 +243,23 @@ namespace AutoLectureRecorder.Selenium
         {
             try
             {
-                if (driver == null)
+                if (_driver == null)
                 {
                     return default;
-                }     
-                
+                }
+
+                // Click no to the promt from user authentication
+                var noButton = WaitToFindElement(By.XPath("//*[@id='idBtn_Back']"));
+                noButton.Click();
+
                 List<string> meetingsList = new List<string>();
-                //Find cards container
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));               
-                var cardsContainer = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='favorite-teams-panel']")));
+                //Find cards container              
+                var cardsContainer = WaitToFindElement(By.XPath("//*[@id='favorite-teams-panel']"), TimeSpan.FromSeconds(60));
 
                 //Get text from cards
-                var cardsList = cardsContainer.FindElements(By.XPath("//h1[@data-tid='team-name-text']"));
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(WAIT_SECONDS));
+                var cardsList = wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath("//h1[@data-tid='team-name-text']"))); // cardsContainer.FindElements(By.XPath("//h1[@data-tid='team-name-text']"));
+
                 foreach (var card in cardsList)
                 {
                     Trace.WriteLine(card.Text);
