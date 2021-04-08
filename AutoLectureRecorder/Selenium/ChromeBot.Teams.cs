@@ -29,19 +29,9 @@ namespace AutoLectureRecorder.Selenium
         }
         private IWebElement WaitToFindElement(By locator, TimeSpan waitTime)
         {
-            for (int i = 0; i < 3; i++) {
-                try
-                {
-                    WebDriverWait wait = new WebDriverWait(_driver, waitTime);
-                    wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(locator));
-                    return _driver.FindElement(locator);
-                }
-                catch (StaleElementReferenceException) 
-                {
-                    Thread.Sleep(2000);
-                }
-            }
-            return null;
+            WebDriverWait wait = new WebDriverWait(_driver, waitTime);
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(locator));
+            return _driver.FindElement(locator);
         }
 
         private IWebElement WaitToFindEitherElement(By[] locators)
@@ -170,7 +160,13 @@ namespace AutoLectureRecorder.Selenium
 
                 onMeeting = true;
                 return true;
-            }   
+            }
+            catch (StaleElementReferenceException)
+            {
+                TerminateDriver();
+                StartDriver();
+                return ConnectToMeetingByName(meetingName, registrationNum, password);
+            }
             catch (WebDriverException ex)
             {
                 TerminateDriver();
