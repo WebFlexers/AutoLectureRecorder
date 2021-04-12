@@ -167,6 +167,12 @@ namespace AutoLectureRecorder.Selenium
                 StartDriver();
                 return ConnectToMeetingByName(meetingName, registrationNum, password);
             }
+            catch (NoSuchWindowException)
+            {
+                TerminateDriver();
+                MessageBox.Show("Chrome closed unexpectedly. Try to reschedule the meeting");
+                return false;
+            }
             catch (WebDriverException ex)
             {
                 TerminateDriver();
