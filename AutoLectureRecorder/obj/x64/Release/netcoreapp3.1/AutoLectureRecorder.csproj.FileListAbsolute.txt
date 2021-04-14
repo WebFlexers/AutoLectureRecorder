@@ -108,3 +108,4 @@ C:\Users\user\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\R
 C:\Users\user\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder.dll
 C:\Users\user\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder.pdb
 C:\Users\user\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder.genruntimeconfig.cache
+C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Release\netcoreapp3.1\Ookii.Dialogs.Wpf.dll

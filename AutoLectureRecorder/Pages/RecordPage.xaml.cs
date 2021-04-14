@@ -174,6 +174,7 @@ namespace AutoLectureRecorder.Pages
 
         ScreenRecorder recorder = new ScreenRecorder();
         bool _isLectureActive = false;
+        CancellationTokenSource _cancellationToken;
         private void StartLecture()
         {
             ChromeBot.StartDriver();
@@ -184,8 +185,9 @@ namespace AutoLectureRecorder.Pages
                 // Schedule stop lecture
                 try
                 {
-                    Task.Delay(nextLecture.EndTime - DateTime.Now.TimeOfDay).ContinueWith(_ => { StopLecture(); });
-                    Task.Delay(TimeSpan.FromMinutes(30)).ContinueWith(_ => { CheckParticipants(); });
+                    _cancellationToken = new CancellationTokenSource();
+                    Task.Delay(nextLecture.EndTime - DateTime.Now.TimeOfDay, _cancellationToken.Token).ContinueWith(_ => { StopLecture(); });
+                    // Task.Delay(TimeSpan.FromMinutes(30)).ContinueWith(_ => { CheckParticipants(); });
                 }
                 catch (Exception e)
                 {
@@ -196,6 +198,8 @@ namespace AutoLectureRecorder.Pages
                 // Start recording
                 recorder.CreateRecording(nextLecture.Name);
                 _isRecordButtonClicked = true;
+
+                Dispatcher.Invoke(() => ButtonEndLecture.Visibility = Visibility.Visible);
             }
             else
             {
@@ -217,6 +221,8 @@ namespace AutoLectureRecorder.Pages
         {
             if (_isLectureActive)
             {
+                Dispatcher.Invoke(() => ButtonEndLecture.Visibility = Visibility.Hidden);
+
                 Trace.WriteLine("Stop Lecture Started");
                 ChromeBot.TerminateDriver();
 
@@ -251,6 +257,16 @@ namespace AutoLectureRecorder.Pages
             }
         }
 
+        private void ButtonEndLecture_Click(object sender, RoutedEventArgs e)
+        {
+            var userResponse = MessageBox.Show("Are you sure you want to end the lecture early?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (userResponse == MessageBoxResult.Yes)
+            {
+                StopLecture();
+                _cancellationToken.Cancel();
+            }
+        }
+
         private void CheckParticipants()
         {
             //try
@@ -281,5 +297,7 @@ namespace AutoLectureRecorder.Pages
             StackPanelNextLecture.Visibility = Visibility.Hidden;
             StackPanelStartTime.Visibility = Visibility.Hidden;
         }
+
+        
     }
 }

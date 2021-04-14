@@ -11,7 +11,11 @@ namespace AutoLectureRecorder.Structure
 
         static Settings()
         {
-            
+            var serializedVideoDirectory = Serialize.DeserializeRecordingPath();
+            if (serializedVideoDirectory != null)
+            {
+                VideoDirectory = serializedVideoDirectory;
+            }
         }
     }
 }

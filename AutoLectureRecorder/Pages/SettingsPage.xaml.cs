@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AutoLectureRecorder.Structure;
+using Ookii.Dialogs.Wpf;
 
 namespace AutoLectureRecorder.Pages
 {
@@ -21,6 +23,24 @@ namespace AutoLectureRecorder.Pages
         public SettingsPage()
         {
             InitializeComponent();
+            InitializeUI();
+        }
+
+        private void InitializeUI()
+        {
+            TextBlockRecordingPath.Text = "Recording path: " + Settings.VideoDirectory;
+        }
+
+        private void ButtonBrowsePath_Click(object sender, RoutedEventArgs e)
+        {
+            VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog();
+
+            if (dialog.ShowDialog().GetValueOrDefault())
+            {
+                Settings.VideoDirectory = dialog.SelectedPath;
+                TextBlockRecordingPath.Text = "Recording path: " + dialog.SelectedPath;
+                Serialize.SerializeRecordingPath(dialog.SelectedPath);
+            }
         }
     }
 }

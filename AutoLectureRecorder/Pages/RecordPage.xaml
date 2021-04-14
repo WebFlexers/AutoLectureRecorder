@@ -9,6 +9,35 @@
       Title="RecordPage" Background="#FFEDEFEE"
       xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf">
+    <Page.Resources>
+        <Style x:Key="ButtonStopLecture" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF183A56"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        
+                        <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter 
+                                x:Name="contentPresenter" 
+                                Focusable="False" 
+                                HorizontalAlignment="Center" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="Center"/>
+                        </Border>
+                        
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FF204D72"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <!-- Main grid -->
     <Grid>
@@ -108,14 +137,32 @@
 
         </StackPanel>
 
-        <StackPanel x:Name="StackPanelStartTime" Grid.Row="3" Grid.Column="1" Margin="0,20,0,0">
+        <StackPanel x:Name="StackPanelStartTime" Grid.Row="3" Grid.Column="1" Margin="0,0,0,0">
             <TextBlock TextAlignment="Center" VerticalAlignment="Center" FontSize="19">
                     Starting in
             </TextBlock>
             <TextBlock x:Name="TextBlockTime" FontSize="19" TextAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#D51E1C">
                     00.00.00
             </TextBlock>
+
+            <Button Style="{DynamicResource ButtonStopLecture}"
+                x:Name="ButtonEndLecture"
+                Margin="0,30,0,0"
+                Width="auto"
+                Height="32"
+                Cursor="Hand"
+                Visibility="Visible"
+                d:Visibility="Visible"
+                wpf:RippleAssist.Feedback = "Black"
+            
+                Foreground="WhiteSmoke"
+                FontSize="14" Click="ButtonEndLecture_Click"
+                Content="End lecture">
+            </Button>
+            
         </StackPanel>
+
+       
 
     </Grid>
 </Page>

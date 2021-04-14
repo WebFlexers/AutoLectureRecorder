@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[4.0.0, )"
             },
+            "Ookii.Dialogs.Wpf": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "ScreenRecorderLib": {
               "target": "Package",
               "version": "[3.1.1, )"

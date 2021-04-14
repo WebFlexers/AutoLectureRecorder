@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4wOOfeKUgDdXB6WBY5YclsDQKHStVTcXG8ApL3t+9/+Udr/P4PM3Zi/BQMqtNflbhfVaVaCNxrPtdRPRLLCyUA==",
+  "dgSpecHash": "5hsJ35buf5StA7TLe+66DXpY4iVZAQpFeENX/ukfBU4yvcgcBfGdnZOY/i52fE8wDPxDXN+dUOuyvs9Tt8oB9A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\Michalis\\.nuget\\packages\\materialdesignthemes\\4.0.0\\materialdesignthemes.4.0.0.nupkg.sha512",
     "C:\\Users\\Michalis\\.nuget\\packages\\morelinq\\3.3.2\\morelinq.3.3.2.nupkg.sha512",
     "C:\\Users\\Michalis\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Michalis\\.nuget\\packages\\ookii.dialogs.wpf\\3.1.0\\ookii.dialogs.wpf.3.1.0.nupkg.sha512",
     "C:\\Users\\Michalis\\.nuget\\packages\\screenrecorderlib\\3.1.1\\screenrecorderlib.3.1.1.nupkg.sha512",
     "C:\\Users\\Michalis\\.nuget\\packages\\selenium.webdriver\\3.141.0\\selenium.webdriver.3.141.0.nupkg.sha512",
     "C:\\Users\\Michalis\\.nuget\\packages\\selenium.webdriver.chromedriver\\89.0.4389.2300\\selenium.webdriver.chromedriver.89.0.4389.2300.nupkg.sha512"

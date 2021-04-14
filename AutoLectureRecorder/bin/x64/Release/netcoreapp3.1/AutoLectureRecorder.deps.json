@@ -12,6 +12,7 @@
           "Google.Apis.YouTube.v3": "1.50.0.2238",
           "LoadingIndicators.WPF": "0.0.1",
           "MaterialDesignThemes": "4.0.0",
+          "Ookii.Dialogs.Wpf": "3.1.0",
           "ScreenRecorderLib": "3.1.1",
           "Selenium.WebDriver": "3.141.0",
           "Selenium.WebDriver.ChromeDriver": "89.0.4389.2300",
@@ -126,6 +127,14 @@
           }
         }
       },
+      "Ookii.Dialogs.Wpf/3.1.0": {
+        "runtime": {
+          "lib/netcoreapp3.1/Ookii.Dialogs.Wpf.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.1.0.0"
+          }
+        }
+      },
       "ScreenRecorderLib/3.1.1": {},
       "Selenium.WebDriver/3.141.0": {
         "dependencies": {
@@ -224,6 +233,13 @@
       "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "path": "newtonsoft.json/12.0.3",
       "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+    },
+    "Ookii.Dialogs.Wpf/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EpUWoSLLO1aVkUmo2dPE4xO+zQZRxbp13agbbQzGBL1ACALgCD69cTwdLdPdg2LIsPcZ4uA3iID+YaazdZxyww==",
+      "path": "ookii.dialogs.wpf/3.1.0",
+      "hashPath": "ookii.dialogs.wpf.3.1.0.nupkg.sha512"
     },
     "ScreenRecorderLib/3.1.1": {
       "type": "package",

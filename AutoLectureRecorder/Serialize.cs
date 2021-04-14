@@ -78,5 +78,35 @@ namespace AutoLectureRecorder
             return userData;
 
         }
+
+        public static void SerializeRecordingPath(string recordingPath)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(Path.Combine(DataDirectory, "rec_path.alr"), FileMode.OpenOrCreate, FileAccess.Write);
+
+            formatter.Serialize(stream, recordingPath);
+
+            stream.Close();
+        }
+
+        public static string DeserializeRecordingPath()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(Path.Combine(DataDirectory, "rec_path.alr"), FileMode.OpenOrCreate, FileAccess.Read);
+
+            string recPath;
+            if (stream.Length != 0)
+            {
+                recPath = (string)formatter.Deserialize(stream);
+            }
+            else
+            {
+                recPath = null;
+            }
+
+            stream.Close();
+            return recPath;
+
+        }
     }
 }

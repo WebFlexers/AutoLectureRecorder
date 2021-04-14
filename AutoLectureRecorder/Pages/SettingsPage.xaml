@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AutoLectureRecorder.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="644" d:DesignWidth="846"
       Title="Settings">
     <Grid Background="#FFEDEFEE">
         <Grid.RowDefinitions>
@@ -58,39 +58,62 @@
         </TextBlock>
 
         <!--Record settings section-->
-        <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1"  Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
             <StackPanel  HorizontalAlignment="Center"  Orientation="Horizontal" VerticalAlignment="Center" >
-                <Button
-                    IsEnabled="False" 
-                    x:Name="ButtonRecorderSettings"
-                    Width="50"
-                    Height="50"
-                    Foreground="WhiteSmoke"
-                    FontSize="14"
-                    Background="#FFEDEFEE" >
-                    <Image Source="/Pages/record_50px.png" Width="34" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </Button>
-                <TextBlock Text="Record Settings" TextAlignment="Center" VerticalAlignment="Center"  />
+
+                <TextBlock Text="Record Settings" FontSize="20" FontWeight="DemiBold" Margin="0,15" Foreground="#0E3C6C" TextAlignment="Center" VerticalAlignment="Center"  />
 
             </StackPanel>
+
+            <TextBlock x:Name="TextBlockRecordingPath" TextAlignment="Center" VerticalAlignment="Center" FontSize="16">
+                    Recording path: 
+            </TextBlock>
+
+            <Button Style="{DynamicResource ButtonBrowsePath}"
+                x:Name="ButtonBrowsePath"
+                Margin="0,10,0,0"
+                Width="200"
+                Height="32"
+                Cursor="Hand"
+                Foreground="WhiteSmoke"
+                FontSize="14" Click="ButtonBrowsePath_Click"
+                Content="Browse">
+
+                <Button.Resources>
+                    <Style x:Key="ButtonBrowsePath" TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#FF183A56"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="0,20,0,0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+
+                                    <Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                        <ContentPresenter 
+                                x:Name="contentPresenter" 
+                                Focusable="False" 
+                                HorizontalAlignment="Center" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" TargetName="border" Value="#FF204D72"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </StackPanel>
 
         <!--Youtube settings section-->
         <StackPanel Grid.Row="3"   Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <StackPanel  HorizontalAlignment="Center" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
-                <Button
-                    IsEnabled="False" 
-                    x:Name="ButtonYoutubeSettings"
-                    Width="50"
-                    Height="50"
-                    Foreground="WhiteSmoke"
-                    FontSize="14"
-                    Background="#FFEDEFEE" >
-                    <Image Source="/Pages/youtube_50px.png" Width="34"/>
-                </Button>
-                <TextBlock Text="Youtube Settings" TextAlignment="Center" VerticalAlignment="Center" />
-
-            </StackPanel>
+            <TextBlock Text="Youtube Settings" FontWeight="DemiBold" Foreground="#0E3C6C" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
         </StackPanel>
 
 
