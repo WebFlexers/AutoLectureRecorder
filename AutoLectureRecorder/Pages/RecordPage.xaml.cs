@@ -199,7 +199,7 @@ namespace AutoLectureRecorder.Pages
                     return;
                 }
                 // Start recording
-                recorder.CreateRecording(nextLecture.Name);
+                recorder.CreateRecording(nextLecture.Name, ChromeBot.ChromeWindowHandle);
                 _isRecordButtonClicked = true;
 
                 Dispatcher.Invoke(() => ButtonEndLecture.Visibility = Visibility.Visible);

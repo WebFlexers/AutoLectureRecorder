@@ -4,16 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AutoLectureRecorder.Pages"
+      xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="644" d:DesignWidth="846"
       Title="Settings">
     <Grid Background="#FFEDEFEE">
         <Grid.RowDefinitions>
             <RowDefinition Height="56"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="1"/>
-            <RowDefinition Height="1.4*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
 
@@ -109,12 +107,33 @@
                     </Style>
                 </Button.Resources>
             </Button>
+
+            <TextBlock
+                Text="Output device" 
+                FontSize="20" FontWeight="DemiBold" 
+                Margin="0,15" Foreground="#0E3C6C" 
+                TextAlignment="Center" VerticalAlignment="Center"
+            />
+
+            <ComboBox
+                x:Name="ComboboxOutputDevice"
+                Style="{StaticResource MaterialDesignComboBox}"
+                wpf:TextFieldAssist.UnderlineBrush="#0E3C6C"
+                BorderBrush="#0E3C6C"
+                MaxWidth="300"
+                FontSize="16" SelectionChanged="ComboboxOutputDevice_SelectionChanged"
+                >
+                
+                <ComboBoxItem IsSelected="True"> Default </ComboBoxItem>
+            </ComboBox>
+
+            <!--Youtube settings section-->
+            <StackPanel Margin="0,50,0,0" Grid.Row="3"   Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBlock Text="Youtube Settings" FontWeight="DemiBold" Foreground="#0E3C6C" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
         </StackPanel>
 
-        <!--Youtube settings section-->
-        <StackPanel Grid.Row="3"   Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Text="Youtube Settings" FontWeight="DemiBold" Foreground="#0E3C6C" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
-        </StackPanel>
+        
 
 
         <!--<Border Background="#1BCDCF" Grid.Row="2" Height="1"/>-->

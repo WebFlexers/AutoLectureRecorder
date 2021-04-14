@@ -16,14 +16,14 @@ namespace AutoLectureRecorder
 {
     public class ScreenRecorder
     {
-        public Dictionary<string, string> AudioInputDevices { get => Recorder.GetSystemAudioDevices(AudioDeviceSource.InputDevices); }
-        public Dictionary<string, string> AudioOutputDevices { get => Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices); }
+        public static Dictionary<string, string> AudioInputDevices { get => Recorder.GetSystemAudioDevices(AudioDeviceSource.InputDevices); }
+        public static Dictionary<string, string> AudioOutputDevices { get => Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices); }
         public static string SelectedInputDevice { get { return Options.AudioOptions.AudioInputDevice; } set { Options.AudioOptions.AudioInputDevice = value; } }
         public static string SelectedOutputDevice { get { return Options.AudioOptions.AudioOutputDevice; } set { Options.AudioOptions.AudioOutputDevice = value; } }
         public static string RecordingPath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AutoLectureRecorder", "Recorder", "temp.mp4");
         public List<RecordableWindow> RecordableWindows { get => Recorder.GetWindows(); }
         public bool IsRecording { get; set; } = false;
-        
+
         public static RecorderOptions Options { get; set; } = new RecorderOptions
         {
             RecorderMode = RecorderMode.Video,
@@ -36,11 +36,6 @@ namespace AutoLectureRecorder
             IsLowLatencyEnabled = true,
             //Fast start writes the mp4 header at the beginning of the file, to facilitate streaming.
             IsMp4FastStartEnabled = false,
-
-            //DisplayOptions = new DisplayOptions
-            //{
-            //    WindowHandle = RecordableWindows[0].Handle
-            //},
 
             AudioOptions = new AudioOptions
             {
@@ -60,17 +55,19 @@ namespace AutoLectureRecorder
                 Framerate = 60,
                 IsFixedFramerate = true,
                 EncoderProfile = H264Profile.Main
-            }
+            },
+
+            RecorderApi = RecorderApi.WindowsGraphicsCapture
         };
 
         Recorder _recorder;
         string _lectureName;
-        public void CreateRecording(string lectureName)
+        public void CreateRecording(string lectureName, IntPtr windowHandle)
         {
-            new Thread(() => RecordIfNoRecordingIsActive(lectureName)).Start();
+            new Thread(() => RecordIfNoRecordingIsActive(lectureName, windowHandle)).Start();
         }
 
-        private void RecordIfNoRecordingIsActive(string lectureName)
+        private void RecordIfNoRecordingIsActive(string lectureName, IntPtr windowHandle)
         {
             while (true)
             {
@@ -80,6 +77,9 @@ namespace AutoLectureRecorder
                 }
                 else
                 {
+                    Options.DisplayOptions = new DisplayOptions();
+                    Options.DisplayOptions.WindowHandle = windowHandle;
+
                     _recorder = Recorder.CreateRecorder(Options);
                     _recorder.OnRecordingComplete += Rec_OnRecordingComplete;
                     _recorder.OnRecordingFailed += Rec_OnRecordingFailed;

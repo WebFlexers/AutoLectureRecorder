@@ -8,6 +8,7 @@ namespace AutoLectureRecorder.Structure
     public static class Settings
     {
         public static string VideoDirectory { get; set; } = VideoDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Auto Lecture Recorder");
+        public static string AudioOutputDevice { get; set; }
 
         static Settings()
         {
@@ -16,6 +17,8 @@ namespace AutoLectureRecorder.Structure
             {
                 VideoDirectory = serializedVideoDirectory;
             }
+
+            AudioOutputDevice = Serialize.DeserializeAudioOutput();
         }
     }
 }

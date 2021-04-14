@@ -13,6 +13,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using OpenQA.Selenium.Support.UI;
+using System.Management;
 
 namespace AutoLectureRecorder.Selenium
 {
@@ -28,8 +29,30 @@ namespace AutoLectureRecorder.Selenium
         public bool IsBrowserHidden { get; set; } = false;
         public bool IsBrowserMaximized { get; set; } = true;
         public bool IsCommandlineHidden { get; set; } = true;
+        public IntPtr ChromeWindowHandle
+        {
+            get
+            {
+                Process[] chromeProcesses = GetChildProcesses(ProccessId);
+                return chromeProcesses[1].MainWindowHandle;
+            }
+        }
+        private static Process[] GetChildProcesses(int parentId)
+        {
+            var query = "Select * From Win32_Process Where ParentProcessId = "
+                    + parentId;
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+            ManagementObjectCollection processList = searcher.Get();
 
-        private bool isDriverRunning { get => _driver != null; }
+            var result = processList.Cast<ManagementObject>().Select(p =>
+            Process.GetProcessById(Convert.ToInt32(p.GetPropertyValue("ProcessId")))).ToArray();
+
+            return result;
+        }
+
+        public int ProccessId;
+
+        private bool isDriverRunning { get => _driver != null; } 
 
         public void CloseFocusedBrowser() => _driver.Close();       
         public void RefreshCurrentPage() => _driver.Navigate().Refresh();
@@ -75,6 +98,8 @@ namespace AutoLectureRecorder.Selenium
             if (IsCommandlineHidden) driverService.HideCommandPromptWindow = true;   
             
             _driver = new ChromeDriver(driverService, chromeOptions);
+
+            ProccessId = driverService.ProcessId;
 
             if (IsBrowserMaximized) _driver.Manage().Window.Maximize();
         }        
