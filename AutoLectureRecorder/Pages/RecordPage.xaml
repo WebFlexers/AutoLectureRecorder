@@ -151,7 +151,7 @@
                 Width="auto"
                 Height="32"
                 Cursor="Hand"
-                Visibility="Visible"
+                Visibility="Hidden"
                 d:Visibility="Visible"
                 wpf:RippleAssist.Feedback = "Black"
             

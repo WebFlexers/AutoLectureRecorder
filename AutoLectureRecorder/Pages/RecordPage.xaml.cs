@@ -57,6 +57,9 @@ namespace AutoLectureRecorder.Pages
             timerStartLecture.IsEnabled = false;
             timerStartLecture.Interval = TimeSpan.FromSeconds(1);
             timerStartLecture.Tick += TimerStartLecture_Tick;
+            // Schedule lectures
+            if (CanStartLecture())
+                ActivateRecordButton();
         }
 
         bool _isRecordButtonClicked = false;
