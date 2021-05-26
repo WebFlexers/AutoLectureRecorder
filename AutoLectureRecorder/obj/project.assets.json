@@ -14,10 +14,10 @@
           "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {}
         }
       },
-      "Google.Apis/1.50.0": {
+      "Google.Apis/1.51.0": {
         "type": "package",
         "dependencies": {
-          "Google.Apis.Core": "1.50.0"
+          "Google.Apis.Core": "1.51.0"
         },
         "compile": {
           "lib/netstandard2.0/Google.Apis.dll": {}
@@ -26,11 +26,11 @@
           "lib/netstandard2.0/Google.Apis.dll": {}
         }
       },
-      "Google.Apis.Auth/1.50.0": {
+      "Google.Apis.Auth/1.51.0": {
         "type": "package",
         "dependencies": {
-          "Google.Apis": "1.50.0",
-          "Google.Apis.Core": "1.50.0"
+          "Google.Apis": "1.51.0",
+          "Google.Apis.Core": "1.51.0"
         },
         "compile": {
           "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll": {},
@@ -41,7 +41,7 @@
           "lib/netstandard2.0/Google.Apis.Auth.dll": {}
         }
       },
-      "Google.Apis.Core/1.50.0": {
+      "Google.Apis.Core/1.51.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.3"
@@ -53,11 +53,11 @@
           "lib/netstandard2.0/Google.Apis.Core.dll": {}
         }
       },
-      "Google.Apis.YouTube.v3/1.50.0.2238": {
+      "Google.Apis.YouTube.v3/1.51.0.2294": {
         "type": "package",
         "dependencies": {
-          "Google.Apis": "1.50.0",
-          "Google.Apis.Auth": "1.50.0"
+          "Google.Apis": "1.51.0",
+          "Google.Apis.Auth": "1.51.0"
         },
         "compile": {
           "lib/netstandard2.0/Google.Apis.YouTube.v3.dll": {}
@@ -75,7 +75,7 @@
           "lib/LoadingIndicators.WPF.dll": {}
         }
       },
-      "MaterialDesignColors/2.0.0": {
+      "MaterialDesignColors/2.0.1": {
         "type": "package",
         "compile": {
           "lib/netcoreapp3.1/MaterialDesignColors.dll": {}
@@ -84,10 +84,10 @@
           "lib/netcoreapp3.1/MaterialDesignColors.dll": {}
         }
       },
-      "MaterialDesignThemes/4.0.0": {
+      "MaterialDesignThemes/4.1.0": {
         "type": "package",
         "dependencies": {
-          "MaterialDesignColors": "2.0.0"
+          "MaterialDesignColors": "2.0.1"
         },
         "compile": {
           "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll": {}
@@ -175,7 +175,7 @@
           "lib/netstandard2.0/WebDriver.dll": {}
         }
       },
-      "Selenium.WebDriver.ChromeDriver/89.0.4389.2300": {
+      "Selenium.WebDriver.ChromeDriver/90.0.4430.2400": {
         "type": "package",
         "build": {
           "build/Selenium.WebDriver.ChromeDriver.targets": {}
@@ -266,16 +266,16 @@
         "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll"
       ]
     },
-    "Google.Apis/1.50.0": {
-      "sha512": "qV0wmPVM03YU2dEi8uir+9Ee8MwoH8ELwMVbDX3fuf2NUbweY43fAQ7P20xbq/4nhgOP/maWzrjNlw8WkD4hyw==",
+    "Google.Apis/1.51.0": {
+      "sha512": "4QL7S1PnDN/VumfzrLOGw8tiFLYRL/oPVQkCuIVltAh/gSPWxLu7UFZeum4S3B/ry7794Wigg53jclLlYX/haQ==",
       "type": "package",
-      "path": "google.apis/1.50.0",
+      "path": "google.apis/1.51.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "NuGetIcon.png",
-        "google.apis.1.50.0.nupkg.sha512",
+        "google.apis.1.51.0.nupkg.sha512",
         "google.apis.nuspec",
         "lib/net45/Google.Apis.PlatformServices.dll",
         "lib/net45/Google.Apis.dll",
@@ -289,16 +289,16 @@
         "lib/netstandard2.0/Google.Apis.xml"
       ]
     },
-    "Google.Apis.Auth/1.50.0": {
-      "sha512": "y6hqXcDzTA5tj3Qasr97anpIc+gGJC9QlWJnGSRvp7o4/c4b4Bd5tBgqyJKhgfBMo+HugXGcYh17Kvm5SB3v6g==",
+    "Google.Apis.Auth/1.51.0": {
+      "sha512": "rwyLkiXev6esCRXq+srUcEb8zWylNg7eyE9zO8GxiQplrn1+Jhn8WlwhyJ/xXM83Mrd7Fi0p/UpnOo+m8NBI2g==",
       "type": "package",
-      "path": "google.apis.auth/1.50.0",
+      "path": "google.apis.auth/1.51.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "NuGetIcon.png",
-        "google.apis.auth.1.50.0.nupkg.sha512",
+        "google.apis.auth.1.51.0.nupkg.sha512",
         "google.apis.auth.nuspec",
         "lib/net45/Google.Apis.Auth.PlatformServices.dll",
         "lib/net45/Google.Apis.Auth.dll",
@@ -314,16 +314,16 @@
         "lib/netstandard2.0/Google.Apis.Auth.xml"
       ]
     },
-    "Google.Apis.Core/1.50.0": {
-      "sha512": "E/ioNStr2z0LXXAaGR7bnbRQqozjFb12mi5zs/Bm4c2ZH9uoKOxz9FbQkNRq4R3yHif5gxt3nh8Ei7g9qRiYxQ==",
+    "Google.Apis.Core/1.51.0": {
+      "sha512": "2HBwN81SB5DBI/TKbJr6y6u2I5sBlLxUHYUkc26Y4FSFachdDlWISZZreO0AVKdJrHsbmKDhHdqkRjkLSGeiNw==",
       "type": "package",
-      "path": "google.apis.core/1.50.0",
+      "path": "google.apis.core/1.51.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "NuGetIcon.png",
-        "google.apis.core.1.50.0.nupkg.sha512",
+        "google.apis.core.1.51.0.nupkg.sha512",
         "google.apis.core.nuspec",
         "lib/net45/Google.Apis.Core.dll",
         "lib/net45/Google.Apis.Core.pdb",
@@ -336,15 +336,16 @@
         "lib/netstandard2.0/Google.Apis.Core.xml"
       ]
     },
-    "Google.Apis.YouTube.v3/1.50.0.2238": {
-      "sha512": "ikvbIDus+/wK4dWF0Pet1ABmklOVj33JIcBa5+RUmoOMaqb9GbDvJL384uiI7/a04KAGUmhxjdYd5TJu1HYVTg==",
+    "Google.Apis.YouTube.v3/1.51.0.2294": {
+      "sha512": "32y9UbkyxO/4TXG75nPLRjebtyF2lulPy+eufpuB8h8qurKliYmnQcQ2R0kLYXxq0x/rJ5GDb+4IAZHZrj4VtQ==",
       "type": "package",
-      "path": "google.apis.youtube.v3/1.50.0.2238",
+      "path": "google.apis.youtube.v3/1.51.0.2294",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
-        "google.apis.youtube.v3.1.50.0.2238.nupkg.sha512",
+        "NuGetIcon.png",
+        "google.apis.youtube.v3.1.51.0.2294.nupkg.sha512",
         "google.apis.youtube.v3.nuspec",
         "lib/net40/Google.Apis.YouTube.v3.dll",
         "lib/net40/Google.Apis.YouTube.v3.pdb",
@@ -376,10 +377,10 @@
         "loadingindicators.wpf.nuspec"
       ]
     },
-    "MaterialDesignColors/2.0.0": {
-      "sha512": "+JoghC3QRK0u9Wul1To1ORjcfTbFTVzFPjJ02H7VREOdNzIIn427e8G9gP9hXu9pm1r2OneLnoCG/lTma5cG2w==",
+    "MaterialDesignColors/2.0.1": {
+      "sha512": "Azl8nN23SD6QPE0PdsfpKiIqWTvH7rzXwgXPiFSEt91NFOrwB5cx3iq/sbINWMZunhXJ32+jVUHiV03B8eJbZw==",
       "type": "package",
-      "path": "materialdesigncolors/2.0.0",
+      "path": "materialdesigncolors/2.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -388,14 +389,14 @@
         "lib/net452/MaterialDesignColors.pdb",
         "lib/netcoreapp3.1/MaterialDesignColors.dll",
         "lib/netcoreapp3.1/MaterialDesignColors.pdb",
-        "materialdesigncolors.2.0.0.nupkg.sha512",
+        "materialdesigncolors.2.0.1.nupkg.sha512",
         "materialdesigncolors.nuspec"
       ]
     },
-    "MaterialDesignThemes/4.0.0": {
-      "sha512": "+n5oWHuRiYL/gUw2XfQHCRZqHtU8KbrdurgU0IcO98Zsyhw4BvggodfXY8veRtbjjmM9EJ/sG2yKBrgPOGX4JQ==",
+    "MaterialDesignThemes/4.1.0": {
+      "sha512": "WqrO9AbtdE4pLPtDk/C5BZRnkgWFwVGyUHWj7tRJrgnKl089DEobVXBCLeqp2mkgBeFHj4Xe3AfWyhmlnO6AZA==",
       "type": "package",
-      "path": "materialdesignthemes/4.0.0",
+      "path": "materialdesignthemes/4.1.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -426,7 +427,7 @@
         "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll",
         "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.pdb",
         "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.xml",
-        "materialdesignthemes.4.0.0.nupkg.sha512",
+        "materialdesignthemes.4.1.0.nupkg.sha512",
         "materialdesignthemes.nuspec",
         "tools/VisualStudioToolsManifest.xml"
       ]
@@ -601,10 +602,10 @@
         "selenium.webdriver.nuspec"
       ]
     },
-    "Selenium.WebDriver.ChromeDriver/89.0.4389.2300": {
-      "sha512": "/lnt6U3hogvJtFBP9l9Vm3F7zVBTClCANeVzcyWwyUf/uW686KEgGU+9x6sebstjd02qrmvcP42MKHTID1tq/A==",
+    "Selenium.WebDriver.ChromeDriver/90.0.4430.2400": {
+      "sha512": "poYw2JgVJ8obMYUSnfuucxQMrMusQiA3H2dXhw3bOaFm/bweTEAvhK8RVq+5zfjmTaj7COMYfIjhWJU0rPUabQ==",
       "type": "package",
-      "path": "selenium.webdriver.chromedriver/89.0.4389.2300",
+      "path": "selenium.webdriver.chromedriver/90.0.4430.2400",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -614,7 +615,7 @@
         "driver/mac64/chromedriver",
         "driver/win32/chromedriver.exe",
         "nupkg-icon.png",
-        "selenium.webdriver.chromedriver.89.0.4389.2300.nupkg.sha512",
+        "selenium.webdriver.chromedriver.90.0.4430.2400.nupkg.sha512",
         "selenium.webdriver.chromedriver.nuspec"
       ]
     },
@@ -773,37 +774,32 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "DotNetSeleniumExtras.WaitHelpers >= 3.11.0",
-      "Google.Apis.YouTube.v3 >= 1.50.0.2238",
+      "Google.Apis.YouTube.v3 >= 1.51.0.2294",
       "LoadingIndicators.WPF >= 0.0.1",
-      "MaterialDesignThemes >= 4.0.0",
+      "MaterialDesignThemes >= 4.1.0",
       "Ookii.Dialogs.Wpf >= 3.1.0",
       "ScreenRecorderLib >= 3.1.1",
       "Selenium.WebDriver >= 3.141.0",
-      "Selenium.WebDriver.ChromeDriver >= 89.0.4389.2300",
+      "Selenium.WebDriver.ChromeDriver >= 90.0.4430.2400",
       "System.Management >= 5.0.0",
       "morelinq >= 3.3.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Michalis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
       "projectName": "AutoLectureRecorder",
-      "projectPath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
-      "packagesPath": "C:\\Users\\Michalis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
+      "projectPath": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Michalis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -834,7 +830,7 @@
           },
           "Google.Apis.YouTube.v3": {
             "target": "Package",
-            "version": "[1.50.0.2238, )"
+            "version": "[1.51.0.2294, )"
           },
           "LoadingIndicators.WPF": {
             "target": "Package",
@@ -842,7 +838,7 @@
           },
           "MaterialDesignThemes": {
             "target": "Package",
-            "version": "[4.0.0, )"
+            "version": "[4.1.0, )"
           },
           "Ookii.Dialogs.Wpf": {
             "target": "Package",
@@ -858,7 +854,7 @@
           },
           "Selenium.WebDriver.ChromeDriver": {
             "target": "Package",
-            "version": "[89.0.4389.2300, )"
+            "version": "[90.0.4430.2400, )"
           },
           "System.Management": {
             "target": "Package",

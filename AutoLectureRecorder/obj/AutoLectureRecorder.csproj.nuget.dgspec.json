@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {}
+    "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {
+    "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
         "projectName": "AutoLectureRecorder",
-        "projectPath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
-        "packagesPath": "C:\\Users\\Michalis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Michalis\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
+        "projectPath": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Michalis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -50,7 +46,7 @@
             },
             "Google.Apis.YouTube.v3": {
               "target": "Package",
-              "version": "[1.50.0.2238, )"
+              "version": "[1.51.0.2294, )"
             },
             "LoadingIndicators.WPF": {
               "target": "Package",
@@ -58,7 +54,7 @@
             },
             "MaterialDesignThemes": {
               "target": "Package",
-              "version": "[4.0.0, )"
+              "version": "[4.1.0, )"
             },
             "Ookii.Dialogs.Wpf": {
               "target": "Package",
@@ -74,7 +70,7 @@
             },
             "Selenium.WebDriver.ChromeDriver": {
               "target": "Package",
-              "version": "[89.0.4389.2300, )"
+              "version": "[90.0.4430.2400, )"
             },
             "System.Management": {
               "target": "Package",
