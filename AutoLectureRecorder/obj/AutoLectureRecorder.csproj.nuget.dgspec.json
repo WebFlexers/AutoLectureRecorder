@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {}
+    "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {
+    "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
         "projectName": "AutoLectureRecorder",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
+        "projectPath": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -99,7 +99,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
