@@ -91,8 +91,8 @@ namespace AutoLectureRecorder.Selenium
             chromeOptions.AddArguments("--proxy-server='direct://'");
             chromeOptions.AddArguments("--proxy-bypass-list=*");
             chromeOptions.AddArgument("no-sandbox");
-
-            if (IsBrowserHidden) chromeOptions.AddArgument("--headless");
+            Console.WriteLine("Broswer versionQ: " +chromeOptions.BrowserVersion);
+           if (IsBrowserHidden) chromeOptions.AddArgument("--headless");
 
             //Services
             if (IsCommandlineHidden) driverService.HideCommandPromptWindow = true;   

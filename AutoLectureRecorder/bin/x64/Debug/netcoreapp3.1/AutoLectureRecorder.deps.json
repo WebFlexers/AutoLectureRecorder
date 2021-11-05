@@ -14,7 +14,7 @@
           "MaterialDesignThemes": "4.0.0",
           "Ookii.Dialogs.Wpf": "3.1.0",
           "ScreenRecorderLib": "3.1.1",
-          "Selenium.WebDriver": "3.141.0",
+          "Selenium.WebDriver": "4.0.1",
           "Selenium.WebDriver.ChromeDriver": "89.0.4389.2300",
           "System.Management": "5.0.0",
           "morelinq": "3.3.2",
@@ -26,7 +26,7 @@
       },
       "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
         "dependencies": {
-          "Selenium.WebDriver": "3.141.0"
+          "Selenium.WebDriver": "4.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {
@@ -158,14 +158,14 @@
         }
       },
       "ScreenRecorderLib/3.1.1": {},
-      "Selenium.WebDriver/3.141.0": {
+      "Selenium.WebDriver/4.0.1": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3"
         },
         "runtime": {
-          "lib/netstandard2.0/WebDriver.dll": {
-            "assemblyVersion": "3.141.0.0",
-            "fileVersion": "3.141.0.0"
+          "lib/netstandard2.1/WebDriver.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
           }
         }
       },
@@ -355,12 +355,12 @@
       "path": "screenrecorderlib/3.1.1",
       "hashPath": "screenrecorderlib.3.1.1.nupkg.sha512"
     },
-    "Selenium.WebDriver/3.141.0": {
+    "Selenium.WebDriver/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wPqzXO3f79DzqauTZSzLMKiaBCN0Z2Mv7KvWP+hnV6EL88zh/pJJnFtdIR1X5wa3hsTOpF/bBJs45rz7kArsiA==",
-      "path": "selenium.webdriver/3.141.0",
-      "hashPath": "selenium.webdriver.3.141.0.nupkg.sha512"
+      "sha512": "sha512-givS6L7wz4QupkyaNN7FwEl4trOHg1vfrSYmG0bGB3+QRPsDNcWUsbC70r6nB5JfbhNrKjZDPspAt0MYAB78Ig==",
+      "path": "selenium.webdriver/4.0.1",
+      "hashPath": "selenium.webdriver.4.0.1.nupkg.sha512"
     },
     "Selenium.WebDriver.ChromeDriver/89.0.4389.2300": {
       "type": "package",

@@ -231,6 +231,10 @@ namespace AutoLectureRecorder.Selenium
                 var noStaySignIn = WaitToFindElement(By.XPath("//*[@id='idBtn_Back']"));
                 noStaySignIn.Click();
 
+                // Select microsoft account to continue by clicking on the account connected above
+                var selectAcc = WaitToFindElement(By.XPath("//*[@class='table']"));
+                selectAcc.Click();
+
                 return true;
             }
             catch (Exception e)
@@ -253,6 +257,10 @@ namespace AutoLectureRecorder.Selenium
                 // Click no to the promt from user authentication
                 var noButton = WaitToFindElement(By.XPath("//*[@id='idBtn_Back']"));
                 noButton.Click();
+
+                // Select microsoft account to continue by clicking on the account connected above
+                var selectAcc = WaitToFindElement(By.XPath("//*[@class='table']"));
+                selectAcc.Click();
 
                 List<string> meetingsList = new List<string>();
                 //Find cards container              
