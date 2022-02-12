@@ -129,7 +129,7 @@
 
             <!--Youtube settings section-->
             <StackPanel Margin="0,50,0,0" Grid.Row="3"   Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                <TextBlock Text="Youtube Settings" FontWeight="DemiBold" Foreground="#0E3C6C" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Visibility="Hidden" Text="Youtube Settings" FontWeight="DemiBold" Foreground="#0E3C6C" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
         </StackPanel>
 
