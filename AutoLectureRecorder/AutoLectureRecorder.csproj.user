@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\Michalis\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\Properties\PublishProfiles\FolderProfile1.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="LoginWindow\WindowLogin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\AddLecture.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\LectureModelsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Lectures.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\RecordPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\SettingsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\VideoUploadStatus.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Youtube.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\YoutubeAuthenticate.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Structure\LectureModel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="LoginWindow\WindowLogin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\AddLecture.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\LectureModelsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Lectures.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\RecordPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\VideoUploadStatus.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Youtube.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\YoutubeAuthenticate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Structure\LectureModel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

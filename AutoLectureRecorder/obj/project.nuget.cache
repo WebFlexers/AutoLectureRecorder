@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "dgSpecHash": "0PWOZzu4FfFcw5Se6EXJfczJ0I44w2vJ9Ks4Bfi1eFIKDOR6VxbA4VBJsfmkjWgaW5tQiFHdOj/oQsRb7V1YEg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kkalo\\OneDrive\\Documents\\GitHub\\AutoLectureRecorder\\AutoLectureRecorder\\AutoLectureRecorder.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kkalo\\.nuget\\packages\\dotnetseleniumextras.waithelpers\\3.11.0\\dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\google.apis\\1.50.0\\google.apis.1.50.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\google.apis.auth\\1.50.0\\google.apis.auth.1.50.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\google.apis.core\\1.50.0\\google.apis.core.1.50.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\google.apis.youtube.v3\\1.50.0.2238\\google.apis.youtube.v3.1.50.0.2238.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\loadingindicators.wpf\\0.0.1\\loadingindicators.wpf.0.0.1.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\materialdesigncolors\\2.0.0\\materialdesigncolors.2.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\materialdesignthemes\\4.0.0\\materialdesignthemes.4.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\morelinq\\3.3.2\\morelinq.3.3.2.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\ookii.dialogs.wpf\\3.1.0\\ookii.dialogs.wpf.3.1.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\screenrecorderlib\\3.1.1\\screenrecorderlib.3.1.1.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\selenium.webdriver\\4.0.1\\selenium.webdriver.4.0.1.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\selenium.webdriver.chromedriver\\95.0.4638.5401\\selenium.webdriver.chromedriver.95.0.4638.5401.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\system.management\\5.0.0\\system.management.5.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "C:\\Users\\kkalo\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.21\\microsoft.netcore.app.host.win-x64.3.1.21.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'LoadingIndicators.WPF 0.0.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "LoadingIndicators.WPF",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
+}
