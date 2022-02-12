@@ -4,7 +4,7 @@
 Α WPF application that records specified meetings on microsoft teams and uploads them on youtube fully automatically.
 
 Disclaimer:
-The applications is for educational purposes only, we are not responsible for any illegal use of the application.
+The application is for educational purposes only, we are not responsible for any illegal use of the application.
 
 ![alr1](https://user-images.githubusercontent.com/52785685/138531971-6e21ec78-b1f7-4f58-a90c-dea95fa6aa98.png)
 
