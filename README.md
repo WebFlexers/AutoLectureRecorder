@@ -13,7 +13,7 @@ The application is for educational purposes only, we are not responsible for any
 
 ## Quick Start
 
-1) Login with your UNIPI credentials.
+1) Login with your UNIPI credentials. (For example: PXXXXX for username and your current password).
 2) Navigate on "Add Lectures" through the sidebar menu.
 3) Add a lecture name,select the team the meeting is happening and add the specific timeline.
 4) (Optional) Navigate on "Youtube Upload" through the sidebar menu.
