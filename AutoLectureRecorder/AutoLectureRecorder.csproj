@@ -12,6 +12,13 @@
   <ItemGroup>
     <None Remove="add_50px.png" />
     <None Remove="graduation_cap_100px.png" />
+    <None Remove="images\maximize_button_18px.png" />
+    <None Remove="images\minus_20px.png" />
+    <None Remove="images\record_50px.png" />
+    <None Remove="images\record_button_on.png" />
+    <None Remove="images\restore_down_20px.png" />
+    <None Remove="images\x_24px.png" />
+    <None Remove="images\youtube_50px.png" />
     <None Remove="lectures_50px.png" />
     <None Remove="LoginWindow\graduation_cap_100px.png" />
     <None Remove="LoginWindow\LoginFormLeft.jpg" />
@@ -44,24 +51,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="add_50px.png" />
-    <Resource Include="graduation_cap_100px.png" />
-    <Resource Include="lectures_50px.png" />
+    <Resource Include="images\add_50px.png" />
+    <Resource Include="images\graduation_cap_100px.png" />
+    <Resource Include="images\lectures_50px.png" />
+    <Resource Include="images\maximize_button_18px.png" />
+    <Resource Include="images\minus_20px.png" />
+    <Resource Include="images\record_button_on.png" />
+    <Resource Include="images\restore_down_20px.png" />
+    <Resource Include="images\x_24px.png" />
     <Resource Include="LoginWindow\graduation_cap_100px.png" />
     <Resource Include="LoginWindow\LoginFormLeft.jpg" />
     <Resource Include="LoginWindow\LoginFormLeft.png" />
-    <Resource Include="logout_rounded_left_50px.png" />
-    <Resource Include="maximize_button_18px.png" />
-    <Resource Include="minus_20px.png" />
-    <Resource Include="Pages\record_50px.png" />
-    <Resource Include="Pages\record_button_on.png" />
-    <Resource Include="Pages\youtube_50px.png" />
-    <Resource Include="record_50px.png" />
-    <Resource Include="restore_down_20px.png" />
-    <Resource Include="settings_50px.png" />
-    <Resource Include="student_male_64px.png" />
-    <Resource Include="x_24px.png" />
-    <Resource Include="youtube_50px.png" />
+    <Resource Include="images\logout_rounded_left_50px.png" />
+    <Resource Include="images\record_50px.png" />
+    <Resource Include="images\settings_50px.png" />
+    <Resource Include="images\student_male_64px.png" />
+    <Resource Include="images\youtube_50px.png" />
   </ItemGroup>
 
 </Project>

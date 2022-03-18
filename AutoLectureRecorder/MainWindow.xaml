@@ -15,7 +15,7 @@
         FontFamily="Segoe UI"
         Title="MainWindow" MinHeight="676" MinWidth="996" Height="676" Width="996" WindowStyle="SingleBorderWindow" 
         WindowStartupLocation="CenterScreen" ResizeMode="CanResize" StateChanged="Window_StateChanged" FontSize="14" Loaded="Window_Loaded" 
-        Icon="/graduation_cap_100px.png" Background="Transparent" Closed="Window_Closed">
+        Icon="images/graduation_cap_100px.png" Background="Transparent" Closed="Window_Closed">
 
     <!-- Custom titlebar  -->
     <WindowChrome.WindowChrome>
@@ -153,12 +153,12 @@
                             <ContextMenu x:Name="MainContextMenu" PlacementRectangle="{Binding RelativeSource={RelativeSource Self}}">
                                 <MenuItem x:Name="MenuItemRN" Header="SampleRN">
                                     <MenuItem.Icon>
-                                        <Image Source="/student_male_64px.png"/>
+                                        <Image Source="images/student_male_64px.png"/>
                                     </MenuItem.Icon>
                                 </MenuItem>
                                 <MenuItem Header="Logout" Click="MenuItem_Click">
                                     <MenuItem.Icon>
-                                        <Image Source="/logout_rounded_left_50px.png"/>
+                                        <Image Source="images/logout_rounded_left_50px.png"/>
                                     </MenuItem.Icon>
                                 </MenuItem>
 
@@ -233,31 +233,31 @@
 
                     <ListViewItem x:Name="MenuRecord" Height="60" Foreground="#FFEEF5FA" Selected="MenuRecord_Selected">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Image Source="/record_50px.png" Width="34"/>
+                            <Image Source="images/record_50px.png" Width="34"/>
                             <TextBlock Text="Record" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="MenuAddLectures" Height="60" Foreground="#FFEEF5FA" Selected="MenuAddLectures_Selected">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Image Source="/add_50px.png" Width="34"/>
+                            <Image Source="images/add_50px.png" Width="34"/>
                             <TextBlock Text="Add Lectures" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="MenuLectures" Height="60" Foreground="#FFEEF5FA" Selected="MenuLectures_Selected">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Image Source="/lectures_50px.png" Width="34"/>
+                            <Image Source="images/lectures_50px.png" Width="34"/>
                             <TextBlock Text="Lectures" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="MenuYoutube" Height="60" Foreground="#FFEEF5FA" Selected="MenuYoutube_Selected">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Image Source="/youtube_50px.png" Width="34"/>
+                            <Image Source="images/youtube_50px.png" Width="34"/>
                             <TextBlock Text="Upload" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="MenuSettings" Height="60" Foreground="#FFEEF5FA" Selected="MenuSettings_Selected">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Image Source="/settings_50px.png" Width="34"/>
+                            <Image Source="images/settings_50px.png" Width="34"/>
                             <TextBlock Text="Settings" TextAlignment="Center" VerticalAlignment="Center" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
@@ -278,7 +278,7 @@
                     </Ellipse>
                 </Grid>
 
-                <Image Grid.Row="4" Margin="0,0,0,15" Width="90" Height="90" Source="/graduation_cap_100px.png" Stretch="Uniform" PreviewMouseDown="Image_PreviewMouseDown"/>
+                <Image Grid.Row="4" Margin="0,0,0,15" Width="90" Height="90" Source="images/graduation_cap_100px.png" Stretch="Uniform" PreviewMouseDown="Image_PreviewMouseDown"/>
             </Grid>
 
             <!-- Main Frame -->
