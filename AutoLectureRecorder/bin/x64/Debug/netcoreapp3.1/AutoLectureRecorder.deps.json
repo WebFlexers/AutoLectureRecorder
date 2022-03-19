@@ -15,7 +15,6 @@
           "Ookii.Dialogs.Wpf": "3.1.0",
           "ScreenRecorderLib": "3.1.1",
           "Selenium.WebDriver": "4.0.1",
-          "Selenium.WebDriver.ChromeDriver": "89.0.4389.2300",
           "System.Management": "5.0.0",
           "morelinq": "3.3.2",
           "ScreenRecorderLib.Reference": "1.0.7705.34855"
@@ -169,7 +168,6 @@
           }
         }
       },
-      "Selenium.WebDriver.ChromeDriver/89.0.4389.2300": {},
       "System.CodeDom/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/System.CodeDom.dll": {
@@ -361,13 +359,6 @@
       "sha512": "sha512-givS6L7wz4QupkyaNN7FwEl4trOHg1vfrSYmG0bGB3+QRPsDNcWUsbC70r6nB5JfbhNrKjZDPspAt0MYAB78Ig==",
       "path": "selenium.webdriver/4.0.1",
       "hashPath": "selenium.webdriver.4.0.1.nupkg.sha512"
-    },
-    "Selenium.WebDriver.ChromeDriver/89.0.4389.2300": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/lnt6U3hogvJtFBP9l9Vm3F7zVBTClCANeVzcyWwyUf/uW686KEgGU+9x6sebstjd02qrmvcP42MKHTID1tq/A==",
-      "path": "selenium.webdriver.chromedriver/89.0.4389.2300",
-      "hashPath": "selenium.webdriver.chromedriver.89.0.4389.2300.nupkg.sha512"
     },
     "System.CodeDom/5.0.0": {
       "type": "package",

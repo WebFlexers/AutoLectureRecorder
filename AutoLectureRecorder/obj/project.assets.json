@@ -175,12 +175,6 @@
           "lib/netstandard2.1/WebDriver.dll": {}
         }
       },
-      "Selenium.WebDriver.ChromeDriver/95.0.4638.5401": {
-        "type": "package",
-        "build": {
-          "build/Selenium.WebDriver.ChromeDriver.targets": {}
-        }
-      },
       "System.CodeDom/5.0.0": {
         "type": "package",
         "compile": {
@@ -601,24 +595,6 @@
         "selenium.webdriver.nuspec"
       ]
     },
-    "Selenium.WebDriver.ChromeDriver/95.0.4638.5401": {
-      "sha512": "1FLw6kawHUufyJhzMdaqZGylYlg/xE/oji94aOkfhSV1yDHvd97mecqBm6SbWMnapxSBkVrWY6lFf1esw6yOPg==",
-      "type": "package",
-      "path": "selenium.webdriver.chromedriver/95.0.4638.5401",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "build/DefinePropertiesChromeDriver.targets",
-        "build/Selenium.WebDriver.ChromeDriver.targets",
-        "driver/linux64/chromedriver",
-        "driver/mac64/chromedriver",
-        "driver/win32/chromedriver.exe",
-        "nupkg-icon.png",
-        "selenium.webdriver.chromedriver.95.0.4638.5401.nupkg.sha512",
-        "selenium.webdriver.chromedriver.nuspec"
-      ]
-    },
     "System.CodeDom/5.0.0": {
       "sha512": "JPJArwA1kdj8qDAkY2XGjSWoYnqiM7q/3yRNkt6n28Mnn95MuEGkZXUbPBf7qc3IjwrGY5ttQon7yqHZyQJmOQ==",
       "type": "package",
@@ -780,7 +756,6 @@
       "Ookii.Dialogs.Wpf >= 3.1.0",
       "ScreenRecorderLib >= 3.1.1",
       "Selenium.WebDriver >= 4.0.1",
-      "Selenium.WebDriver.ChromeDriver >= 95.0.4638.5401",
       "System.Management >= 5.0.0",
       "morelinq >= 3.3.2"
     ]
@@ -859,10 +834,6 @@
           "Selenium.WebDriver": {
             "target": "Package",
             "version": "[4.0.1, )"
-          },
-          "Selenium.WebDriver.ChromeDriver": {
-            "target": "Package",
-            "version": "[95.0.4638.5401, )"
           },
           "System.Management": {
             "target": "Package",

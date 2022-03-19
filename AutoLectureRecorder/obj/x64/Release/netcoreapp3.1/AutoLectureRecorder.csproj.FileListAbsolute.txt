@@ -185,3 +185,5 @@ C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder
 C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder.pdb
 C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder.genruntimeconfig.cache
 C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder.csproj.CopyComplete
+C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder.csproj.AssemblyReference.cache
+C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Release\netcoreapp3.1\AutoLectureRecorder_Content.g.cs

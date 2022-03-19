@@ -151,7 +151,6 @@
           }
         }
       },
-      "Selenium.WebDriver.ChromeDriver/95.0.4638.5401": {},
       "System.CodeDom/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/System.CodeDom.dll": {
@@ -330,13 +329,6 @@
       "sha512": "sha512-givS6L7wz4QupkyaNN7FwEl4trOHg1vfrSYmG0bGB3+QRPsDNcWUsbC70r6nB5JfbhNrKjZDPspAt0MYAB78Ig==",
       "path": "selenium.webdriver/4.0.1",
       "hashPath": "selenium.webdriver.4.0.1.nupkg.sha512"
-    },
-    "Selenium.WebDriver.ChromeDriver/95.0.4638.5401": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1FLw6kawHUufyJhzMdaqZGylYlg/xE/oji94aOkfhSV1yDHvd97mecqBm6SbWMnapxSBkVrWY6lFf1esw6yOPg==",
-      "path": "selenium.webdriver.chromedriver/95.0.4638.5401",
-      "hashPath": "selenium.webdriver.chromedriver.95.0.4638.5401.nupkg.sha512"
     },
     "System.CodeDom/5.0.0": {
       "type": "package",
