@@ -29,7 +29,7 @@ public class ChromeDriverInstaller
     /// <returns></returns>
     public static async Task ChromeDriverUpdate()
     {
-        Debug.WriteLine("Installing ChromeDriver");
+        //Debug.WriteLine("Installing ChromeDriver");
 
         var chromeDriverInstaller = new ChromeDriverInstaller();
 
@@ -38,7 +38,7 @@ public class ChromeDriverInstaller
         //Debug.WriteLine($"Chrome version {chromeVersion} detected");
 
         await chromeDriverInstaller.Install(chromeVersion);
-        Debug.WriteLine("ChromeDriver installed");
+        //Debug.WriteLine("ChromeDriver installed");
 
     }
     #endregion

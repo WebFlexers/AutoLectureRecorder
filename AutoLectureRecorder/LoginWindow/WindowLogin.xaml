@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:loadin="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
         mc:Ignorable="d"
-        Title="WindowLogin" Height="600" Width="1100" WindowStartupLocation="CenterScreen" Icon="/LoginWindow/graduation_cap_100px.png" ResizeMode="NoResize" WindowStyle="None" Closed="Window_Closed">
+        Title="WindowLogin" Height="600" Width="1100" WindowStartupLocation="CenterScreen" Icon="/images/graduation_cap_100px.png" ResizeMode="NoResize" WindowStyle="None" Closed="Window_Closed">
 
     <!-- Custom titlebar  -->
     <WindowChrome.WindowChrome>
@@ -71,13 +71,13 @@
             <!-- Left Side -->
             <Grid Grid.Column="0">
                 <Image 
-                Source="/LoginWindow/LoginFormLeft.png" 
+                Source="/images/LoginFormLeft.png" 
                 Stretch="Fill"
                 RenderOptions.BitmapScalingMode="Fant"/>
 
 
                 <Image 
-                    Source="/LoginWindow/graduation_cap_100px.png" 
+                    Source="/images/graduation_cap_100px.png" 
                     Width="70" 
                     Margin="10"
                     HorizontalAlignment="Left"
@@ -192,6 +192,7 @@
 
                     <TextBox
                         x:Name="TextBoxRN"
+                        
                         TextAlignment="Center"
                         VerticalContentAlignment="Center"
                         FontSize="16"
@@ -245,7 +246,7 @@
                         Foreground="WhiteSmoke"
                         FontSize="20"
                         Content="Login" 
-                        Click="ButtonAddLogin_Click"
+                        Click="ButtonLogin_Click"
                         IsDefault="True">
                     </Button>
 

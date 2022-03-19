@@ -60,7 +60,7 @@ namespace AutoLectureRecorder.LoginWindow
 
         
 
-        private void ButtonAddLogin_Click(object sender, RoutedEventArgs e)
+        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
             string registrationNum = TextBoxRN.Text;
             string password = TextBoxPassword.Password;

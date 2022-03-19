@@ -5,13 +5,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
-    <ApplicationIcon>graduation_cap_100px.ico</ApplicationIcon>
+    <ApplicationIcon>images\graduation_cap_100px.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="add_50px.png" />
     <None Remove="graduation_cap_100px.png" />
+    <None Remove="images\graduation_cap_100px.png" />
     <None Remove="images\maximize_button_18px.png" />
     <None Remove="images\minus_20px.png" />
     <None Remove="images\record_50px.png" />
@@ -38,6 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="images\graduation_cap_100px.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.50.0.2238" />
     <PackageReference Include="LoadingIndicators.WPF" Version="0.0.1" />
@@ -58,9 +63,8 @@
     <Resource Include="images\record_button_on.png" />
     <Resource Include="images\restore_down_20px.png" />
     <Resource Include="images\x_24px.png" />
-    <Resource Include="LoginWindow\graduation_cap_100px.png" />
-    <Resource Include="LoginWindow\LoginFormLeft.jpg" />
-    <Resource Include="LoginWindow\LoginFormLeft.png" />
+    <Resource Include="images\LoginFormLeft.jpg" />
+    <Resource Include="images\LoginFormLeft.png" />
     <Resource Include="images\logout_rounded_left_50px.png" />
     <Resource Include="images\record_50px.png" />
     <Resource Include="images\settings_50px.png" />
