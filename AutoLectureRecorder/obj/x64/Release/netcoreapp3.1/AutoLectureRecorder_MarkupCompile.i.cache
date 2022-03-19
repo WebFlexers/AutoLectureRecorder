@@ -12,9 +12,9 @@ TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\App.xaml
 111892622134
 1-236426521
-26-1350112073
+262277149
 214-349065260
 LoginWindow\WindowLogin.xaml;MainWindow.xaml;Pages\AddLecture.xaml;Pages\LectureModelsPage.xaml;Pages\Lectures.xaml;Pages\RecordPage.xaml;Pages\SettingsPage.xaml;Pages\VideoUploadStatus.xaml;Pages\Youtube.xaml;Pages\YoutubeAuthenticate.xaml;Structure\LectureModel.xaml;
 
-True
+False
 
