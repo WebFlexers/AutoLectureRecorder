@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Runtime.InteropServices;
 
 namespace AutoLectureRecorder.Pages
 {
@@ -39,6 +40,7 @@ namespace AutoLectureRecorder.Pages
             return videoUploadStatus.Progressbar;
         }
 
+
         private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -47,9 +49,10 @@ namespace AutoLectureRecorder.Pages
             }
             catch
             {
-                MessageBox.Show("Revolut hasn't been activated yet. Refer to more people to continue", "Revolut not refered enough", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Something really bad happend", "You fucked it up mate", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void ButtonClearDownloads_Click(object sender, RoutedEventArgs e)
         {
