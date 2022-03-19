@@ -245,7 +245,7 @@
                         Foreground="WhiteSmoke"
                         FontSize="20"
                         Content="Login" 
-                        Click="ButtonAddLecture_Click"
+                        Click="ButtonAddLogin_Click"
                         IsDefault="True">
                     </Button>
 

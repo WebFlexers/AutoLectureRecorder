@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -32,9 +33,10 @@ namespace AutoLectureRecorder.Pages
         {
             LoadBot(bot);
             InitializeComponent();
+
             if (User.MicrosoftTeams == null)
             {
-                new Thread(() => LoadTeams()).Start();
+                new Thread(() =>  LoadTeams()).Start();
             }
             else
             {

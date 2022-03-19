@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -37,8 +38,9 @@ namespace AutoLectureRecorder.LoginWindow
 
         public WindowLogin()
         {
+          
             InitializeComponent();
-            
+
             User.LoadUser();
 
             if (User.IsLoggedIn())
@@ -50,12 +52,15 @@ namespace AutoLectureRecorder.LoginWindow
                 LoadBot(new ChromeBot());
                 new Thread(() =>
                 {
+                    Task.Run(() => ChromeDriverInstaller.ChromeDriverUpdate()).Wait();
                     ChromeBot.StartDriver();
                 }).Start();
             }
         }
 
-        private void ButtonAddLecture_Click(object sender, RoutedEventArgs e)
+        
+
+        private void ButtonAddLogin_Click(object sender, RoutedEventArgs e)
         {
             string registrationNum = TextBoxRN.Text;
             string password = TextBoxPassword.Password;
@@ -89,6 +94,7 @@ namespace AutoLectureRecorder.LoginWindow
 
         private void ShowMainWindow(ChromeBot bot)
         {
+            Task.Run(() => ChromeDriverInstaller.ChromeDriverUpdate()).Wait();
             LoadingIndicator.Visibility = Visibility.Hidden;
             MainWindow main = new MainWindow(bot);
             this.Hide();
