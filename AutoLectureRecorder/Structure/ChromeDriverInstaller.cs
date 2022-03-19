@@ -136,30 +136,6 @@ public class ChromeDriverInstaller
             using Stream chromeDriverStream = entry.Open();
             await chromeDriverStream.CopyToAsync(chromeDriverWriter);
         }
-
-        // on Linux/macOS, you need to add the executable permission (+x) to allow the execution of the chromedriver
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            using var process = Process.Start(
-                new ProcessStartInfo
-                {
-                    FileName = "chmod",
-                    ArgumentList = { "+x", targetPath },
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                }
-            );
-            string error = await process.StandardError.ReadToEndAsync();
-            process.WaitForExit();
-            process.Kill(true);
-
-            if (!string.IsNullOrEmpty(error))
-            {
-                throw new Exception("Failed to make chromedriver executable");
-            }
-        }
     }
 
     public async Task<string> GetChromeVersion()

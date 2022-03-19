@@ -1,6 +1,7 @@
 ﻿using AutoLectureRecorder.Structure;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,6 +37,18 @@ namespace AutoLectureRecorder.Pages
             _progressBarUserControls.Add(videoUploadStatus);
             StackPanelProgressbars.Children.Add(videoUploadStatus);
             return videoUploadStatus.Progressbar;
+        }
+
+        private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", Settings.VideoDirectory);
+            }
+            catch
+            {
+                MessageBox.Show("Revolut hasn't been activated yet. Refer to more people to continue", "Revolut not refered enough", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ButtonClearDownloads_Click(object sender, RoutedEventArgs e)

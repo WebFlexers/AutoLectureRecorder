@@ -52,7 +52,7 @@
             },
             "Google.Apis.YouTube.v3": {
               "target": "Package",
-              "version": "[1.50.0.2238, )"
+              "version": "[1.56.0.2630, )"
             },
             "LoadingIndicators.WPF": {
               "target": "Package",
@@ -68,11 +68,11 @@
             },
             "ScreenRecorderLib": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.2.0, )"
             },
             "Selenium.WebDriver": {
               "target": "Package",
-              "version": "[4.0.1, )"
+              "version": "[4.1.0, )"
             },
             "System.Management": {
               "target": "Package",

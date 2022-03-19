@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="56"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="56"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
         <Grid.Resources>
@@ -103,11 +103,22 @@
                     HorizontalAlignment="Center"/>-->
             </StackPanel>
         </ScrollViewer>
-
-        <Button
-            Grid.Row="2"
+        <StackPanel Grid.Row="2">
+            <Button
             VerticalAlignment="Center"
-            x:Name="ButtonAddLecture"
+            x:Name="ButtonOpenFolder"
+            Width="300"
+            Height="32"
+             Margin="10"   
+            
+            Foreground="WhiteSmoke"
+            FontSize="14"
+            Content = "Open Folder" Click="ButtonOpenFolder_Click">
+
+            </Button>
+            <Button
+            VerticalAlignment="Center"
+            x:Name="ButtonClearLecture"
             Width="300"
             Height="32"
             
@@ -115,7 +126,9 @@
             FontSize="14"
             Content = "Clear finished uploads" Click="ButtonClearDownloads_Click">
 
-        </Button>
+            </Button>
 
+        </StackPanel>
+      
     </Grid>
 </Page>
