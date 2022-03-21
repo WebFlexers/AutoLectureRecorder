@@ -18,7 +18,7 @@ The application is for educational purposes only, we are not responsible for any
 2) Run AutoLectureRecorder.exe file on Quick Start Folder.
 3) Login with your UNIPI credentials. (For example: PXXXXX for username and your current password).
 4) Navigate on "Add Lectures" through the sidebar menu.
-5) Add a lecture name,select the team the meeting is happening and add the specific timeline.
+5) Add a lecture name,select the team where the meeting is happening and add the specific timeline.
 6) (Optional) Navigate on "Youtube Upload" through the sidebar menu.
 7) (Optional) Login with your Youtube Account in order to give the required permissions.
 8) Navigate to "Record" through the sidebar menu and press the circled button.
