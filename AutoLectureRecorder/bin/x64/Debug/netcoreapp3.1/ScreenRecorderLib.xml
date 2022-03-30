@@ -113,6 +113,22 @@ Enable to record system audio input (e.g. microphone)
 Enable to record system audio output.
 </summary>
         </member>
+        <member name="P:ScreenRecorderLib.VideoOptions.ScaledFrameRatio">
+            <summary>
+Specifies scaling ratio with which original frames are resized. 
+Will be ignored if non-zero values are specified both for ScaledFrameWidth and ScaledFrameHeight.
+</summary>
+        </member>
+        <member name="P:ScreenRecorderLib.VideoOptions.ScaledFrameHeight">
+            <summary>
+If non-zero, represents target frame height to resize.
+</summary>
+        </member>
+        <member name="P:ScreenRecorderLib.VideoOptions.ScaledFrameWidth">
+            <summary>
+If non-zero, represents target frame width to resize.
+</summary>
+        </member>
         <member name="P:ScreenRecorderLib.VideoOptions.SnapshotsInterval">
             <summary>
 Interval in second for taking snapshots in a video recording. This is only used with Video mode AND SnapshotsWithVideo enabled.

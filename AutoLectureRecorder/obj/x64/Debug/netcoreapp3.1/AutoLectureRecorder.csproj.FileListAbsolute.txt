@@ -186,3 +186,4 @@ C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder
 C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\bin\x64\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.csproj.AssemblyReference.cache
 C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kkalo\OneDrive\Documents\GitHub\AutoLectureRecorder\AutoLectureRecorder\obj\x64\Debug\netcoreapp3.1\AutoLectureRecorder_Content.g.cs
