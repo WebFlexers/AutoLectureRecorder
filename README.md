@@ -24,6 +24,28 @@ The application is for educational purposes only, we are not responsible for any
 8) Navigate to "Record" through the sidebar menu and press the circled button.
 9) That's it! Enjoy your automated meetings' recordings and watch them on your youtube channel!
 
+## Frequent Asked Questions (FAQ)
+
+
+###### Question:
+##### 1) I closed Chrome Broswer while recording was active, what happens with the video recorded? 
+###### Answer:
+##### The application will save the recording and upload it on Youtube(if enabled) when the Lecture's end time is reached. Otherwise, you can do it sooner manually by pressing "End Lecture" button on the Record Page.
+
+###### Question:
+##### 2) Why I can't enable Youtube uploading on my application? 
+###### Answer:
+#####  In order for you to enable Youtube uploading, you need to be given access through our Google API. Open an issue and we will help you.
+
+###### Question:
+##### 3) The Lecturer hasn't started a meeting yet. What will the application do? Will it join the meeting when if it doesn't start at the scheduled time? 
+###### Answer:
+#####  Yes, it will join the meeting even if it starts later than the scheduled time. In detail, the application will wait for the meeting to start indefinitely till scheduled end time is reached.
+
+###### Question:
+##### 4) Are Youtube videos uploaded as classified? Can anyone have access to them? 
+###### Answer:
+#####  The videos are uploaded as classified by default. Only the people who you given access through Youtube settings can access them.
 
 ## Application Screenshots: ##
 ###### "Login" page
@@ -40,3 +62,13 @@ The application is for educational purposes only, we are not responsible for any
 
 ## Technologies used(Keywords)
 Selenium bot, Youtube API, Recording Libraries, .Net Core, C#, XAML, OOP architecture, Material Design, Visual Studio Enterprise.
+
+## Report a bug or contribute to the project
+
+Go to WebFlexers/AutoLectureRecorder, open an issue about your problem or your new ideas!
+
+## Main Contributors:
+
+##### • Michalis Stylianidis <br>
+##### • Konstantinos Kalogeropoulos <br>
+##### • Lefteris Kontouris
