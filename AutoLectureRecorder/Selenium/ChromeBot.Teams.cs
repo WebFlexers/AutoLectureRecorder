@@ -224,7 +224,7 @@ namespace AutoLectureRecorder.Selenium
                 passwordUnipiInputBox.SendKeys(password);
 
                 //Login button
-                var loginUnipiBtn = WaitToFindElement(By.Id("submitForm"));
+                var loginUnipiBtn = WaitToFindElement(By.Id("loginButton"));
                 loginUnipiBtn.Click();
 
                 //Click no on Stay signed in
