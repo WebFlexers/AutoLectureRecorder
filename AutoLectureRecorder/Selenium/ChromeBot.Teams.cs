@@ -103,7 +103,7 @@ namespace AutoLectureRecorder.Selenium
                 passwordUnipiInputBox.SendKeys(password);
 
                 //Login button
-                var loginUnipiBtn = _driver.FindElement(By.Id("submitForm"));
+                var loginUnipiBtn = _driver.FindElement(By.Id("loginButton"));
                 loginUnipiBtn.Click();
 
                 By[] locators = { By.Id("msg"), By.XPath("//*[@id='idBtn_Back']") };
