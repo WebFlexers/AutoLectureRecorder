@@ -145,4 +145,18 @@ public class ScheduleTests
             ));
         });
     }
+
+    [Fact]
+    public void RemoveLecture_ShouldDeleteTheLecture()
+    {
+        Schedule schedule = CreateValidSchedule();
+
+        var lectures = schedule.GetLecturesByDay(WeekDay.Monday);
+        var firstLecture = lectures.First();
+        
+        schedule.RemoveLecture(firstLecture);
+
+        Assert.Single(lectures);
+        Assert.DoesNotContain(firstLecture, lectures);
+    }
 }

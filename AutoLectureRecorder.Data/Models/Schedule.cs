@@ -46,6 +46,18 @@ namespace AutoLectureRecorder.Data.Models
         }
 
         /// <summary>
+        /// Removes the given lecture from the list
+        /// </summary>
+        /// <param name="lecture"></param>
+        public void RemoveLecture(Lecture lecture)
+        {
+            if (_lecturesByDay.ContainsKey(lecture.Day))
+            {
+                _lecturesByDay[lecture.Day].Remove(lecture);
+            }
+        }
+
+        /// <summary>
         /// Gets a Sorted Set of the lectures in the given day in ascending order
         /// </summary>
         /// <param name="day"> The target day </param>
