@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)selenium.webdriver.chromedriver\95.0.4638.5401\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('$(NuGetPackageRoot)selenium.webdriver.chromedriver\95.0.4638.5401\build\Selenium.WebDriver.ChromeDriver.targets')" />
-    <Import Project="$(NuGetPackageRoot)screenrecorderlib\3.1.1\build\ScreenRecorderLib.targets" Condition="Exists('$(NuGetPackageRoot)screenrecorderlib\3.1.1\build\ScreenRecorderLib.targets')" />
-    <Import Project="$(NuGetPackageRoot)materialdesignthemes\4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('$(NuGetPackageRoot)materialdesignthemes\4.0.0\build\MaterialDesignThemes.targets')" />
-  </ImportGroup>
-</Project>

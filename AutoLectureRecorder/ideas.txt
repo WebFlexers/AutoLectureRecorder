@@ -1,1 +1,0 @@
-1) Add an ellipse arround the + button to add a lecture, in order to emphasize
