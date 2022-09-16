@@ -1,4 +1,4 @@
-﻿namespace AutoLectureRecorder.Services.ScreenRecorder;
+﻿namespace AutoLectureRecorder.Services.ScreenRecorder.Interfaces;
 
 public interface IScreenRecorder
 {

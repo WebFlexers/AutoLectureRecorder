@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutoLectureRecorder.Data\AutoLectureRecorder.Data.csproj" />
+    <ProjectReference Include="..\AutoLectureRecorder.Services\AutoLectureRecorder.Services.csproj" />
   </ItemGroup>
 
 </Project>
