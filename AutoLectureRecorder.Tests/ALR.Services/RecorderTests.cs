@@ -45,7 +45,7 @@ public class RecorderTests
             _output.WriteLine(device);
         }
 
-        recorder.SelectedAudioOutputDevice = outputDevices[1];
+        recorder.SelectedAudioOutputDevice = outputDevices[2];
         _output.WriteLine($"\nSelected output device: {recorder.SelectedAudioOutputDevice}");
 
         recorder.StartRecording();

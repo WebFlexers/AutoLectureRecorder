@@ -19,7 +19,7 @@ namespace AutoLectureRecorder.Data.Models
                 {
                     if (lecture.StartTime <= existingLecture.EndTime && existingLecture.StartTime <= lecture.EndTime)
                     {
-                        throw new TimesOverlapException();
+                        throw new TimesOverlapException("The times of lectures can't overlap");
                     }
                 }                
             }

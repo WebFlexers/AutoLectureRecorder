@@ -19,7 +19,7 @@ public class RecorderFactory
         switch (true)
         {
             case var value when value == RuntimeInformation.IsOSPlatform(OSPlatform.Windows):
-                WindowsRecorderOptions options = new();
+                var options = new WindowsRecorderOptions();
                 return new WindowsRecorder(options);
             case var value when value == RuntimeInformation.IsOSPlatform(OSPlatform.Linux):
                 throw new NotImplementedException();

@@ -14,18 +14,42 @@ public class WindowsRecorder : IRecorder
     {
         var output = new List<string>();
 
-        var audioInputDevices = Recorder.GetSystemAudioDevices(audioDeviceSource);
-        foreach (var inputDevice in audioInputDevices)
+        var audioDevices = Recorder.GetSystemAudioDevices(audioDeviceSource);
+        foreach (var audioDevice in audioDevices)
         {
-            output.Add(inputDevice.FriendlyName);
+            output.Add(audioDevice.FriendlyName);
         }
 
         return output;
     }
 
     // Select Audio Devices
-    public string SelectedAudioInputDevice { get => WindowsRecorderOptions.AudioOptions.AudioInputDevice; set => WindowsRecorderOptions.AudioOptions.AudioInputDevice = value; }
-    public string SelectedAudioOutputDevice { get => WindowsRecorderOptions.AudioOptions.AudioOutputDevice; set => WindowsRecorderOptions.AudioOptions.AudioOutputDevice = value; }
+    public string SelectedAudioInputDevice
+    {
+        get
+        {
+            return WindowsRecorderOptions.AudioOptions.AudioInputDevice;
+        }
+        set 
+        {
+            var audioDevices = Recorder.GetSystemAudioDevices(AudioDeviceSource.InputDevices);
+            var selectedDevice = audioDevices.Find(x => x.FriendlyName == value);
+            WindowsRecorderOptions.AudioOptions.AudioInputDevice = selectedDevice?.DeviceName;
+        }
+    }
+    public string SelectedAudioOutputDevice 
+    {
+        get
+        {
+            return WindowsRecorderOptions.AudioOptions.AudioOutputDevice;
+        }
+        set
+        {
+            var audioDevices = Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices);
+            var selectedDevice = audioDevices.Find(x => x.FriendlyName == value);
+            WindowsRecorderOptions.AudioOptions.AudioOutputDevice = selectedDevice?.DeviceName;
+        }
+    }
 
     // Select specific window for recording
     public bool IsSpecificWindowSelected { get; set; }
