@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ALR.Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AutoLectureRecorder.Data\AutoLectureRecorder.Data.csproj" />
     <ProjectReference Include="..\AutoLectureRecorder.Services\AutoLectureRecorder.Services.csproj" />
   </ItemGroup>

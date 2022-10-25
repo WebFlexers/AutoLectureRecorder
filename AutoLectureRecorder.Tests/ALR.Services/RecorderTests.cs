@@ -1,6 +1,6 @@
-﻿using AutoLectureRecorder.Services.Factories;
-using AutoLectureRecorder.Services.ScreenRecorder;
+﻿using AutoLectureRecorder.Services.ScreenRecorder;
 using AutoLectureRecorder.Services.ScreenRecorder.Interfaces;
+using AutoLectureRecorder.Services.ScreenRecorder.Windows;
 using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.Tests.ALR.Services;
@@ -15,9 +15,10 @@ public class RecorderTests
     }
 
     [Fact]
-    public void RecordVideoWithDefaultConfig_ShouldCreateMp4Video()
+    public void RecordVideoWithDefaultConfigWindows_ShouldCreateMp4Video()
     {
-        IRecorder recorder = RecorderFactory.CreateRecorder();
+        var options = new WindowsRecorderOptions();
+        IRecorder recorder = new WindowsRecorder(options);
 
         recorder.Options.OutputDirectory = "RecorderTests";
         recorder.Options.OutputFileName = "TestDefault";
@@ -30,9 +31,10 @@ public class RecorderTests
     }
 
     [Fact]
-    public void RecordVideoWithCustomAudio_ShouldCreateMp4Video()
+    public void RecordVideoWithCustomAudioWindows_ShouldCreateMp4Video()
     {
-        IRecorder recorder = RecorderFactory.CreateRecorder();
+        var options = new WindowsRecorderOptions();
+        IRecorder recorder = new WindowsRecorder(options);
 
         recorder.Options.OutputDirectory = "RecorderTests";
         recorder.Options.OutputFileName = "TestCustomAudio";

@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Selenium\" />
+    <Compile Remove="Selenium\**" />
+    <EmbeddedResource Remove="Selenium\**" />
+    <None Remove="Selenium\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +34,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ScreenRecorder\Android\" />
   </ItemGroup>
 
 </Project>
