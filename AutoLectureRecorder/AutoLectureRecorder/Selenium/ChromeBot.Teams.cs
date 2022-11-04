@@ -155,8 +155,13 @@ namespace AutoLectureRecorder.Selenium
                 var noAudioMicBtn = WaitToFindElement(By.XPath("//button[contains(@track-summary, 'Continue in call/meetup without device access')]"));
                 noAudioMicBtn.Click();
 
+                var iframe = _driver.FindElement(By.ClassName("embedded-electron-webview"));
+                _driver.SwitchTo().Frame(iframe);
+
                 var preJoinCallBtn = WaitToFindElement(By.XPath("//button[contains(@data-tid, 'prejoin-join-button')]"));
                 preJoinCallBtn.Click();
+
+                _driver.SwitchTo().DefaultContent();
 
                 onMeeting = true;
                 return true;

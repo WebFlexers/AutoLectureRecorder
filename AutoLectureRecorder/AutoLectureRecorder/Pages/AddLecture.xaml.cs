@@ -21,7 +21,7 @@ namespace AutoLectureRecorder.Pages
         public void LoadBot(ChromeBot bot)
         {
             ChromeBot = bot;
-            ChromeBot.IsBrowserHidden = true;
+            ChromeBot.IsBrowserHidden = false;
         }
 
         public void TerminateBot()
