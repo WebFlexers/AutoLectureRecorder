@@ -146,7 +146,8 @@ namespace AutoLectureRecorder.Selenium
                 notificationsDisable.Click();
 
                 //Clicking to specific team
-                var lessonCardBtn = WaitToFindElement(By.XPath("//div[contains(@data-tid, '" + meetingName + "')]"));
+                //// Old -> //div[contains(@data-tid, '" + meetingName + "')]
+                var lessonCardBtn = WaitToFindElement(By.XPath($"//*[text()='{meetingName}']"));
                 lessonCardBtn.Click();
 
                 var joinBtn = WaitToFindElement(By.XPath("//button[contains(@data-tid, 'join-btn')]"), TimeSpan.FromMinutes(30));
