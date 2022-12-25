@@ -3,7 +3,7 @@
 public class StatisticSettings
 {
     public int Id { get; set; }
-    public int TrackRecordedLectures { get; set; }
-    public int TrackSuccessfulRecordings { get; set; }
-    public int TrackFailedRecordings { get; set; }
+    public int AreRecordedLecturesTracked { get; set; }
+    public int AreSuccessfulRecordingsTracked { get; set; }
+    public int AreFailedRecordingsTracked { get; set; }
 }
