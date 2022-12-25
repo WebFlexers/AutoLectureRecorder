@@ -1,0 +1,85 @@
+﻿<rxui:ReactiveWindow x:Name="mainAppWindow" 
+                     x:Class="AutoLectureRecorder.WPF.MainWindow"
+                     x:TypeArguments="local:MainWindowViewModel"
+                     xmlns:rxui="http://reactiveui.net"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:AutoLectureRecorder.WPF"
+                     mc:Ignorable="d"
+                     Title="MainWindow"
+                     Height="450"
+                     Width="800">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/MainWindowChrome.xaml" />
+                <ResourceDictionary Source="/Resources/TitleBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Style>
+        <Style TargetType="local:MainWindow"
+               BasedOn="{StaticResource WindowChromeStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=mainAppWindow, Path=WindowState}"
+                             Value="Maximized">
+                    <Setter Property="WindowChrome.WindowChrome">
+                        <Setter.Value>
+                            <WindowChrome CaptionHeight="38" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+        
+        <!-- TitleBar -->
+        <StackPanel Grid.Row="0" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <Button x:Name="minimizeWindowButton"
+                    Style="{StaticResource TitlebarMinimizeButton}"
+                    WindowChrome.IsHitTestVisibleInChrome="True"/>
+            <Button x:Name="toggleWindowStateButton" 
+                    Style="{StaticResource TitlebarMaximizeButton}"
+                    WindowChrome.IsHitTestVisibleInChrome="True" />
+            <Button x:Name="exitAppButton" 
+                    Style="{StaticResource TitlebarCloseButton}"
+                    WindowChrome.IsHitTestVisibleInChrome="True" />
+        </StackPanel>
+
+        <!-- Routed View Host -->
+        <rxui:RoutedViewHost Grid.Row="1"
+                             Duration="0"
+                             x:Name="routedViewHost"
+                             HorizontalContentAlignment="Stretch"
+                             VerticalContentAlignment="Stretch" />
+
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Margin="15">
+            <Button x:Name="navigateToHomeButton"
+                    Padding="10"
+                    Content="Navigate to home!" />
+            <Button x:Name="navigateToSettingsButton"
+                    Padding="10"
+                    Content="Navigate to settings!"
+                    Margin="10 0 0 0" />
+        </StackPanel>
+    </Grid>
+
+</rxui:ReactiveWindow>

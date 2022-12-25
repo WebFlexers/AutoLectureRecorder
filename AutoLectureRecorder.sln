@@ -3,12 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CDE87A1D-0FD6-4FB3-9554-D4B6DAB685D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{14BFD424-85EB-4EE1-98CC-ECF5274864E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder.WPF", "src\AutoLectureRecorder.WPF\AutoLectureRecorder.WPF.csproj", "{586540DD-3604-466C-8644-733A7347B0D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{586540DD-3604-466C-8644-733A7347B0D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586540DD-3604-466C-8644-733A7347B0D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586540DD-3604-466C-8644-733A7347B0D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586540DD-3604-466C-8644-733A7347B0D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{586540DD-3604-466C-8644-733A7347B0D0} = {CDE87A1D-0FD6-4FB3-9554-D4B6DAB685D0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FB2FC86-8302-4376-94B4-BA99E6C53CEA}
 	EndGlobalSection
 EndGlobal
