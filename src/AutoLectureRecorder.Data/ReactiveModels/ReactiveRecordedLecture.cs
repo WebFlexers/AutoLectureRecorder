@@ -1,7 +1,6 @@
 ﻿using ReactiveUI.Fody.Helpers;
-using System;
 
-namespace AutoLectureRecorder.WPF.ReactiveModels;
+namespace AutoLectureRecorder.Data.ReactiveModels;
 
 public class ReactiveRecordedLecture
 {
