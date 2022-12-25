@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="Primary">#53a7dd</Color>
+    <Color x:Key="InactiveIconColor">#C9D3E3</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+    <SolidColorBrush x:Key="InactiveIconBrush" Color="{StaticResource InactiveIconColor}"/>
+
+</ResourceDictionary>

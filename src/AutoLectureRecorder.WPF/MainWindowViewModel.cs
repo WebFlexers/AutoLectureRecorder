@@ -1,5 +1,4 @@
 ﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -7,7 +6,6 @@ using System;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Reflection;
 using System.Windows;
 
 namespace AutoLectureRecorder.WPF;
@@ -32,7 +30,8 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 
         Navigate = ReactiveCommand.Create<Type>(SetRoutedViewHostContent);
 
-        MaximizeButtonStyle = GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
+        MaximizeButtonStyle = ((App)Application.Current)
+                .GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
 
         ExitAppCommand = ReactiveCommand.Create(Application.Current.Shutdown);
         ToggleWindowStateCommand = ReactiveCommand.Create(() =>
@@ -54,14 +53,6 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public WindowState MainWindowState { get; set; }
     [Reactive]
     public Style MaximizeButtonStyle { get; set; }
-
-    public Style? GetStyleFromResourceDictionary(string styleName, string resourceDictionaryName)
-    {
-        var titleBarResources = new ResourceDictionary();
-        titleBarResources.Source = new Uri($"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/{resourceDictionaryName}",
-                        UriKind.RelativeOrAbsolute);
-        return titleBarResources[styleName] as Style;
-    }
 
     public void SetRoutedViewHostContent(Type type)
     {

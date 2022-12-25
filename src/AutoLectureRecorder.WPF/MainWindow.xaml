@@ -7,6 +7,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:AutoLectureRecorder.WPF"
+                     xmlns:menuIcons="clr-namespace:AutoLectureRecorder.WPF.Icons.MainMenu"
                      mc:Ignorable="d"
                      Title="MainWindow"
                      Height="450"
@@ -22,6 +23,7 @@
     </Window.Resources>
 
     <Window.Style>
+        <!-- Avoid titlebar resize handle getting smaller on maximize -->
         <Style TargetType="local:MainWindow"
                BasedOn="{StaticResource WindowChromeStyle}">
             <Style.Triggers>
@@ -46,7 +48,7 @@
         </Grid.RowDefinitions>
         
         <!-- TitleBar -->
-        <StackPanel Grid.Row="0" 
+        <StackPanel Grid.Row="0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Orientation="Horizontal">

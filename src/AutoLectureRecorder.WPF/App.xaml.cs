@@ -3,6 +3,8 @@ using AutoLectureRecorder.WPF.Sections.Home;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using System;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -28,5 +30,22 @@ public partial class App : Application
         await Bootstrapper.AppHost.StopAsync();
 
         base.OnExit(e);
+    }
+
+    public Style? GetStyleFromResourceDictionary(string styleName, string resourceDictionaryName)
+    {
+        var titleBarResources = new ResourceDictionary();
+        titleBarResources.Source = new Uri($"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/{resourceDictionaryName}",
+                        UriKind.RelativeOrAbsolute);
+        return titleBarResources[styleName] as Style;
+    }
+
+    public ResourceDictionary? GetResourceDictionary(string resourceDictionaryName, string relativePath)
+    {
+        var titleBarResources = new ResourceDictionary();
+        titleBarResources.Source = new Uri(
+            $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/{relativePath}/{resourceDictionaryName}",
+            UriKind.RelativeOrAbsolute);
+        return titleBarResources;
     }
 }

@@ -4,6 +4,7 @@ using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
+using System.Windows;
 
 namespace AutoLectureRecorder.WPF;
 public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
@@ -40,8 +41,8 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             this.WhenAnyValue(v => v.mainAppWindow.WindowState)
                 .Subscribe(ws =>
                 {
-                    this.toggleWindowStateButton.Style = ViewModel!.GetStyleFromResourceDictionary(
-                            styleName: ws == System.Windows.WindowState.Maximized ? "TitlebarRestoreDownButton" : "TitlebarMaximizeButton",
+                    this.toggleWindowStateButton.Style = ((App)Application.Current).GetStyleFromResourceDictionary(
+                            styleName: ws == WindowState.Maximized ? "TitlebarRestoreDownButton" : "TitlebarMaximizeButton",
                             resourceDictionaryName: "TitleBar.xaml"
                         );
                 })
