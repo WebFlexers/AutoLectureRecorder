@@ -1,10 +1,9 @@
 ﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
-using AutoLectureRecorder.WPF.Sections.Home;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -12,9 +11,11 @@ using System.Reflection;
 using System.Windows;
 
 namespace AutoLectureRecorder.WPF;
+
 public class MainWindowViewModel : ReactiveObject, IScreen
 {
     private readonly IViewModelFactory _viewModelFactory;
+    private readonly ILogger<MainWindowViewModel> _logger;
 
     public RoutingState Router { get; } = new RoutingState();
 
@@ -24,11 +25,13 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; set; }
     public ReactiveCommand<Type, Unit> Navigate { get; private set; }
 
-    public MainWindowViewModel(IViewModelFactory viewModelFactory)
+    public MainWindowViewModel(IViewModelFactory viewModelFactory, ILogger<MainWindowViewModel> logger)
     {
         _viewModelFactory = viewModelFactory;
+        _logger = logger;
 
         Navigate = ReactiveCommand.Create<Type>(SetRoutedViewHostContent);
+
         MaximizeButtonStyle = GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
 
         ExitAppCommand = ReactiveCommand.Create(Application.Current.Shutdown);
@@ -44,6 +47,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
             }
         });
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
+
     }
 
     [Reactive]
@@ -67,5 +71,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         }
 
         Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(type));
+
+        _logger.LogDebug("Navigated to {viewModel}", type.Name);
     }
 }
