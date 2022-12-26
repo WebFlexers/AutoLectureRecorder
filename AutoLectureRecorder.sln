@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CDE87A1D-0FD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{14BFD424-85EB-4EE1-98CC-ECF5274864E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder.WPF", "src\AutoLectureRecorder.WPF\AutoLectureRecorder.WPF.csproj", "{586540DD-3604-466C-8644-733A7347B0D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.WPF", "src\AutoLectureRecorder.WPF\AutoLectureRecorder.WPF.csproj", "{586540DD-3604-466C-8644-733A7347B0D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder.Data", "src\AutoLectureRecorder.Data\AutoLectureRecorder.Data.csproj", "{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.Data", "src\AutoLectureRecorder.Data\AutoLectureRecorder.Data.csproj", "{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder.Services", "src\AutoLectureRecorder.Services\AutoLectureRecorder.Services.csproj", "{5F920A66-BD07-4916-A999-A678A03AC5CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.Services", "src\AutoLectureRecorder.Services\AutoLectureRecorder.Services.csproj", "{5F920A66-BD07-4916-A999-A678A03AC5CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder.UnitTests", "tests\AutoLectureRecorder.UnitTests\AutoLectureRecorder.UnitTests.csproj", "{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.UnitTests", "tests\AutoLectureRecorder.UnitTests\AutoLectureRecorder.UnitTests.csproj", "{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,16 +23,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{586540DD-3604-466C-8644-733A7347B0D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{586540DD-3604-466C-8644-733A7347B0D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{586540DD-3604-466C-8644-733A7347B0D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{586540DD-3604-466C-8644-733A7347B0D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586540DD-3604-466C-8644-733A7347B0D0}.Release|Any CPU.ActiveCfg = Release|x64
+		{586540DD-3604-466C-8644-733A7347B0D0}.Release|Any CPU.Build.0 = Release|x64
 		{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F920A66-BD07-4916-A999-A678A03AC5CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F920A66-BD07-4916-A999-A678A03AC5CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F920A66-BD07-4916-A999-A678A03AC5CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F920A66-BD07-4916-A999-A678A03AC5CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F920A66-BD07-4916-A999-A678A03AC5CE}.Release|Any CPU.ActiveCfg = Release|x64
+		{5F920A66-BD07-4916-A999-A678A03AC5CE}.Release|Any CPU.Build.0 = Release|x64
 		{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}.Release|Any CPU.ActiveCfg = Release|Any CPU

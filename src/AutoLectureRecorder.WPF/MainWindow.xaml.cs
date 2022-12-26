@@ -7,6 +7,7 @@ using System.Reactive.Disposables;
 using System.Windows;
 
 namespace AutoLectureRecorder.WPF;
+
 public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 {
     public MainWindow()

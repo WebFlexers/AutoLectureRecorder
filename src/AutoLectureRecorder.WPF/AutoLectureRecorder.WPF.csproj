@@ -5,9 +5,21 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>app_icon_filled_64x64.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\app_icon_filled256x256.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app_icon_filled_64x64.ico" />
+  </ItemGroup>
+
 	<ItemGroup>
+		<PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
@@ -19,7 +31,15 @@
 		<PackageReference Include="ReactiveUI" Version="18.4.1" />
 		<PackageReference Include="ReactiveUI.Fody" Version="18.4.1" />
 		<PackageReference Include="ReactiveUI.WPF" Version="18.4.1" />
+		<PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
 		<PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.1" />
+		<PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Images\app_icon_filled256x256.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 	<ItemGroup>

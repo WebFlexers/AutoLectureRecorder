@@ -1,33 +1,49 @@
 ﻿using AutoLectureRecorder.WPF.DependencyInjection;
 using AutoLectureRecorder.WPF.Sections.Home;
 using Microsoft.Extensions.DependencyInjection;
-using ReactiveUI;
 using System;
+using System.Diagnostics;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace AutoLectureRecorder.WPF;
+
 public partial class App : Application
 {
-    public AppBootstrapper Bootstrapper { get; private set; }
+    public AppBootstrapper? Bootstrapper { get; private set; }
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
+        var startupWindow = new StartupWindow();
+        startupWindow.Show();
+
+        var startTime = Stopwatch.GetTimestamp();
+
         Bootstrapper = new AppBootstrapper();
         var services = Bootstrapper.AppHost.Services;
+        var mainWindow = services.GetRequiredService<MainWindow>();
 
-        var window = services.GetRequiredService<MainWindow>();
-        window.Show();
+        var endTime = Stopwatch.GetTimestamp();
+        var diff = Stopwatch.GetElapsedTime(startTime, endTime);
 
+        if (diff < TimeSpan.FromSeconds(2.5))
+        {
+            await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
+        }
+
+        startupWindow.Close();
+        mainWindow.Show();
         var router = services.GetRequiredService<MainWindowViewModel>().Router;
         router.Navigate.Execute(services.GetRequiredService<HomeViewModel>());
     }
 
     protected override async void OnExit(ExitEventArgs e)
     {
-        await Bootstrapper.AppHost.StopAsync();
+        if (Bootstrapper != null)
+        {
+            await Bootstrapper.AppHost.StopAsync();
+        }
 
         base.OnExit(e);
     }

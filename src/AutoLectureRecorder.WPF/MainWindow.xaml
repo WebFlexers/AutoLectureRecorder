@@ -7,7 +7,13 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:AutoLectureRecorder.WPF"
-                     xmlns:menuIcons="clr-namespace:AutoLectureRecorder.WPF.Icons.MainMenu"
+                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                     Background="{DynamicResource MaterialDesignPaper}"
+                     TextElement.FontWeight="Medium"
+                     TextElement.FontSize="14"
+                     FontFamily="{materialDesign:MaterialDesignFont}"
+                     WindowStartupLocation="CenterScreen"
                      mc:Ignorable="d"
                      Title="MainWindow"
                      Height="450"
@@ -75,10 +81,8 @@
                     Orientation="Horizontal"
                     Margin="15">
             <Button x:Name="navigateToHomeButton"
-                    Padding="10"
                     Content="Navigate to home!" />
             <Button x:Name="navigateToSettingsButton"
-                    Padding="10"
                     Content="Navigate to settings!"
                     Margin="10 0 0 0" />
         </StackPanel>
