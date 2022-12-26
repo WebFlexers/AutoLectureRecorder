@@ -6,14 +6,14 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:CustomColorTheme BaseTheme="Light"
-                                                 PrimaryColor="Blue"
-                                                 SecondaryColor="LightBlue" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                
-                <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml" />
-
                 <ResourceDictionary Source="Resources/Colors/Colors.xaml" />
+                
+                <materialDesign:CustomColorTheme BaseTheme="Light"
+                                                 PrimaryColor="{StaticResource PrimaryColor}"
+                                                 SecondaryColor="{StaticResource SecondaryTextColor}" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

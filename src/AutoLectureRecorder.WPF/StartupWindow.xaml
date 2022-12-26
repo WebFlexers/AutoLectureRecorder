@@ -46,7 +46,7 @@
 
         <!-- Icon Section -->
         <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndRotate}, Duration=600, Delay=400}">
-            <Image Source="Images/app_icon_filled256x256.png"
+            <Image Source="Icons/Login/app_icon_filled256x256.png"
                    Width="256"
                    Height="256" />
             <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"

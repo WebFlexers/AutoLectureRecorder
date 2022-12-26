@@ -11,7 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\app_icon_filled256x256.png" />
+    <None Remove="Icons\Login\app_icon_filled256x256.png" />
+    <None Remove="Images\Login\online_learning.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +38,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Images\app_icon_filled256x256.png">
+	  <Resource Include="Icons\Login\app_icon_filled256x256.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\Login\online_learning.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	</ItemGroup>

@@ -16,8 +16,8 @@
                      WindowStartupLocation="CenterScreen"
                      mc:Ignorable="d"
                      Title="MainWindow"
-                     Height="450"
-                     Width="800">
+                     Width="1360"
+                     Height="768">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -54,38 +54,33 @@
         </Grid.RowDefinitions>
         
         <!-- TitleBar -->
-        <StackPanel Grid.Row="0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal">
-            <Button x:Name="minimizeWindowButton"
-                    Style="{StaticResource TitlebarMinimizeButton}"
-                    WindowChrome.IsHitTestVisibleInChrome="True"/>
-            <Button x:Name="toggleWindowStateButton" 
-                    Style="{StaticResource TitlebarMaximizeButton}"
-                    WindowChrome.IsHitTestVisibleInChrome="True" />
-            <Button x:Name="exitAppButton" 
-                    Style="{StaticResource TitlebarCloseButton}"
-                    WindowChrome.IsHitTestVisibleInChrome="True" />
-        </StackPanel>
+        <Grid x:Name="titlebarGrid" 
+              Grid.Row="0"
+              Panel.ZIndex="10">
+            <StackPanel x:Name="titlebarButtonsStackPanel"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal"
+                        >
+                <Button x:Name="minimizeWindowButton"
+                        Style="{StaticResource TitlebarMinimizeButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                <Button x:Name="toggleWindowStateButton"
+                        Style="{StaticResource TitlebarMaximizeButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                <Button x:Name="exitAppButton"
+                        Style="{StaticResource TitlebarCloseButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+            </StackPanel>
+        </Grid>
 
         <!-- Routed View Host -->
-        <rxui:RoutedViewHost Grid.Row="1"
+        <rxui:RoutedViewHost Grid.Row="0"
+                             Grid.RowSpan="2"
                              Duration="0"
                              x:Name="routedViewHost"
                              HorizontalContentAlignment="Stretch"
                              VerticalContentAlignment="Stretch" />
-
-        <StackPanel Grid.Row="2"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal"
-                    Margin="15">
-            <Button x:Name="navigateToHomeButton"
-                    Content="Navigate to home!" />
-            <Button x:Name="navigateToSettingsButton"
-                    Content="Navigate to settings!"
-                    Margin="10 0 0 0" />
-        </StackPanel>
     </Grid>
 
 </rxui:ReactiveWindow>

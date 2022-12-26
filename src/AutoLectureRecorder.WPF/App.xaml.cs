@@ -1,5 +1,6 @@
 ﻿using AutoLectureRecorder.WPF.DependencyInjection;
 using AutoLectureRecorder.WPF.Sections.Home;
+using AutoLectureRecorder.WPF.Sections.Login;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
@@ -35,7 +36,7 @@ public partial class App : Application
         startupWindow.Close();
         mainWindow.Show();
         var router = services.GetRequiredService<MainWindowViewModel>().Router;
-        router.Navigate.Execute(services.GetRequiredService<HomeViewModel>());
+        router.Navigate.Execute(services.GetRequiredService<LoginViewModel>());
     }
 
     protected override async void OnExit(ExitEventArgs e)
