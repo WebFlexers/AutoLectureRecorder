@@ -9,7 +9,10 @@ public partial class LoginView : ReactiveUserControl<LoginViewModel>
     public LoginView()
     {
         InitializeComponent();
-        var colors = ((App)Application.Current).GetResourceDictionary("Colors.xaml", "Resources/Colors");
-        this.Resources["MaterialDesignFlatButtonClick"] = new SolidColorBrush(Colors.Black);
+
+        this.WhenActivated(disposables =>
+        {
+            this.BindCommand(ViewModel, vm => vm.LoginCommand, v => v.submitButton);
+        });
     }
 }

@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.Services.WebDriver;
+using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReactiveUI;
@@ -6,6 +7,7 @@ using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
 
 namespace AutoLectureRecorder.WPF.DependencyInjection;
+
 public class AppBootstrapper
 {
     public IHost AppHost { get; private set; }
@@ -34,13 +36,16 @@ public class AppBootstrapper
         services.AddSingleton<MainWindow>(sp => new MainWindow { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
         services.AddSingleton<MainWindowViewModel>();
 
+        // Add Factories
         services.AddTransient<IScreenFactory, ScreenFactory>();
         services.AddTransient<IViewModelFactory, ViewModelFactory>();
+        services.AddTransient<IWebDriverFactory, WebDriverFactory>();
 
         // Add Views and ViewModels
         services.AddViews();
         services.AddViewModels();
 
         // Add Custom Services
+        services.AddTransient<IWebDriver, UnipiEdgeWebDriver>();
     }
 }

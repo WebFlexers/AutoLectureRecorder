@@ -2,6 +2,7 @@
 using AutoLectureRecorder.WPF.Sections.Login;
 using AutoLectureRecorder.WPF.Sections.MainMenu;
 using AutoLectureRecorder.WPF.Sections.Settings;
+using AutoLectureRecorder.WPF.Sections.WebView;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 
@@ -14,6 +15,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IViewFor<HomeViewModel>, HomeView>();
         services.AddTransient<IViewFor<SettingsViewModel>, SettingsView>();
         services.AddTransient<IViewFor<LoginViewModel>, LoginView>();
+        services.AddTransient<IViewFor<WebViewModel>, WebView>();
         services.AddTransient<IViewFor<MainMenuViewModel>, MainMenuView>();
 
         return services;
@@ -25,6 +27,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<LoginViewModel>();
         services.AddTransient<MainMenuViewModel>();
+        services.AddTransient<WebViewModel>();
 
         return services;
     }
