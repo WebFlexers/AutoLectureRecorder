@@ -30,8 +30,13 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel
     public string ErrorMessage { get; set; }
     public bool IsErrorMessageVisible { get => string.IsNullOrWhiteSpace(ErrorMessage) == false; }
 
+    [Reactive]
+    public string AcademicEmailAddress { get; set; }
+    [Reactive]
+    public string Password { get; set; }
     private void Login()
     {
         HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));
+        MessageBus.Current.SendMessage<(string, string)>((AcademicEmailAddress, Password), "StudentAccount");
     }
 }
