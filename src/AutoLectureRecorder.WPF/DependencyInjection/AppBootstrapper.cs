@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Services.WebDriver;
+﻿using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -47,5 +48,7 @@ public class AppBootstrapper
 
         // Add Custom Services
         services.AddTransient<IWebDriver, UnipiEdgeWebDriver>();
+        services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
+        services.AddTransient<IStudentAccountData, StudentAccountData>();
     }
 }

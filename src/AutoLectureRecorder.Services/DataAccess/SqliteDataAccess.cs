@@ -23,21 +23,16 @@ public class SqliteDataAccess : ISqliteDataAccess
     /// <param name="parameters">The parameters</param>
     /// <param name="connectionStringName">The connection string name (e.g. Default)</param>
     /// <returns>A list of the given object type with the result of the query</returns>
-    public List<T> LoadData<T, U>(
+    public async Task<List<T>> LoadData<T, U>(
             string sqlStatement,
             U parameters,
-            string? connectionStringName = null)
+            string connectionStringName = "Default")
     {
-        if (connectionStringName == null)
-        {
-            connectionStringName = "Default";
-        }
-
         string connectionString = _config.GetConnectionString(connectionStringName)!;
 
         using IDbConnection connection = new SqliteConnection(connectionString);
 
-        var rows = connection.Query<T>(
+        var rows = await connection.QueryAsync<T>(
             sqlStatement,
             parameters);
 
@@ -52,21 +47,16 @@ public class SqliteDataAccess : ISqliteDataAccess
     /// <param name="parameters">The parameters</param>
     /// <param name="connectionStringName">The connection string name. The default is "Default"</param>
     /// <returns>A list of the given object type with the result of the query</returns>
-    public void SaveData<T>(
+    public async Task SaveData<T>(
         string sqlStatement,
         T parameters,
-        string? connectionStringName = null)
+        string connectionStringName = "Default")
     {
-        if (connectionStringName == null)
-        {
-            connectionStringName = "Default";
-        }
-
         string connectionString = _config.GetConnectionString(connectionStringName)!;
 
         using IDbConnection connection = new SqliteConnection(connectionString);
 
-        connection.Execute(
+        await connection.ExecuteAsync(
             sqlStatement,
             parameters);
     }
