@@ -33,7 +33,7 @@ public class StudentAccountData : IStudentAccountData
         var result = await _dataAccess.LoadData<StudentAccount, dynamic>(sql, new { });
         var studentAccount = result.FirstOrDefault();
 
-        if (studentAccount == null)
+        if (result.Count == 0)
         {
             return null;
         }

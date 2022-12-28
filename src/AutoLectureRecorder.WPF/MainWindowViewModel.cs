@@ -51,7 +51,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     }
 
     [Reactive]
-    public bool IsWindowTopMost { get; set; } = false;
+    public bool? IsWindowTopMost { get; set; }
 
     [Reactive]
     public WindowState MainWindowState { get; set; }

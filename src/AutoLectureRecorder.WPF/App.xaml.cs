@@ -1,5 +1,7 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection;
+﻿using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.WPF.DependencyInjection;
 using AutoLectureRecorder.WPF.Sections.Login;
+using AutoLectureRecorder.WPF.Sections.MainMenu;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
@@ -25,6 +27,9 @@ public partial class App : Application
         Bootstrapper = new AppBootstrapper();
         var services = Bootstrapper.AppHost.Services;
         var mainWindow = services.GetRequiredService<MainWindow>();
+        var studentAccountData = services.GetRequiredService<IStudentAccountData>();
+        var studentAccount = await studentAccountData.GetStudentAccount()!;
+        var isLoggedIn = studentAccount != null;
 
         var endTime = Stopwatch.GetTimestamp();
         var diff = Stopwatch.GetElapsedTime(startTime, endTime);
@@ -37,7 +42,16 @@ public partial class App : Application
         startupWindow.Close();
         mainWindow.Show();
         var router = services.GetRequiredService<MainWindowViewModel>().Router;
-        router.Navigate.Execute(services.GetRequiredService<LoginViewModel>());
+
+        if (isLoggedIn)
+        {
+            router.Navigate.Execute(services.GetRequiredService<MainMenuViewModel>());
+        }
+        else
+        {
+            router.Navigate.Execute(services.GetRequiredService<LoginViewModel>());
+        }
+        
     }
 
     protected override async void OnExit(ExitEventArgs e)
