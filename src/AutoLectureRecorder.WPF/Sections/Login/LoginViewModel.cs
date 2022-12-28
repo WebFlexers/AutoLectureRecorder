@@ -1,7 +1,9 @@
 ﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
-using AutoLectureRecorder.WPF.Sections.WebView;
+using AutoLectureRecorder.WPF.Sections.LoginWebView;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Reactive;
+using System;
 
 namespace AutoLectureRecorder.WPF.Sections.Login;
 
@@ -20,10 +22,16 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel
         HostScreen = screenFactory.GetMainWindowViewModel();
 
         LoginCommand = ReactiveCommand.Create(Login);
+
+        MessageBus.Current.Listen<string>("LoginErrorMessage").Subscribe(m => ErrorMessage = m);
     }
+
+    [Reactive]
+    public string ErrorMessage { get; set; }
+    public bool IsErrorMessageVisible { get => string.IsNullOrWhiteSpace(ErrorMessage) == false; }
 
     private void Login()
     {
-        HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(WebViewModel)));
+        HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));
     }
 }

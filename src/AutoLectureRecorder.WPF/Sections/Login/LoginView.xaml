@@ -73,6 +73,17 @@
                     </Button.Background>
                 </Button>
 
+                <TextBlock x:Name="errorTextBlock" 
+                           xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=1100}"
+                           d:Text="This is the error. Make it good. More test errorrr for the actual win"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"
+                           MaxHeight="160"
+                           Margin="0,40,0,0"
+                           Foreground="{StaticResource ErrorBrush}"
+                           FontSize="20" />
+
             </StackPanel>
 
             <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=950}"

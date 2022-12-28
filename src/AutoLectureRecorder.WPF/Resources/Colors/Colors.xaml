@@ -3,8 +3,10 @@
 
     <Color x:Key="PrimaryColor">#58c8df</Color>
     <Color x:Key="SecondaryTextColor">#bec1c3</Color>
+    <Color x:Key="ErrorColor">#F44336</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}"/>
+    <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
 
 </ResourceDictionary>

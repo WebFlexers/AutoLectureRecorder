@@ -8,7 +8,7 @@ namespace AutoLectureRecorder.Services.WebDriver;
 
 public class UnipiEdgeWebDriver : IWebDriver, IDisposable
 {
-    public const string MICROSOFT_TEAMS_AUTH_URL = "https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
+    public const string MICROSOFT_TEAMS_AUTH_URL = @"https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
     private EdgeDriver? _driver;
     private readonly ILogger<UnipiEdgeWebDriver> _logger;
 
@@ -30,7 +30,6 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
         var driverService = EdgeDriverService.CreateDefaultService();
         driverService.HideCommandPromptWindow = true;
 
-        edgeOptions.AddArguments("InPrivate");
         if (useWebView)
         {
             edgeOptions.UseWebView = true;
@@ -58,7 +57,7 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
             if (_driver.Url.Contains("login.microsoftonline.com") == false)
             {
                 _driver.Url = MICROSOFT_TEAMS_AUTH_URL;
-            }       
+            }
 
             // Turn email characters to lower, because capital letters fail the login proccess 
             _driver.FindElement(By.Id("i0116")).SendKeys(academicEmailAddress.ToLower());
@@ -73,24 +72,27 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
 
             _driver.FindElement(By.Id("loginButton")).Click();
 
-            // Wait until page loads fully
-            new WebDriverWait(_driver, _driver.Manage().Timeouts().ImplicitWait).Until(
-                d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
+            // class: banner banner-danger banner-dismissible -> Wrong credentials in unipi auth page
+            // class: mdc-card p-4 w-lg-66 m-auto -> Too many requests in unipi auth page
+            // class: row text-title -> Successful login
+            var unipiBadCredentialsErrorElement = _driver.FindElement(
+                By.XPath("//div[@class='banner banner-danger banner-dismissible' or @class='mdc-card p-4 w-lg-66 m-auto' or @class='row text-title']"));
 
-            var startingImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+            var resultMessage = unipiBadCredentialsErrorElement.Text;
+            var tagName = unipiBadCredentialsErrorElement.TagName;
+            var className = unipiBadCredentialsErrorElement.GetAttribute("class");
+            _logger.LogDebug("TagName: {tag}", tagName);
+            _logger.LogDebug("ClassName: {class}", className);
 
-            // Try to find the error element
-            var errorElements = _driver.FindElements(By.ClassName("banner-danger"));
-            if (errorElements.Any())
+            if (unipiBadCredentialsErrorElement.GetAttribute("class").Trim().Equals("row text-title"))
             {
-                var errorText = errorElements.First().FindElement(By.TagName("p")).Text;
-                _driver.Manage().Timeouts().ImplicitWait = startingImplicitWait;
-                return (false, errorText);
+                _logger.LogInformation("Successful login of {email}", academicEmailAddress);
+                return (true, "success");
             }
 
-            _driver.Manage().Timeouts().ImplicitWait = startingImplicitWait;
-            return (true, "success");
+            _logger.LogWarning("Authentication failed. Error message: {message}", resultMessage);
+
+            return (false, resultMessage);
         }
         catch (Exception ex)
         {

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
+using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.UnitTests.Services.WebDriver;
 
@@ -13,13 +14,21 @@ namespace AutoLectureRecorder.UnitTests.Services.WebDriver;
 /// </summary>
 public class UnipiEdgeWebDriverTests
 {
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public UnipiEdgeWebDriverTests(ITestOutputHelper testOutputHelper)
+    {
+        _testOutputHelper = testOutputHelper;
+    }
+
     [Fact]
     public void LoginToMicrosoftTeams_ShouldReturnTrueAndSuccessMessage()
     {
-        var logger = CreateLogger<UnipiEdgeWebDriver>();
+        var logger = XUnitLogger.CreateLogger<UnipiEdgeWebDriver>(_testOutputHelper);
         (bool, string) expected = (true, "success");
 
-        using var unipiWebDriver = new UnipiEdgeWebDriver(logger, false, TimeSpan.FromSeconds(10));
+        using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
+        unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
         string password = File.ReadAllText("academic_account_password.txt");
         (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams("P19165@unipi.gr", password);
@@ -30,24 +39,38 @@ public class UnipiEdgeWebDriverTests
     [Fact]
     public void LoginToMicrosoftTeams_ShouldReturnFalseAndInvalidCredentialsError()
     {
-        var logger = CreateLogger<UnipiEdgeWebDriver>();
-        bool expected = false;
+        var logger = XUnitLogger.CreateLogger<UnipiEdgeWebDriver>(_testOutputHelper);
 
-        using var unipiWebDriver = new UnipiEdgeWebDriver(logger, false, TimeSpan.FromSeconds(10));
+        using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
+        unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
         (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams("P19165@unipi.gr", "random_password_that_is_wrong_hopefully");
 
-        Assert.Equal(expected, actual.Item1);
+        Assert.False(actual.Item1);
     }
 
-    private ILogger<T> CreateLogger<T>()
+    [Fact]
+    public void LoginToMicrosoftTeams_ShouldReturnFalseAndTooManyRequestsError()
     {
-        var serviceProvider = new ServiceCollection()
-            .AddLogging()
-            .BuildServiceProvider();
+        var logger = XUnitLogger.CreateLogger<UnipiEdgeWebDriver>(_testOutputHelper);
 
-        var factory = serviceProvider.GetService<ILoggerFactory>();
+        using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
+        unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
-        return factory!.CreateLogger<T>();
+        bool IsThrottled = false;
+
+        for (int i = 0; i < 10; i++)
+        {
+            (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams("P19165@unipi.gr", "random_password_that_is_wrong_hopefully");
+            Assert.False(actual.Item1);
+
+            if (actual.Item2.Contains("Access Denied"))
+            {
+                IsThrottled = true;
+                break;
+            }
+        }
+
+        Assert.True(IsThrottled);
     }
 }
