@@ -47,7 +47,11 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         });
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
 
+        MessageBus.Current.Listen<bool>("MainWindowTopMost").Subscribe(tm => IsWindowTopMost = tm);
     }
+
+    [Reactive]
+    public bool IsWindowTopMost { get; set; } = false;
 
     [Reactive]
     public WindowState MainWindowState { get; set; }

@@ -9,7 +9,8 @@ namespace AutoLectureRecorder.UnitTests.Services.WebDriver;
 /// <summary>
 /// Tests for UnipiEdgeWebDriver. Requires edge web driver in the tests output directory to work. Link:
 /// https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
-/// Also put your academic account password in a file named academic_account_password.txt in the output directory of tests.
+/// Also put your academic account email (first line) and password (second line) in a file named 
+/// academic_account.txt in the output directory of the tests.
 /// This is done to avoid pushing sensitive info to source control
 /// </summary>
 public class UnipiEdgeWebDriverTests
@@ -30,8 +31,8 @@ public class UnipiEdgeWebDriverTests
         using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
         unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
-        string password = File.ReadAllText("academic_account_password.txt");
-        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams("P19165@unipi.gr", password);
+        string[] account = File.ReadAllLines("academic_account.txt");
+        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], account[1]);
 
         Assert.Equal(expected, actual);
     }
@@ -44,7 +45,8 @@ public class UnipiEdgeWebDriverTests
         using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
         unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
-        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams("P19165@unipi.gr", "random_password_that_is_wrong_hopefully");
+        string[] account = File.ReadAllLines("academic_account.txt");
+        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], "random_password_that_is_wrong_hopefully");
 
         Assert.False(actual.Item1);
     }
@@ -58,10 +60,11 @@ public class UnipiEdgeWebDriverTests
         unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
         bool IsThrottled = false;
+        string[] account = File.ReadAllLines("academic_account.txt");
 
         for (int i = 0; i < 10; i++)
         {
-            (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams("P19165@unipi.gr", "random_password_that_is_wrong_hopefully");
+            (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], "random_password_that_is_wrong_hopefully");
             Assert.False(actual.Item1);
 
             if (actual.Item2.Contains("Access Denied"))

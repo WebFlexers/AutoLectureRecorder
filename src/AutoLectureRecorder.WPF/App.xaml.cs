@@ -1,5 +1,4 @@
 ﻿using AutoLectureRecorder.WPF.DependencyInjection;
-using AutoLectureRecorder.WPF.Sections.Home;
 using AutoLectureRecorder.WPF.Sections.Login;
 using Microsoft.Extensions.DependencyInjection;
 using System;

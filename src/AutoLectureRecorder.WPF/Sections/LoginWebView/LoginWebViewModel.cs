@@ -30,6 +30,8 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel
         _webDriverFactory = webDriverFactory;
 
         LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams);
+
+        MessageBus.Current.SendMessage<bool>(true, "MainWindowTopMost");
     }
 
     [Reactive]
@@ -57,5 +59,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel
             MessageBus.Current.SendMessage(loginResult.Item2, "LoginErrorMessage");
             webDriver?.Dispose();
         }
+
+        MessageBus.Current.SendMessage<bool>(false, "MainWindowTopMost");
     }
 }

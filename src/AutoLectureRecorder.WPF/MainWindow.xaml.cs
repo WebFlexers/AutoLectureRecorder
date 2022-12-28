@@ -1,6 +1,4 @@
-﻿using AutoLectureRecorder.WPF.Sections.Home;
-using AutoLectureRecorder.WPF.Sections.Settings;
-using ReactiveMarbles.ObservableEvents;
+﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
@@ -17,6 +15,8 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         this.WhenActivated(disposables =>
         {
             this.OneWayBind(ViewModel, vm => vm.Router, v => v.routedViewHost.Router)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsWindowTopMost, v => v.mainAppWindow.Topmost)
                 .DisposeWith(disposables);
 
             //navigateToHomeButton
