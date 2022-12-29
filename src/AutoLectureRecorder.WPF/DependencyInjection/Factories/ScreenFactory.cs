@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoLectureRecorder.WPF.Sections.MainMenu;
+using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using System;
 
 namespace AutoLectureRecorder.WPF.DependencyInjection.Factories;
+
 public class ScreenFactory : IScreenFactory
 {
     private readonly IServiceProvider _services;
@@ -19,6 +21,6 @@ public class ScreenFactory : IScreenFactory
 
     public IScreen GetMainMenuViewModel()
     {
-        throw new NotImplementedException();
+        return _services.GetRequiredService<MainMenuViewModel>();
     }
 }

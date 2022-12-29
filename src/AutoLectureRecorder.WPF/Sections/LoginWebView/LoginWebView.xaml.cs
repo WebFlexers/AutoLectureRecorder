@@ -17,14 +17,14 @@ public partial class LoginWebView : ReactiveUserControl<LoginWebViewModel>
             this.OneWayBind(ViewModel, vm => vm.WebViewSource, v => v.mainWebView.Source)
                 .DisposeWith(disposables);
 
-            // Bind to LoginToMicrosoftTeams Command after clearing the browsing data
-            // to prevent a change in the login proccess
+            // Bind to LoginToMicrosoftTeams Command and clear the browsing data
+            // after to prevent a change in the login proccess
             mainWebView
                 .Events().CoreWebView2InitializationCompleted
                 .Subscribe(async (e) =>
                 {
                     await mainWebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
-                    ViewModel?.LoginToMicrosoftTeamsCommand.Execute().Subscribe();
+                    ViewModel?.LoginToMicrosoftTeamsCommand.Execute().Subscribe();   
                 }).DisposeWith(disposables);
 
             mainWebView.DisposeWith(disposables);

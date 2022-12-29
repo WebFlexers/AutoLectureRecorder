@@ -1,0 +1,28 @@
+﻿<rxui:ReactiveUserControl 
+            x:Class="AutoLectureRecorder.WPF.Sections.MainMenu.Schedule.ScheduleView"
+            x:TypeArguments="local:ScheduleViewModel"
+            xmlns:rxui="http://reactiveui.net"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:AutoLectureRecorder.WPF.Sections.MainMenu.Schedule"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            TextElement.FontWeight="Medium"
+            TextElement.FontSize="14"
+            mc:Ignorable="d"
+            d:DesignWidth="1360"
+            d:DesignHeight="768">
+    <Grid>
+        <!-- Design time grid that represents the titlebar buttons -->
+        <d:Grid d:Grid.Column="2"
+                d:Width="135"
+                d:Height="30"
+                d:Background="Black"
+                d:HorizontalAlignment="Right"
+                d:VerticalAlignment="Top" />
+
+        <TextBlock Text="Schedule" />
+    </Grid>
+</rxui:ReactiveUserControl>

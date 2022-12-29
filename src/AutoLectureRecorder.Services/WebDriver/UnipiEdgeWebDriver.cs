@@ -54,10 +54,7 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
 
         try
         {
-            if (_driver.Url.Contains("login.microsoftonline.com") == false)
-            {
-                _driver.Url = MICROSOFT_TEAMS_AUTH_URL;
-            }
+            _driver.Url = MICROSOFT_TEAMS_AUTH_URL;
 
             // Turn email characters to lower, because capital letters fail the login proccess 
             _driver.FindElement(By.Id("i0116")).SendKeys(academicEmailAddress.ToLower());

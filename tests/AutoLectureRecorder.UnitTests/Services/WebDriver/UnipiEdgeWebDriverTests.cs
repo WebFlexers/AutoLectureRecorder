@@ -1,7 +1,4 @@
 ﻿using AutoLectureRecorder.Services.WebDriver;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.UnitTests.Services.WebDriver;
@@ -23,7 +20,7 @@ public class UnipiEdgeWebDriverTests
     }
 
     [Fact]
-    public void LoginToMicrosoftTeams_ShouldReturnTrueAndSuccessMessage()
+    public void LoginToMicrosoftTeams_1ShouldReturnTrueAndSuccessMessage()
     {
         var logger = XUnitLogger.CreateLogger<UnipiEdgeWebDriver>(_testOutputHelper);
         (bool, string) expected = (true, "success");

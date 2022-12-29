@@ -2,11 +2,11 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace AutoLectureRecorder.WPF.Icons.MainMenu;
+namespace AutoLectureRecorder.WPF.Resources.MainMenu;
 
-public partial class Schedule : UserControl
+public partial class Settings : UserControl
 {
-    public Schedule()
+    public Settings()
     {
         InitializeComponent();
     }
@@ -18,17 +18,19 @@ public partial class Schedule : UserControl
     }
 
     public static readonly DependencyProperty FillColorProperty =
-        DependencyProperty.Register("FillColor", typeof(SolidColorBrush), typeof(Dashboard), new PropertyMetadata(
+        DependencyProperty.Register("FillColor", typeof(SolidColorBrush), typeof(Settings), new PropertyMetadata(
             new SolidColorBrush(), new PropertyChangedCallback(OnFillColorChanged)));
 
     private static void OnFillColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        Schedule dashboard = d as Schedule;
-        dashboard.OnFillColorChanged(e);
+        Settings settings = d as Settings;
+        settings.OnFillColorChanged(e);
     }
 
     private void OnFillColorChanged(DependencyPropertyChangedEventArgs e)
     {
-        this.shapePath.Fill = e.NewValue as SolidColorBrush;
+        var newColor = e.NewValue as SolidColorBrush;
+        this.shapePath.Fill = newColor;
+        this.Foreground = newColor;
     }
 }

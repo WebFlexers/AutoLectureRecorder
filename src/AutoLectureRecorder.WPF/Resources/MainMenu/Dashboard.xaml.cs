@@ -1,12 +1,13 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace AutoLectureRecorder.WPF.Icons.MainMenu;
+namespace AutoLectureRecorder.WPF.Resources.MainMenu;
 
-public partial class Settings : UserControl
+public partial class Dashboard : UserControl
 {
-    public Settings()
+    public Dashboard()
     {
         InitializeComponent();
     }
@@ -23,12 +24,14 @@ public partial class Settings : UserControl
 
     private static void OnFillColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        Settings dashboard = d as Settings;
+        Dashboard dashboard = d as Dashboard;
         dashboard.OnFillColorChanged(e);
     }
 
     private void OnFillColorChanged(DependencyPropertyChangedEventArgs e)
     {
-        this.shapePath.Fill = e.NewValue as SolidColorBrush;
+        var newColor = e.NewValue as SolidColorBrush;
+        this.shapePath.Fill = newColor;
+        this.Foreground = newColor;
     }
 }

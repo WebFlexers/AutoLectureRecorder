@@ -3,6 +3,7 @@ using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using AutoLectureRecorder.WPF.Sections.Login;
 using AutoLectureRecorder.WPF.Sections.MainMenu;
+using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

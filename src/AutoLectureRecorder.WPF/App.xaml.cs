@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
+using Application = System.Windows.Application;
 
 namespace AutoLectureRecorder.WPF;
 
@@ -19,10 +21,17 @@ public partial class App : Application
     {
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
 
-        var startupWindow = new StartupWindow();
-        startupWindow.Show();
+        bool showStartupWindow = false;
 
-        var startTime = Stopwatch.GetTimestamp();
+        StartupWindow startupWindow = null;
+        long startTime = -1;
+        if (showStartupWindow)
+        {
+            startupWindow = new StartupWindow();
+            startupWindow.Show();
+
+            startTime = Stopwatch.GetTimestamp();
+        }
 
         Bootstrapper = new AppBootstrapper();
         var services = Bootstrapper.AppHost.Services;
@@ -31,16 +40,28 @@ public partial class App : Application
         var studentAccount = await studentAccountData.GetStudentAccount()!;
         var isLoggedIn = studentAccount != null;
 
-        var endTime = Stopwatch.GetTimestamp();
-        var diff = Stopwatch.GetElapsedTime(startTime, endTime);
-
-        if (diff < TimeSpan.FromSeconds(2.5))
+        if (showStartupWindow)
         {
-            await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
+            var endTime = Stopwatch.GetTimestamp();
+            var diff = Stopwatch.GetElapsedTime(startTime, endTime);
+
+            if (diff < TimeSpan.FromSeconds(2.5))
+            {
+                await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
+            }
+
+            startupWindow!.Close();
         }
 
-        startupWindow.Close();
         mainWindow.Show();
+
+        Screen screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
+        if (screen.WorkingArea.Width < mainWindow.Width
+            || screen.WorkingArea.Height < mainWindow.Height)
+        {
+            mainWindow.WindowState = WindowState.Maximized;
+        }
+
         var router = services.GetRequiredService<MainWindowViewModel>().Router;
 
         if (isLoggedIn)

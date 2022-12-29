@@ -67,6 +67,6 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 
         Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(type));
 
-        _logger.LogDebug("Navigated to {viewModel}", type.Name);
+        _logger.LogInformation("Navigated to {viewModel}", type.Name);
     }
 }
