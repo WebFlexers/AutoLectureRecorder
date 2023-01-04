@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Viewbox Grid.Column="0"
-                 Margin="0,4">
+                 Margin="0,6">
             <Canvas Width="24"
                     Height="24">
                 <Path x:Name="shapePath"

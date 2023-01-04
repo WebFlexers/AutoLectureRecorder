@@ -17,7 +17,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Viewbox Margin="0,4">
+        <Viewbox Margin="0,6">
             <Canvas Width="24"
                     Height="24">
                 <Path x:Name="shapePath"

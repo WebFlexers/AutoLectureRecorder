@@ -72,16 +72,16 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
             // class: banner banner-danger banner-dismissible -> Wrong credentials in unipi auth page
             // class: mdc-card p-4 w-lg-66 m-auto -> Too many requests in unipi auth page
             // class: row text-title -> Successful login
-            var unipiBadCredentialsErrorElement = _driver.FindElement(
+            var loginResultElement = _driver.FindElement(
                 By.XPath("//div[@class='banner banner-danger banner-dismissible' or @class='mdc-card p-4 w-lg-66 m-auto' or @class='row text-title']"));
 
-            var resultMessage = unipiBadCredentialsErrorElement.Text;
-            var tagName = unipiBadCredentialsErrorElement.TagName;
-            var className = unipiBadCredentialsErrorElement.GetAttribute("class");
+            var resultMessage = loginResultElement.Text;
+            var tagName = loginResultElement.TagName;
+            var className = loginResultElement.GetAttribute("class");
             _logger.LogDebug("TagName: {tag}", tagName);
             _logger.LogDebug("ClassName: {class}", className);
 
-            if (unipiBadCredentialsErrorElement.GetAttribute("class").Trim().Equals("row text-title"))
+            if (loginResultElement.GetAttribute("class").Trim().Equals("row text-title"))
             {
                 _logger.LogInformation("Successful login of {email}", academicEmailAddress);
                 return (true, "success");

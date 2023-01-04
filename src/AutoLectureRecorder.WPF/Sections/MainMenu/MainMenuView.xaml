@@ -19,7 +19,7 @@
             d:DesignHeight="768">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="225" />
+            <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -35,7 +35,6 @@
             <!-- Dashboard -->
             <Button x:Name="dashboardButton"
                     Margin="0,35,0,0"
-                    Width="225"
                     Height="55"
                     Background="{StaticResource ButtonHoverBrush}"
                     BorderThickness="0"
@@ -52,7 +51,6 @@
 
             <!-- Schedule -->
             <Button x:Name="scheduleButton"
-                    Width="225"
                     Height="55"
                     Background="Transparent"
                     BorderThickness="0"
@@ -70,7 +68,6 @@
 
             <!-- Upload -->
             <Button x:Name="uploadButton"
-                    Width="225"
                     Height="55"
                     Background="Transparent"
                     BorderThickness="0"
@@ -88,7 +85,6 @@
 
             <!-- Library -->
             <Button x:Name="libraryButton"
-                    Width="225"
                     Height="55"
                     Background="Transparent"
                     BorderThickness="0"
@@ -106,7 +102,6 @@
 
             <!-- Settings -->
             <Button x:Name="settingsButton"
-                    Width="225"
                     Height="55"
                     Background="Transparent"
                     BorderThickness="0"
@@ -128,7 +123,6 @@
                     VerticalAlignment="Bottom" >
             <!-- Help -->
             <Button x:Name="helpButton"
-                    Width="225"
                     Height="55"
                     Background="Transparent"
                     BorderThickness="0"
@@ -146,7 +140,6 @@
 
             <!-- Logout -->
             <Button x:Name="logoutButton"
-                    Width="225"
                     Height="55"
                     Background="Transparent"
                     BorderThickness="0"

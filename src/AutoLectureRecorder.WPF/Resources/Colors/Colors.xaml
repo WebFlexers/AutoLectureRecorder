@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Color x:Key="PrimaryColor">#58c8df</Color>
-    <Color x:Key="SecondaryTextColor">#bec1c3</Color>
+    <Color x:Key="SecondaryTextColor">#8A8A8B</Color>
     <Color x:Key="ButtonHoverColor">#E0F2F6</Color>
     <Color x:Key="ErrorColor">#F44336</Color>
-
+    <!--bec1c3-->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}"/>
     <SolidColorBrush x:Key="ButtonHoverBrush" Color="{StaticResource ButtonHoverColor}" />
