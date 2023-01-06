@@ -16,7 +16,7 @@
                      WindowStartupLocation="CenterScreen"
                      mc:Ignorable="d"
                      Title="MainWindow"
-                     MinWidth="800"
+                     MinWidth="1100"
                      MinHeight="540"
                      Width="1360"
                      Height="768">
@@ -56,7 +56,7 @@
         </Grid.RowDefinitions>
         
         <!-- TitleBar -->
-        <Grid x:Name="titlebarGrid" 
+        <Grid x:Name="titlebarGrid"
               Grid.Row="0"
               Panel.ZIndex="10">
             <StackPanel x:Name="titlebarButtonsStackPanel"

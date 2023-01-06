@@ -48,6 +48,28 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
 
         MessageBus.Current.Listen<bool>("MainWindowTopMost").Subscribe(tm => IsWindowTopMost = tm);
+
+        MessageBus.Current.Listen<bool>("VideoFullScreen").Subscribe(isVideoFullScreen =>
+        {
+            _isFullScreenVideoPlaying = isVideoFullScreen;
+            ToggleFullscreenVideoMode();
+        });
+    }
+
+    private bool _isFullScreenVideoPlaying;
+
+    private void ToggleFullscreenVideoMode()
+    {
+        IsWindowTopMost = _isFullScreenVideoPlaying;
+
+        if (_isFullScreenVideoPlaying)
+        {
+            MainWindowState = WindowState.Maximized;
+        }
+        else
+        {
+            MainWindowState = WindowState.Normal;
+        }
     }
 
     [Reactive]

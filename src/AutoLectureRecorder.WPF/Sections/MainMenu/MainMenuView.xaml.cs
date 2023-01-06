@@ -21,6 +21,8 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
         {
             this.OneWayBind(ViewModel, vm => vm.Router, v => v.routedViewHost.Router)
                 .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.MenuVisibility, v => v.mainMenuGrid.Visibility)
+                .DisposeWith(disposables);
 
             this.BindCommand(ViewModel, vm => vm.NavigateToDashboardCommand, v => v.dashboardButton)
                 .DisposeWith(disposables);

@@ -19,148 +19,159 @@
             d:DesignHeight="768">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- Left Side Menu -->
-        <StackPanel Grid.Column="0">
-            <Image Source="../../Icons/Login/app_icon_filled256x256.png"
-                   Width="80"
-                   Height="80"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Margin="0,35,0,0" />
+        <Grid Grid.Row="0"
+              x:Name="mainMenuGrid"
+              Width="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
 
-            <!-- Dashboard -->
-            <Button x:Name="dashboardButton"
-                    Margin="0,35,0,0"
-                    Height="55"
-                    Background="{StaticResource ButtonHoverBrush}"
-                    BorderThickness="0"
-                    Cursor="Arrow"
-                    Padding="0,5"
-                    Style="{StaticResource MaterialDesignFlatButton}">
+            <StackPanel Grid.Column="0">
+                <Image Source="../../Icons/Login/app_icon_filled256x256.png"
+                       Width="80"
+                       Height="80"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="0,35,0,0" />
 
-                <Button.Content>
-                    <mainmenu:Dashboard x:Name="dashboardButtonContent"
-                                        TextElement.FontSize="14"
-                                        FillColor="{StaticResource PrimaryBrush}" />
-                </Button.Content>
-            </Button>
+                <!-- Dashboard -->
+                <Button x:Name="dashboardButton"
+                        Margin="0,35,0,0"
+                        Height="55"
+                        Background="{StaticResource ButtonHoverBrush}"
+                        BorderThickness="0"
+                        Cursor="Arrow"
+                        Padding="0,5"
+                        Style="{StaticResource MaterialDesignFlatButton}">
 
-            <!-- Schedule -->
-            <Button x:Name="scheduleButton"
-                    Height="55"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Cursor="Arrow"
-                    Padding="0,5"
-                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button.Content>
+                        <mainmenu:Dashboard x:Name="dashboardButtonContent"
+                                            TextElement.FontSize="14"
+                                            FillColor="{StaticResource PrimaryBrush}" />
+                    </Button.Content>
+                </Button>
 
-                <Button.Content>
-                    <mainmenu:Schedule x:Name="scheduleButtonContent"
-                                       Margin="0,0,7,0"
-                                       TextElement.FontSize="14"
-                                       FillColor="{StaticResource SecondaryTextBrush}" />
-                </Button.Content>
-            </Button>
+                <!-- Schedule -->
+                <Button x:Name="scheduleButton"
+                        Height="55"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Arrow"
+                        Padding="0,5"
+                        Style="{StaticResource MaterialDesignFlatButton}">
 
-            <!-- Upload -->
-            <Button x:Name="uploadButton"
-                    Height="55"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Cursor="Arrow"
-                    Padding="0,5"
-                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button.Content>
+                        <mainmenu:Schedule x:Name="scheduleButtonContent"
+                                           Margin="0,0,7,0"
+                                           TextElement.FontSize="14"
+                                           FillColor="{StaticResource SecondaryTextBrush}" />
+                    </Button.Content>
+                </Button>
 
-                <Button.Content>
-                    <mainmenu:Upload x:Name="uploadButtonContent"
-                                       Margin="0,0,26,0"
-                                       TextElement.FontSize="14"
-                                       FillColor="{StaticResource SecondaryTextBrush}" />
-                </Button.Content>
-            </Button>
+                <!-- Upload -->
+                <Button x:Name="uploadButton"
+                        Height="55"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Arrow"
+                        Padding="0,5"
+                        Style="{StaticResource MaterialDesignFlatButton}">
 
-            <!-- Library -->
-            <Button x:Name="libraryButton"
-                    Height="55"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Cursor="Arrow"
-                    Padding="0,5"
-                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button.Content>
+                        <mainmenu:Upload x:Name="uploadButtonContent"
+                                         Margin="0,0,26,0"
+                                         TextElement.FontSize="14"
+                                         FillColor="{StaticResource SecondaryTextBrush}" />
+                    </Button.Content>
+                </Button>
 
-                <Button.Content>
-                    <mainmenu:Library x:Name="libraryButtonContent"
-                                     Margin="0,0,24,0"
-                                     TextElement.FontSize="14"
-                                     FillColor="{StaticResource SecondaryTextBrush}" />
-                </Button.Content>
-            </Button>
+                <!-- Library -->
+                <Button x:Name="libraryButton"
+                        Height="55"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Arrow"
+                        Padding="0,5"
+                        Style="{StaticResource MaterialDesignFlatButton}">
 
-            <!-- Settings -->
-            <Button x:Name="settingsButton"
-                    Height="55"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Cursor="Arrow"
-                    Padding="0,5"
-                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button.Content>
+                        <mainmenu:Library x:Name="libraryButtonContent"
+                                          Margin="0,0,24,0"
+                                          TextElement.FontSize="14"
+                                          FillColor="{StaticResource SecondaryTextBrush}" />
+                    </Button.Content>
+                </Button>
 
-                <Button.Content>
-                    <mainmenu:Settings x:Name="settingsButtonContent"
-                                      Margin="0,0,15,0"
-                                       TextElement.FontSize="14"
-                                      FillColor="{StaticResource SecondaryTextBrush}" />
-                </Button.Content>
-            </Button>
-        </StackPanel>
-        
-        <!-- Left Side Down Buttons -->
-        <StackPanel Grid.Column="0"
-                    VerticalAlignment="Bottom" >
-            <!-- Help -->
-            <Button x:Name="helpButton"
-                    Height="55"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Cursor="Hand"
-                    Padding="0,5"
-                    Style="{StaticResource MaterialDesignFlatButton}">
+                <!-- Settings -->
+                <Button x:Name="settingsButton"
+                        Height="55"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Arrow"
+                        Padding="0,5"
+                        Style="{StaticResource MaterialDesignFlatButton}">
 
-                <Button.Content>
-                    <mainmenu:Help x:Name="helpButtonContent"
+                    <Button.Content>
+                        <mainmenu:Settings x:Name="settingsButtonContent"
+                                           Margin="0,0,15,0"
+                                           TextElement.FontSize="14"
+                                           FillColor="{StaticResource SecondaryTextBrush}" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <!-- Left Side Down Buttons -->
+            <StackPanel Grid.Column="0"
+                        VerticalAlignment="Bottom">
+                <!-- Help -->
+                <Button x:Name="helpButton"
+                        Height="55"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Padding="0,5"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+
+                    <Button.Content>
+                        <mainmenu:Help x:Name="helpButtonContent"
                                        Margin="0,0,32,0"
                                        TextElement.FontSize="14"
                                        FillColor="{StaticResource SecondaryTextBrush}" />
-                </Button.Content>
-            </Button>
+                    </Button.Content>
+                </Button>
 
-            <!-- Logout -->
-            <Button x:Name="logoutButton"
-                    Height="55"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Cursor="Hand"
-                    Padding="0,5"
-                    Style="{StaticResource MaterialDesignFlatButton}">
+                <!-- Logout -->
+                <Button x:Name="logoutButton"
+                        Height="55"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Padding="0,5"
+                        Style="{StaticResource MaterialDesignFlatButton}">
 
-                <Button.Content>
-                    <mainmenu:Logout x:Name="logoutButtonContent"
-                                   Margin="0,0,15,0"
-                                   TextElement.FontSize="14"
-                                   FillColor="{StaticResource SecondaryTextBrush}" />
-                </Button.Content>
-            </Button>
-        </StackPanel>
+                    <Button.Content>
+                        <mainmenu:Logout x:Name="logoutButtonContent"
+                                         Margin="0,0,15,0"
+                                         TextElement.FontSize="14"
+                                         FillColor="{StaticResource SecondaryTextBrush}" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
 
         <!-- Vertical Line -->
         <Grid Grid.Column="0"
               Width="1"
               HorizontalAlignment="Right"
-              Background="{StaticResource SecondaryTextBrush}" />
+              Background="{StaticResource SectionLineBrush}">
+        </Grid>
 
         <!-- Routed View Host -->
         <rxui:RoutedViewHost Grid.Column="1"

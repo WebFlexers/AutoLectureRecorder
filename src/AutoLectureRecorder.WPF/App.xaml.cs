@@ -21,7 +21,7 @@ public partial class App : Application
     {
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
 
-        bool showStartupWindow = true;
+        bool showStartupWindow = false;
 
         StartupWindow startupWindow = null;
         long startTime = -1;

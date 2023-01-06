@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AutoLectureRecorder.WPF.Sections.MainMenu;
 
@@ -56,6 +57,11 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
 
+        MessageBus.Current.Listen<bool>("VideoFullScreen").Subscribe(isFullScreen =>
+        {
+            ToggleMenuVisibility(isFullScreen);
+        });
+
         this.WhenActivated(disposables =>
         {
             Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(DashboardViewModel)))
@@ -80,5 +86,20 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(type));
 
         _logger.LogInformation("Navigated to {viewModel}", type.Name);
+    }
+
+    [Reactive]
+    public Visibility MenuVisibility { get; set; } = Visibility.Visible;
+
+    private void ToggleMenuVisibility(bool isFullScreen)
+    {
+        if (isFullScreen)
+        {
+            MenuVisibility = Visibility.Collapsed;
+        }
+        else
+        {
+            MenuVisibility = Visibility.Visible;
+        }
     }
 }
