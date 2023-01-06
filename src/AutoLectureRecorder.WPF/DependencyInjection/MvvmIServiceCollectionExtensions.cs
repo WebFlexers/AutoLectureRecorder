@@ -1,6 +1,7 @@
 ﻿using AutoLectureRecorder.WPF.Sections.Login;
 using AutoLectureRecorder.WPF.Sections.LoginWebView;
 using AutoLectureRecorder.WPF.Sections.MainMenu;
+using AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Library;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
@@ -11,7 +12,7 @@ using ReactiveUI;
 
 namespace AutoLectureRecorder.WPF.DependencyInjection;
 
-public static class IServiceCollectionExtensions
+public static class MvvmIServiceCollectionExtensions
 {
     public static IServiceCollection AddViews(this IServiceCollection services)
     {
@@ -20,6 +21,7 @@ public static class IServiceCollectionExtensions
 
         services.AddTransient<IViewFor<MainMenuViewModel>, MainMenuView>();
 
+        services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
         services.AddTransient<IViewFor<DashboardViewModel>, DashboardView>();
         services.AddTransient<IViewFor<LibraryViewModel>, LibraryView>();
         services.AddTransient<IViewFor<ScheduleViewModel>, ScheduleView>();
@@ -36,6 +38,7 @@ public static class IServiceCollectionExtensions
 
         services.AddScoped<MainMenuViewModel>();
 
+        services.AddTransient<CreateLectureViewModel>();
         services.AddTransient<DashboardViewModel>();
         services.AddTransient<LibraryViewModel>();
         services.AddTransient<ScheduleViewModel>();

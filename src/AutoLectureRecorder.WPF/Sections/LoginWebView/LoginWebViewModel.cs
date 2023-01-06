@@ -14,13 +14,14 @@ using System.Threading.Tasks;
 
 namespace AutoLectureRecorder.WPF.Sections.LoginWebView;
 
-public class LoginWebViewModel : ReactiveObject, IRoutableViewModel
+public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
     private readonly IWebDriverFactory _webDriverFactory;
     private readonly IStudentAccountData _studentAccountData;
     private readonly ILogger<LoginWebViewModel> _logger;
     private readonly IViewModelFactory _viewModelFactory;
 
+    public ViewModelActivator Activator { get; } = new ViewModelActivator();
     public string? UrlPathSegment => nameof(LoginWebViewModel);
     public IScreen HostScreen { get; }
 
@@ -34,14 +35,19 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel
         _viewModelFactory = viewModelFactory;
         _webDriverFactory = webDriverFactory;
         _studentAccountData = studentAccountData;
-        MessageBus.Current.SendMessage<bool>(true, "MainWindowTopMost");
-        MessageBus.Current.Listen<(string, string)>("StudentAccount").Subscribe(account =>
-        {
-            _academicEmailAddress = account.Item1;
-            _password = account.Item2;
-        });
 
-        LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams);
+        this.WhenActivated(disposables =>
+        {
+            MessageBus.Current.SendMessage<bool>(true, "MainWindowTopMost");
+            MessageBus.Current.Listen<(string, string)>("StudentAccount").Subscribe(account =>
+            {
+                _academicEmailAddress = account.Item1;
+                _password = account.Item2;
+            }).DisposeWith(disposables);
+
+            LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams)
+                .DisposeWith(disposables);
+        }); 
     }
 
     [Reactive]

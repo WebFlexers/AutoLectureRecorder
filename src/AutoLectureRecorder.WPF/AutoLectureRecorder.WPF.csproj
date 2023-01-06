@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\CreateLecture\question_mark.png" />
     <None Remove="Icons\Dashboard\check.png" />
     <None Remove="Icons\Dashboard\fail.png" />
     <None Remove="Icons\Dashboard\meeting.png" />
@@ -50,6 +51,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Icons\CreateLecture\question_mark.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	  <Resource Include="Icons\Dashboard\check.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>

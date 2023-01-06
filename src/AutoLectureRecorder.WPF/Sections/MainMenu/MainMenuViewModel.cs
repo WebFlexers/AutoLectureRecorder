@@ -1,6 +1,7 @@
 ﻿using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using AutoLectureRecorder.WPF.Sections.Login;
+using AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Library;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
@@ -30,6 +31,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     public string? UrlPathSegment => nameof(MainMenuViewModel);
     public IScreen HostScreen { get; }
 
+    public ReactiveCommand<Unit, Unit> NavigateToCreateLectureCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> NavigateToDashboardCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> NavigateToLibraryCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> NavigateToScheduleCommand { get; private set; }
@@ -48,6 +50,8 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         _studentAccountData = studentAccountData;
         HostScreen = screenFactory.GetMainWindowViewModel();
 
+        NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
+            SetRoutedViewHostContent(typeof(CreateLectureViewModel)));
         NavigateToDashboardCommand = ReactiveCommand.Create(() =>
             SetRoutedViewHostContent(typeof(DashboardViewModel)));
         NavigateToLibraryCommand = ReactiveCommand.Create(() =>
@@ -71,7 +75,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         this.WhenActivated(disposables =>
         {
-            NavigateToDashboardCommand.Execute()
+            NavigateToCreateLectureCommand.Execute()
                 .Subscribe()
                 .DisposeWith(disposables);
         });

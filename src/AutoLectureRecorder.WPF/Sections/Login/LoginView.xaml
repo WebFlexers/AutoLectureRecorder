@@ -59,6 +59,7 @@
                         xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=800}"
                         IsDefault="True"
                         Margin="0, 40, 0, 0"
+                        d:Height="50"
                         Height="{Binding ElementName=passwordTextbox, Path=ActualHeight}"
                         Content="Login"
                         FontSize="18"
