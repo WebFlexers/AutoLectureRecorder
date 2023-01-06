@@ -9,6 +9,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
 namespace AutoLectureRecorder.WPF.Sections.LoginWebView;
@@ -52,11 +53,13 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel
     {
         IWebDriver? webDriver = null;
 
-        (bool, string) loginResult = await Task.Run(() =>
+        Task<(bool, string)> loginTask = Task.Run(() =>
         {
             webDriver = _webDriverFactory.CreateUnipiEdgeWebDriver(true, TimeSpan.FromSeconds(17));
             return webDriver.LoginToMicrosoftTeams(_academicEmailAddress, _password);
         });
+
+        (bool, string) loginResult = await loginTask;
 
         _logger.LogInformation("Login Result: {result}, Message: {message}", loginResult.Item1, loginResult.Item2);
 
@@ -70,8 +73,10 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel
         {
             HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
             MessageBus.Current.SendMessage(loginResult.Item2, "LoginErrorMessage");
-            webDriver?.Dispose();
         }
+
+        webDriver?.Dispose();
+        loginTask.Dispose();
 
         MessageBus.Current.SendMessage<bool>(false, "MainWindowTopMost");
     }

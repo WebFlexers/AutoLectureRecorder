@@ -16,8 +16,8 @@
                      WindowStartupLocation="CenterScreen"
                      mc:Ignorable="d"
                      Title="MainWindow"
-                     MinWidth="1100"
-                     MinHeight="540"
+                     MinWidth="1160"
+                     MinHeight="710"
                      Width="1360"
                      Height="768">
 

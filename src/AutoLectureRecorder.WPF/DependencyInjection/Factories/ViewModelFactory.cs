@@ -3,6 +3,7 @@ using ReactiveUI;
 using System;
 
 namespace AutoLectureRecorder.WPF.DependencyInjection.Factories;
+
 public class ViewModelFactory : IViewModelFactory
 {
     private readonly IServiceProvider _services;

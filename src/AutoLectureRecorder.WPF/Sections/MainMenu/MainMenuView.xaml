@@ -25,6 +25,7 @@
 
         <!-- Left Side Menu -->
         <Grid Grid.Row="0"
+              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=200}"
               x:Name="mainMenuGrid"
               Width="200">
             <Grid.RowDefinitions>
@@ -41,89 +42,131 @@
                        Margin="0,35,0,0" />
 
                 <!-- Dashboard -->
-                <Button x:Name="dashboardButton"
-                        Margin="0,35,0,0"
-                        Height="55"
-                        Background="{StaticResource ButtonHoverBrush}"
-                        BorderThickness="0"
-                        Cursor="Arrow"
-                        Padding="0,5"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                <Grid Margin="0,35,0,0">
+                    <Button x:Name="dashboardButton"
+                            Height="55"
+                            Background="{StaticResource ButtonHoverBrush}"
+                            BorderThickness="0"
+                            Cursor="Arrow"
+                            Padding="0,5"
+                            Style="{StaticResource MaterialDesignFlatButton}">
 
-                    <Button.Content>
-                        <mainmenu:Dashboard x:Name="dashboardButtonContent"
-                                            TextElement.FontSize="14"
-                                            FillColor="{StaticResource PrimaryBrush}" />
-                    </Button.Content>
-                </Button>
+                        <Button.Content>
+                            <mainmenu:Dashboard x:Name="dashboardButtonContent"
+                                                TextElement.FontSize="14"
+                                                FillColor="{StaticResource PrimaryBrush}" />
+                        </Button.Content>
+                    </Button>
+
+                    <Grid x:Name="dashboardSelectedLineGrid"
+                          HorizontalAlignment="Right"
+                          Background="{StaticResource PrimaryBrush}"
+                          Width="3"
+                          Height="55"/>
+                </Grid>
 
                 <!-- Schedule -->
-                <Button x:Name="scheduleButton"
-                        Height="55"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Cursor="Arrow"
-                        Padding="0,5"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                <Grid>
+                    <Button x:Name="scheduleButton"
+                            Height="55"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Arrow"
+                            Padding="0,5"
+                            Style="{StaticResource MaterialDesignFlatButton}">
 
-                    <Button.Content>
-                        <mainmenu:Schedule x:Name="scheduleButtonContent"
-                                           Margin="0,0,7,0"
-                                           TextElement.FontSize="14"
-                                           FillColor="{StaticResource SecondaryTextBrush}" />
-                    </Button.Content>
-                </Button>
+                        <Button.Content>
+                            <mainmenu:Schedule x:Name="scheduleButtonContent"
+                                               Margin="0,0,7,0"
+                                               TextElement.FontSize="14"
+                                               FillColor="{StaticResource SecondaryTextBrush}" />
+                        </Button.Content>
+                    </Button>
+                    <Grid x:Name="scheduleSelectedLineGrid"
+                          Visibility="Hidden"
+                          HorizontalAlignment="Right"
+                          Background="{StaticResource PrimaryBrush}"
+                          Width="3"
+                          Height="55"/>
+                </Grid>
 
                 <!-- Upload -->
-                <Button x:Name="uploadButton"
-                        Height="55"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Cursor="Arrow"
-                        Padding="0,5"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                <Grid>
+                    <Button x:Name="uploadButton"
+                            Height="55"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Arrow"
+                            Padding="0,5"
+                            Style="{StaticResource MaterialDesignFlatButton}">
 
-                    <Button.Content>
-                        <mainmenu:Upload x:Name="uploadButtonContent"
-                                         Margin="0,0,26,0"
-                                         TextElement.FontSize="14"
-                                         FillColor="{StaticResource SecondaryTextBrush}" />
-                    </Button.Content>
-                </Button>
+                        <Button.Content>
+                            <mainmenu:Upload x:Name="uploadButtonContent"
+                                             Margin="0,0,26,0"
+                                             TextElement.FontSize="14"
+                                             FillColor="{StaticResource SecondaryTextBrush}" />
+                        </Button.Content>
+                    </Button>
+
+                    <Grid x:Name="uploadSelectedLineGrid"
+                          Visibility="Hidden"
+                          HorizontalAlignment="Right"
+                          Background="{StaticResource PrimaryBrush}"
+                          Width="3"
+                          Height="55" />
+                </Grid>
 
                 <!-- Library -->
-                <Button x:Name="libraryButton"
-                        Height="55"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Cursor="Arrow"
-                        Padding="0,5"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                <Grid>
+                    <Button x:Name="libraryButton"
+                            Height="55"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Arrow"
+                            Padding="0,5"
+                            Style="{StaticResource MaterialDesignFlatButton}">
 
-                    <Button.Content>
-                        <mainmenu:Library x:Name="libraryButtonContent"
-                                          Margin="0,0,24,0"
-                                          TextElement.FontSize="14"
-                                          FillColor="{StaticResource SecondaryTextBrush}" />
-                    </Button.Content>
-                </Button>
+                        <Button.Content>
+                            <mainmenu:Library x:Name="libraryButtonContent"
+                                              Margin="0,0,24,0"
+                                              TextElement.FontSize="14"
+                                              FillColor="{StaticResource SecondaryTextBrush}" />
+                        </Button.Content>
+                    </Button>
+                    
+                    <Grid x:Name="librarySelectedLineGrid"
+                          Visibility="Hidden"
+                          HorizontalAlignment="Right"
+                          Background="{StaticResource PrimaryBrush}"
+                          Width="3"
+                          Height="55" />
+                </Grid>
 
                 <!-- Settings -->
-                <Button x:Name="settingsButton"
-                        Height="55"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Cursor="Arrow"
-                        Padding="0,5"
-                        Style="{StaticResource MaterialDesignFlatButton}">
+                <Grid>
+                    <Button x:Name="settingsButton"
+                            Height="55"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Arrow"
+                            Padding="0,5"
+                            Style="{StaticResource MaterialDesignFlatButton}">
 
-                    <Button.Content>
-                        <mainmenu:Settings x:Name="settingsButtonContent"
-                                           Margin="0,0,15,0"
-                                           TextElement.FontSize="14"
-                                           FillColor="{StaticResource SecondaryTextBrush}" />
-                    </Button.Content>
-                </Button>
+                        <Button.Content>
+                            <mainmenu:Settings x:Name="settingsButtonContent"
+                                               Margin="0,0,15,0"
+                                               TextElement.FontSize="14"
+                                               FillColor="{StaticResource SecondaryTextBrush}" />
+                        </Button.Content>
+                    </Button>
+
+                    <Grid x:Name="settingsSelectedLineGrid"
+                          Visibility="Hidden"
+                          HorizontalAlignment="Right"
+                          Background="{StaticResource PrimaryBrush}"
+                          Width="3"
+                          Height="55" />
+                </Grid>
             </StackPanel>
 
             <!-- Left Side Down Buttons -->
@@ -164,13 +207,13 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
 
         <!-- Vertical Line -->
         <Grid Grid.Column="0"
               Width="1"
               HorizontalAlignment="Right"
-              Background="{StaticResource SectionLineBrush}">
+              Background="{StaticResource SectionLineBrush}"
+              Panel.ZIndex="-1">
         </Grid>
 
         <!-- Routed View Host -->

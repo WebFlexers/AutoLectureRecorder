@@ -7,6 +7,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:local="clr-namespace:AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard"
+            xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             TextElement.FontWeight="Medium"
@@ -14,136 +15,298 @@
             mc:Ignorable="d"
             d:DesignWidth="1160"
             d:DesignHeight="768">
-    <Grid>
+
+    <Grid x:Name="mainGrid">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="470" />
+        </Grid.ColumnDefinitions>
+
         <!-- Design time grid that represents the titlebar buttons -->
-        <d:Grid d:Width="135"
+        <d:Grid Grid.Column="1" 
+                d:Width="135"
                 d:Height="30"
                 d:Background="Black"
                 d:HorizontalAlignment="Right"
                 d:VerticalAlignment="Top" />
 
-        <Grid x:Name="mainGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="470" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <StackPanel x:Name="mainDashboardStackPanel" 
-                        Grid.Column="0"
-                        Margin="35">
+            <StackPanel x:Name="mainDashboardStackPanel"
+                        Margin="35,35,35,0">
                 <!-- Welcome back -->
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Welcome Back, "
-                               FontSize="30" />
-                    <TextBlock x:Name="registrationNumTextBlock" 
-                               Text="P19165"
-                               FontSize="30" />
-                    <TextBlock Text="!"
-                               FontSize="30" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Let's get recording"
-                               FontSize="18"
-                               Foreground="{StaticResource SecondaryTextBrush}"
-                               Margin="0,5,13,0" />
-                    <Image Source="../../../Icons/Dashboard/video_camera.png"
-                           Width="25"
-                           Margin="0,4.5,0,0" />
+                <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Welcome Back, "
+                                   FontSize="30" />
+                        <TextBlock x:Name="registrationNumTextBlock"
+                                   Text="P19165"
+                                   FontSize="30" />
+                        <TextBlock Text="!"
+                                   FontSize="30" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Let's get recording"
+                                   FontSize="18"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Margin="0,5,13,0" />
+                        <Image Source="../../../Icons/Dashboard/video_camera.png"
+                               Width="25"
+                               Margin="0,4.5,0,0" />
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Horizontal Line -->
                 <Grid Height="1"
                       d:Width="770"
                       Width="{Binding ElementName=mainDashboardStackPanel,Path=ActualWidth}"
-                      Margin="0,30"
+                      Margin="0,20"
                       HorizontalAlignment="Right"
                       Background="{StaticResource SectionLineBrush}">
                 </Grid>
 
                 <!-- Next scheduled lecture -->
-                <TextBlock Text="Scheduled Recording"
-                           FontSize="22" />
+                <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=200}">
+                    <TextBlock Text="Scheduled Recording"
+                               FontSize="22" />
 
-                <TextBlock Text="Next Scheduled lecture"
-                           FontSize="18"
-                           Foreground="{StaticResource SecondaryTextBrush}"
-                           Margin="0,15,0,6"/>
-
-                <Border CornerRadius="12"
-                        Height="85">
-                    <Border.Background>
-                        <LinearGradientBrush EndPoint="1,1"
-                                             StartPoint="0,0">
-                            <GradientStop Color="{StaticResource PrimaryColor}" />
-                            <GradientStop Color="{StaticResource PrimaryDarkerColor}"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <TextBlock VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Foreground="{StaticResource PrimaryTextBrush}"
+                    <TextBlock Text="Next Scheduled lecture"
                                FontSize="18"
-                               MaxWidth="650"
-                               TextWrapping="WrapWithOverflow"
-                               MaxHeight="55"
-                               Margin="20,0,20,0"
-                               TextTrimming="CharacterEllipsis"
-                               Text="Σύγχρονα Θέματα Τεχνολογίας Λογισμικού - Λογισμικό για κινητές συσκευές" />
-                </Border>
+                               Foreground="{StaticResource SecondaryTextBrush}"
+                               Margin="0,20,0,10" />
 
-                <!-- Starting in -->
-                <TextBlock Text="Starting in"
-                           FontSize="18"
-                           Foreground="{StaticResource SecondaryTextBrush}"
-                           Margin="0,15,0,6" />
+                    <Border CornerRadius="12"
+                            Height="85">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="1,1"
+                                                 StartPoint="0,0">
+                                <GradientStop Color="{StaticResource PrimaryColor}" />
+                                <GradientStop Color="{StaticResource PrimaryDarkerColor}"
+                                              Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0"
+                                              BlurRadius="18"
+                                              Opacity="0.3"
+                                              Direction="-75" />
+                        </Border.Effect>
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource PrimaryTextBrush}"
+                                   FontSize="18"
+                                   MaxWidth="650"
+                                   TextWrapping="WrapWithOverflow"
+                                   MaxHeight="55"
+                                   Margin="20,0,20,0"
+                                   TextTrimming="CharacterEllipsis"
+                                   Text="Σύγχρονα Θέματα Τεχνολογίας Λογισμικού - Λογισμικό για κινητές συσκευές" />
+                    </Border>
 
-                <Border CornerRadius="12"
-                        Height="85">
-                    <Border.Background>
-                        <LinearGradientBrush EndPoint="1,1"
-                                             StartPoint="0,0">
-                            <GradientStop Color="#0e3e48" />
-                            <GradientStop Color="#061621"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <TextBlock VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Foreground="{StaticResource PrimaryTextBrush}"
+                    <!-- Starting in -->
+                    <TextBlock Text="Starting in"
                                FontSize="18"
-                               MaxWidth="650"
-                               TextWrapping="WrapWithOverflow"
-                               MaxHeight="55"
-                               TextTrimming="CharacterEllipsis"
-                               Text="5 Days, 4 hours, 3 Minutes, 35 Seconds"/>
-                </Border>
+                               Foreground="{StaticResource SecondaryTextBrush}"
+                               Margin="0,15,0,10" />
+
+                    <Border CornerRadius="12"
+                            Height="85">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="1,1"
+                                                 StartPoint="0,0">
+                                <GradientStop Color="#0e3e48" />
+                                <GradientStop Color="#061621"
+                                              Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0"
+                                              BlurRadius="18"
+                                              Opacity="0.3"
+                                              Direction="-75" />
+                        </Border.Effect>
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource PrimaryTextBrush}"
+                                   FontSize="18"
+                                   MaxWidth="650"
+                                   TextWrapping="WrapWithOverflow"
+                                   MaxHeight="55"
+                                   TextTrimming="CharacterEllipsis"
+                                   Text="5 Days, 4 hours, 3 Minutes, 35 Seconds" />
+                    </Border>
+                </StackPanel>
+                
+                <!-- Statistics -->
+                <TextBlock xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=400}"
+                           Text="Statistics"
+                           FontSize="22"
+                           Margin="0,20" />
+
             </StackPanel>
+
+            <Grid Grid.Row="1"
+                  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=400}"
+                  Margin="35,0,35,35"
+                  MaxHeight="220"
+                  MinHeight="170"
+                  VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Total Lectures -->
+                <Border CornerRadius="12"
+                        Grid.Column="0"
+                        Background="{StaticResource PrimaryTextBrush}">
+
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0"
+                                          BlurRadius="18"
+                                          Opacity="0.3"
+                                          Direction="-75" />
+                    </Border.Effect>
+
+                    <Grid>
+                        <TextBlock Text="Total Lectures Recorded:"
+                                   HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Margin="0,27.7,0,0"
+                                   FontSize="18" />
+
+                        <TextBlock x:Name="totalLecturesTextBlock"
+                                   Text="134"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextElement.FontWeight="Bold"
+                                   FontSize="18" />
+                    </Grid>
+                </Border>
+
+                <!-- Successfully Recorded Lectures -->
+                <Border Grid.Column="1"
+                        CornerRadius="12"
+                        VerticalAlignment="Top"
+                        Margin="30,0,0,0"
+                        Background="{StaticResource PrimaryTextBrush}">
+
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0"
+                                          BlurRadius="18"
+                                          Opacity="0.3"
+                                          Direction="-75" />
+                    </Border.Effect>
+
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Margin="20,0">
+                        <Image Source="../../../Icons/Dashboard/check.png"
+                               Width="32"
+                               Margin="0,20,20,20" />
+                        <TextBlock Text="Successful:"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   FontSize="18" />
+
+                        <TextBlock x:Name="totalSuccessfulLecturesTextBlock"
+                                   Text="114"
+                                   Margin="10,0,0,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextElement.FontWeight="Bold"
+                                   FontSize="18" />
+                    </StackPanel>
+
+                </Border>
+
+                <Border Grid.Column="1"
+                        CornerRadius="12"
+                        VerticalAlignment="Bottom"
+                        Margin="30,20,0,0"
+                        Background="{StaticResource PrimaryTextBrush}">
+
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0"
+                                          BlurRadius="18"
+                                          Opacity="0.3"
+                                          Direction="-75" />
+                    </Border.Effect>
+
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Margin="20,0">
+                        <Image Source="../../../Icons/Dashboard/fail.png"
+                               Width="28"
+                               Margin="2.5,24,24,24" />
+
+                        <TextBlock Text="Failed:"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   FontSize="18" />
+
+                        <TextBlock x:Name="totalFailedLecturesTextBlock"
+                                   Text="20"
+                                   Margin="10,0,0,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextElement.FontWeight="Bold"
+                                   FontSize="18" />
+                    </StackPanel>
+
+                </Border>
+            </Grid>
             
-            <!-- Vertical Line -->
-            <Grid Width="1"
+        </Grid>
+
+
+
+
+
+        <!-- Vertical Line -->
+        <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
+              Grid.RowSpan="2" 
+              Width="1"
+              HorizontalAlignment="Right"
+              Background="{StaticResource SectionLineBrush}">
+        </Grid>
+
+        
+        
+        
+        
+        
+        
+        <!-- Todays Lectures -->
+        <StackPanel x:Name="scheduledLecturesStackPanel"
+                    xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}"
+                    Grid.Column="1"
+                    Margin="35">
+            <TextBlock Text="Scheduled Lectures for Today"
+                       HorizontalAlignment="Center"
+                       Margin="0,18,0,0"
+                       TextWrapping="Wrap"
+                       FontSize="30" />
+
+            <!-- Horizontal Line -->
+            <Grid Height="1"
+                  d:Width="770"
+                  Width="{Binding ElementName=scheduledLecturesStackPanel,Path=ActualWidth}"
+                  Margin="0,31.5,0,30"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
-            
-            <!-- Todays Lectures -->
-            <StackPanel x:Name="scheduledLecturesStackPanel" 
-                        Grid.Column="1"
-                        Margin="35">
-                <TextBlock Text="Scheduled Lectures for Today"
-                           HorizontalAlignment="Center"
-                           TextWrapping="Wrap"
-                           FontSize="30" />
+        </StackPanel>
 
-                <!-- Horizontal Line -->
-                <Grid Height="1"
-                      d:Width="770"
-                      Width="{Binding ElementName=scheduledLecturesStackPanel,Path=ActualWidth}"
-                      Margin="0,59.5,0,30"
-                      HorizontalAlignment="Right"
-                      Background="{StaticResource SectionLineBrush}">
-                </Grid>
-            </StackPanel>
-            
-        </Grid>
     </Grid>
 </rxui:ReactiveUserControl>

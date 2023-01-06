@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
@@ -35,6 +36,9 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     public ReactiveCommand<Unit, Unit> NavigateToSettingsCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> NavigateToUploadCommand { get; private set; }
 
+    public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> NavigateForwardCommand { get; private set; }
+
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; private set; }
 
     public MainMenuViewModel(ILogger<MainMenuViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory, IStudentAccountData studentAccountData)
@@ -55,6 +59,9 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         NavigateToUploadCommand = ReactiveCommand.Create(() =>
             SetRoutedViewHostContent(typeof(UploadViewModel)));
 
+        NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
+        NavigateForwardCommand = ReactiveCommand.Create(NavigateForward);
+
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
 
         MessageBus.Current.Listen<bool>("VideoFullScreen").Subscribe(isFullScreen =>
@@ -64,7 +71,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         this.WhenActivated(disposables =>
         {
-            Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(DashboardViewModel)))
+            NavigateToDashboardCommand.Execute()
                 .Subscribe()
                 .DisposeWith(disposables);
         });
@@ -76,6 +83,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
     }
 
+    private Stack<Type> _navigationStack = new Stack<Type>();
     public void SetRoutedViewHostContent(Type type)
     {
         if (Router.NavigationStack.LastOrDefault()?.GetType() == type)
@@ -85,7 +93,34 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(type));
 
+        _navigationStack.Push(type);
         _logger.LogInformation("Navigated to {viewModel}", type.Name);
+    }
+
+    private void NavigateBack()
+    {
+        if (Router.NavigationStack.Count > 1)
+        {
+            Router.NavigateBack.Execute();
+            _logger.LogInformation("Navigated to {viewModel}", Router.GetCurrentViewModel()!.ToString());
+        }
+        else
+        {
+            _logger.LogWarning("Tried to navigate back, but there was no ViewModel left on the stack");
+        }
+    }
+
+    private void NavigateForward()
+    {
+        if (_navigationStack.Count > 1)
+        {
+            Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(_navigationStack.Pop()));
+            _logger.LogInformation("Navigated to {viewModel}", Router.GetCurrentViewModel()!.ToString());
+        }
+        else
+        {
+            _logger.LogWarning("Tried to navigate forward, but there was no ViewModel left on the stack");
+        }
     }
 
     [Reactive]

@@ -34,7 +34,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<LoginViewModel>();
         services.AddTransient<LoginWebViewModel>();
 
-        services.AddTransient<MainMenuViewModel>();
+        services.AddScoped<MainMenuViewModel>();
 
         services.AddTransient<DashboardViewModel>();
         services.AddTransient<LibraryViewModel>();

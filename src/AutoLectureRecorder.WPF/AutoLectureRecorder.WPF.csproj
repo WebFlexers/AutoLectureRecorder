@@ -12,6 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\Dashboard\check.png" />
+    <None Remove="Icons\Dashboard\fail.png" />
+    <None Remove="Icons\Dashboard\meeting.png" />
     <None Remove="Icons\Dashboard\video_camera.png" />
     <None Remove="Icons\Login\app_icon_filled256x256.png" />
     <None Remove="Images\Login\online_learning.png" />
@@ -47,6 +50,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Icons\Dashboard\check.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Icons\Dashboard\fail.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Icons\Dashboard\meeting.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	  <Resource Include="Icons\Dashboard\video_camera.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>

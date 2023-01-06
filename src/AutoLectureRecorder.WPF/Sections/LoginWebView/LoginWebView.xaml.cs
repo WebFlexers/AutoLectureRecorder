@@ -23,8 +23,8 @@ public partial class LoginWebView : ReactiveUserControl<LoginWebViewModel>
                 .Events().CoreWebView2InitializationCompleted
                 .Subscribe(async (e) =>
                 {
-                    await mainWebView.CoreWebView2.Profile.ClearBrowsingDataAsync();
-                    ViewModel?.LoginToMicrosoftTeamsCommand.Execute().Subscribe();   
+                    await mainWebView.CoreWebView2.Profile.ClearBrowsingDataAsync().DisposeWith(disposables);
+                    ViewModel?.LoginToMicrosoftTeamsCommand.Execute().Subscribe().DisposeWith(disposables);   
                 }).DisposeWith(disposables);
 
             mainWebView.DisposeWith(disposables);

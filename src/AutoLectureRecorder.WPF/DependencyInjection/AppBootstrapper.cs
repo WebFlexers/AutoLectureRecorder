@@ -34,8 +34,8 @@ public class AppBootstrapper
     private void ConfigureServices(IServiceCollection services)
     {
         // Add Main Window and Routing
-        services.AddSingleton<MainWindow>(sp => new MainWindow { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<MainWindow>(sp => new MainWindow { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
 
         // Add Factories
         services.AddTransient<IScreenFactory, ScreenFactory>();
