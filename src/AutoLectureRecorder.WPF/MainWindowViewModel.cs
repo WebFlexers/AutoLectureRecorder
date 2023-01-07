@@ -56,7 +56,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         });
     }
 
-    private bool _isFullScreenVideoPlaying;
+    private bool _isFullScreenVideoPlaying = false;
 
     private void ToggleFullscreenVideoMode()
     {
@@ -73,7 +73,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     }
 
     [Reactive]
-    public bool? IsWindowTopMost { get; set; }
+    public bool IsWindowTopMost { get; set; } = false;
 
     [Reactive]
     public WindowState MainWindowState { get; set; }

@@ -13,11 +13,11 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
         {
             this.Bind(ViewModel, vm => vm.ScheduledLecture.SubjectName, v => v.subjectNameComboBox.Text)
                 .DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.ScheduledLecture.Semester, v => v.semesterComboBox.SelectedValue)
+            this.Bind(ViewModel, vm => vm.ScheduledLecture.Semester, v => v.semesterComboBox.Text)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ScheduledLecture.MeetingLink, v => v.meetingLinkTextBox.Text)
                 .DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.ScheduledLecture.Day, v => v.dayComboBox.SelectedValue)
+            this.Bind(ViewModel, vm => vm.ScheduledLecture.Day, v => v.dayComboBox.Text)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ScheduledLecture.StartTime, v => v.startTimePicker.SelectedTime)
                 .DisposeWith(disposables);

@@ -268,7 +268,7 @@
                     Grid.Column="1"
                     IsDefault="True"
                     d:Height="50"
-                    Height="{Binding ElementName=lectureDayTextBox, Path=ActualHeight}"
+                    Height="{Binding ElementName=dayComboBox, Path=ActualHeight}"
                     VerticalAlignment="Bottom"
                     Cursor="Hand"
                     FontSize="18"

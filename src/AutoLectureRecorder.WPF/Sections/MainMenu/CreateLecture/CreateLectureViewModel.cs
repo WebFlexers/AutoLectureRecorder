@@ -18,9 +18,9 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel
         ScheduledLecture = new ReactiveScheduledLecture
         {
             SubjectName = "Αντικειμενοστρεφής ανάπτυξη εφαρμογών",
-            Semester = 5,
+            Semester = 6,
             MeetingLink = "https://www.test.com",
-            Day = DayOfWeek.Monday,
+            Day = DayOfWeek.Thursday,
             StartTime = default(DateTime).AddHours(8).AddMinutes(15),
             EndTime = default(DateTime).AddHours(10).AddMinutes(15),
             IsScheduled = true,

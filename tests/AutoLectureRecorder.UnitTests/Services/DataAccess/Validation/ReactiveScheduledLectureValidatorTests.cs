@@ -60,6 +60,29 @@ public class ReactiveScheduledLectureValidatorTests
     }
 
     [Fact]
+    public async Task ShouldHaveErrorWhenMeetingLinkIsNotMicrosoftTeams()
+    {
+        var model = new ReactiveScheduledLecture
+        {
+            Id = 1,
+            SubjectName = "Αλληλεπίδραση Ανθρώπου - Υπολογιστή",
+            Semester = 5,
+            MeetingLink = "https://www.test.com",
+            Day = DayOfWeek.Sunday,
+            StartTime = default(DateTime).AddHours(1).AddMinutes(15),
+            EndTime = default(DateTime).AddHours(3).AddMinutes(15),
+            IsScheduled = true,
+            WillAutoUpload = true,
+        };
+        var result = await _validator.ValidateAsync(model);
+
+        _output.WriteLine($"Error message: {result.Errors.First().ErrorMessage}");
+
+        Assert.Single(result.Errors);
+        Assert.Contains("link", result.Errors.First().ErrorMessage);
+    }
+
+    [Fact]
     public async Task ShouldHaveErrorWhenStartTimeIsGreaterThanEndTime()
     {
         var model = new ReactiveScheduledLecture
