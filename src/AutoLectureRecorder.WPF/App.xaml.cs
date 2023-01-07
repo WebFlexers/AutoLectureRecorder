@@ -21,7 +21,7 @@ public partial class App : Application
     {
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
 
-        bool showStartupWindow = true;
+        bool showStartupWindow = false;
 
         StartupWindow startupWindow = null;
         long startTime = -1;
@@ -37,7 +37,7 @@ public partial class App : Application
         var services = Bootstrapper.AppHost.Services;
         var mainWindow = services.GetRequiredService<MainWindow>();
         var studentAccountData = services.GetRequiredService<IStudentAccountData>();
-        var studentAccount = await studentAccountData.GetStudentAccount()!;
+        var studentAccount = await studentAccountData.GetStudentAccountAsync()!;
         var isLoggedIn = studentAccount != null;
 
         if (showStartupWindow)

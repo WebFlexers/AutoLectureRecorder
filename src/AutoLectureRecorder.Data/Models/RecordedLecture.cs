@@ -7,6 +7,6 @@ public class RecordedLecture
     public string SubjectName { get; set; }
     public int Semester { get; set; }
     public string CloudLink { get; set; }
-    public double StartedAt { get; set; }
-    public double EndedAt { get; set; }
+    public string StartedAt { get; set; }
+    public string EndedAt { get; set; }
 }

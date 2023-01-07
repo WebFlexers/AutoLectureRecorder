@@ -75,7 +75,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         this.WhenActivated(disposables =>
         {
-            NavigateToCreateLectureCommand.Execute()
+            NavigateToDashboardCommand.Execute()
                 .Subscribe()
                 .DisposeWith(disposables);
         });
@@ -83,7 +83,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
     private async Task Logout()
     {
-        await _studentAccountData.DeleteStudentAccount();
+        await _studentAccountData.DeleteStudentAccountAsync();
         HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
     }
 

@@ -16,9 +16,11 @@ public class ReactiveScheduledLecture
     [Reactive]
     public DayOfWeek Day { get; set; }
     [Reactive]
-    public TimeOnly StartTime { get; set; }
+    public DateTime? StartTime { get; set; }
     [Reactive]
-    public TimeOnly EndTime { get; set; }
+    public DateTime? EndTime { get; set; }
     [Reactive]
     public bool IsScheduled { get; set; }
+    [Reactive]
+    public bool WillAutoUpload { get; set; }
 }

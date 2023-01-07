@@ -52,6 +52,9 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                     }
                 }).DisposeWith(disposables);
 
+            this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.helpButton)
+                .DisposeWith(disposables);
+
             this.BindCommand(ViewModel, vm => vm.LogoutCommand, v => v.logoutButton)
                 .DisposeWith(disposables);
 

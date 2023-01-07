@@ -10,7 +10,7 @@
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
-            TextElement.FontWeight="Medium"
+            TextElement.FontWeight="Normal"
             TextElement.FontSize="14"
             mc:Ignorable="d"
             d:DesignWidth="1160"
@@ -41,7 +41,8 @@
                         Margin="35,35,35,0">
                 <!-- Welcome back -->
                 <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                TextElement.FontWeight="Medium">
                         <TextBlock Text="Welcome Back, "
                                    FontSize="30" />
                         <TextBlock x:Name="registrationNumTextBlock"
@@ -73,6 +74,7 @@
                 <!-- Next scheduled lecture -->
                 <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=200}">
                     <TextBlock Text="Scheduled Recording"
+                               TextElement.FontWeight="Medium"
                                FontSize="22" />
 
                     <TextBlock Text="Next Scheduled lecture"
@@ -145,6 +147,7 @@
                 <!-- Statistics -->
                 <TextBlock xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=400}"
                            Text="Statistics"
+                           TextElement.FontWeight="Medium"
                            FontSize="22"
                            Margin="0,20" />
 
@@ -293,6 +296,7 @@
                     Grid.Column="1"
                     Margin="35">
             <TextBlock Text="Scheduled Lectures for Today"
+                       TextElement.FontWeight="Medium"
                        HorizontalAlignment="Center"
                        Margin="0,18,0,0"
                        TextWrapping="Wrap"

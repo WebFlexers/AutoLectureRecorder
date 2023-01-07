@@ -36,18 +36,14 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         _webDriverFactory = webDriverFactory;
         _studentAccountData = studentAccountData;
 
-        this.WhenActivated(disposables =>
+        MessageBus.Current.SendMessage<bool>(true, "MainWindowTopMost");
+        MessageBus.Current.Listen<(string, string)>("StudentAccount").Subscribe(account =>
         {
-            MessageBus.Current.SendMessage<bool>(true, "MainWindowTopMost");
-            MessageBus.Current.Listen<(string, string)>("StudentAccount").Subscribe(account =>
-            {
-                _academicEmailAddress = account.Item1;
-                _password = account.Item2;
-            }).DisposeWith(disposables);
+            _academicEmailAddress = account.Item1;
+            _password = account.Item2;
+        });
 
-            LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams)
-                .DisposeWith(disposables);
-        }); 
+        LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams);
     }
 
     [Reactive]
@@ -71,8 +67,8 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
         if (loginResult.Item1)
         {
-            await _studentAccountData.DeleteStudentAccount();
-            await _studentAccountData.InsertStudentAccount(_academicEmailAddress.Split("@")[0], _academicEmailAddress, _password);
+            await _studentAccountData.DeleteStudentAccountAsync();
+            await _studentAccountData.InsertStudentAccountAsync(_academicEmailAddress.Split("@")[0], _academicEmailAddress, _password);
             HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(MainMenuViewModel)));
         }
         else

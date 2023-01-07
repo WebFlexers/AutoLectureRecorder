@@ -11,7 +11,7 @@
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
-            TextElement.FontWeight="Medium"
+            TextElement.FontWeight="Normal"
             TextElement.FontSize="14"
             mc:Ignorable="d"
             d:DesignWidth="1160"
@@ -28,8 +28,8 @@
         <StackPanel Grid.Column="0"
                     Margin="35">
 
-            <!-- Lecture Details -->
-            <Grid>
+            <!-- Subject Details -->
+            <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="580" />
@@ -38,10 +38,12 @@
                 <!-- Information -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Create new lecture entry "
-                               FontSize="30" />
+                               FontSize="30"
+                               TextElement.FontWeight="Medium" />
 
-                    <TextBlock Text="Lecture details"
+                    <TextBlock Text="Subject details"
                                FontSize="22"
+                               TextElement.FontWeight="Medium"
                                Margin="0,20,0,0" />
                     <TextBlock Text="Information about the scheduled lecture"
                                MaxWidth="340"
@@ -53,12 +55,42 @@
 
                 <!-- Fields -->
                 <StackPanel Grid.Column="1"
+                            TextElement.FontWeight="Medium"
                             Margin="0,62,0,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="lectureNameTextBox"
-                                 materialDesign:HintAssist.Hint="Lecture Name"
-                                 Width="390"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        <Grid ToolTipService.InitialShowDelay="300">
+
+                            <Grid.ToolTip>
+                                <TextBlock>
+                                    Select the subject name or write it out if it doesn't already exist
+                                    <LineBreak /> <LineBreak />
+                                    Warning: If you have multiple lectures of the same subject on different days or hours
+                                    <LineBreak />
+                                    You should create a different lecture entry for each one and choose the same subject, in order for the recordings to be grouped correctly
+                                    <LineBreak /> <LineBreak />
+                                    For Example: If you have computer science at 8 AM on Monday and 10AM on Tuesday you should add them in the following manner:
+                                    <LineBreak />
+                                    1. Write out Computer Science as subject name in the Subject Name field. Then fill out the rest of the fields and click Create Lecture
+                                    <LineBreak />
+                                    2. Now that you have already created a lecture with Computer Science as the subject, 
+                                    <LineBreak />
+                                    in order to add a second lecture with different time or day, select Computer Science as Subject Name and fill in the rest of the fields for the second lecture
+                                </TextBlock>
+                            </Grid.ToolTip>
+                            
+                            <ComboBox x:Name="subjectNameComboBox"
+                                      IsEditable="True"
+                                      materialDesign:HintAssist.Hint="Subject Name"
+                                      Width="390"
+                                      Padding="16,16,55,16"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+                            <Image Source="../../../Icons/CreateLecture/question_mark.png"
+                                   Width="22"
+                                   HorizontalAlignment="Right"
+                                   Margin="0,0,15,0" />
+                        </Grid>
+
                         <ComboBox x:Name="semesterComboBox"
                                   materialDesign:HintAssist.Hint="Semester"
                                   Margin="15,0,0,0"
@@ -101,7 +133,8 @@
 
                         <TextBox x:Name="meetingLinkTextBox"
                                  materialDesign:HintAssist.Hint="Team or Meeting Link"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Padding="16,16,55,16" />
 
                         <Image Source="../../../Icons/CreateLecture/question_mark.png"
                                Width="22"
@@ -112,13 +145,14 @@
             </Grid>
 
             <!-- Horizontal Line 1 -->
-            <Grid Height="1"
+            <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
+                  Height="1"
                   Margin="0,25"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
             <!-- Day - Time Details -->
-            <Grid>
+            <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=200}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="580" />
@@ -127,6 +161,7 @@
                 <!-- Information -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Day - Time Details"
+                               TextElement.FontWeight="Medium"
                                FontSize="22" />
                     <TextBlock Text="Information about the day and time the lecture takes place"
                                MaxWidth="340"
@@ -137,8 +172,9 @@
                 </StackPanel>
 
                 <!-- Fields -->
-                <StackPanel Grid.Column="1">
-                    <ComboBox x:Name="lectureDayTextBox"
+                <StackPanel Grid.Column="1"
+                            TextElement.FontWeight="Medium">
+                    <ComboBox x:Name="dayComboBox"
                               materialDesign:HintAssist.Hint="Day"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}">
 
@@ -176,7 +212,7 @@
             </Grid>
 
             <!-- Lecture Settings -->
-            <Grid>
+            <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=400}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="580" />
@@ -185,6 +221,7 @@
                 <!-- Information -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Settings"
+                               TextElement.FontWeight="Medium"
                                FontSize="22" />
                     <TextBlock MaxWidth="340"
                                HorizontalAlignment="Left"
@@ -198,7 +235,8 @@
 
                 <!-- Fields -->
                 <StackPanel Grid.Column="1"
-                            HorizontalAlignment="Stretch">
+                            HorizontalAlignment="Stretch"
+                            TextElement.FontWeight="Medium">
                     <StackPanel Orientation="Horizontal">
                         <ToggleButton x:Name="autoUploadToggleButton"
                                       IsChecked="True" />
@@ -218,7 +256,9 @@
         </StackPanel>
         
         <!-- Sumbit button -->
-        <Grid Margin="35" >
+        <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=600}"
+              Margin="35"
+              d:Panel.ZIndex="-2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="580" />

@@ -11,7 +11,7 @@
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
-            TextElement.FontWeight="Medium"
+            TextElement.FontWeight="Normal"
             TextElement.FontSize="14"
             mc:Ignorable="d" 
             d:DesignWidth="1360"
@@ -36,7 +36,8 @@
 
                 <TextBlock xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=500}"
                            Text="Login"
-                           FontSize="43" />
+                           FontSize="43"
+                           TextElement.FontWeight="Medium" />
 
                 <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=650}">
                     <TextBlock Text="ACADEMIC EMAIL ADDRESS"

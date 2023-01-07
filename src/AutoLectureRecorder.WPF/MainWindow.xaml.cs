@@ -1,5 +1,4 @@
-﻿using ReactiveMarbles.ObservableEvents;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
 using System.Windows;
@@ -18,16 +17,6 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                 .DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.IsWindowTopMost, v => v.mainAppWindow.Topmost)
                 .DisposeWith(disposables);
-
-            //navigateToHomeButton
-            //    .Events().Click
-            //    .Subscribe(_ => ViewModel?.Navigate.Execute(typeof(HomeViewModel)).Subscribe())
-            //    .DisposeWith(disposables);
-
-            //navigateToSettingsButton
-            //    .Events().Click
-            //    .Subscribe(_ => ViewModel?.Navigate.Execute(typeof(SettingsViewModel)).Subscribe())
-            //    .DisposeWith(disposables);
 
             // TitleBar
             this.BindCommand(ViewModel, vm => vm.ExitAppCommand, v => v.exitAppButton)
