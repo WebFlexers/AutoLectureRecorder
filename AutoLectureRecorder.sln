@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.UnitTests", "tests\AutoLectureRecorder.UnitTests\AutoLectureRecorder.UnitTests.csproj", "{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder.WebDriver.UnitTests", "tests\AutoLectureRecorder.WebDriver.UnitTests\AutoLectureRecorder.WebDriver.UnitTests.csproj", "{BBF82F8A-9C32-4298-878E-1FB8830F5C29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF82F8A-9C32-4298-878E-1FB8830F5C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF82F8A-9C32-4298-878E-1FB8830F5C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF82F8A-9C32-4298-878E-1FB8830F5C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF82F8A-9C32-4298-878E-1FB8830F5C29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26} = {CDE87A1D-0FD6-4FB3-9554-D4B6DAB685D0}
 		{5F920A66-BD07-4916-A999-A678A03AC5CE} = {CDE87A1D-0FD6-4FB3-9554-D4B6DAB685D0}
 		{B06406D7-2DC1-4FCD-B7AD-6CDE72392757} = {14BFD424-85EB-4EE1-98CC-ECF5274864E5}
+		{BBF82F8A-9C32-4298-878E-1FB8830F5C29} = {14BFD424-85EB-4EE1-98CC-ECF5274864E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9FB2FC86-8302-4376-94B4-BA99E6C53CEA}

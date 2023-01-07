@@ -27,6 +27,8 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ScheduledLecture.WillAutoUpload, v => v.autoUploadToggleButton.IsChecked)
                 .DisposeWith(disposables);
+
+            
         });
     }
 }

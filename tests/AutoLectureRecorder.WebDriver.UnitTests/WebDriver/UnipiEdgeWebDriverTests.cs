@@ -20,7 +20,7 @@ public class UnipiEdgeWebDriverTests
     }
 
     [Fact]
-    public void LoginToMicrosoftTeams_1ShouldReturnTrueAndSuccessMessage()
+    public void LoginToMicrosoftTeams_ShouldReturnTrueAndSuccessMessage()
     {
         var logger = XUnitLogger.CreateLogger<UnipiEdgeWebDriver>(_testOutputHelper);
         (bool, string) expected = (true, "success");
