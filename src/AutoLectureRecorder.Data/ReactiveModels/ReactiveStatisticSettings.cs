@@ -1,8 +1,9 @@
-﻿using ReactiveUI.Fody.Helpers;
+﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace AutoLectureRecorder.Data.ReactiveModels;
 
-public class ReactiveStatisticSettings
+public class ReactiveStatisticSettings : ReactiveObject
 {
     [Reactive]
     public int Id { get; set; }

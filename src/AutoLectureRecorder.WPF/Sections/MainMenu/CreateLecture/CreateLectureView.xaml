@@ -58,10 +58,12 @@
                             TextElement.FontWeight="Medium"
                             Margin="0,62,0,0">
                     <StackPanel Orientation="Horizontal">
-                        <Grid ToolTipService.InitialShowDelay="300">
 
-                            <Grid.ToolTip>
-                                <TextBlock>
+                        <StackPanel>
+                            <Grid ToolTipService.InitialShowDelay="300">
+
+                                <Grid.ToolTip>
+                                    <TextBlock>
                                     Select the subject name or write it out if it doesn't already exist
                                     <LineBreak /> <LineBreak />
                                     Warning: If you have multiple lectures of the same subject on different days or hours
@@ -75,38 +77,60 @@
                                     2. Now that you have already created a lecture with Computer Science as the subject, 
                                     <LineBreak />
                                     in order to add a second lecture with different time or day, select Computer Science as Subject Name and fill in the rest of the fields for the second lecture
-                                </TextBlock>
-                            </Grid.ToolTip>
+                                    </TextBlock>
+                                </Grid.ToolTip>
+
+                                <ComboBox x:Name="subjectNameComboBox"
+                                          IsEditable="True"
+                                          materialDesign:HintAssist.Hint="Subject Name"
+                                          Width="390"
+                                          Padding="16,16,55,16"
+                                          Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+                                <Image Source="../../../Icons/CreateLecture/question_mark.png"
+                                       Width="22"
+                                       HorizontalAlignment="Right"
+                                       Margin="0,0,15,0" />
+                            </Grid>
+
+                            <TextBlock x:Name="subjectNameErrorTextBlock"
+                                       Margin="5,5,0,0"
+                                       MaxWidth="380"
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Left"
+                                       d:Text="Your subject name is WRONG. Deal with it. OK? Deal - with - It"
+                                       Foreground="{StaticResource ErrorBrush}" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ComboBox x:Name="semesterComboBox"
+                                      materialDesign:HintAssist.Hint="Semester"
+                                      VerticalAlignment="Top"
+                                      HorizontalAlignment="Left"
+                                      Margin="15,0,0,0"
+                                      Width="175"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                <ComboBoxItem Content="1" />
+                                <ComboBoxItem Content="2" />
+                                <ComboBoxItem Content="3" />
+                                <ComboBoxItem Content="4" />
+                                <ComboBoxItem Content="5" />
+                                <ComboBoxItem Content="6" />
+                                <ComboBoxItem Content="7" />
+                                <ComboBoxItem Content="8" />
+                                <ComboBoxItem Content="9" />
+                                <ComboBoxItem Content="10" />
+                            </ComboBox>
                             
-                            <ComboBox x:Name="subjectNameComboBox"
-                                      IsEditable="True"
-                                      materialDesign:HintAssist.Hint="Subject Name"
-                                      Width="390"
-                                      Padding="16,16,55,16"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-
-                            <Image Source="../../../Icons/CreateLecture/question_mark.png"
-                                   Width="22"
-                                   HorizontalAlignment="Right"
-                                   Margin="0,0,15,0" />
-                        </Grid>
-
-                        <ComboBox x:Name="semesterComboBox"
-                                  materialDesign:HintAssist.Hint="Semester"
-                                  Margin="15,0,0,0"
-                                  Width="175"
-                                  Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem Content="1" />
-                            <ComboBoxItem Content="2" />
-                            <ComboBoxItem Content="3" />
-                            <ComboBoxItem Content="4" />
-                            <ComboBoxItem Content="5" />
-                            <ComboBoxItem Content="6" />
-                            <ComboBoxItem Content="7" />
-                            <ComboBoxItem Content="8" />
-                            <ComboBoxItem Content="9" />
-                            <ComboBoxItem Content="10" />
-                        </ComboBox>
+                            <TextBlock x:Name="semesterErrorTextBlock"
+                                       Margin="20,5,0,0"
+                                       MaxWidth="170"
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Left"
+                                       d:Text="Them semester can't be null, can it?"
+                                       Foreground="{StaticResource ErrorBrush}" />
+                        </StackPanel>
+                        
                     </StackPanel>
 
                     <Grid Margin="0,15,0,0"
@@ -132,6 +156,7 @@
                         </Grid.ToolTip>
 
                         <TextBox x:Name="meetingLinkTextBox"
+                                 Text="{Binding MeetingLink, ValidatesOnDataErrors=True}"
                                  materialDesign:HintAssist.Hint="Team or Meeting Link"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  Padding="16,16,55,16" />
@@ -141,6 +166,13 @@
                                HorizontalAlignment="Right"
                                Margin="0,0,15,0" />
                     </Grid>
+                    
+                    <TextBlock x:Name="meetingLinkErrorTextBlock"
+                               Margin="5,5,0,0"
+                               TextWrapping="Wrap"
+                               d:Text="Your link is WRONG. Deal with it. OK? Deal - with - It"
+                               Foreground="{StaticResource ErrorBrush}"/>
+                    
                 </StackPanel>
             </Grid>
 
@@ -188,10 +220,16 @@
 
                     </ComboBox>
 
+                    <TextBlock x:Name="dayErrorTextBlock"
+                               Margin="5,5,0,0"
+                               TextWrapping="Wrap"
+                               d:Text="Your day is WRONG. Deal with it. OK? Deal - with - It"
+                               Foreground="{StaticResource ErrorBrush}" />
+
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Stretch"
                                 Margin="0,15,0,0">
-                        <materialDesign:TimePicker x:Name="startTimePicker" 
+                        <materialDesign:TimePicker x:Name="startTimePicker"
                                                    materialDesign:HintAssist.Hint="Start Time"
                                                    Width="282.5"
                                                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
@@ -201,6 +239,13 @@
                                                    Margin="15,0,0,0"
                                                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
                     </StackPanel>
+
+                    <TextBlock x:Name="startTimeErrorTextBlock"
+                               Margin="5,10,0,0"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Center"
+                               d:Text="Your times are WRONG. Deal with it. OK? Deal - with - It"
+                               Foreground="{StaticResource ErrorBrush}" />
 
                 </StackPanel>
             </Grid>
@@ -275,5 +320,17 @@
                     Foreground="{StaticResource PrimaryTextBrush}"
                     Content="Create Lecture"/>
         </Grid>
+
+        <materialDesign:Snackbar x:Name="insertionFailedSnackbar"
+                                 Message="Lecture failed to be added... Correct the mistakes and try again"
+                                 d:IsActive="false"
+                                 Background="{StaticResource ErrorBrush}"
+                                 Margin="0,0,0,20"/>
+
+        <materialDesign:Snackbar x:Name="insertionSucceededSnackbar"
+                                 Message="Lecture added successfully!"
+                                 d:IsActive="false"
+                                 Background="{StaticResource SuccessBrush}"
+                                 Margin="0,0,0,20" />
     </Grid>
 </rxui:ReactiveUserControl>

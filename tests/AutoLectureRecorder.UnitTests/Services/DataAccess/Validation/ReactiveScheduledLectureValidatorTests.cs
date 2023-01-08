@@ -1,10 +1,7 @@
-﻿using AutoLectureRecorder.Data.Models;
-using AutoLectureRecorder.Data.ReactiveModels;
+﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.DataAccess.Validation;
 using AutoLectureRecorder.UnitTests.Services.DataAccess.Validation.DataAccessMocks;
-using FluentValidation.TestHelper;
-using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess.Validation;
@@ -51,12 +48,17 @@ public class ReactiveScheduledLectureValidatorTests
 	[Fact]
 	public async Task ShouldHaveErrorWhenNameIsNull()
 	{
-		var model = new ReactiveScheduledLecture { SubjectName = null };
+		var model = new ReactiveScheduledLecture();
 		var result = await _validator.ValidateAsync(model);
 
-		Assert.Single(result.Errors);
+		Assert.True(result.Errors.Any());
 
-		_output.WriteLine($"Error message: {result.Errors.First().ErrorMessage}");
+		_output.WriteLine($"Error messages:\n");
+
+        foreach (var error in result.Errors )
+        {
+            _output.WriteLine(error.ErrorMessage);
+        }
     }
 
     [Fact]
@@ -129,7 +131,7 @@ public class ReactiveScheduledLectureValidatorTests
         }
 
         Assert.False(result.IsValid);
-        Assert.Contains("null", result.Errors.First().ErrorMessage);
+        Assert.Contains("filled", result.Errors.First().ErrorMessage);
     }
 
     [Theory]
@@ -182,6 +184,8 @@ public class ReactiveScheduledLectureValidatorTests
         var result = await newValidator.ValidateAsync(conflictingLecture);
 
         var errorMessage = result.Errors.First().ErrorMessage;
+        _output.WriteLine($"Error message: {result.Errors.First().ErrorMessage}");
+
         Assert.False(result.IsValid);
         Assert.Contains("overlap", errorMessage);
     }

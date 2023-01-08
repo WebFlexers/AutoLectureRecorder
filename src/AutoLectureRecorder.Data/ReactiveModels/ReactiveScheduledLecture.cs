@@ -1,9 +1,10 @@
-﻿using ReactiveUI.Fody.Helpers;
+﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 
 namespace AutoLectureRecorder.Data.ReactiveModels;
 
-public class ReactiveScheduledLecture
+public class ReactiveScheduledLecture : ReactiveObject
 {
     [Reactive]
     public int Id { get; set; }
@@ -14,7 +15,7 @@ public class ReactiveScheduledLecture
     [Reactive]
     public string MeetingLink { get; set; }
     [Reactive]
-    public DayOfWeek Day { get; set; }
+    public DayOfWeek? Day { get; set; }
     [Reactive]
     public DateTime? StartTime { get; set; }
     [Reactive]

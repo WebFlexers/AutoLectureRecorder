@@ -12,9 +12,9 @@ using ReactiveUI;
 
 namespace AutoLectureRecorder.WPF.DependencyInjection;
 
-public static class MvvmIServiceCollectionExtensions
+internal static class MvvmServicesExtensions
 {
-    public static IServiceCollection AddViews(this IServiceCollection services)
+    internal static IServiceCollection AddViews(this IServiceCollection services)
     {
         services.AddTransient<IViewFor<LoginViewModel>, LoginView>();
         services.AddTransient<IViewFor<LoginWebViewModel>, LoginWebView>();
@@ -31,7 +31,7 @@ public static class MvvmIServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddViewModels(this IServiceCollection services)
+    internal static IServiceCollection AddViewModels(this IServiceCollection services)
     {
         services.AddTransient<LoginViewModel>();
         services.AddTransient<LoginWebViewModel>();

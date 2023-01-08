@@ -47,8 +47,10 @@ public class AppBootstrapper
         services.AddViewModels();
 
         // Add Custom Services
+        services.AddFluentValidation();
         services.AddSingleton<ISqliteDataAccess, SqliteDataAccess>();
         services.AddTransient<IWebDriver, UnipiEdgeWebDriver>();
         services.AddTransient<IStudentAccountData, StudentAccountData>();
+        services.AddTransient<IScheduledLectureData, ScheduledLectureData>();
     }
 }

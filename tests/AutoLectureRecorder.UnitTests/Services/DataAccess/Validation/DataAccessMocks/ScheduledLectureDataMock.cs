@@ -23,12 +23,12 @@ internal class ScheduledLectureDataMock : IScheduledLectureData
         throw new NotImplementedException();
     }
 
-    public Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek day)
+    public Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek? day)
     {
         return Task.FromResult(_lectures);
     }
 
-    public Task<ScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek day, DateTime? startTime, DateTime? endTime, bool isScheduled, bool willAutoUpload)
+    public Task<ScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek? day, DateTime? startTime, DateTime? endTime, bool isScheduled, bool willAutoUpload)
     {
         throw new NotImplementedException();
     }

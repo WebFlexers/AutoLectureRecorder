@@ -13,7 +13,7 @@ public class ScheduledLectureData : IScheduledLectureData
         _dataAccess = dataAccess;
     }
 
-    public async Task<ScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek day,
+    public async Task<ScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek? day,
                                              DateTime? startTime, DateTime? endTime, bool isScheduled, bool willAutoUpload)
     {
         var scheduledLecture = new ScheduledLecture
@@ -58,7 +58,7 @@ public class ScheduledLectureData : IScheduledLectureData
         return reactiveScheduledLectures;
     }
 
-    public async Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek day)
+    public async Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek? day)
     {
         string sql = "select * from ScheduledLectures where Day=@Day";
 
