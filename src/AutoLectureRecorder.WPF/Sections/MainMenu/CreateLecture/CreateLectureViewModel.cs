@@ -34,13 +34,17 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     // Used to avoid validating empty fields right after successful lecture insertion
     private bool _justSuccessfullyAddedLecture = false;
 
+    // Used to show and hide the Snackbars regarding Scheduled Lectures creation
     [Reactive]
     public bool IsFailedInsertionSnackbarActive { get; set; } = false;
     [Reactive]
     public bool IsSuccessfulInsertionSnackbarActive { get; set; } = false;
+
+    // Used to disable the semester field when an already existing Subject name is selected
     [Reactive]
     public bool IsSemesterEnabled { get; set; } = true;
 
+    // Used to get the unique subject names
     [Reactive]
     public ObservableCollection<ReactiveScheduledLecture> DistinctScheduledLectures { get; private set; }
 
@@ -50,7 +54,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     public ValidatableScheduledLecture ScheduledLectureValidationErrors { get; set; } = new ValidatableScheduledLecture();
     [Reactive]
     public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Hidden;
-
 
     public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen, 
                                   IValidator<ReactiveScheduledLecture> lectureValidator, IScheduledLectureData lectureData)
@@ -183,6 +186,10 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         ScheduledLectureValidationErrors.TimeError = string.Empty;
     }
 
+    /// <summary>
+    /// Filters the distinct scheduled lectures list by a search term
+    /// </summary>
+    /// <param name="containedText">The search term</param>
     private void FilterSubjectNames(string containedText)
     {
         if (DistinctScheduledLectures == null)
@@ -196,11 +203,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     private async Task<bool> ValidateScheduledLecture()
     {
-        //if (ValidateErrorsVisibility == Visibility.Hidden)
-        //{
-        //    return false;
-        //}
-
         var isLectureValid = await ScheduledLectureValidationErrors.ValidateAndPopulateErrors(_lectureValidator, ScheduledLecture);
 
         if (isLectureValid)

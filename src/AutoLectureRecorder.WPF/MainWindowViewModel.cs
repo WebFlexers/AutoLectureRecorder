@@ -20,12 +20,15 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 
     public RoutingState Router { get; } = new RoutingState();
 
+    // Titlebar commands
     public ReactiveCommand<Unit, Unit> ExitAppCommand { get; set; }
     public ReactiveCommand<Unit, Unit> ToggleWindowStateCommand { get; set; }
     public ReactiveCommand<string, Unit> UpdateMaximizedButtonStyle { get; set; }
     public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; set; }
+
     public ReactiveCommand<Type, Unit> Navigate { get; private set; }
 
+    private bool _isFullScreenVideoPlaying = false;
     [Reactive]
     public bool IsWindowTopMost { get; set; } = false;
     [Reactive]
@@ -60,7 +63,9 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         });
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
 
-        // Message Buses
+        // To handle fullscreen player mode we can't just move the VlcPlayer control to a new view,
+        // because it stops the player and creates many problems. Instead we have to hide everything from
+        // the screen and make the window fullscreen
         MessageBus.Current.Listen<bool>(PubSubMessages.UpdateWindowTopMost).Subscribe(tm => IsWindowTopMost = tm);
 
         MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(makeVideoFullScreen =>
@@ -69,8 +74,6 @@ public class MainWindowViewModel : ReactiveObject, IScreen
             ToggleFullscreenVideoMode();
         });
     }
-
-    private bool _isFullScreenVideoPlaying = false;
 
     private void ToggleFullscreenVideoMode()
     {

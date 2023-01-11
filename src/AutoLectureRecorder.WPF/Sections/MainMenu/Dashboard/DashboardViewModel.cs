@@ -57,6 +57,8 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
             );
         });
 
+        // Get a notification when a scheduled lecture is either added or deleted
+        // in order to search again for the closest one
         MessageBus.Current.Listen<bool>(PubSubMessages.CheckClosestScheduledLecture)
                           .Subscribe(async (shouldCheck) =>
                           {
@@ -67,6 +69,8 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
                               }
                           });
 
+        // Create a timer that constantly calculates the difference
+        // between now and the closest scheduled lecture
         DispatcherTimer timer = new DispatcherTimer();
         timer.Interval = TimeSpan.FromMilliseconds(500);
         timer.Tick += CalculateClosestLectureTimeDiffTick;
@@ -157,6 +161,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         var currentTime = DateTime.Now.TimeOfDay;
         var scheduledLectureStartTime = NextScheduledLecture.StartTime!.Value.TimeOfDay;
 
+        // If the lecture is today and it's after the current time we just get the difference
         if (NextScheduledLecture.Day == today && scheduledLectureStartTime > currentTime)
         {
             return scheduledLectureStartTime.Subtract(currentTime);
@@ -164,11 +169,15 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
 
         TimeSpan totalTimeDiff = TimeSpan.Zero;
 
+        // Since the lecture is not today we iterate through the days until we reach
+        // the day of the scheduled lecture
         int dayCounter = (int)today;
         while (dayCounter <= 7)
         {
+            // Start counting the days from tomorrow
             dayCounter++;
 
+            // When we surpass Sunday we go to Monday
             if (dayCounter > 7)
             {
                 dayCounter = 1;
@@ -176,9 +185,12 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
 
             if ((int)NextScheduledLecture.Day!.Value == dayCounter)
             {
+                // Add the remaining time of today and the time of the scheduled lecture to the diff
                 var remainingTimeToday = TimeSpan.FromDays(1).Subtract(currentTime);
                 var finalTime = totalTimeDiff.Add(scheduledLectureStartTime).Add(remainingTimeToday);
 
+                // Legend says that in some cases the time difference comes up as negative
+                // but it's still correct. In that case we just reverse the sign back to positive
                 if (TimeSpan.Compare(finalTime, TimeSpan.Zero) == -1)
                 {
                     return finalTime.Negate();
@@ -187,6 +199,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
                 return finalTime;
             }
 
+            // Add each day that is not the scheduled lecture's day to the time diff
             totalTimeDiff = totalTimeDiff.Add(TimeSpan.FromDays(1));
         }
 

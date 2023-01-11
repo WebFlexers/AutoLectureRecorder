@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
 
+/// <summary>
+/// Responsible for validating the scheduled lecture. Contains all the error messages as string fields
+/// </summary>
 public class ValidatableScheduledLecture : ReactiveObject
 {
     [Reactive]
@@ -20,6 +23,12 @@ public class ValidatableScheduledLecture : ReactiveObject
     [Reactive]
     public string? TimeError { get; set; }
 
+    /// <summary>
+    /// Validates the Scheduled Lecture class instance and stores any error messages
+    /// </summary>
+    /// <param name="validator"></param>
+    /// <param name="lecture"></param>
+    /// <returns></returns>
     public async Task<bool> ValidateAndPopulateErrors(IValidator<ReactiveScheduledLecture> validator, ReactiveScheduledLecture lecture)
     {
         var result = await validator.ValidateAsync(lecture);

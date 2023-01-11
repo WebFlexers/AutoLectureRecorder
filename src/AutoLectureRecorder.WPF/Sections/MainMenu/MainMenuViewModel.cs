@@ -32,6 +32,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     public string? UrlPathSegment => nameof(MainMenuViewModel);
     public IScreen HostScreen { get; }
 
+    // Navigation Commands
     public ReactiveCommand<Unit, Unit> NavigateToCreateLectureCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> NavigateToDashboardCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> NavigateToLibraryCommand { get; private set; }
@@ -44,6 +45,8 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; private set; }
     
+    // An extra navigation stack that handles forward navigation
+    // since it doesn't already exist in ReactiveUI
     private Stack<Type> _navigationStack = new Stack<Type>();
 
     [Reactive]
@@ -74,11 +77,15 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
 
+        // To handle fullscreen player mode we can't just move the VlcPlayer control to a new view,
+        // because it stops the player and creates many problems. Instead we have to hide everything from
+        // the screen and make the window fullscreen
         MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(isFullScreen =>
         {
             ToggleMenuVisibility(isFullScreen);
         });
 
+        // Set the Dashboard as the Home Screen
         this.WhenActivated(disposables =>
         {
             NavigateToDashboardCommand.Execute()

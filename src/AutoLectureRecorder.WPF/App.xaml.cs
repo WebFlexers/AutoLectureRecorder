@@ -25,6 +25,7 @@ public partial class App : Application
 
     public App()
     {
+        // Use a global mutex to stop the app from running more than once
         string mutexId = $"Global\\{GetType().GUID}";
 
         MutexAccessRule allowEveryoneRule = new MutexAccessRule(
@@ -34,25 +35,23 @@ public partial class App : Application
         MutexSecurity securitySettings = new MutexSecurity();
         securitySettings.AddAccessRule(allowEveryoneRule);
 
-        // initiallyOwned: true == false + mutex.WaitOne()
         mutex = new Mutex(initiallyOwned: true, mutexId, out mutexCreated);
         mutex.SetAccessControl(securitySettings);
     }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        if (!mutexCreated)
+        if (mutexCreated == false)
         {
-            //System.Windows.MessageBox.Show("AutoLectureRecorder is already running!", "Initialization Failed", 
-            //                                MessageBoxButton.OK, MessageBoxImage.Error);
-            //Process.GetProcessesByName()
             Application.Current.Shutdown();
         }
 
+        // This is required for the WebView2 to work inside the app
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
 
         bool showStartupWindow = false;
 
+        // Show a startup window as a loading screen while the app loads
         StartupWindow startupWindow = null;
         long startTime = -1;
         if (showStartupWindow)
@@ -63,9 +62,12 @@ public partial class App : Application
             startTime = Stopwatch.GetTimestamp();
         }
 
+        // Load the dependency injection system
         Bootstrapper = new AppBootstrapper();
         var services = Bootstrapper.AppHost.Services;
         var mainWindow = services.GetRequiredService<MainWindow>();
+
+        // Get database access to see if the user is logged in
         var studentAccountData = services.GetRequiredService<IStudentAccountData>();
         var studentAccount = await studentAccountData.GetStudentAccountAsync()!;
         var isLoggedIn = studentAccount != null;
@@ -75,6 +77,9 @@ public partial class App : Application
             var endTime = Stopwatch.GetTimestamp();
             var diff = Stopwatch.GetElapsedTime(startTime, endTime);
 
+            // If the loading takes less that the amount of seconds below
+            // wait until at least that amount is over in order to show the
+            // beautiful loading screen, along with it's animations
             if (diff < TimeSpan.FromSeconds(2.5))
             {
                 await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
@@ -85,6 +90,7 @@ public partial class App : Application
 
         mainWindow.Show();
 
+        // Make the window fullscreen if it's dimensions exceed the screen dimensions
         Screen screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
         if (screen.WorkingArea.Width < mainWindow.Width
             || screen.WorkingArea.Height < mainWindow.Height)
@@ -92,6 +98,7 @@ public partial class App : Application
             mainWindow.WindowState = WindowState.Maximized;
         }
 
+        // Navigate to either the Login or the Main Menu screen
         var router = services.GetRequiredService<MainWindowViewModel>().Router;
 
         if (isLoggedIn)
@@ -114,6 +121,7 @@ public partial class App : Application
 
         base.OnExit(e);
 
+        // Release the mutex OnExit
         if (mutexCreated)
         {
             try
@@ -129,6 +137,7 @@ public partial class App : Application
         mutex.Dispose();
     }
 
+    // Access to app Styles
     public Style? GetStyleFromResourceDictionary(string styleName, string resourceDictionaryName)
     {
         var titleBarResources = new ResourceDictionary();
