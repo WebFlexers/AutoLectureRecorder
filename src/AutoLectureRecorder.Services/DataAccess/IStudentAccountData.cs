@@ -4,7 +4,16 @@ namespace AutoLectureRecorder.Services.DataAccess;
 
 public interface IStudentAccountData
 {
+    /// <summary>
+    /// Insert a new student account to the database asynchronously
+    /// </summary>
     Task InsertStudentAccountAsync(string registrationNumber, string academicEmailAddress, string password);
-    Task DeleteStudentAccountAsync();
+    /// <summary>
+    /// Gets the student account from the database asynchronously
+    /// </summary>
     Task<ReactiveStudentAccount>? GetStudentAccountAsync();
+    /// <summary>
+    /// Wipe out the student account table asynchronously
+    /// </summary>
+    Task DeleteStudentAccountAsync();
 }

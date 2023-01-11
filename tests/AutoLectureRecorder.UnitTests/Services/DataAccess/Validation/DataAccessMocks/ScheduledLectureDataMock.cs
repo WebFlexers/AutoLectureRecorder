@@ -18,12 +18,12 @@ internal class ScheduledLectureDataMock : IScheduledLectureData
         throw new NotImplementedException();
     }
 
-    public Task<List<ReactiveScheduledLecture>?> GetDistinctScheduledLecturesByName()
+    public Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName()
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<string>?> GetScheduledLecturesGroupedBySubjectNames()
+    public Task<List<string>?> GetDistinctSubjectNames()
     {
         throw new NotImplementedException();
     }

@@ -34,7 +34,7 @@
                     <ColumnDefinition Width="580" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Information -->
+                <!-- Subject Information -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Create new lecture entry "
                                FontSize="30"
@@ -52,7 +52,7 @@
                                Foreground="{StaticResource SecondaryTextBrush}" />
                 </StackPanel>
 
-                <!-- Fields -->
+                <!-- Subject Fields -->
                 <StackPanel Grid.Column="1"
                             TextElement.FontWeight="Medium"
                             Margin="0,62,0,0">
@@ -198,7 +198,7 @@
                     <ColumnDefinition Width="580" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Information -->
+                <!-- Day - Time Information -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Day - Time Details"
                                TextElement.FontWeight="Medium"
@@ -211,7 +211,7 @@
                                Foreground="{StaticResource SecondaryTextBrush}" />
                 </StackPanel>
 
-                <!-- Fields -->
+                <!-- Day - Time Fields -->
                 <StackPanel Grid.Column="1"
                             TextElement.FontWeight="Medium">
                     <ComboBox x:Name="dayComboBox"
@@ -271,7 +271,7 @@
                     <ColumnDefinition Width="580" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Information -->
+                <!-- Lecture Settings Information -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Settings"
                                TextElement.FontWeight="Medium"
@@ -286,7 +286,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <!-- Fields -->
+                <!-- Lecture Settings Fields -->
                 <StackPanel Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             TextElement.FontWeight="Medium">
@@ -308,7 +308,7 @@
             
         </StackPanel>
         
-        <!-- Sumbit button -->
+        <!-- Submit button -->
         <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=600}"
               Margin="35"
               d:Panel.ZIndex="-2">
@@ -329,6 +329,7 @@
                     Content="Create Lecture"/>
         </Grid>
 
+        <!-- Success and Failure Snackbars -->
         <materialDesign:Snackbar x:Name="insertionFailedSnackbar"
                                  Message="Lecture failed to be added... Correct the mistakes and try again"
                                  d:IsActive="false"

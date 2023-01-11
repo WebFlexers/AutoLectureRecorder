@@ -12,6 +12,9 @@ public class StudentAccountData : IStudentAccountData
         _dataAccess = dataAccess;
     }
 
+    /// <summary>
+    /// Insert a new student account to the database asynchronously
+    /// </summary>
     public async Task InsertStudentAccountAsync(string registrationNumber, string academicEmailAddress, string password)
     {
         StudentAccount student = new StudentAccount
@@ -27,6 +30,9 @@ public class StudentAccountData : IStudentAccountData
         await _dataAccess.SaveData(sql, student).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Gets the student account from the database asynchronously
+    /// </summary>
     public async Task<ReactiveStudentAccount>? GetStudentAccountAsync()
     {
         string sql = "select * from StudentAccount";
@@ -47,6 +53,9 @@ public class StudentAccountData : IStudentAccountData
         };
     }
 
+    /// <summary>
+    /// Wipe out the student account table asynchronously
+    /// </summary>
     public async Task DeleteStudentAccountAsync()
     {
         string sql = "delete from StudentAccount";

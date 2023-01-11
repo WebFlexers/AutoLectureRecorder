@@ -103,6 +103,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             var newLecture = await InsertScheduledLectureToDB();
             _justSuccessfullyAddedLecture = true;
 
+            // If the new lecture has a subject name that didn't exist previously, add it to the list
             if (DistinctScheduledLectures!.Any(
                 lecture => lecture.SubjectName.Equals(ScheduledLecture.SubjectName)) == false
             )
@@ -116,9 +117,12 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             IsSuccessfulInsertionSnackbarActive = true;
             IsSemesterEnabled = false;
 
+            // Send message to recalculate the closest scheduled lecture to now,
+            // in case the new lecture is closer
             MessageBus.Current.SendMessage<bool>(true, PubSubMessages.CheckClosestScheduledLecture);
         });
 
+        // Validate all the fields whenever any validatable field inside Scheduled Lecture changes
         this.WhenAnyValue(vm => vm.ScheduledLecture.SubjectName, vm => vm.ScheduledLecture.Semester,
                vm => vm.ScheduledLecture.MeetingLink, vm => vm.ScheduledLecture.Day,
                vm => vm.ScheduledLecture.StartTime, vm => vm.ScheduledLecture.EndTime)
@@ -135,8 +139,10 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                  ValidateScheduledLectureCommand.Execute().Subscribe();
              });
 
+        // Hide the snackbars after a set ammount of time
+        TimeSpan snackBarVisibilityTime = TimeSpan.FromSeconds(3);
         this.WhenAnyValue(vm => vm.IsFailedInsertionSnackbarActive)
-            .Throttle(TimeSpan.FromSeconds(3))
+            .Throttle(snackBarVisibilityTime)
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe((isActive) =>
             {
@@ -147,7 +153,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             });
 
         this.WhenAnyValue(vm => vm.IsSuccessfulInsertionSnackbarActive)
-            .Throttle(TimeSpan.FromSeconds(3))
+            .Throttle(snackBarVisibilityTime)
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe((isActive) =>
             {
@@ -157,9 +163,10 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                 }
             });
 
+        // Get the Scheduled Lectures grouped by bame
         Observable.StartAsync(async () =>
         {
-            var distinctNamesTask = _lectureData.GetDistinctScheduledLecturesByName();
+            var distinctNamesTask = _lectureData.GetScheduledLecturesGroupedByName();
             var distinctNames = await distinctNamesTask;
 
             if (distinctNames != null)
@@ -174,7 +181,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             distinctNamesTask.Dispose();
         });
     }
-
 
     private void ClearDayAndTimeFields()
     {

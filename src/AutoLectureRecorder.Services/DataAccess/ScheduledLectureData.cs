@@ -14,6 +14,9 @@ public class ScheduledLectureData : IScheduledLectureData
         _dataAccess = dataAccess;
     }
 
+    /// <summary>
+    /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture asynchronously
+    /// </summary>
     public async Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek? day,
                                              DateTime? startTime, DateTime? endTime, bool isScheduled, bool willAutoUpload)
     {
@@ -40,6 +43,9 @@ public class ScheduledLectureData : IScheduledLectureData
         return CreateReactiveScheduledLecture(results.FirstOrDefault());
     }
 
+    /// <summary>
+    /// Gets all the scheduled lectures from the database asynchronously
+    /// </summary>
     public async Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesAsync()
     {
         string sql = "select * from ScheduledLectures";
@@ -59,6 +65,9 @@ public class ScheduledLectureData : IScheduledLectureData
         return reactiveScheduledLectures;
     }
 
+    /// <summary>
+    /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database asynchronously
+    /// </summary>
     public async Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesSortedAsync()
     {
         string sql = "select * from ScheduledLectures order by Day, StartTime asc";
@@ -78,11 +87,14 @@ public class ScheduledLectureData : IScheduledLectureData
         return reactiveScheduledLectures;
     }
 
+    /// <summary>
+    /// Gets all the scheduled lectures of the given day from the database asynchronously
+    /// </summary>
     public async Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek? day)
     {
         string sql = "select * from ScheduledLectures where Day=@Day";
 
-        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Day = (int)day }).ConfigureAwait(false);
+        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Day = (int)day.Value }).ConfigureAwait(false);
 
         var reactiveScheduledLectures = new List<ReactiveScheduledLecture>();
         foreach (var scheduledLecture in results)
@@ -97,6 +109,9 @@ public class ScheduledLectureData : IScheduledLectureData
         return reactiveScheduledLectures;
     }
 
+    /// <summary>
+    /// Gets the scheduled lecture with the given id from the database asynchronously
+    /// </summary>
     public async Task<ReactiveScheduledLecture?> GetScheduledLectureByIdAsync(int id)
     {
         string sql = "select * from ScheduledLectures where Id=@Id";
@@ -106,6 +121,9 @@ public class ScheduledLectureData : IScheduledLectureData
         return CreateReactiveScheduledLecture(scheduledLecture);
     }
 
+    /// <summary>
+    /// Gets the first Scheduled Lecture with the given Subject Name from the database asynchronously
+    /// </summary>
     public async Task<ReactiveScheduledLecture?> GetScheduledLectureBySubjectNameAsync(string subjectName)
     {
         string sql = "select * from ScheduledLectures where SubjectName=@SubjectName";
@@ -115,13 +133,19 @@ public class ScheduledLectureData : IScheduledLectureData
         return CreateReactiveScheduledLecture(scheduledLecture);
     }
 
-    public async Task<List<string>?> GetScheduledLecturesGroupedBySubjectNames()
+    /// <summary>
+    /// Gets the distinct subject names from the database asynchronously
+    /// </summary>
+    public async Task<List<string>?> GetDistinctSubjectNames()
     {
         string sql = "select distinct SubjectName from ScheduledLectures";
         return await _dataAccess.LoadData<string, dynamic>(sql, new { }).ConfigureAwait(false);
     }
 
-    public async Task<List<ReactiveScheduledLecture?>> GetDistinctScheduledLecturesByName()
+    /// <summary>
+    /// Gets the scheduled lectures with distinct subject names
+    /// </summary>
+    public async Task<List<ReactiveScheduledLecture?>> GetScheduledLecturesGroupedByName()
     {
         string sql = "select * from ScheduledLectures group by SubjectName";
         var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { }).ConfigureAwait(false);

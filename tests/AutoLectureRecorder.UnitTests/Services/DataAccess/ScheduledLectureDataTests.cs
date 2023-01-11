@@ -256,7 +256,7 @@ public class ScheduledLectureDataTests
                                                                      scheduledLecture.StartTime, scheduledLecture.EndTime,
                                                                      scheduledLecture.IsScheduled, scheduledLecture.WillAutoUpload);
 
-        var result = await scheduledLectureData.GetScheduledLecturesGroupedBySubjectNames();
+        var result = await scheduledLectureData.GetDistinctSubjectNames();
 
         Assert.NotNull(result);
         Assert.True(result.Count() == 2);
@@ -300,7 +300,7 @@ public class ScheduledLectureDataTests
                                                                      scheduledLecture.StartTime, scheduledLecture.EndTime,
                                                                      scheduledLecture.IsScheduled, scheduledLecture.WillAutoUpload);
 
-        var results = await scheduledLectureData.GetDistinctScheduledLecturesByName();
+        var results = await scheduledLectureData.GetScheduledLecturesGroupedByName();
 
         foreach (ReactiveScheduledLecture lecture in results)
         {
