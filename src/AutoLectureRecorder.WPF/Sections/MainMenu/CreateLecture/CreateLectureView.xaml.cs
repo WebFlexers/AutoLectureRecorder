@@ -1,8 +1,9 @@
-﻿using ReactiveUI;
-using System.Reactive.Disposables;
-using MaterialDesignThemes.Wpf;
+﻿using Microsoft.VisualBasic.Devices;
+using ReactiveMarbles.ObservableEvents;
+using ReactiveUI;
 using System;
-using System.Reactive.Linq;
+using System.Reactive.Disposables;
+using System.Windows.Input;
 
 namespace AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
 
@@ -14,10 +15,36 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
 
         this.WhenActivated(disposables =>
         {
+            // Observable collection bindings
+            this.OneWayBind(ViewModel, vm => vm.DistinctScheduledLectures, v => v.subjectNameComboBox.ItemsSource);
+
+            // Combobox behaviour
+            this.WhenAnyValue(v => v.subjectNameComboBox.Text)
+                .Subscribe(searchText =>
+                {
+                    this.ViewModel!.FilterSubjectNamesCommand.Execute(searchText);
+                });
+
+            subjectNameComboBox.Events().GotFocus
+                .Subscribe(e =>
+                {
+                    if (this.ViewModel!.DistinctScheduledLectures.Count == 0)
+                    {
+                        this.subjectNameComboBox.IsDropDownOpen = false;
+                        return;
+                    }
+
+                    this.subjectNameComboBox.IsDropDownOpen = true;
+                });
+
+            this.BindCommand(ViewModel, vm => vm.AutoFillSemesterAndLinkCommand, v => v.subjectNameComboBox, nameof(subjectNameComboBox.LostFocus));
+
             // Fields values bindings
             this.Bind(ViewModel, vm => vm.ScheduledLecture.SubjectName, v => v.subjectNameComboBox.Text)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ScheduledLecture.Semester, v => v.semesterComboBox.Text)
+                .DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.IsSemesterEnabled, v => v.semesterComboBox.IsEnabled)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ScheduledLecture.MeetingLink, v => v.meetingLinkTextBox.Text)
                 .DisposeWith(disposables);

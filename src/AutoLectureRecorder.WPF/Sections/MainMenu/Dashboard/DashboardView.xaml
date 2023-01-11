@@ -98,7 +98,8 @@
                                               Opacity="0.3"
                                               Direction="-75" />
                         </Border.Effect>
-                        <TextBlock VerticalAlignment="Center"
+                        <TextBlock x:Name="nextLectureSubjectNameTextBlock" 
+                                   VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource PrimaryTextBrush}"
                                    FontSize="18"
@@ -132,7 +133,8 @@
                                               Opacity="0.3"
                                               Direction="-75" />
                         </Border.Effect>
-                        <TextBlock VerticalAlignment="Center"
+                        <TextBlock x:Name="nextLectureTimeTextBlock" 
+                                   VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource PrimaryTextBrush}"
                                    FontSize="18"
@@ -301,6 +303,9 @@
                        Margin="0,18,0,0"
                        TextWrapping="Wrap"
                        FontSize="30" />
+
+            <Button x:Name="testButton" 
+                    Content="Test 1-2"/>
 
             <!-- Horizontal Line -->
             <Grid Height="1"

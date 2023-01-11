@@ -24,7 +24,6 @@
                 d:HorizontalAlignment="Right"
                 d:VerticalAlignment="Top" />
 
-        <!-- Left Side -->
         <StackPanel Grid.Column="0"
                     Margin="35">
 
@@ -82,10 +81,19 @@
 
                                 <ComboBox x:Name="subjectNameComboBox"
                                           IsEditable="True"
+                                          IsTextSearchEnabled="True"
+                                          TextSearch.TextPath="SubjectName"
                                           materialDesign:HintAssist.Hint="Subject Name"
                                           Width="390"
                                           Padding="16,16,55,16"
-                                          Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                                          Style="{StaticResource MaterialDesignOutlinedComboBox}">
+
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding SubjectName}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
 
                                 <Image Source="../../../Icons/CreateLecture/question_mark.png"
                                        Width="22"

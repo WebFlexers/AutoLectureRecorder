@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CDE87A1D-0FD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{14BFD424-85EB-4EE1-98CC-ECF5274864E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.WPF", "src\AutoLectureRecorder.WPF\AutoLectureRecorder.WPF.csproj", "{586540DD-3604-466C-8644-733A7347B0D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder", "src\AutoLectureRecorder.WPF\AutoLectureRecorder.csproj", "{586540DD-3604-466C-8644-733A7347B0D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.Data", "src\AutoLectureRecorder.Data\AutoLectureRecorder.Data.csproj", "{5B7CF2A4-EAC7-41E3-9E7B-5BD81FB00A26}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.UnitTests", "tests\AutoLectureRecorder.UnitTests\AutoLectureRecorder.UnitTests.csproj", "{B06406D7-2DC1-4FCD-B7AD-6CDE72392757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLectureRecorder.WebDriver.UnitTests", "tests\AutoLectureRecorder.WebDriver.UnitTests\AutoLectureRecorder.WebDriver.UnitTests.csproj", "{BBF82F8A-9C32-4298-878E-1FB8830F5C29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoLectureRecorder.WebDriver.UnitTests", "tests\AutoLectureRecorder.WebDriver.UnitTests\AutoLectureRecorder.WebDriver.UnitTests.csproj", "{BBF82F8A-9C32-4298-878E-1FB8830F5C29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

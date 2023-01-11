@@ -1,7 +1,6 @@
-﻿using Microsoft.Web.WebView2.Core;
-using System;
-using ReactiveMarbles.ObservableEvents;
+﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
+using System;
 using System.Reactive.Disposables;
 
 namespace AutoLectureRecorder.WPF.Sections.LoginWebView;

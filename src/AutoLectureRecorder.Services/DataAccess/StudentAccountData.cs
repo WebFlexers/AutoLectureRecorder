@@ -24,13 +24,13 @@ public class StudentAccountData : IStudentAccountData
         string sql = "insert into StudentAccount (RegistrationNumber, EmailAddress, Password)" +
                      "values (@RegistrationNumber, @EmailAddress, @Password)";
 
-        await _dataAccess.SaveData(sql, student);
+        await _dataAccess.SaveData(sql, student).ConfigureAwait(false);
     }
 
     public async Task<ReactiveStudentAccount>? GetStudentAccountAsync()
     {
         string sql = "select * from StudentAccount";
-        var result = await _dataAccess.LoadData<StudentAccount, dynamic>(sql, new { });
+        var result = await _dataAccess.LoadData<StudentAccount, dynamic>(sql, new { }).ConfigureAwait(false);
         var studentAccount = result.FirstOrDefault();
 
         if (result.Count == 0)
@@ -50,6 +50,6 @@ public class StudentAccountData : IStudentAccountData
     public async Task DeleteStudentAccountAsync()
     {
         string sql = "delete from StudentAccount";
-        await _dataAccess.SaveData<dynamic>(sql, new { });
+        await _dataAccess.SaveData<dynamic>(sql, new { }).ConfigureAwait(false);
     }
 }

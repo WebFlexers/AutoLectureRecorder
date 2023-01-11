@@ -1,5 +1,6 @@
 ﻿using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Data.ReactiveModels;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace AutoLectureRecorder.Services.DataAccess;
@@ -13,7 +14,7 @@ public class ScheduledLectureData : IScheduledLectureData
         _dataAccess = dataAccess;
     }
 
-    public async Task<ScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek? day,
+    public async Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek? day,
                                              DateTime? startTime, DateTime? endTime, bool isScheduled, bool willAutoUpload)
     {
         var scheduledLecture = new ScheduledLecture
@@ -31,19 +32,38 @@ public class ScheduledLectureData : IScheduledLectureData
         string sql = "insert into ScheduledLectures (SubjectName, Semester, MeetingLink, Day, StartTime, EndTime, IsScheduled, WillAutoUpload) " +
                              "values (@SubjectName, @Semester, @MeetingLink, @Day, @StartTime, @EndTime, @IsScheduled, @WillAutoUpload)";
 
-        await _dataAccess.SaveData(sql, scheduledLecture);
+        await _dataAccess.SaveData(sql, scheduledLecture).ConfigureAwait(false);
 
         sql = "select * from ScheduledLectures where Id = (select last_insert_rowid())";
-        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { });
+        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { }).ConfigureAwait(false);
 
-        return results.FirstOrDefault();
+        return CreateReactiveScheduledLecture(results.FirstOrDefault());
     }
 
     public async Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesAsync()
     {
         string sql = "select * from ScheduledLectures";
 
-        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { });
+        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { }).ConfigureAwait(false);
+
+        var reactiveScheduledLectures = new List<ReactiveScheduledLecture>();
+        foreach (var scheduledLecture in results)
+        {
+            var reactiveLecture = CreateReactiveScheduledLecture(scheduledLecture);
+            if (reactiveLecture != null)
+            {
+                reactiveScheduledLectures.Add(reactiveLecture);
+            }
+        }
+
+        return reactiveScheduledLectures;
+    }
+
+    public async Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesSortedAsync()
+    {
+        string sql = "select * from ScheduledLectures order by Day, StartTime asc";
+
+        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { }).ConfigureAwait(false);
 
         var reactiveScheduledLectures = new List<ReactiveScheduledLecture>();
         foreach (var scheduledLecture in results)
@@ -62,7 +82,7 @@ public class ScheduledLectureData : IScheduledLectureData
     {
         string sql = "select * from ScheduledLectures where Day=@Day";
 
-        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Day = (int)day });
+        var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Day = (int)day }).ConfigureAwait(false);
 
         var reactiveScheduledLectures = new List<ReactiveScheduledLecture>();
         foreach (var scheduledLecture in results)
@@ -80,10 +100,33 @@ public class ScheduledLectureData : IScheduledLectureData
     public async Task<ReactiveScheduledLecture?> GetScheduledLectureByIdAsync(int id)
     {
         string sql = "select * from ScheduledLectures where Id=@Id";
-        var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Id = id });
+        var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Id = id }).ConfigureAwait(false);
         var scheduledLecture = result.FirstOrDefault();
 
         return CreateReactiveScheduledLecture(scheduledLecture);
+    }
+
+    public async Task<ReactiveScheduledLecture?> GetScheduledLectureBySubjectNameAsync(string subjectName)
+    {
+        string sql = "select * from ScheduledLectures where SubjectName=@SubjectName";
+        var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { SubjectName = subjectName }).ConfigureAwait(false);
+        var scheduledLecture = result.FirstOrDefault();
+
+        return CreateReactiveScheduledLecture(scheduledLecture);
+    }
+
+    public async Task<List<string>?> GetScheduledLecturesGroupedBySubjectNames()
+    {
+        string sql = "select distinct SubjectName from ScheduledLectures";
+        return await _dataAccess.LoadData<string, dynamic>(sql, new { }).ConfigureAwait(false);
+    }
+
+    public async Task<List<ReactiveScheduledLecture?>> GetDistinctScheduledLecturesByName()
+    {
+        string sql = "select * from ScheduledLectures group by SubjectName";
+        var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { }).ConfigureAwait(false);
+
+        return result.Select(CreateReactiveScheduledLecture).ToList();
     }
 
     private ReactiveScheduledLecture? CreateReactiveScheduledLecture(ScheduledLecture? scheduledLecture)

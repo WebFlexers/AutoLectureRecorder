@@ -34,7 +34,7 @@ public class SqliteDataAccess : ISqliteDataAccess
 
         var rows = await connection.QueryAsync<T>(
             sqlStatement,
-            parameters);
+            parameters).ConfigureAwait(false);
 
         return rows.ToList();
     }
@@ -58,6 +58,6 @@ public class SqliteDataAccess : ISqliteDataAccess
 
         await connection.ExecuteAsync(
             sqlStatement,
-            parameters);
+            parameters).ConfigureAwait(false);
     }
 }

@@ -55,25 +55,9 @@ public class ReactiveScheduledLectureValidator : AbstractValidator<ReactiveSched
             return true;
         }
 
-        var thisStartTime = startTime.Value
-                            .AddHours(startTime.Value.Hour)
-                            .AddMinutes(startTime.Value.Minute);
-
-        var thisEndTime = endTime.Value
-                            .AddHours(endTime.Value.Hour)
-                            .AddMinutes(endTime.Value.Minute);
-
         foreach (var existingLecture in _existingLectures)
         {
-            var existingStartTime = existingLecture.StartTime!.Value
-                                    .AddHours(startTime.Value.Hour)
-                                    .AddMinutes(startTime.Value.Minute);
-
-            var existingEndTime = existingLecture.EndTime!.Value
-                                    .AddHours(endTime.Value.Hour)
-                                    .AddMinutes(endTime.Value.Minute);
-
-            if (thisStartTime <= existingEndTime && existingStartTime <= thisEndTime)
+            if (startTime <= existingLecture.EndTime && existingLecture.StartTime <= endTime)
             {
 				return false;
             }
