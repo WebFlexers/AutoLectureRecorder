@@ -5,7 +5,8 @@
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:system="clr-namespace:System;assembly=mscorlib"
             xmlns:local="clr-namespace:AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -312,6 +313,16 @@
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
+
+            <ItemsControl x:Name="todaysLecturesItemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="Test 1-2" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
 
     </Grid>

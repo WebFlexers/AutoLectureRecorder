@@ -31,9 +31,9 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
 
     [Reactive]
     public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; private set; }
+
     [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
-
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; } 
 

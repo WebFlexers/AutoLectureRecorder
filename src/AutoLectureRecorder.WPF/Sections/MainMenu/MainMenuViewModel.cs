@@ -43,6 +43,11 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     public ReactiveCommand<Unit, Unit> NavigateForwardCommand { get; private set; }
 
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; private set; }
+    
+    private Stack<Type> _navigationStack = new Stack<Type>();
+
+    [Reactive]
+    public Visibility MenuVisibility { get; set; } = Visibility.Visible;
 
     public MainMenuViewModel(ILogger<MainMenuViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory, IStudentAccountData studentAccountData)
     {
@@ -88,7 +93,6 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
     }
 
-    private Stack<Type> _navigationStack = new Stack<Type>();
     public void SetRoutedViewHostContent(Type type)
     {
         if (Router.NavigationStack.LastOrDefault()?.GetType() == type)
@@ -127,9 +131,6 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
             _logger.LogWarning("Tried to navigate forward, but there was no ViewModel left on the stack");
         }
     }
-
-    [Reactive]
-    public Visibility MenuVisibility { get; set; } = Visibility.Visible;
 
     private void ToggleMenuVisibility(bool isFullScreen)
     {

@@ -11,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -32,10 +31,26 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     public ReactiveCommand<Unit, Unit> CreateScheduledLectureCommand { get; private set; }
     public ReactiveCommand<Unit, Unit> ValidateScheduledLectureCommand { get; private set; }
 
+    // Used to avoid validating empty fields right after successful lecture insertion
+    private bool _justSuccessfullyAddedLecture = false;
+
     [Reactive]
     public bool IsFailedInsertionSnackbarActive { get; set; } = false;
     [Reactive]
     public bool IsSuccessfulInsertionSnackbarActive { get; set; } = false;
+    [Reactive]
+    public bool IsSemesterEnabled { get; set; } = true;
+
+    [Reactive]
+    public ObservableCollection<ReactiveScheduledLecture> DistinctScheduledLectures { get; private set; }
+
+    [Reactive]
+    public ReactiveScheduledLecture ScheduledLecture { get; set; } = new ReactiveScheduledLecture { IsScheduled = true, WillAutoUpload = true };
+    [Reactive]
+    public ValidatableScheduledLecture ScheduledLectureValidationErrors { get; set; } = new ValidatableScheduledLecture();
+    [Reactive]
+    public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Hidden;
+
 
     public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen, 
                                   IValidator<ReactiveScheduledLecture> lectureValidator, IScheduledLectureData lectureData)
@@ -157,8 +172,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         });
     }
 
-    // Used to avoid validating empty fields right after successful lecture insertion
-    private bool _justSuccessfullyAddedLecture = false;
 
     private void ClearDayAndTimeFields()
     {
@@ -170,9 +183,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         ScheduledLectureValidationErrors.TimeError = string.Empty;
     }
 
-    [Reactive]
-    public bool IsSemesterEnabled { get; set; } = true;
-
     private void FilterSubjectNames(string containedText)
     {
         if (DistinctScheduledLectures == null)
@@ -183,17 +193,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         var filteredCollection = DistinctScheduledLectures.Where(lecture => lecture.SubjectName.Contains(containedText));
         DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(filteredCollection);
     }
-
-    [Reactive]
-    public ObservableCollection<ReactiveScheduledLecture> DistinctScheduledLectures { get; private set; }
-
-    [Reactive]
-    public ReactiveScheduledLecture ScheduledLecture { get; set; } = new ReactiveScheduledLecture { IsScheduled = true, WillAutoUpload = true };
-
-    [Reactive]
-    public ValidatableScheduledLecture ScheduledLectureValidationErrors { get; set; } = new ValidatableScheduledLecture();
-    [Reactive]
-    public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Hidden;
 
     private async Task<bool> ValidateScheduledLecture()
     {

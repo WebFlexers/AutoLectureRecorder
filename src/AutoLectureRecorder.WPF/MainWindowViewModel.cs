@@ -26,6 +26,13 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; set; }
     public ReactiveCommand<Type, Unit> Navigate { get; private set; }
 
+    [Reactive]
+    public bool IsWindowTopMost { get; set; } = false;
+    [Reactive]
+    public WindowState MainWindowState { get; set; }
+    [Reactive]
+    public Style MaximizeButtonStyle { get; set; }
+
     public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, IScheduledLectureData lectureData)
     {
         _viewModelFactory = viewModelFactory;
@@ -78,14 +85,6 @@ public class MainWindowViewModel : ReactiveObject, IScreen
             MainWindowState = WindowState.Normal;
         }
     }
-
-    [Reactive]
-    public bool IsWindowTopMost { get; set; } = false;
-
-    [Reactive]
-    public WindowState MainWindowState { get; set; }
-    [Reactive]
-    public Style MaximizeButtonStyle { get; set; }
 
     public void SetRoutedViewHostContent(Type type)
     {
