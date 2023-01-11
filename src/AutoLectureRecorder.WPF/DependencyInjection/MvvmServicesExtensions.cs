@@ -36,10 +36,10 @@ internal static class MvvmServicesExtensions
         services.AddTransient<LoginViewModel>();
         services.AddTransient<LoginWebViewModel>();
 
-        services.AddScoped<MainMenuViewModel>();
+        services.AddSingleton<MainMenuViewModel>();
 
         services.AddTransient<CreateLectureViewModel>();
-        services.AddTransient<DashboardViewModel>();
+        services.AddSingleton<DashboardViewModel>();
         services.AddTransient<LibraryViewModel>();
         services.AddTransient<ScheduleViewModel>();
         services.AddTransient<SettingsViewModel>();

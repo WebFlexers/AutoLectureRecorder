@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Services.DataAccess;
+﻿using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using AutoLectureRecorder.WPF.Sections.Login;
 using AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
@@ -68,7 +69,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
 
-        MessageBus.Current.Listen<bool>("VideoFullScreen").Subscribe(isFullScreen =>
+        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(isFullScreen =>
         {
             ToggleMenuVisibility(isFullScreen);
         });

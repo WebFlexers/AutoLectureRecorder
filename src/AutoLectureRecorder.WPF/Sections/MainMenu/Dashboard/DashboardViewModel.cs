@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
@@ -6,12 +7,14 @@ using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Drawing.Design;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
 
@@ -42,7 +45,8 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
 
         FindClosestScheduledLectureToNowCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            NextScheduledLecture = await FindClosestScheduledLectureToNow();
+            var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+            NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
             NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
         });
 
@@ -52,13 +56,32 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
                 await _lectureData.GetAllScheduledLecturesAsync()
             );
         });
+
+        MessageBus.Current.Listen<bool>(PubSubMessages.CheckClosestScheduledLecture)
+                          .Subscribe(async (shouldCheck) =>
+                          {
+                              if (shouldCheck)
+                              {
+                                  var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+                                  NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
+                              }
+                          });
+
+        DispatcherTimer timer = new DispatcherTimer();
+        timer.Interval = TimeSpan.FromMilliseconds(500);
+        timer.Tick += CalculateClosestLectureTimeDiffTick;
+        FindClosestScheduledLectureToNowCommand.Execute().Subscribe();
+        timer.Start();
     }
 
-    private async Task<ReactiveScheduledLecture?> FindClosestScheduledLectureToNow()
+    private void CalculateClosestLectureTimeDiffTick(object? sender, EventArgs e)
     {
-        var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+        NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
+    }
 
-        if (lecturesSorted.Any() == false) 
+    private ReactiveScheduledLecture? FindClosestScheduledLectureToNow(List<ReactiveScheduledLecture>? lecturesSorted)
+    {
+        if (lecturesSorted == null || lecturesSorted.Any() == false) 
         {
             return null;
         }
@@ -105,7 +128,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         }
 
         // Let's not overstep
-        if (counter >= lecturesSorted.Count)
+        if (counter == lecturesSorted.Count)
         {
             counter--;
         }
@@ -118,8 +141,8 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         }
 
         // If we get at this point it means that that there are scheduled lectures only for today
-        // and no other day. So we just return the first element of the list, again because it
-        // is sorted by day first and then by start time
+        // and no other day, but they all start before the current time. So we just return the
+        // first element of the list, again because it is sorted by day first and then by start time
         return lecturesSorted[0];
     }
 

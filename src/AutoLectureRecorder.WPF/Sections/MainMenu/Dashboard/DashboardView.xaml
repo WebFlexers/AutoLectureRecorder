@@ -304,9 +304,6 @@
                        TextWrapping="Wrap"
                        FontSize="30" />
 
-            <Button x:Name="testButton" 
-                    Content="Test 1-2"/>
-
             <!-- Horizontal Line -->
             <Grid Height="1"
                   d:Width="770"

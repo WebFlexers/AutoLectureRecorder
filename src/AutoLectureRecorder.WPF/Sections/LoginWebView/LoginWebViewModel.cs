@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Services.DataAccess;
+﻿using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using AutoLectureRecorder.WPF.Sections.Login;
@@ -36,8 +37,8 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         _webDriverFactory = webDriverFactory;
         _studentAccountData = studentAccountData;
 
-        MessageBus.Current.SendMessage<bool>(true, "MainWindowTopMost");
-        MessageBus.Current.Listen<(string, string)>("StudentAccount").Subscribe(account =>
+        MessageBus.Current.SendMessage<bool>(true, PubSubMessages.UpdateWindowTopMost);
+        MessageBus.Current.Listen<(string, string)>(PubSubMessages.GetStudentAccount).Subscribe(account =>
         {
             _academicEmailAddress = account.Item1;
             _password = account.Item2;
@@ -74,12 +75,12 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         else
         {
             HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
-            MessageBus.Current.SendMessage(loginResult.Item2, "LoginErrorMessage");
+            MessageBus.Current.SendMessage(loginResult.Item2, PubSubMessages.UpdateLoginErrorMessage);
         }
 
         webDriver?.Dispose();
         loginTask.Dispose();
 
-        MessageBus.Current.SendMessage<bool>(false, "MainWindowTopMost");
+        MessageBus.Current.SendMessage<bool>(false, PubSubMessages.UpdateWindowTopMost);
     }
 }

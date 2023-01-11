@@ -1,4 +1,6 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -13,6 +15,7 @@ namespace AutoLectureRecorder.WPF;
 public class MainWindowViewModel : ReactiveObject, IScreen
 {
     private readonly IViewModelFactory _viewModelFactory;
+    private readonly IScheduledLectureData _lectureData;
     private readonly ILogger<MainWindowViewModel> _logger;
 
     public RoutingState Router { get; } = new RoutingState();
@@ -23,13 +26,16 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; set; }
     public ReactiveCommand<Type, Unit> Navigate { get; private set; }
 
-    public MainWindowViewModel(IViewModelFactory viewModelFactory, ILogger<MainWindowViewModel> logger)
+    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, IScheduledLectureData lectureData)
     {
         _viewModelFactory = viewModelFactory;
+        _lectureData = lectureData;
         _logger = logger;
 
+        // Navigation
         Navigate = ReactiveCommand.Create<Type>(SetRoutedViewHostContent);
 
+        // Titlebar
         MaximizeButtonStyle = ((App)Application.Current)
                 .GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
 
@@ -47,11 +53,12 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         });
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
 
-        MessageBus.Current.Listen<bool>("MainWindowTopMost").Subscribe(tm => IsWindowTopMost = tm);
+        // Message Buses
+        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateWindowTopMost).Subscribe(tm => IsWindowTopMost = tm);
 
-        MessageBus.Current.Listen<bool>("VideoFullScreen").Subscribe(isVideoFullScreen =>
+        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(makeVideoFullScreen =>
         {
-            _isFullScreenVideoPlaying = isVideoFullScreen;
+            _isFullScreenVideoPlaying = makeVideoFullScreen;
             ToggleFullscreenVideoMode();
         });
     }

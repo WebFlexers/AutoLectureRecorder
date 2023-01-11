@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using FluentValidation;
@@ -75,6 +76,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
             if (isLectureValid == false)
             {
+                IsSuccessfulInsertionSnackbarActive = false;
                 IsFailedInsertionSnackbarActive = true;
                 ValidateErrorsVisibility = Visibility.Visible;
                 return;
@@ -92,7 +94,11 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
             ClearDayAndTimeFields();
 
+            IsFailedInsertionSnackbarActive = false;
             IsSuccessfulInsertionSnackbarActive = true;
+            IsSemesterEnabled = false;
+
+            MessageBus.Current.SendMessage<bool>(true, PubSubMessages.CheckClosestScheduledLecture);
         });
 
         this.WhenAnyValue(vm => vm.ScheduledLecture.SubjectName, vm => vm.ScheduledLecture.Semester,
@@ -111,13 +117,8 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                  ValidateScheduledLectureCommand.Execute().Subscribe();
              });
 
-        //this.WhenAnyValue(vm => vm.ScheduledLecture.SubjectName)
-        //    .Subscribe(subjectName => {
-                
-        //    });
-
         this.WhenAnyValue(vm => vm.IsFailedInsertionSnackbarActive)
-            .Throttle(TimeSpan.FromSeconds(2))
+            .Throttle(TimeSpan.FromSeconds(3))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe((isActive) =>
             {
@@ -128,7 +129,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             });
 
         this.WhenAnyValue(vm => vm.IsSuccessfulInsertionSnackbarActive)
-            .Throttle(TimeSpan.FromSeconds(2))
+            .Throttle(TimeSpan.FromSeconds(3))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe((isActive) =>
             {
@@ -196,10 +197,10 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     private async Task<bool> ValidateScheduledLecture()
     {
-        if (ValidateErrorsVisibility == Visibility.Hidden)
-        {
-            return false;
-        }
+        //if (ValidateErrorsVisibility == Visibility.Hidden)
+        //{
+        //    return false;
+        //}
 
         var isLectureValid = await ScheduledLectureValidationErrors.ValidateAndPopulateErrors(_lectureValidator, ScheduledLecture);
 

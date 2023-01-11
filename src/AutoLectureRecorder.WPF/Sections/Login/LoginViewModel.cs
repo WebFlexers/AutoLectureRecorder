@@ -4,6 +4,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Reactive;
 using System;
+using AutoLectureRecorder.ReactiveUiUtilities;
 
 namespace AutoLectureRecorder.WPF.Sections.Login;
 
@@ -23,7 +24,7 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel
 
         LoginCommand = ReactiveCommand.Create(Login);
 
-        MessageBus.Current.Listen<string>("LoginErrorMessage").Subscribe(m => ErrorMessage = m);
+        MessageBus.Current.Listen<string>(PubSubMessages.UpdateLoginErrorMessage).Subscribe(m => ErrorMessage = m);
     }
 
     [Reactive]
@@ -37,6 +38,6 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel
     private void Login()
     {
         HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));
-        MessageBus.Current.SendMessage<(string, string)>((AcademicEmailAddress, Password), "StudentAccount");
+        MessageBus.Current.SendMessage<(string, string)>((AcademicEmailAddress, Password), PubSubMessages.GetStudentAccount);
     }
 }
