@@ -1,12 +1,12 @@
 ﻿<rxui:ReactiveUserControl 
-            x:Class="AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture.CreateLectureView"
+            x:Class="AutoLectureRecorder.Sections.MainMenu.CreateLecture.CreateLectureView"
             x:TypeArguments="local:CreateLectureViewModel"
             xmlns:rxui="http://reactiveui.net"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:local="clr-namespace:AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture"
+            xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.CreateLecture"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -79,7 +79,7 @@
                                     </TextBlock>
                                 </Grid.ToolTip>
 
-                                <ComboBox x:Name="subjectNameComboBox"
+                                <ComboBox x:Name="SubjectNameComboBox"
                                           IsEditable="True"
                                           IsTextSearchEnabled="True"
                                           TextSearch.TextPath="SubjectName"
@@ -101,7 +101,7 @@
                                        Margin="0,0,15,0" />
                             </Grid>
 
-                            <TextBlock x:Name="subjectNameErrorTextBlock"
+                            <TextBlock x:Name="SubjectNameErrorTextBlock"
                                        Margin="5,5,0,0"
                                        MaxWidth="380"
                                        TextWrapping="Wrap"
@@ -111,7 +111,7 @@
                         </StackPanel>
 
                         <StackPanel>
-                            <ComboBox x:Name="semesterComboBox"
+                            <ComboBox x:Name="SemesterComboBox"
                                       materialDesign:HintAssist.Hint="Semester"
                                       VerticalAlignment="Top"
                                       HorizontalAlignment="Left"
@@ -130,7 +130,7 @@
                                 <ComboBoxItem Content="10" />
                             </ComboBox>
                             
-                            <TextBlock x:Name="semesterErrorTextBlock"
+                            <TextBlock x:Name="SemesterErrorTextBlock"
                                        Margin="20,5,0,0"
                                        MaxWidth="170"
                                        TextWrapping="Wrap"
@@ -163,7 +163,7 @@
                             </TextBlock>
                         </Grid.ToolTip>
 
-                        <TextBox x:Name="meetingLinkTextBox"
+                        <TextBox x:Name="MeetingLinkTextBox"
                                  Text="{Binding MeetingLink, ValidatesOnDataErrors=True}"
                                  materialDesign:HintAssist.Hint="Team or Meeting Link"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -175,7 +175,7 @@
                                Margin="0,0,15,0" />
                     </Grid>
                     
-                    <TextBlock x:Name="meetingLinkErrorTextBlock"
+                    <TextBlock x:Name="MeetingLinkErrorTextBlock"
                                Margin="5,5,0,0"
                                TextWrapping="Wrap"
                                d:Text="Your link is WRONG. Deal with it. OK? Deal - with - It"
@@ -214,7 +214,7 @@
                 <!-- Day - Time Fields -->
                 <StackPanel Grid.Column="1"
                             TextElement.FontWeight="Medium">
-                    <ComboBox x:Name="dayComboBox"
+                    <ComboBox x:Name="DayComboBox"
                               materialDesign:HintAssist.Hint="Day"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}">
 
@@ -228,7 +228,7 @@
 
                     </ComboBox>
 
-                    <TextBlock x:Name="dayErrorTextBlock"
+                    <TextBlock x:Name="DayErrorTextBlock"
                                Margin="5,5,0,0"
                                TextWrapping="Wrap"
                                d:Text="Your day is WRONG. Deal with it. OK? Deal - with - It"
@@ -237,18 +237,18 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Stretch"
                                 Margin="0,15,0,0">
-                        <materialDesign:TimePicker x:Name="startTimePicker"
+                        <materialDesign:TimePicker x:Name="StartTimePicker"
                                                    materialDesign:HintAssist.Hint="Start Time"
                                                    Width="282.5"
                                                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
-                        <materialDesign:TimePicker x:Name="endTimePicker"
+                        <materialDesign:TimePicker x:Name="EndTimePicker"
                                                    materialDesign:HintAssist.Hint="End Time"
                                                    Width="282.5"
                                                    Margin="15,0,0,0"
                                                    Style="{StaticResource MaterialDesignOutlinedTimePicker}" />
                     </StackPanel>
 
-                    <TextBlock x:Name="startTimeErrorTextBlock"
+                    <TextBlock x:Name="StartTimeErrorTextBlock"
                                Margin="5,10,0,0"
                                TextWrapping="Wrap"
                                HorizontalAlignment="Center"
@@ -291,14 +291,14 @@
                             HorizontalAlignment="Stretch"
                             TextElement.FontWeight="Medium">
                     <StackPanel Orientation="Horizontal">
-                        <ToggleButton x:Name="autoUploadToggleButton"
+                        <ToggleButton x:Name="AutoUploadToggleButton"
                                       IsChecked="True" />
                         <TextBlock Text="Automatically upload to the cloud"
                                    Margin="15,0,0,0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,15,0,0">
-                        <ToggleButton x:Name="isScheduledToggleButton"
+                        <ToggleButton x:Name="IsScheduledToggleButton"
                                       IsChecked="True" />
                         <TextBlock Text="Schedule lecture for recording"
                                    Margin="15,0,0,0" />
@@ -317,11 +317,11 @@
                 <ColumnDefinition Width="580" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="submitButton"
+            <Button x:Name="SubmitButton"
                     Grid.Column="1"
                     IsDefault="True"
                     d:Height="50"
-                    Height="{Binding ElementName=dayComboBox, Path=ActualHeight}"
+                    Height="{Binding ElementName=DayComboBox, Path=ActualHeight}"
                     VerticalAlignment="Bottom"
                     Cursor="Hand"
                     FontSize="18"
@@ -330,13 +330,13 @@
         </Grid>
 
         <!-- Success and Failure Snackbars -->
-        <materialDesign:Snackbar x:Name="insertionFailedSnackbar"
+        <materialDesign:Snackbar x:Name="InsertionFailedSnackbar"
                                  Message="Lecture failed to be added... Correct the mistakes and try again"
                                  d:IsActive="false"
                                  Background="{StaticResource ErrorBrush}"
                                  Margin="0,0,0,20"/>
 
-        <materialDesign:Snackbar x:Name="insertionSucceededSnackbar"
+        <materialDesign:Snackbar x:Name="InsertionSucceededSnackbar"
                                  Message="Lecture added successfully!"
                                  d:IsActive="false"
                                  Background="{StaticResource SuccessBrush}"

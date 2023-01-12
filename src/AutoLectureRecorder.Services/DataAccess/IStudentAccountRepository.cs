@@ -11,7 +11,7 @@ public interface IStudentAccountRepository
     /// <summary>
     /// Gets the student account from the database asynchronously
     /// </summary>
-    Task<ReactiveStudentAccount>? GetStudentAccountAsync();
+    Task<ReactiveStudentAccount?> GetStudentAccountAsync();
     /// <summary>
     /// Wipe out the student account table asynchronously
     /// </summary>

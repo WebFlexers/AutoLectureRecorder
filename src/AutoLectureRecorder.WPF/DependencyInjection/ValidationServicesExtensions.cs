@@ -2,7 +2,6 @@
 using AutoLectureRecorder.Services.DataAccess.Validation;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 namespace AutoLectureRecorder.DependencyInjection;
 

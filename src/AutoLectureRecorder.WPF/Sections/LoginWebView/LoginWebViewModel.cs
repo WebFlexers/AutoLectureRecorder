@@ -4,13 +4,11 @@ using AutoLectureRecorder.Sections.Login;
 using AutoLectureRecorder.Sections.MainMenu;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.WebDriver;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
 namespace AutoLectureRecorder.Sections.LoginWebView;
@@ -22,11 +20,11 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     private readonly ILogger<LoginWebViewModel> _logger;
     private readonly IViewModelFactory _viewModelFactory;
 
-    public ViewModelActivator Activator { get; } = new ViewModelActivator();
-    public string? UrlPathSegment => nameof(LoginWebViewModel);
+    public ViewModelActivator Activator { get; } = new();
+    public string UrlPathSegment => nameof(LoginWebViewModel);
     public IScreen HostScreen { get; }
 
-    public ReactiveCommand<Unit, Unit> LoginToMicrosoftTeamsCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> LoginToMicrosoftTeamsCommand { get; }
 
     public LoginWebViewModel(ILogger<LoginWebViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory,
                              IWebDriverFactory webDriverFactory, IStudentAccountRepository studentAccountData)

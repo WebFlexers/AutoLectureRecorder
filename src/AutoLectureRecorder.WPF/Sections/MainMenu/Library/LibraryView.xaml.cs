@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.Sections.MainMenu.Library;
-using ReactiveUI;
+﻿using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Library;
+namespace AutoLectureRecorder.Sections.MainMenu.Library;
+
 public partial class LibraryView : ReactiveUserControl<LibraryViewModel>
 {
     public LibraryView()

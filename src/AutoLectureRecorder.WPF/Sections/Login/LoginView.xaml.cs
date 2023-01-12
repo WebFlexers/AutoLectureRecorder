@@ -1,12 +1,9 @@
-﻿using ReactiveUI;
-using System.Reactive.Disposables;
-using ReactiveMarbles.ObservableEvents;
+﻿using ReactiveMarbles.ObservableEvents;
+using ReactiveUI;
 using System;
-using System.Windows;
-using System.Windows.Media;
-using AutoLectureRecorder.Sections.Login;
+using System.Reactive.Disposables;
 
-namespace AutoLectureRecorder.WPF.Sections.Login;
+namespace AutoLectureRecorder.Sections.Login;
 
 public partial class LoginView : ReactiveUserControl<LoginViewModel>
 {
@@ -16,18 +13,18 @@ public partial class LoginView : ReactiveUserControl<LoginViewModel>
 
         this.WhenActivated(disposables =>
         {
-            this.Bind(ViewModel, vm => vm.AcademicEmailAddress, v => v.emailTextbox.Text)
+            this.Bind(ViewModel, vm => vm.AcademicEmailAddress, v => v.EmailTextbox.Text)
                 .DisposeWith(disposables);
-            passwordTextbox.Events().PasswordChanged
-                .Subscribe(e => ViewModel!.Password = passwordTextbox.Password)
-                .DisposeWith(disposables);
-
-            this.OneWayBind(ViewModel, vm => vm.ErrorMessage, v => v.errorTextBlock.Text)
-                .DisposeWith(disposables);
-            this.OneWayBind(ViewModel, vm => vm.IsErrorMessageVisible, v => v.errorTextBlock.Visibility)
+            PasswordTextbox.Events().PasswordChanged
+                .Subscribe(e => ViewModel!.Password = PasswordTextbox.Password)
                 .DisposeWith(disposables);
 
-            this.BindCommand(ViewModel, vm => vm.LoginCommand, v => v.submitButton)
+            this.OneWayBind(ViewModel, vm => vm.ErrorMessage, v => v.ErrorTextBlock.Text)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsErrorMessageVisible, v => v.ErrorTextBlock.Visibility)
+                .DisposeWith(disposables);
+
+            this.BindCommand(ViewModel, vm => vm.LoginCommand, v => v.SubmitButton)
                 .DisposeWith(disposables);
         });
 

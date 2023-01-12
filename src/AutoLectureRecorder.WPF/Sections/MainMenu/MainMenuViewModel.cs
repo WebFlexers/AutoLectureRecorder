@@ -27,27 +27,27 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     private readonly IViewModelFactory _viewModelFactory;
     private readonly IStudentAccountRepository _studentAccountData;
 
-    public RoutingState Router { get; } = new RoutingState();
-    public ViewModelActivator Activator { get; } = new ViewModelActivator();
-    public string? UrlPathSegment => nameof(MainMenuViewModel);
+    public RoutingState Router { get; } = new();
+    public ViewModelActivator Activator { get; } = new();
+    public string UrlPathSegment => nameof(MainMenuViewModel);
     public IScreen HostScreen { get; }
 
     // Navigation Commands
-    public ReactiveCommand<Unit, Unit> NavigateToCreateLectureCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> NavigateToDashboardCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> NavigateToLibraryCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> NavigateToScheduleCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> NavigateToSettingsCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> NavigateToUploadCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> NavigateToCreateLectureCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateToDashboardCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateToLibraryCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateToScheduleCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateToSettingsCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateToUploadCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> NavigateForwardCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateForwardCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> LogoutCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> LogoutCommand { get; }
 
     // An extra navigation stack that handles forward navigation
     // since it doesn't already exist in ReactiveUI
-    private Stack<Type> _navigationStack = new Stack<Type>();
+    private Stack<Type> _navigationStack = new();
 
     [Reactive]
     public Visibility MenuVisibility { get; set; } = Visibility.Visible;
@@ -80,10 +80,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         // To handle fullscreen player mode we can't just move the VlcPlayer control to a new view,
         // because it stops the player and creates many problems. Instead we have to hide everything from
         // the screen and make the window fullscreen
-        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(isFullScreen =>
-        {
-            ToggleMenuVisibility(isFullScreen);
-        });
+        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(ToggleMenuVisibility);
 
         // Set the Dashboard as the Home Screen
         this.WhenActivated(disposables =>
@@ -141,13 +138,6 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
     private void ToggleMenuVisibility(bool isFullScreen)
     {
-        if (isFullScreen)
-        {
-            MenuVisibility = Visibility.Collapsed;
-        }
-        else
-        {
-            MenuVisibility = Visibility.Visible;
-        }
+        MenuVisibility = isFullScreen ? Visibility.Collapsed : Visibility.Visible;
     }
 }

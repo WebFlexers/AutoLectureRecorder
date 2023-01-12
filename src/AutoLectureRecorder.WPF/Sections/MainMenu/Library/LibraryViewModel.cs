@@ -5,7 +5,7 @@ namespace AutoLectureRecorder.Sections.MainMenu.Library;
 
 public class LibraryViewModel : ReactiveObject, IRoutableViewModel
 {
-    public string? UrlPathSegment => nameof(LibraryViewModel);
+    public string UrlPathSegment => nameof(LibraryViewModel);
     public IScreen HostScreen { get; }
 
     public LibraryViewModel(IScreenFactory screenFactory)

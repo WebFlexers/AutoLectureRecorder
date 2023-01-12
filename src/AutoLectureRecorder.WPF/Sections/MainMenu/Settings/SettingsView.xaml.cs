@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.Sections.MainMenu.Settings;
-using ReactiveUI;
+﻿using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Settings;
+namespace AutoLectureRecorder.Sections.MainMenu.Settings;
+
 public partial class SettingsView : ReactiveUserControl<SettingsViewModel>
 {
     public SettingsView()

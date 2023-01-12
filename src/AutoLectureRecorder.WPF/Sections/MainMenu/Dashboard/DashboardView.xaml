@@ -1,5 +1,5 @@
 ﻿<rxui:ReactiveUserControl 
-            x:Class="AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard.DashboardView"
+            x:Class="AutoLectureRecorder.Sections.MainMenu.Dashboard.DashboardView"
             x:TypeArguments="local:DashboardViewModel"
             xmlns:rxui="http://reactiveui.net"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,7 +7,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:system="clr-namespace:System;assembly=mscorlib"
-            xmlns:local="clr-namespace:AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard"
+            xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.Dashboard"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
@@ -17,7 +17,7 @@
             d:DesignWidth="1160"
             d:DesignHeight="768">
 
-    <Grid x:Name="mainGrid">
+    <Grid x:Name="MainGrid">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -38,7 +38,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="mainDashboardStackPanel"
+            <StackPanel x:Name="MainDashboardStackPanel"
                         Margin="35,35,35,0">
                 <!-- Welcome back -->
                 <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}">
@@ -46,7 +46,7 @@
                                 TextElement.FontWeight="Medium">
                         <TextBlock Text="Welcome Back, "
                                    FontSize="30" />
-                        <TextBlock x:Name="registrationNumTextBlock"
+                        <TextBlock x:Name="RegistrationNumTextBlock"
                                    Text="P19165"
                                    FontSize="30" />
                         <TextBlock Text="!"
@@ -66,7 +66,7 @@
                 <!-- Horizontal Line -->
                 <Grid Height="1"
                       d:Width="770"
-                      Width="{Binding ElementName=mainDashboardStackPanel,Path=ActualWidth}"
+                      Width="{Binding ElementName=MainDashboardStackPanel,Path=ActualWidth}"
                       Margin="0,20"
                       HorizontalAlignment="Right"
                       Background="{StaticResource SectionLineBrush}">
@@ -99,7 +99,7 @@
                                               Opacity="0.3"
                                               Direction="-75" />
                         </Border.Effect>
-                        <TextBlock x:Name="nextLectureSubjectNameTextBlock" 
+                        <TextBlock x:Name="NextLectureSubjectNameTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource PrimaryTextBrush}"
@@ -134,7 +134,7 @@
                                               Opacity="0.3"
                                               Direction="-75" />
                         </Border.Effect>
-                        <TextBlock x:Name="nextLectureTimeTextBlock" 
+                        <TextBlock x:Name="NextLectureTimeTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource PrimaryTextBrush}"
@@ -186,7 +186,7 @@
                                    Margin="0,27.7,0,0"
                                    FontSize="18" />
 
-                        <TextBlock x:Name="totalLecturesTextBlock"
+                        <TextBlock x:Name="TotalLecturesTextBlock"
                                    Text="134"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -222,7 +222,7 @@
                                    TextWrapping="Wrap"
                                    FontSize="18" />
 
-                        <TextBlock x:Name="totalSuccessfulLecturesTextBlock"
+                        <TextBlock x:Name="TotalSuccessfulLecturesTextBlock"
                                    Text="114"
                                    Margin="10,0,0,0"
                                    HorizontalAlignment="Center"
@@ -260,7 +260,7 @@
                                    TextWrapping="Wrap"
                                    FontSize="18" />
 
-                        <TextBlock x:Name="totalFailedLecturesTextBlock"
+                        <TextBlock x:Name="TotalFailedLecturesTextBlock"
                                    Text="20"
                                    Margin="10,0,0,0"
                                    HorizontalAlignment="Center"
@@ -294,7 +294,7 @@
         
         
         <!-- Todays Lectures -->
-        <StackPanel x:Name="scheduledLecturesStackPanel"
+        <StackPanel x:Name="ScheduledLecturesStackPanel"
                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}"
                     Grid.Column="1"
                     Margin="35">
@@ -308,13 +308,13 @@
             <!-- Horizontal Line -->
             <Grid Height="1"
                   d:Width="770"
-                  Width="{Binding ElementName=scheduledLecturesStackPanel,Path=ActualWidth}"
+                  Width="{Binding ElementName=ScheduledLecturesStackPanel,Path=ActualWidth}"
                   Margin="0,31.5,0,30"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
-            <ItemsControl x:Name="todaysLecturesItemsControl">
+            <ItemsControl x:Name="TodaysLecturesItemsControl">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>

@@ -1,21 +1,21 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
-using AutoLectureRecorder.WPF.Sections.LoginWebView;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Sections.LoginWebView;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using System.Reactive;
 using System;
-using AutoLectureRecorder.ReactiveUiUtilities;
+using System.Reactive;
 
-namespace AutoLectureRecorder.WPF.Sections.Login;
+namespace AutoLectureRecorder.Sections.Login;
 
 public class LoginViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly IViewModelFactory _viewModelFactory;
 
-    public string? UrlPathSegment => nameof(LoginViewModel);
+    public string UrlPathSegment => nameof(LoginViewModel);
     public IScreen HostScreen { get; }
 
-    public ReactiveCommand<Unit, Unit> LoginCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> LoginCommand { get; }
 
     public LoginViewModel(IScreenFactory screenFactory, IViewModelFactory viewModelFactory)
     {
@@ -28,13 +28,14 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel
     }
 
     [Reactive]
-    public string ErrorMessage { get; set; }
-    public bool IsErrorMessageVisible { get => string.IsNullOrWhiteSpace(ErrorMessage) == false; }
+    public string ErrorMessage { get; set; } = string.Empty;
+    public bool IsErrorMessageVisible => string.IsNullOrWhiteSpace(ErrorMessage) == false;
 
+    [Reactive] 
+    public string AcademicEmailAddress { get; set; } = string.Empty;
     [Reactive]
-    public string AcademicEmailAddress { get; set; }
-    [Reactive]
-    public string Password { get; set; }
+    public string Password { get; set; } = string.Empty;
+
     private void Login()
     {
         HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));

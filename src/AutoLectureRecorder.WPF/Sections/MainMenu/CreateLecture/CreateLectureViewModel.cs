@@ -1,7 +1,7 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
-using AutoLectureRecorder.WPF.DependencyInjection.Factories;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
@@ -14,7 +14,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
+namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
 public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
@@ -22,23 +22,23 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     private readonly IValidator<ReactiveScheduledLecture> _lectureValidator;
     private readonly IScheduledLectureRepository _lectureData;
 
-    public ViewModelActivator Activator { get; set; } = new ViewModelActivator();
-    public string? UrlPathSegment => nameof(CreateLectureViewModel);
+    public ViewModelActivator Activator { get; set; } = new();
+    public string UrlPathSegment => nameof(CreateLectureViewModel);
     public IScreen HostScreen { get; }
 
-    public ReactiveCommand<string, Unit> FilterSubjectNamesCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> AutoFillSemesterAndLinkCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> CreateScheduledLectureCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> ValidateScheduledLectureCommand { get; private set; }
+    public ReactiveCommand<string, Unit> FilterSubjectNamesCommand { get; }
+    public ReactiveCommand<Unit, Unit> AutoFillSemesterAndLinkCommand { get; }
+    public ReactiveCommand<Unit, Unit> CreateScheduledLectureCommand { get; }
+    public ReactiveCommand<Unit, Unit> ValidateScheduledLectureCommand { get; }
 
     // Used to avoid validating empty fields right after successful lecture insertion
-    private bool _justSuccessfullyAddedLecture = false;
+    private bool _justSuccessfullyAddedLecture;
 
     // Used to show and hide the Snackbars regarding Scheduled Lectures creation
     [Reactive]
-    public bool IsFailedInsertionSnackbarActive { get; set; } = false;
+    public bool IsFailedInsertionSnackbarActive { get; set; }
     [Reactive]
-    public bool IsSuccessfulInsertionSnackbarActive { get; set; } = false;
+    public bool IsSuccessfulInsertionSnackbarActive { get; set; }
 
     // Used to disable the semester field when an already existing Subject name is selected
     [Reactive]
@@ -46,16 +46,16 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     // Used to get the unique subject names
     [Reactive]
-    public ObservableCollection<ReactiveScheduledLecture> DistinctScheduledLectures { get; private set; }
+    public ObservableCollection<ReactiveScheduledLecture> DistinctScheduledLectures { get; private set; } = new();
 
     [Reactive]
-    public ReactiveScheduledLecture ScheduledLecture { get; set; } = new ReactiveScheduledLecture { IsScheduled = true, WillAutoUpload = true };
+    public ReactiveScheduledLecture ScheduledLecture { get; set; } = new() { IsScheduled = true, WillAutoUpload = true };
     [Reactive]
-    public ValidatableScheduledLecture ScheduledLectureValidationErrors { get; set; } = new ValidatableScheduledLecture();
+    public ValidatableScheduledLecture ScheduledLectureValidationErrors { get; set; } = new();
     [Reactive]
     public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Hidden;
 
-    public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen, 
+    public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen,
                                   IValidator<ReactiveScheduledLecture> lectureValidator, IScheduledLectureRepository lectureData)
     {
         HostScreen = hostScreen.GetMainMenuViewModel();
@@ -119,7 +119,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
             // Send message to recalculate the closest scheduled lecture to now,
             // in case the new lecture is closer
-            MessageBus.Current.SendMessage<bool>(true, PubSubMessages.CheckClosestScheduledLecture);
+            MessageBus.Current.SendMessage(true, PubSubMessages.CheckClosestScheduledLecture);
         });
 
         // Validate all the fields whenever any validatable field inside Scheduled Lecture changes
@@ -175,7 +175,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             }
             else
             {
-                DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(); 
+                DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>();
             }
 
             distinctNamesTask.Dispose();
@@ -219,15 +219,15 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         {
             _logger.LogDebug("Validated scheduled lecture. There is one or more invalid fields");
         }
-        
+
         return isLectureValid;
     }
 
     private Task<ReactiveScheduledLecture?> InsertScheduledLectureToDB()
     {
-        var result = _lectureData.InsertScheduledLectureAsync(ScheduledLecture.SubjectName, ScheduledLecture.Semester, 
-                                                              ScheduledLecture.MeetingLink, ScheduledLecture.Day, 
-                                                              ScheduledLecture.StartTime, ScheduledLecture.EndTime, 
+        var result = _lectureData.InsertScheduledLectureAsync(ScheduledLecture.SubjectName, ScheduledLecture.Semester,
+                                                              ScheduledLecture.MeetingLink, ScheduledLecture.Day,
+                                                              ScheduledLecture.StartTime, ScheduledLecture.EndTime,
                                                               ScheduledLecture.IsScheduled, ScheduledLecture.WillAutoUpload);
 
         _logger.LogInformation("Inserted scheduled lecture to database");

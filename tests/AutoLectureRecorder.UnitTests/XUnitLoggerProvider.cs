@@ -6,7 +6,7 @@ namespace AutoLectureRecorder.UnitTests;
 internal sealed class XUnitLoggerProvider : ILoggerProvider
 {
     private readonly ITestOutputHelper _testOutputHelper;
-    private readonly LoggerExternalScopeProvider _scopeProvider = new LoggerExternalScopeProvider();
+    private readonly LoggerExternalScopeProvider _scopeProvider = new();
 
     public XUnitLoggerProvider(ITestOutputHelper testOutputHelper)
     {

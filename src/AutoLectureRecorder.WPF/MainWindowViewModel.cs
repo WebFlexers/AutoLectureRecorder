@@ -1,7 +1,6 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
-using AutoLectureRecorder.WPF;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -19,19 +18,18 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     private readonly IScheduledLectureRepository _lectureData;
     private readonly ILogger<MainWindowViewModel> _logger;
 
-    public RoutingState Router { get; } = new RoutingState();
+    public RoutingState Router { get; } = new();
 
     // Titlebar commands
-    public ReactiveCommand<Unit, Unit> ExitAppCommand { get; set; }
-    public ReactiveCommand<Unit, Unit> ToggleWindowStateCommand { get; set; }
-    public ReactiveCommand<string, Unit> UpdateMaximizedButtonStyle { get; set; }
-    public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; set; }
+    public ReactiveCommand<Unit, Unit> ExitAppCommand { get; }
+    public ReactiveCommand<Unit, Unit> ToggleWindowStateCommand { get; }
+    public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; }
 
-    public ReactiveCommand<Type, Unit> Navigate { get; private set; }
+    public ReactiveCommand<Type, Unit> Navigate { get; }
 
-    private bool _isFullScreenVideoPlaying = false;
+    private bool _isFullScreenVideoPlaying;
     [Reactive]
-    public bool IsWindowTopMost { get; set; } = false;
+    public bool IsWindowTopMost { get; set; }
     [Reactive]
     public WindowState MainWindowState { get; set; }
     [Reactive]
@@ -47,8 +45,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         Navigate = ReactiveCommand.Create<Type>(SetRoutedViewHostContent);
 
         // Titlebar
-        MaximizeButtonStyle = ((App)Application.Current)
-                .GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
+        MaximizeButtonStyle = App.GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
 
         ExitAppCommand = ReactiveCommand.Create(Application.Current.Shutdown);
         ToggleWindowStateCommand = ReactiveCommand.Create(() =>

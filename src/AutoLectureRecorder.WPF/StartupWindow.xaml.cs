@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace AutoLectureRecorder.WPF
+namespace AutoLectureRecorder
 {
     public partial class StartupWindow : Window
     {

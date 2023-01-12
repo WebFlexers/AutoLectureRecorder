@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="AutoLectureRecorder.WPF.Resources.MainMenu.Dashboard"
+﻿<UserControl x:Class="AutoLectureRecorder.Resources.MainMenu.Dashboard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:AutoLectureRecorder.WPF.Resources.MainMenu"
+             xmlns:local="clr-namespace:AutoLectureRecorder.Resources.MainMenu"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontSize="15"
@@ -22,7 +22,7 @@
                  Margin="0,6">
             <Canvas Width="24"
                     Height="24">
-                <Path x:Name="shapePath"
+                <Path x:Name="ShapePath"
                       Fill="{StaticResource SecondaryTextBrush}"
                       Data="M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z" />
             </Canvas>

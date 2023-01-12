@@ -7,15 +7,6 @@ using AutoLectureRecorder.Sections.MainMenu.Library;
 using AutoLectureRecorder.Sections.MainMenu.Schedule;
 using AutoLectureRecorder.Sections.MainMenu.Settings;
 using AutoLectureRecorder.Sections.MainMenu.Upload;
-using AutoLectureRecorder.WPF.Sections.Login;
-using AutoLectureRecorder.WPF.Sections.LoginWebView;
-using AutoLectureRecorder.WPF.Sections.MainMenu;
-using AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Library;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Settings;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Upload;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 

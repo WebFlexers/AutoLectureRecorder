@@ -14,34 +14,34 @@ using System.Windows;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
 
-namespace AutoLectureRecorder.WPF;
+namespace AutoLectureRecorder;
 
 public partial class App : Application
 {
     public AppBootstrapper? Bootstrapper { get; private set; }
 
-    private Mutex mutex;
-    private bool mutexCreated;
+    private readonly Mutex _mutex;
+    private readonly bool _mutexCreated;
 
     public App()
     {
         // Use a global mutex to stop the app from running more than once
         string mutexId = $"Global\\{GetType().GUID}";
 
-        MutexAccessRule allowEveryoneRule = new MutexAccessRule(
+        MutexAccessRule allowEveryoneRule = new(
             new SecurityIdentifier(WellKnownSidType.WorldSid, null),
             MutexRights.FullControl,
             AccessControlType.Allow);
-        MutexSecurity securitySettings = new MutexSecurity();
+        MutexSecurity securitySettings = new();
         securitySettings.AddAccessRule(allowEveryoneRule);
 
-        mutex = new Mutex(initiallyOwned: true, mutexId, out mutexCreated);
-        mutex.SetAccessControl(securitySettings);
+        _mutex = new Mutex(initiallyOwned: true, mutexId, out _mutexCreated);
+        _mutex.SetAccessControl(securitySettings);
     }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        if (mutexCreated == false)
+        if (_mutexCreated == false)
         {
             Application.Current.Shutdown();
         }
@@ -52,7 +52,7 @@ public partial class App : Application
         bool showStartupWindow = false;
 
         // Show a startup window as a loading screen while the app loads
-        StartupWindow startupWindow = null;
+        StartupWindow? startupWindow = null;
         long startTime = -1;
         if (showStartupWindow)
         {
@@ -91,7 +91,7 @@ public partial class App : Application
         mainWindow.Show();
 
         // Make the window fullscreen if it's dimensions exceed the screen dimensions
-        Screen screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
+        var screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
         if (screen.WorkingArea.Width < mainWindow.Width
             || screen.WorkingArea.Height < mainWindow.Height)
         {
@@ -122,11 +122,11 @@ public partial class App : Application
         base.OnExit(e);
 
         // Release the mutex OnExit
-        if (mutexCreated)
+        if (_mutexCreated)
         {
             try
             {
-                mutex.ReleaseMutex();
+                _mutex.ReleaseMutex();
             }
             catch (ApplicationException ex)
             {
@@ -134,24 +134,28 @@ public partial class App : Application
                                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        mutex.Dispose();
+        _mutex.Dispose();
     }
 
     // Access to app Styles
-    public Style? GetStyleFromResourceDictionary(string styleName, string resourceDictionaryName)
+    public static Style? GetStyleFromResourceDictionary(string styleName, string resourceDictionaryName)
     {
-        var titleBarResources = new ResourceDictionary();
-        titleBarResources.Source = new Uri($"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/{resourceDictionaryName}",
-                        UriKind.RelativeOrAbsolute);
+        var titleBarResources = new ResourceDictionary
+        {
+            Source = new Uri($"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/{resourceDictionaryName}",
+                UriKind.RelativeOrAbsolute)
+        };
         return titleBarResources[styleName] as Style;
     }
 
-    public ResourceDictionary? GetResourceDictionary(string resourceDictionaryName, string relativePath)
+    public static ResourceDictionary GetResourceDictionary(string resourceDictionaryName, string relativePath)
     {
-        var titleBarResources = new ResourceDictionary();
-        titleBarResources.Source = new Uri(
-            $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/{relativePath}/{resourceDictionaryName}",
-            UriKind.RelativeOrAbsolute);
+        var titleBarResources = new ResourceDictionary
+        {
+            Source = new Uri(
+                $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/{relativePath}/{resourceDictionaryName}",
+                UriKind.RelativeOrAbsolute)
+        };
         return titleBarResources;
     }
 }

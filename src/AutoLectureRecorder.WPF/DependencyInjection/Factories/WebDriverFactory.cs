@@ -18,11 +18,10 @@ public class WebDriverFactory : IWebDriverFactory
         UnipiEdgeWebDriver? edgeWebDriver = null;
         foreach (var webDriver in _webDrivers)
         {
-            if (webDriver is UnipiEdgeWebDriver)
-            {
-                edgeWebDriver = (UnipiEdgeWebDriver)webDriver;
-                break;
-            }
+            if (webDriver is not UnipiEdgeWebDriver driver) continue;
+
+            edgeWebDriver = driver;
+            break;
         }
 
         if (edgeWebDriver == null)

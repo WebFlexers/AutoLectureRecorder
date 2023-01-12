@@ -1,10 +1,9 @@
-﻿using AutoLectureRecorder.Sections.LoginWebView;
-using ReactiveMarbles.ObservableEvents;
+﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
 
-namespace AutoLectureRecorder.WPF.Sections.LoginWebView;
+namespace AutoLectureRecorder.Sections.LoginWebView;
 
 public partial class LoginWebView : ReactiveUserControl<LoginWebViewModel>
 {
@@ -14,20 +13,20 @@ public partial class LoginWebView : ReactiveUserControl<LoginWebViewModel>
 
         this.WhenActivated(disposables =>
         {
-            this.OneWayBind(ViewModel, vm => vm.WebViewSource, v => v.mainWebView.Source)
+            this.OneWayBind(ViewModel, vm => vm.WebViewSource, v => v.MainWebView.Source)
                 .DisposeWith(disposables);
 
             // Bind to LoginToMicrosoftTeams Command and clear the browsing data
             // after to prevent a change in the login proccess
-            mainWebView
+            MainWebView
                 .Events().CoreWebView2InitializationCompleted
                 .Subscribe(async (e) =>
                 {
-                    await mainWebView.CoreWebView2.Profile.ClearBrowsingDataAsync().DisposeWith(disposables);
+                    await MainWebView.CoreWebView2.Profile.ClearBrowsingDataAsync().DisposeWith(disposables);
                     ViewModel?.LoginToMicrosoftTeamsCommand.Execute().Subscribe().DisposeWith(disposables);   
                 }).DisposeWith(disposables);
 
-            mainWebView.DisposeWith(disposables);
+            MainWebView.DisposeWith(disposables);
         });
     }
 }

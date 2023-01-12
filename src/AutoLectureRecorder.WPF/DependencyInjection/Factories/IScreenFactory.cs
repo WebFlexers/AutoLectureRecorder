@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.DependencyInjection.Factories;
+namespace AutoLectureRecorder.DependencyInjection.Factories;
 
 public interface IScreenFactory
 {

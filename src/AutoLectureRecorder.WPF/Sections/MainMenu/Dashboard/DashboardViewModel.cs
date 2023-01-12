@@ -1,41 +1,37 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
-using AutoLectureRecorder.WPF.DependencyInjection.Factories;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Drawing.Design;
 using System.Linq;
 using System.Reactive;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
+namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
 public class DashboardViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly ILogger<DashboardViewModel> _logger;
     private readonly IScheduledLectureRepository _lectureData;
 
-    public string? UrlPathSegment => nameof(DashboardViewModel);
+    public string UrlPathSegment => nameof(DashboardViewModel);
     public IScreen HostScreen { get; }
 
-    public ReactiveCommand<Unit, Unit> FindClosestScheduledLectureToNowCommand { get; private set; }
-    public ReactiveCommand<Unit, Unit> LoadAllScheduledLecturesCommand { get; private set; }
+    public ReactiveCommand<Unit, Unit> FindClosestScheduledLectureToNowCommand { get; }
+    public ReactiveCommand<Unit, Unit> LoadAllScheduledLecturesCommand { get; }
 
-    [Reactive]
-    public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; private set; }
+    [Reactive] 
+    public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; private set; } = new();
 
     [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
     [Reactive]
-    public TimeSpan? NextScheduledLectureTimeDiff { get; set; } 
+    public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, IScheduledLectureRepository lectureData)
     {
@@ -62,16 +58,15 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         MessageBus.Current.Listen<bool>(PubSubMessages.CheckClosestScheduledLecture)
                           .Subscribe(async (shouldCheck) =>
                           {
-                              if (shouldCheck)
-                              {
-                                  var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
-                                  NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
-                              }
+                              if (!shouldCheck) return;
+
+                              var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+                              NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
                           });
 
         // Create a timer that constantly calculates the difference
         // between now and the closest scheduled lecture
-        DispatcherTimer timer = new DispatcherTimer();
+        var timer = new DispatcherTimer();
         timer.Interval = TimeSpan.FromMilliseconds(500);
         timer.Tick += CalculateClosestLectureTimeDiffTick;
         FindClosestScheduledLectureToNowCommand.Execute().Subscribe();
@@ -83,15 +78,15 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
     }
 
-    private ReactiveScheduledLecture? FindClosestScheduledLectureToNow(List<ReactiveScheduledLecture>? lecturesSorted)
+    private static ReactiveScheduledLecture? FindClosestScheduledLectureToNow(IReadOnlyList<ReactiveScheduledLecture>? lecturesSorted)
     {
-        if (lecturesSorted == null || lecturesSorted.Any() == false) 
+        if (lecturesSorted == null || lecturesSorted.Any() == false)
         {
             return null;
         }
 
         DayOfWeek today = DateTime.Today.DayOfWeek;
-        var currentTime = DateTime.Now.TimeOfDay;
+        TimeSpan currentTime = DateTime.Now.TimeOfDay;
 
         bool closestDayIsTodayOrAfterUntilSunday = false;
 
@@ -123,7 +118,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         // So we continue where we left off using the same counter
         while (counter < lecturesSorted.Count && lecturesSorted[counter].Day == today)
         {
-            if (lecturesSorted[counter].StartTime!.Value.TimeOfDay >= currentTime) 
+            if (lecturesSorted[counter].StartTime!.Value.TimeOfDay >= currentTime)
             {
                 return lecturesSorted[counter];
             }
@@ -158,8 +153,8 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         }
 
         DayOfWeek today = DateTime.Today.DayOfWeek;
-        var currentTime = DateTime.Now.TimeOfDay;
-        var scheduledLectureStartTime = NextScheduledLecture.StartTime!.Value.TimeOfDay;
+        TimeSpan currentTime = DateTime.Now.TimeOfDay;
+        TimeSpan scheduledLectureStartTime = NextScheduledLecture.StartTime!.Value.TimeOfDay;
 
         // If the lecture is today and it's after the current time we just get the difference
         if (NextScheduledLecture.Day == today && scheduledLectureStartTime > currentTime)

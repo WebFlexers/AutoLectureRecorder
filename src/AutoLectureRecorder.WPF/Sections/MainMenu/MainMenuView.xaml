@@ -1,15 +1,15 @@
 ﻿<rxui:ReactiveUserControl 
-            x:Class="AutoLectureRecorder.WPF.Sections.MainMenu.MainMenuView"
+            x:Class="AutoLectureRecorder.Sections.MainMenu.MainMenuView"
             x:TypeArguments="local:MainMenuViewModel"
             xmlns:rxui="http://reactiveui.net"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:local="clr-namespace:AutoLectureRecorder.WPF.Sections.MainMenu"
+            xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            xmlns:mainmenu="clr-namespace:AutoLectureRecorder.WPF.Resources.MainMenu"
+            xmlns:mainmenu="clr-namespace:AutoLectureRecorder.Resources.MainMenu"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             TextElement.FontWeight="Normal"
@@ -26,7 +26,7 @@
         <!-- Left Side Menu -->
         <Grid Grid.Row="0"
               xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=200}"
-              x:Name="mainMenuGrid"
+              x:Name="MainMenuGrid"
               Width="200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -43,7 +43,7 @@
 
                 <!-- Dashboard -->
                 <Grid Margin="0,35,0,0">
-                    <Button x:Name="dashboardButton"
+                    <Button x:Name="DashboardButton"
                             Height="55"
                             Background="{StaticResource ButtonHoverBrush}"
                             BorderThickness="0"
@@ -52,13 +52,13 @@
                             Style="{StaticResource MaterialDesignFlatButton}">
 
                         <Button.Content>
-                            <mainmenu:Dashboard x:Name="dashboardButtonContent"
+                            <mainmenu:Dashboard x:Name="DashboardButtonContent"
                                                 TextElement.FontSize="14"
                                                 FillColor="{StaticResource PrimaryBrush}" />
                         </Button.Content>
                     </Button>
 
-                    <Grid x:Name="dashboardSelectedLineGrid"
+                    <Grid x:Name="DashboardSelectedLineGrid"
                           HorizontalAlignment="Right"
                           Background="{StaticResource PrimaryBrush}"
                           Width="3"
@@ -67,7 +67,7 @@
 
                 <!-- Schedule -->
                 <Grid>
-                    <Button x:Name="scheduleButton"
+                    <Button x:Name="ScheduleButton"
                             Height="55"
                             Background="Transparent"
                             BorderThickness="0"
@@ -76,13 +76,13 @@
                             Style="{StaticResource MaterialDesignFlatButton}">
 
                         <Button.Content>
-                            <mainmenu:Schedule x:Name="scheduleButtonContent"
+                            <mainmenu:Schedule x:Name="ScheduleButtonContent"
                                                Margin="0,0,7,0"
                                                TextElement.FontSize="14"
                                                FillColor="{StaticResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
-                    <Grid x:Name="scheduleSelectedLineGrid"
+                    <Grid x:Name="ScheduleSelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
                           Background="{StaticResource PrimaryBrush}"
@@ -92,7 +92,7 @@
 
                 <!-- Upload -->
                 <Grid>
-                    <Button x:Name="uploadButton"
+                    <Button x:Name="UploadButton"
                             Height="55"
                             Background="Transparent"
                             BorderThickness="0"
@@ -101,14 +101,14 @@
                             Style="{StaticResource MaterialDesignFlatButton}">
 
                         <Button.Content>
-                            <mainmenu:Upload x:Name="uploadButtonContent"
+                            <mainmenu:Upload x:Name="UploadButtonContent"
                                              Margin="0,0,26,0"
                                              TextElement.FontSize="14"
                                              FillColor="{StaticResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
 
-                    <Grid x:Name="uploadSelectedLineGrid"
+                    <Grid x:Name="UploadSelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
                           Background="{StaticResource PrimaryBrush}"
@@ -118,7 +118,7 @@
 
                 <!-- Library -->
                 <Grid>
-                    <Button x:Name="libraryButton"
+                    <Button x:Name="LibraryButton"
                             Height="55"
                             Background="Transparent"
                             BorderThickness="0"
@@ -127,14 +127,14 @@
                             Style="{StaticResource MaterialDesignFlatButton}">
 
                         <Button.Content>
-                            <mainmenu:Library x:Name="libraryButtonContent"
+                            <mainmenu:Library x:Name="LibraryButtonContent"
                                               Margin="0,0,24,0"
                                               TextElement.FontSize="14"
                                               FillColor="{StaticResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
                     
-                    <Grid x:Name="librarySelectedLineGrid"
+                    <Grid x:Name="LibrarySelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
                           Background="{StaticResource PrimaryBrush}"
@@ -144,7 +144,7 @@
 
                 <!-- Settings -->
                 <Grid>
-                    <Button x:Name="settingsButton"
+                    <Button x:Name="SettingsButton"
                             Height="55"
                             Background="Transparent"
                             BorderThickness="0"
@@ -153,14 +153,14 @@
                             Style="{StaticResource MaterialDesignFlatButton}">
 
                         <Button.Content>
-                            <mainmenu:Settings x:Name="settingsButtonContent"
+                            <mainmenu:Settings x:Name="SettingsButtonContent"
                                                Margin="0,0,15,0"
                                                TextElement.FontSize="14"
                                                FillColor="{StaticResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
 
-                    <Grid x:Name="settingsSelectedLineGrid"
+                    <Grid x:Name="SettingsSelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
                           Background="{StaticResource PrimaryBrush}"
@@ -173,7 +173,7 @@
             <StackPanel Grid.Column="0"
                         VerticalAlignment="Bottom">
                 <!-- Help -->
-                <Button x:Name="helpButton"
+                <Button x:Name="HelpButton"
                         Height="55"
                         Background="Transparent"
                         BorderThickness="0"
@@ -182,7 +182,7 @@
                         Style="{StaticResource MaterialDesignFlatButton}">
 
                     <Button.Content>
-                        <mainmenu:Help x:Name="helpButtonContent"
+                        <mainmenu:Help x:Name="HelpButtonContent"
                                        Margin="0,0,32,0"
                                        TextElement.FontSize="14"
                                        FillColor="{StaticResource SecondaryTextBrush}" />
@@ -190,7 +190,7 @@
                 </Button>
 
                 <!-- Logout -->
-                <Button x:Name="logoutButton"
+                <Button x:Name="LogoutButton"
                         Height="55"
                         Background="Transparent"
                         BorderThickness="0"
@@ -199,7 +199,7 @@
                         Style="{StaticResource MaterialDesignFlatButton}">
 
                     <Button.Content>
-                        <mainmenu:Logout x:Name="logoutButtonContent"
+                        <mainmenu:Logout x:Name="LogoutButtonContent"
                                          Margin="0,0,15,0"
                                          TextElement.FontSize="14"
                                          FillColor="{StaticResource SecondaryTextBrush}" />
@@ -219,7 +219,7 @@
         <!-- Routed View Host -->
         <rxui:RoutedViewHost Grid.Column="1"
                              Duration="0"
-                             x:Name="routedViewHost"
+                             x:Name="RoutedViewHost"
                              HorizontalContentAlignment="Stretch"
                              VerticalContentAlignment="Stretch" />
 

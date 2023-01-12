@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.Sections.MainMenu.Schedule;
-using ReactiveUI;
+﻿using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
+namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
+
 public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
 {
     public ScheduleView()

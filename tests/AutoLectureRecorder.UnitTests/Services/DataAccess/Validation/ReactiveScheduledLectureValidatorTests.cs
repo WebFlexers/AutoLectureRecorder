@@ -154,7 +154,7 @@ public class ReactiveScheduledLectureValidatorTests
     {
         var lectures = new List<ReactiveScheduledLecture>
         {
-            new ReactiveScheduledLecture
+            new()
             {
                 SubjectName = "Αλληλεπίδραση Ανθρώπου - Υπολογιστή",
                 Semester = 5,

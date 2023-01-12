@@ -17,7 +17,7 @@ public class StudentAccountRepository : IStudentAccountRepository
     /// </summary>
     public async Task InsertStudentAccountAsync(string registrationNumber, string academicEmailAddress, string password)
     {
-        StudentAccount student = new StudentAccount
+        var student = new StudentAccount
         {
             RegistrationNumber = registrationNumber,
             EmailAddress = academicEmailAddress,
@@ -33,7 +33,7 @@ public class StudentAccountRepository : IStudentAccountRepository
     /// <summary>
     /// Gets the student account from the database asynchronously
     /// </summary>
-    public async Task<ReactiveStudentAccount>? GetStudentAccountAsync()
+    public async Task<ReactiveStudentAccount?> GetStudentAccountAsync()
     {
         string sql = "select * from StudentAccount";
         var result = await _dataAccess.LoadData<StudentAccount, dynamic>(sql, new { }).ConfigureAwait(false);

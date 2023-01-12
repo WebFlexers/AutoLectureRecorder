@@ -1,7 +1,6 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.WebDriver;
-using AutoLectureRecorder.WPF;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReactiveUI;
@@ -12,7 +11,7 @@ namespace AutoLectureRecorder.DependencyInjection;
 
 public class AppBootstrapper
 {
-    public IHost AppHost { get; private set; }
+    public IHost AppHost { get; }
 
     public AppBootstrapper()
     {

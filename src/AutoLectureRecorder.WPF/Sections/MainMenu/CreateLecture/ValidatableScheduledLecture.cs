@@ -3,7 +3,6 @@ using FluentValidation;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
@@ -28,7 +27,6 @@ public class ValidatableScheduledLecture : ReactiveObject
     /// </summary>
     /// <param name="validator"></param>
     /// <param name="lecture"></param>
-    /// <returns></returns>
     public async Task<bool> ValidateAndPopulateErrors(IValidator<ReactiveScheduledLecture> validator, ReactiveScheduledLecture lecture)
     {
         var result = await validator.ValidateAsync(lecture);
