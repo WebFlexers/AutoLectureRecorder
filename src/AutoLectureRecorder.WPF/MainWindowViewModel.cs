@@ -1,6 +1,7 @@
-﻿using AutoLectureRecorder.ReactiveUiUtilities;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
-using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+using AutoLectureRecorder.WPF;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -10,12 +11,12 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 
-namespace AutoLectureRecorder.WPF;
+namespace AutoLectureRecorder;
 
 public class MainWindowViewModel : ReactiveObject, IScreen
 {
     private readonly IViewModelFactory _viewModelFactory;
-    private readonly IScheduledLectureData _lectureData;
+    private readonly IScheduledLectureRepository _lectureData;
     private readonly ILogger<MainWindowViewModel> _logger;
 
     public RoutingState Router { get; } = new RoutingState();
@@ -36,7 +37,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     [Reactive]
     public Style MaximizeButtonStyle { get; set; }
 
-    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, IScheduledLectureData lectureData)
+    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, IScheduledLectureRepository lectureData)
     {
         _viewModelFactory = viewModelFactory;
         _lectureData = lectureData;

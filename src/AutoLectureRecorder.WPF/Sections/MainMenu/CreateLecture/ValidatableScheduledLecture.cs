@@ -5,7 +5,7 @@ using ReactiveUI.Fody.Helpers;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
+namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
 /// <summary>
 /// Responsible for validating the scheduled lecture. Contains all the error messages as string fields
@@ -60,7 +60,7 @@ public class ValidatableScheduledLecture : ReactiveObject
                     break;
             }
         }
-        
+
         return result.IsValid;
     }
 

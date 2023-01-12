@@ -2,7 +2,7 @@
 
 namespace AutoLectureRecorder.Services.DataAccess;
 
-public interface IScheduledLectureData
+public interface IScheduledLectureRepository
 {
     /// <summary>
     /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture asynchronously
@@ -37,4 +37,8 @@ public interface IScheduledLectureData
     /// Gets the scheduled lectures with distinct subject names
     /// </summary>
     Task<List<ReactiveScheduledLecture?>> GetScheduledLecturesGroupedByName();
+    /// <summary>
+    /// Deletes the lecture with the given id if it exists
+    /// </summary>
+    Task DeleteScheduledLectureById(int id);
 }

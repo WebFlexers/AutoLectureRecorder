@@ -1,9 +1,9 @@
-﻿using AutoLectureRecorder.ReactiveUiUtilities;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Sections.Login;
+using AutoLectureRecorder.Sections.MainMenu;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.WebDriver;
-using AutoLectureRecorder.WPF.DependencyInjection.Factories;
-using AutoLectureRecorder.WPF.Sections.Login;
-using AutoLectureRecorder.WPF.Sections.MainMenu;
 using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
@@ -13,12 +13,12 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 
-namespace AutoLectureRecorder.WPF.Sections.LoginWebView;
+namespace AutoLectureRecorder.Sections.LoginWebView;
 
 public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
     private readonly IWebDriverFactory _webDriverFactory;
-    private readonly IStudentAccountData _studentAccountData;
+    private readonly IStudentAccountRepository _studentAccountData;
     private readonly ILogger<LoginWebViewModel> _logger;
     private readonly IViewModelFactory _viewModelFactory;
 
@@ -28,8 +28,8 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
     public ReactiveCommand<Unit, Unit> LoginToMicrosoftTeamsCommand { get; private set; }
 
-    public LoginWebViewModel(ILogger<LoginWebViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory, 
-                             IWebDriverFactory webDriverFactory, IStudentAccountData studentAccountData)
+    public LoginWebViewModel(ILogger<LoginWebViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory,
+                             IWebDriverFactory webDriverFactory, IStudentAccountRepository studentAccountData)
     {
         _logger = logger;
         HostScreen = screenFactory.GetMainWindowViewModel();
@@ -37,7 +37,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         _webDriverFactory = webDriverFactory;
         _studentAccountData = studentAccountData;
 
-        MessageBus.Current.SendMessage<bool>(true, PubSubMessages.UpdateWindowTopMost);
+        MessageBus.Current.SendMessage(true, PubSubMessages.UpdateWindowTopMost);
         MessageBus.Current.Listen<(string, string)>(PubSubMessages.GetStudentAccount).Subscribe(account =>
         {
             _academicEmailAddress = account.Item1;
@@ -81,6 +81,6 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         webDriver?.Dispose();
         loginTask.Dispose();
 
-        MessageBus.Current.SendMessage<bool>(false, PubSubMessages.UpdateWindowTopMost);
+        MessageBus.Current.SendMessage(false, PubSubMessages.UpdateWindowTopMost);
     }
 }

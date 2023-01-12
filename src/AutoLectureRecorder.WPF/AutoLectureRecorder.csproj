@@ -27,8 +27,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="LibVLCSharp.WPF" Version="3.6.7" />
-		<PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.1" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.7.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />

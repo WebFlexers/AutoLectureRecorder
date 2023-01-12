@@ -21,7 +21,7 @@ namespace AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
 public class DashboardViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly ILogger<DashboardViewModel> _logger;
-    private readonly IScheduledLectureData _lectureData;
+    private readonly IScheduledLectureRepository _lectureData;
 
     public string? UrlPathSegment => nameof(DashboardViewModel);
     public IScreen HostScreen { get; }
@@ -37,7 +37,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; } 
 
-    public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, IScheduledLectureData lectureData)
+    public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, IScheduledLectureRepository lectureData)
     {
         HostScreen = screenFactory.GetMainMenuViewModel();
         _logger = logger;

@@ -2,7 +2,7 @@
 
 namespace AutoLectureRecorder.Services.DataAccess;
 
-public interface IStudentAccountData
+public interface IStudentAccountRepository
 {
     /// <summary>
     /// Insert a new student account to the database asynchronously

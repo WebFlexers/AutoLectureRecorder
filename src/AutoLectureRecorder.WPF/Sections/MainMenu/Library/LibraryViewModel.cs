@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Library;
+namespace AutoLectureRecorder.Sections.MainMenu.Library;
 
 public class LibraryViewModel : ReactiveObject, IRoutableViewModel
 {

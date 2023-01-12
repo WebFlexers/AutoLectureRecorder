@@ -1,4 +1,13 @@
-﻿using AutoLectureRecorder.WPF.Sections.Login;
+﻿using AutoLectureRecorder.Sections.Login;
+using AutoLectureRecorder.Sections.LoginWebView;
+using AutoLectureRecorder.Sections.MainMenu;
+using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
+using AutoLectureRecorder.Sections.MainMenu.Dashboard;
+using AutoLectureRecorder.Sections.MainMenu.Library;
+using AutoLectureRecorder.Sections.MainMenu.Schedule;
+using AutoLectureRecorder.Sections.MainMenu.Settings;
+using AutoLectureRecorder.Sections.MainMenu.Upload;
+using AutoLectureRecorder.WPF.Sections.Login;
 using AutoLectureRecorder.WPF.Sections.LoginWebView;
 using AutoLectureRecorder.WPF.Sections.MainMenu;
 using AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
@@ -10,7 +19,7 @@ using AutoLectureRecorder.WPF.Sections.MainMenu.Upload;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.DependencyInjection;
+namespace AutoLectureRecorder.DependencyInjection;
 
 internal static class MvvmServicesExtensions
 {

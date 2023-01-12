@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Settings;
+namespace AutoLectureRecorder.Sections.MainMenu.Settings;
 
 public class SettingsViewModel : ReactiveObject, IRoutableViewModel
 {

@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
+namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
 public class ScheduleViewModel : ReactiveObject, IRoutableViewModel
 {

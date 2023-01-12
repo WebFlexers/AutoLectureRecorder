@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using ReactiveUI;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu.Upload;
+namespace AutoLectureRecorder.Sections.MainMenu.Upload;
 
 public class UploadViewModel : ReactiveObject, IRoutableViewModel
 {

@@ -1,7 +1,8 @@
 ﻿using AutoLectureRecorder.Services.WebDriver;
+using AutoLectureRecorder.WebDriver.UnitTests;
 using Xunit.Abstractions;
 
-namespace AutoLectureRecorder.UnitTests.Services.WebDriver;
+namespace AutoLectureRecorder.WebDriver.UnitTests.WebDriver;
 
 /// <summary>
 /// Tests for UnipiEdgeWebDriver. Requires edge web driver in the tests output directory to work. Link:

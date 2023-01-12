@@ -1,10 +1,9 @@
-﻿using AutoLectureRecorder.Data.Models;
-using AutoLectureRecorder.Data.ReactiveModels;
+﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.Services.DataAccess;
 
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess.Validation.DataAccessMocks;
 
-internal class ScheduledLectureDataMock : IScheduledLectureData
+internal class ScheduledLectureDataMock : IScheduledLectureRepository
 {
     private readonly List<ReactiveScheduledLecture> _lectures;
 
@@ -19,6 +18,11 @@ internal class ScheduledLectureDataMock : IScheduledLectureData
     }
 
     public Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteScheduledLectureById(int id)
     {
         throw new NotImplementedException();
     }

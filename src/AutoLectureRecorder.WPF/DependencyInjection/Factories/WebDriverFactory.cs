@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AutoLectureRecorder.WPF.DependencyInjection.Factories;
+namespace AutoLectureRecorder.DependencyInjection.Factories;
 
 public class WebDriverFactory : IWebDriverFactory
 {

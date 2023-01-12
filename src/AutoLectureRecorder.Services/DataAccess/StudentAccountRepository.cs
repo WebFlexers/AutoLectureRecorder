@@ -3,11 +3,11 @@ using AutoLectureRecorder.Data.ReactiveModels;
 
 namespace AutoLectureRecorder.Services.DataAccess;
 
-public class StudentAccountData : IStudentAccountData
+public class StudentAccountRepository : IStudentAccountRepository
 {
     private readonly ISqliteDataAccess _dataAccess;
 
-    public StudentAccountData(ISqliteDataAccess dataAccess)
+    public StudentAccountRepository(ISqliteDataAccess dataAccess)
     {
         _dataAccess = dataAccess;
     }

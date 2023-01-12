@@ -20,7 +20,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 {
     private readonly ILogger<CreateLectureViewModel> _logger;
     private readonly IValidator<ReactiveScheduledLecture> _lectureValidator;
-    private readonly IScheduledLectureData _lectureData;
+    private readonly IScheduledLectureRepository _lectureData;
 
     public ViewModelActivator Activator { get; set; } = new ViewModelActivator();
     public string? UrlPathSegment => nameof(CreateLectureViewModel);
@@ -56,7 +56,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Hidden;
 
     public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen, 
-                                  IValidator<ReactiveScheduledLecture> lectureValidator, IScheduledLectureData lectureData)
+                                  IValidator<ReactiveScheduledLecture> lectureValidator, IScheduledLectureRepository lectureData)
     {
         HostScreen = hostScreen.GetMainMenuViewModel();
         _logger = logger;

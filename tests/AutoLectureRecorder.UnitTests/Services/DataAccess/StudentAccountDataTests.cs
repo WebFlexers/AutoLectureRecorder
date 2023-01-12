@@ -9,7 +9,7 @@ public class StudentAccountDataTests
     public async void CreateStudentAccount_ShouldInsertAccountToTheDb()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var studentData = new StudentAccountData(dataAccess);
+        var studentData = new StudentAccountRepository(dataAccess);
 
         await studentData.InsertStudentAccountAsync("p19165", "p19165@unipi.gr", "a_random_not_real_password");
     }
@@ -18,7 +18,7 @@ public class StudentAccountDataTests
     public async void DeleteStudentAccount_ShouldDeleteAllRows()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var studentData = new StudentAccountData(dataAccess);
+        var studentData = new StudentAccountRepository(dataAccess);
 
         await studentData.DeleteStudentAccountAsync();
     }
@@ -27,7 +27,7 @@ public class StudentAccountDataTests
     public async void GetStudentAccount_ShouldGetTheStudentAccount()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var studentData = new StudentAccountData(dataAccess);
+        var studentData = new StudentAccountRepository(dataAccess);
 
         await studentData.DeleteStudentAccountAsync();
         await studentData.InsertStudentAccountAsync("p19165", "p19165@unipi.gr", "a_random_not_real_password");

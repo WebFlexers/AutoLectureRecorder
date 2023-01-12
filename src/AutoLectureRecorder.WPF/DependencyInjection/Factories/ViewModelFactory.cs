@@ -2,7 +2,7 @@
 using ReactiveUI;
 using System;
 
-namespace AutoLectureRecorder.WPF.DependencyInjection.Factories;
+namespace AutoLectureRecorder.DependencyInjection.Factories;
 
 public class ViewModelFactory : IViewModelFactory
 {

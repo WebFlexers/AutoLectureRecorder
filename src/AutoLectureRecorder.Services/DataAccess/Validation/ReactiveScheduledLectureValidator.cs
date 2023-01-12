@@ -5,10 +5,10 @@ namespace AutoLectureRecorder.Services.DataAccess.Validation;
 
 public class ReactiveScheduledLectureValidator : AbstractValidator<ReactiveScheduledLecture>
 {
-    private readonly IScheduledLectureData _lectureData;
+    private readonly IScheduledLectureRepository _lectureData;
     List<ReactiveScheduledLecture>? _existingLectures;
 
-    public ReactiveScheduledLectureValidator(IScheduledLectureData lectureData)
+    public ReactiveScheduledLectureValidator(IScheduledLectureRepository lectureData)
 	{
 		RuleLevelCascadeMode = CascadeMode.Stop;
 

@@ -1,7 +1,7 @@
 ﻿using AutoLectureRecorder.Services.WebDriver;
 using System;
 
-namespace AutoLectureRecorder.WPF.DependencyInjection.Factories;
+namespace AutoLectureRecorder.DependencyInjection.Factories;
 
 public interface IWebDriverFactory
 {

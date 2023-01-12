@@ -1,9 +1,9 @@
-﻿using AutoLectureRecorder.WPF.Sections.MainMenu;
+﻿using AutoLectureRecorder.Sections.MainMenu;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using System;
 
-namespace AutoLectureRecorder.WPF.DependencyInjection.Factories;
+namespace AutoLectureRecorder.DependencyInjection.Factories;
 
 public class ScreenFactory : IScreenFactory
 {

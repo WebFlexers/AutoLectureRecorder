@@ -1,9 +1,8 @@
-﻿using Microsoft.VisualBasic.Devices;
+﻿using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
-using System.Windows.Input;
 
 namespace AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
 

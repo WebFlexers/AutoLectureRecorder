@@ -1,12 +1,12 @@
-﻿using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Library;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Settings;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Upload;
+﻿using AutoLectureRecorder.Sections.MainMenu;
+using AutoLectureRecorder.Sections.MainMenu.Dashboard;
+using AutoLectureRecorder.Sections.MainMenu.Library;
+using AutoLectureRecorder.Sections.MainMenu.Schedule;
+using AutoLectureRecorder.Sections.MainMenu.Settings;
+using AutoLectureRecorder.Sections.MainMenu.Upload;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Input;
@@ -27,6 +27,7 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
             this.OneWayBind(ViewModel, vm => vm.MenuVisibility, v => v.mainMenuGrid.Visibility)
                 .DisposeWith(disposables);
 
+            // Navigation commands
             this.BindCommand(ViewModel, vm => vm.NavigateToDashboardCommand, v => v.dashboardButton)
                 .DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.NavigateToLibraryCommand, v => v.libraryButton)
@@ -38,6 +39,11 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
             this.BindCommand(ViewModel, vm => vm.NavigateToUploadCommand, v => v.uploadButton)
                 .DisposeWith(disposables);
 
+            // temp navigation to Create Lectures page (TODO: Replace it in the future)
+            this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.helpButton)
+                .DisposeWith(disposables);
+
+            // Navigate back and forward using the 2 arrow-like mouse buttons (if the user's mouse has them)
             this.Events().MouseDown
                 .Subscribe(e =>
                 {
@@ -52,12 +58,11 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                     }
                 }).DisposeWith(disposables);
 
-            this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.helpButton)
-                .DisposeWith(disposables);
-
             this.BindCommand(ViewModel, vm => vm.LogoutCommand, v => v.logoutButton)
                 .DisposeWith(disposables);
 
+            // Update the menu buttons to highlight the selected one and show the right side line
+            // that indicates it is active
             ViewModel!.Router.NavigationChanged.Subscribe(cs =>
             {
                 UpdateMenuButtonsStyle();

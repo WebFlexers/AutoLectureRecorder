@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
-namespace AutoLectureRecorder.UnitTests;
+namespace AutoLectureRecorder.WebDriver.UnitTests;
 
 internal sealed class XUnitLoggerProvider : ILoggerProvider
 {

@@ -4,6 +4,7 @@ using ReactiveMarbles.ObservableEvents;
 using System;
 using System.Windows;
 using System.Windows.Media;
+using AutoLectureRecorder.Sections.Login;
 
 namespace AutoLectureRecorder.WPF.Sections.Login;
 

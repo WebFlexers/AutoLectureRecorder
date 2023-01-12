@@ -1,13 +1,13 @@
-﻿using AutoLectureRecorder.ReactiveUiUtilities;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Sections.Login;
+using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
+using AutoLectureRecorder.Sections.MainMenu.Dashboard;
+using AutoLectureRecorder.Sections.MainMenu.Library;
+using AutoLectureRecorder.Sections.MainMenu.Schedule;
+using AutoLectureRecorder.Sections.MainMenu.Settings;
+using AutoLectureRecorder.Sections.MainMenu.Upload;
 using AutoLectureRecorder.Services.DataAccess;
-using AutoLectureRecorder.WPF.DependencyInjection.Factories;
-using AutoLectureRecorder.WPF.Sections.Login;
-using AutoLectureRecorder.WPF.Sections.MainMenu.CreateLecture;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Dashboard;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Library;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Schedule;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Settings;
-using AutoLectureRecorder.WPF.Sections.MainMenu.Upload;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -19,13 +19,13 @@ using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AutoLectureRecorder.WPF.Sections.MainMenu;
+namespace AutoLectureRecorder.Sections.MainMenu;
 
 public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IActivatableViewModel
 {
     private readonly ILogger<MainMenuViewModel> _logger;
     private readonly IViewModelFactory _viewModelFactory;
-    private readonly IStudentAccountData _studentAccountData;
+    private readonly IStudentAccountRepository _studentAccountData;
 
     public RoutingState Router { get; } = new RoutingState();
     public ViewModelActivator Activator { get; } = new ViewModelActivator();
@@ -44,7 +44,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     public ReactiveCommand<Unit, Unit> NavigateForwardCommand { get; private set; }
 
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; private set; }
-    
+
     // An extra navigation stack that handles forward navigation
     // since it doesn't already exist in ReactiveUI
     private Stack<Type> _navigationStack = new Stack<Type>();
@@ -52,7 +52,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     [Reactive]
     public Visibility MenuVisibility { get; set; } = Visibility.Visible;
 
-    public MainMenuViewModel(ILogger<MainMenuViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory, IStudentAccountData studentAccountData)
+    public MainMenuViewModel(ILogger<MainMenuViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory, IStudentAccountRepository studentAccountData)
     {
         _logger = logger;
         _viewModelFactory = viewModelFactory;
@@ -65,9 +65,9 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
             SetRoutedViewHostContent(typeof(DashboardViewModel)));
         NavigateToLibraryCommand = ReactiveCommand.Create(() =>
             SetRoutedViewHostContent(typeof(LibraryViewModel)));
-        NavigateToScheduleCommand = ReactiveCommand.Create(() => 
+        NavigateToScheduleCommand = ReactiveCommand.Create(() =>
             SetRoutedViewHostContent(typeof(ScheduleViewModel)));
-        NavigateToSettingsCommand = ReactiveCommand.Create(() => 
+        NavigateToSettingsCommand = ReactiveCommand.Create(() =>
             SetRoutedViewHostContent(typeof(SettingsViewModel)));
         NavigateToUploadCommand = ReactiveCommand.Create(() =>
             SetRoutedViewHostContent(typeof(UploadViewModel)));

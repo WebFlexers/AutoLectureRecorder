@@ -1,13 +1,14 @@
-﻿using AutoLectureRecorder.Services.DataAccess;
+﻿using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.WebDriver;
-using AutoLectureRecorder.WPF.DependencyInjection.Factories;
+using AutoLectureRecorder.WPF;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReactiveUI;
 using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
 
-namespace AutoLectureRecorder.WPF.DependencyInjection;
+namespace AutoLectureRecorder.DependencyInjection;
 
 public class AppBootstrapper
 {
@@ -35,7 +36,7 @@ public class AppBootstrapper
     {
         // Add Main Window and Routing
         services.AddSingleton<MainWindowViewModel>();
-        services.AddSingleton<MainWindow>(sp => new MainWindow { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
+        services.AddSingleton(sp => new MainWindow { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
 
         // Add Factories
         services.AddTransient<IScreenFactory, ScreenFactory>();
@@ -50,7 +51,7 @@ public class AppBootstrapper
         services.AddFluentValidation();
         services.AddSingleton<ISqliteDataAccess, SqliteDataAccess>();
         services.AddTransient<IWebDriver, UnipiEdgeWebDriver>();
-        services.AddTransient<IStudentAccountData, StudentAccountData>();
-        services.AddTransient<IScheduledLectureData, ScheduledLectureData>();
+        services.AddTransient<IStudentAccountRepository, StudentAccountRepository>();
+        services.AddTransient<IScheduledLectureRepository, ScheduledLectureRepository>();
     }
 }

@@ -14,7 +14,7 @@ public class ReactiveScheduledLectureValidatorTests
 	public ReactiveScheduledLectureValidatorTests(ITestOutputHelper testOutputHelper)
 	{
         _validator = new ReactiveScheduledLectureValidator(
-						new ScheduledLectureData(
+						new ScheduledLectureRepository(
 							new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration())));
 
         _output = testOutputHelper;

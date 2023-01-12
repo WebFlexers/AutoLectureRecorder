@@ -1,7 +1,7 @@
-﻿using AutoLectureRecorder.Services.DataAccess;
-using AutoLectureRecorder.WPF.DependencyInjection;
-using AutoLectureRecorder.WPF.Sections.Login;
-using AutoLectureRecorder.WPF.Sections.MainMenu;
+﻿using AutoLectureRecorder.DependencyInjection;
+using AutoLectureRecorder.Sections.Login;
+using AutoLectureRecorder.Sections.MainMenu;
+using AutoLectureRecorder.Services.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
@@ -68,7 +68,7 @@ public partial class App : Application
         var mainWindow = services.GetRequiredService<MainWindow>();
 
         // Get database access to see if the user is logged in
-        var studentAccountData = services.GetRequiredService<IStudentAccountData>();
+        var studentAccountData = services.GetRequiredService<IStudentAccountRepository>();
         var studentAccount = await studentAccountData.GetStudentAccountAsync()!;
         var isLoggedIn = studentAccount != null;
 

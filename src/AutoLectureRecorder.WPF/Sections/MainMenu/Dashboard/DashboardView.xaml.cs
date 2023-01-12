@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using AutoLectureRecorder.Sections.MainMenu.Dashboard;
+using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
 using System.Text;
@@ -19,6 +20,9 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
         });
     }
 
+    /// <summary>
+    /// Updates the subject name and time distance text 
+    /// </summary>
     private void UpdateNextLecture(TimeSpan? timeDiff)
     {
         if (timeDiff == null || ViewModel!.NextScheduledLecture == null)
@@ -30,6 +34,10 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
 
         this.nextLectureSubjectNameTextBlock.Text = ViewModel.NextScheduledLecture.SubjectName;
 
+        // The goal here is show only the relevant times on screen.
+        // So for example, if the time distance from now to the closest scheduled lecture
+        // is less than a day, we will not show 0 Days, but hide the days completely.
+        // The same applies for hours and minutes
         var timeFormatBuilder = new StringBuilder();
 
         if (TimeSpan.Compare(timeDiff.Value, TimeSpan.FromDays(1)) >= 0)

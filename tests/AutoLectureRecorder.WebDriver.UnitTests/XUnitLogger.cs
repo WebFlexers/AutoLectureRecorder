@@ -2,7 +2,7 @@
 using System.Text;
 using Xunit.Abstractions;
 
-namespace AutoLectureRecorder.UnitTests;
+namespace AutoLectureRecorder.WebDriver.UnitTests;
 
 internal class XUnitLogger : ILogger
 {

@@ -1,15 +1,13 @@
 ﻿using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Data.ReactiveModels;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 namespace AutoLectureRecorder.Services.DataAccess;
 
-public class ScheduledLectureData : IScheduledLectureData
+public class ScheduledLectureRepository : IScheduledLectureRepository
 {
     private readonly ISqliteDataAccess _dataAccess;
 
-    public ScheduledLectureData(ISqliteDataAccess dataAccess)
+    public ScheduledLectureRepository(ISqliteDataAccess dataAccess)
     {
         _dataAccess = dataAccess;
     }
@@ -151,6 +149,15 @@ public class ScheduledLectureData : IScheduledLectureData
         var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { }).ConfigureAwait(false);
 
         return result.Select(CreateReactiveScheduledLecture).ToList();
+    }
+
+    /// <summary>
+    /// Deletes the lecture with the given id if it exists
+    /// </summary>
+    public async Task DeleteScheduledLectureById(int id)
+    {
+        string sql = "delete from ScheduledLectures where Id=@Id";
+        await _dataAccess.SaveData<dynamic>(sql, new { Id = id });
     }
 
     private ReactiveScheduledLecture? CreateReactiveScheduledLecture(ScheduledLecture? scheduledLecture)
