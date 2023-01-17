@@ -47,7 +47,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
     // An extra navigation stack that handles forward navigation
     // since it doesn't already exist in ReactiveUI
-    private Stack<Type> _navigationStack = new();
+    private readonly Stack<Type> _navigationStack = new();
 
     [Reactive]
     public Visibility MenuVisibility { get; set; } = Visibility.Visible;
@@ -82,7 +82,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         // the screen and make the window fullscreen
         MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(ToggleMenuVisibility);
 
-        // Set the Dashboard as the Home Screen
+        // Navigate to the Dashboard at startup
         this.WhenActivated(disposables =>
         {
             NavigateToDashboardCommand.Execute()

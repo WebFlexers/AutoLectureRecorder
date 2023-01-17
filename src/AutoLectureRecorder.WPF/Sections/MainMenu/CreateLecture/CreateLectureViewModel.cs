@@ -100,7 +100,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                 return;
             }
 
-            var newLecture = await InsertScheduledLectureToDB();
+            var newLecture = await InsertScheduledLectureToDb();
             _justSuccessfullyAddedLecture = true;
 
             // If the new lecture has a subject name that didn't exist previously, add it to the list
@@ -139,7 +139,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                  ValidateScheduledLectureCommand.Execute().Subscribe();
              });
 
-        // Hide the snackbars after a set ammount of time
+        // Hide the snackbars after a set amount of time
         TimeSpan snackBarVisibilityTime = TimeSpan.FromSeconds(3);
         this.WhenAnyValue(vm => vm.IsFailedInsertionSnackbarActive)
             .Throttle(snackBarVisibilityTime)
@@ -163,7 +163,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                 }
             });
 
-        // Get the Scheduled Lectures grouped by bame
+        // Get the Scheduled Lectures grouped by name
         Observable.StartAsync(async () =>
         {
             var distinctNamesTask = _lectureData.GetScheduledLecturesGroupedByName();
@@ -198,11 +198,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     /// <param name="containedText">The search term</param>
     private void FilterSubjectNames(string containedText)
     {
-        if (DistinctScheduledLectures == null)
-        {
-            return;
-        }
-
         var filteredCollection = DistinctScheduledLectures.Where(lecture => lecture.SubjectName.Contains(containedText));
         DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(filteredCollection);
     }
@@ -223,7 +218,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         return isLectureValid;
     }
 
-    private Task<ReactiveScheduledLecture?> InsertScheduledLectureToDB()
+    private Task<ReactiveScheduledLecture?> InsertScheduledLectureToDb()
     {
         var result = _lectureData.InsertScheduledLectureAsync(ScheduledLecture.SubjectName, ScheduledLecture.Semester,
                                                               ScheduledLecture.MeetingLink, ScheduledLecture.Day,
