@@ -16,8 +16,8 @@ public class AppBootstrapper
     public AppBootstrapper()
     {
         AppHost = Host.CreateDefaultBuilder()
-           .ConfigureServices((hostContext, services) =>
-           {
+            .ConfigureServices((hostContext, services) =>
+            {
                // Override splat internal DI with Microsoft built-in dependency injection
                services.UseMicrosoftDependencyResolver();
                Locator.CurrentMutable.InitializeSplat();
@@ -25,8 +25,8 @@ public class AppBootstrapper
 
                // Configure the rest of the Dependency Injection
                ConfigureServices(services);
-           })
-           .Build();
+            })
+            .Build();
 
         AppHost.Services.UseMicrosoftDependencyResolver();
     }

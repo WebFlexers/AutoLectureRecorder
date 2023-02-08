@@ -30,6 +30,7 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel
     [Reactive]
     public string ErrorMessage { get; set; } = string.Empty;
     public bool IsErrorMessageVisible => string.IsNullOrWhiteSpace(ErrorMessage) == false;
+    public bool IsErrorMessageInvisible => string.IsNullOrWhiteSpace(ErrorMessage);
 
     [Reactive] 
     public string AcademicEmailAddress { get; set; } = string.Empty;

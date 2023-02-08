@@ -1,4 +1,5 @@
 ﻿<rxui:ReactiveUserControl 
+            x:Name="LoginViewMain"
             x:Class="AutoLectureRecorder.Sections.Login.LoginView"
             x:TypeArguments="local:LoginViewModel"
             xmlns:rxui="http://reactiveui.net"
@@ -15,7 +16,8 @@
             TextElement.FontSize="14"
             mc:Ignorable="d" 
             d:DesignWidth="1360"
-            d:DesignHeight="768">
+            d:DesignHeight="768"
+            Loaded="LoginView_OnLoaded">
     <Grid>
         
         <Grid.RowDefinitions>
@@ -76,14 +78,36 @@
                     </Button.Background>
                 </Button>
 
+                <TextBlock x:Name="Disclaimer1TextBlock" 
+                           xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=950}"
+                           FontSize="16"
+                           Margin="0,20,0,0"
+                           Foreground="{StaticResource SecondaryTextBrush}"
+                           TextWrapping="Wrap">
+                    * Your academic accounts' password is required in order to connect to microsoft teams
+                    meetings and record them. 
+                </TextBlock>
+
+                <TextBlock x:Name="Disclaimer2TextBlock" 
+                           xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=950}"
+                           FontSize="16"
+                           Margin="0,10,0,0"
+                           Foreground="{StaticResource SecondaryTextBrush}"
+                           TextWrapping="Wrap">
+                    * We do NOT store your password in our servers and we don't have access
+                    to it in any way. Instead it is stored locally on your pc
+                    in an encrypted form.
+                </TextBlock>
+
                 <TextBlock x:Name="ErrorTextBlock" 
                            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=1100}"
                            d:Text="This is the error. Make it good. More test errorrr for the actual win"
+                           d:Margin="0, 120, 0, 0"
                            TextAlignment="Center"
                            TextWrapping="Wrap"
                            HorizontalAlignment="Center"
                            MaxHeight="160"
-                           Margin="0,40,0,0"
+                           Margin="0,20,0,0"
                            Foreground="{StaticResource ErrorBrush}"
                            FontSize="20" />
 
@@ -95,12 +119,12 @@
                         Margin="50,0,0,100">
                 <TextBlock Text="Created by, WebFlexers Organization"
                            FontSize="18"
-                           Foreground="{StaticResource SecondaryTextBrush}" />
-                <TextBlock Text="By the people, for the people"
+                           Foreground="{StaticResource PrimaryBrush}" />
+                <TextBlock Text="By the students, for the students"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            FontSize="18"
-                           Foreground="{StaticResource SecondaryTextBrush}" />
+                           Foreground="{StaticResource PrimaryBrush}" />
             </StackPanel>
            
 
