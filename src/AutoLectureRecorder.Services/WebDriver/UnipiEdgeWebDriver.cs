@@ -8,7 +8,7 @@ namespace AutoLectureRecorder.Services.WebDriver;
 
 public class UnipiEdgeWebDriver : IWebDriver, IDisposable
 {
-    public const string MICROSOFT_TEAMS_AUTH_URL = @"https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
+    public const string MicrosoftTeamsAuthUrl = @"https://login.microsoftonline.com/common/oauth2/authorize?response_type=id_token&client_id=5e3ce6c0-2b1f-4285-8d4b-75ee78787346&redirect_uri=https%3A%2F%2Fteams.microsoft.com%2Fgo&state=19b0dc60-3d5f-467f-9ee1-3849f5ae7e58&&client-request-id=75367383-e3e7-480f-a14f-faf664ccea61&x-client-SKU=Js&x-client-Ver=1.0.9&nonce=29792698-73cd-457e-977e-e23d8843a8f0&domain_hint=";
     private EdgeDriver? _driver;
     private readonly ILogger<UnipiEdgeWebDriver> _logger;
 
@@ -18,6 +18,7 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
         _logger = logger;
     }
 
+    // TODO: Automate the download of the correct edge web driver
     /// <summary>
     /// Creates a web driver backed by the Edge browser.
     /// </summary>
@@ -27,8 +28,11 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
     public void StartDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
     {
         EdgeOptions edgeOptions = new EdgeOptions();
-        var driverService = EdgeDriverService.CreateDefaultService();
+        var driverPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\AutoLectureRecorder";
+        var driverService = EdgeDriverService.CreateDefaultService(driverPath);
         driverService.HideCommandPromptWindow = true;
+        edgeOptions.AddAdditionalOption("useAutomationExtension", false);
+        edgeOptions.AddAdditionalOption("ms:inPrivate", true);
 
         if (useWebView)
         {
@@ -54,7 +58,7 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
 
         try
         {
-            _driver.Url = MICROSOFT_TEAMS_AUTH_URL;
+            _driver.Url = MicrosoftTeamsAuthUrl;
 
             // Turn email characters to lower, because capital letters fail the login proccess 
             _driver.FindElement(By.Id("i0116")).SendKeys(academicEmailAddress.ToLower());
@@ -93,7 +97,7 @@ public class UnipiEdgeWebDriver : IWebDriver, IDisposable
         }
         catch (Exception ex)
         {
-            _logger?.LogError("Login failed with exception: {ex}", ex);
+            _logger.LogError("Login failed with exception: {ex}", ex);
             return (false, "Login failed. Check your credentials and try again");
         }
     }

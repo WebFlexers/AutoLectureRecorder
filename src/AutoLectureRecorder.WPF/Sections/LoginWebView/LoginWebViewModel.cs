@@ -46,7 +46,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     }
 
     [Reactive]
-    public string WebViewSource { get; set; } = UnipiEdgeWebDriver.MICROSOFT_TEAMS_AUTH_URL;
+    public string WebViewSource { get; set; } = UnipiEdgeWebDriver.MicrosoftTeamsAuthUrl;
 
     private string _academicEmailAddress = "";
     private string _password = "";
