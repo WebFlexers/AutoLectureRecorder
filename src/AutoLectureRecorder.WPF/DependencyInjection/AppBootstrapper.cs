@@ -40,6 +40,9 @@ public class AppBootstrapper
         // Add Factories
         services.AddTransient<IScreenFactory, ScreenFactory>();
         services.AddTransient<IViewModelFactory, ViewModelFactory>();
+
+        services.AddTransient<IValidationFactory, ValidatorFactory>();
+
         services.AddTransient<IWebDriverFactory, WebDriverFactory>();
 
         // Add Views and ViewModels
@@ -47,7 +50,6 @@ public class AppBootstrapper
         services.AddViewModels();
 
         // Add Custom Services
-        services.AddFluentValidation();
         services.AddSingleton<ISqliteDataAccess, SqliteDataAccess>();
         services.AddTransient<IWebDriver, UnipiEdgeWebDriver>();
         services.AddTransient<IStudentAccountRepository, StudentAccountRepository>();

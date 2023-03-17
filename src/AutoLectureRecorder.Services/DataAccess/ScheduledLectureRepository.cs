@@ -90,6 +90,8 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// </summary>
     public async Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek? day)
     {
+        if (day == null) return new List<ReactiveScheduledLecture>();
+
         string sql = "select * from ScheduledLectures where Day=@Day";
 
         var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Day = (int)day.Value }).ConfigureAwait(false);

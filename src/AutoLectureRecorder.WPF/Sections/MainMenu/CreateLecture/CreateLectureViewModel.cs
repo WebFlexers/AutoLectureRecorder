@@ -19,8 +19,8 @@ namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
     private readonly ILogger<CreateLectureViewModel> _logger;
-    private readonly IValidator<ReactiveScheduledLecture> _lectureValidator;
-    private readonly IScheduledLectureRepository _lectureData;
+    private readonly IValidationFactory _validationFactory;
+    private readonly IScheduledLectureRepository _scheduledLectureRepository;
 
     public ViewModelActivator Activator { get; set; } = new();
     public string UrlPathSegment => nameof(CreateLectureViewModel);
@@ -56,12 +56,12 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Hidden;
 
     public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen,
-                                  IValidator<ReactiveScheduledLecture> lectureValidator, IScheduledLectureRepository lectureData)
+                                  IValidationFactory validationFactory, IScheduledLectureRepository scheduledLectureRepository)
     {
         HostScreen = hostScreen.GetMainMenuViewModel();
         _logger = logger;
-        _lectureValidator = lectureValidator;
-        _lectureData = lectureData;
+        _validationFactory = validationFactory;
+        _scheduledLectureRepository = scheduledLectureRepository;
 
         FilterSubjectNamesCommand = ReactiveCommand.Create<string>(FilterSubjectNames);
 
@@ -166,7 +166,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         // Get the Scheduled Lectures grouped by name
         Observable.StartAsync(async () =>
         {
-            var distinctNamesTask = _lectureData.GetScheduledLecturesGroupedByName();
+            var distinctNamesTask = _scheduledLectureRepository.GetScheduledLecturesGroupedByName();
             var distinctNames = await distinctNamesTask;
 
             if (distinctNames != null)
@@ -204,7 +204,9 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     private async Task<bool> ValidateScheduledLecture()
     {
-        var isLectureValid = await ScheduledLectureValidationErrors.ValidateAndPopulateErrors(_lectureValidator, ScheduledLecture);
+        var existingLectures = await _scheduledLectureRepository.GetScheduledLecturesByDayAsync(ScheduledLecture.Day);
+        var scheduledLectureValidator = _validationFactory.CreateReactiveScheduledLectureValidator(existingLectures);
+        var isLectureValid = await ScheduledLectureValidationErrors.ValidateAndPopulateErrors(scheduledLectureValidator, ScheduledLecture);
 
         if (isLectureValid)
         {
@@ -220,10 +222,11 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     private Task<ReactiveScheduledLecture?> InsertScheduledLectureToDb()
     {
-        var result = _lectureData.InsertScheduledLectureAsync(ScheduledLecture.SubjectName, ScheduledLecture.Semester,
-                                                              ScheduledLecture.MeetingLink, ScheduledLecture.Day,
-                                                              ScheduledLecture.StartTime, ScheduledLecture.EndTime,
-                                                              ScheduledLecture.IsScheduled, ScheduledLecture.WillAutoUpload);
+        var result = _scheduledLectureRepository.InsertScheduledLectureAsync(
+            ScheduledLecture.SubjectName, ScheduledLecture.Semester,
+            ScheduledLecture.MeetingLink, ScheduledLecture.Day,
+            ScheduledLecture.StartTime, ScheduledLecture.EndTime,
+            ScheduledLecture.IsScheduled, ScheduledLecture.WillAutoUpload);
 
         _logger.LogInformation("Inserted scheduled lecture to database");
 

@@ -1,7 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.DataAccess.Validation;
-using AutoLectureRecorder.UnitTests.Services.DataAccess.Validation.DataAccessMocks;
 using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess.Validation;
@@ -13,10 +11,7 @@ public class ReactiveScheduledLectureValidatorTests
 
 	public ReactiveScheduledLectureValidatorTests(ITestOutputHelper testOutputHelper)
 	{
-        _validator = new ReactiveScheduledLectureValidator(
-						new ScheduledLectureRepository(
-							new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration())));
-
+        _validator = new ReactiveScheduledLectureValidator();
         _output = testOutputHelper;
     }
 
@@ -35,6 +30,7 @@ public class ReactiveScheduledLectureValidatorTests
             IsScheduled = true,
             WillAutoUpload = true,
         };
+
         var result = await _validator.ValidateAsync(model);
 
         if (result.IsValid == false)
@@ -123,7 +119,7 @@ public class ReactiveScheduledLectureValidatorTests
             WillAutoUpload = true,
         };
 
-        var result = await _validator.ValidateAsync(model);
+        var result = _validator.Validate(model);
 
         if (result.IsValid == false)
         {
@@ -179,7 +175,7 @@ public class ReactiveScheduledLectureValidatorTests
             WillAutoUpload = false,
         };
 
-        var newValidator = new ReactiveScheduledLectureValidator(new ScheduledLectureDataMock(lectures));
+        var newValidator = new ReactiveScheduledLectureValidator(lectures);
 
         var result = await newValidator.ValidateAsync(conflictingLecture);
 
@@ -188,5 +184,6 @@ public class ReactiveScheduledLectureValidatorTests
 
         Assert.False(result.IsValid);
         Assert.Contains("overlap", errorMessage);
+        Assert.Contains("Sunday", errorMessage);
     }
 }

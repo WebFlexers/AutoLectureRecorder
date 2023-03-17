@@ -7,9 +7,9 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="11.5.0" />
-		<PackageReference Include="ReactiveUI" Version="18.4.20" />
-		<PackageReference Include="ReactiveUI.Fody" Version="18.4.20" />
+		<PackageReference Include="FluentValidation" Version="11.5.1" />
+		<PackageReference Include="ReactiveUI" Version="18.4.26" />
+		<PackageReference Include="ReactiveUI.Fody" Version="18.4.26" />
 	</ItemGroup>
 
 </Project>
