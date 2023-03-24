@@ -10,23 +10,29 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
-public class DashboardViewModel : ReactiveObject, IRoutableViewModel
+public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
     private readonly ILogger<DashboardViewModel> _logger;
     private readonly IScheduledLectureRepository _lectureData;
 
     public string UrlPathSegment => nameof(DashboardViewModel);
     public IScreen HostScreen { get; }
+    public ViewModelActivator Activator { get; }
 
     public ReactiveCommand<Unit, Unit> FindClosestScheduledLectureToNowCommand { get; }
     public ReactiveCommand<Unit, Unit> LoadAllScheduledLecturesCommand { get; }
 
     [Reactive] 
     public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; private set; } = new();
+    [Reactive]
+    public ObservableCollection<ReactiveScheduledLecture> TodaysLectures { get; private set; } = new();
 
     [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
@@ -38,6 +44,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         HostScreen = screenFactory.GetMainMenuViewModel();
         _logger = logger;
         _lectureData = lectureData;
+        Activator = new ViewModelActivator();
 
         FindClosestScheduledLectureToNowCommand = ReactiveCommand.CreateFromTask(async () =>
         {
@@ -56,13 +63,14 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         // Get a notification when a scheduled lecture is either added or deleted
         // in order to search again for the closest one
         MessageBus.Current.Listen<bool>(PubSubMessages.CheckClosestScheduledLecture)
-                          .Subscribe(async (shouldCheck) =>
-                          {
-                              if (!shouldCheck) return;
+            .Subscribe(async (shouldCheck) =>
+            {
+              if (!shouldCheck) return;
 
-                              var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
-                              NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
-                          });
+              var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+              AllScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(lecturesSorted);
+              NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
+            });
 
         // Create a timer that constantly calculates the difference
         // between now and the closest scheduled lecture
@@ -71,6 +79,32 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
         timer.Tick += CalculateClosestLectureTimeDiffTick;
         FindClosestScheduledLectureToNowCommand.Execute().Subscribe();
         timer.Start();
+
+        this.WhenActivated(async disposables =>
+        {
+            this.WhenAnyValue(vm => vm.AllScheduledLectures)
+                .Subscribe(scheduledLectures =>
+                {
+                    TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(
+                        scheduledLectures.Where(lecture => lecture.Day == DateTime.Now.DayOfWeek)
+                            .OrderBy(lecture => lecture.StartTime)
+                    );
+            }).DisposeWith(disposables);
+
+            await HandleActivation();
+        });
+    }
+
+    private async Task HandleActivation()
+    {
+        var todaysLecturesUnsorted = await _lectureData
+            .GetScheduledLecturesByDayAsync(DateTime.Now.DayOfWeek);
+
+        var todaysLecturesSortedByStartTime = 
+            todaysLecturesUnsorted.OrderBy(lecture => lecture.StartTime);
+
+        // TODO: Create a way to detect whether a lecture was successfully recorded and change the icon accordingly
+        TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(todaysLecturesSortedByStartTime);
     }
 
     private void CalculateClosestLectureTimeDiffTick(object? sender, EventArgs e)
@@ -82,7 +116,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel
     {
         if (lecturesSorted == null || lecturesSorted.Any() == false)
         {
-            return null;
+            return default;
         }
 
         DayOfWeek today = DateTime.Today.DayOfWeek;
