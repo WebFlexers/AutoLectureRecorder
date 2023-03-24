@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Text;
 
@@ -22,10 +21,21 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
                 .Subscribe(UpdateNextLecture)
                 .DisposeWith(disposables);
 
+            // Visibilities
+            this.OneWayBind(ViewModel, vm => vm.TodaysLecturesVisibility, v => v.TodaysLecturesScrollViewer.Visibility)
+                .DisposeWith(disposables);
+
+            this.OneWayBind(ViewModel, vm => vm.NoLecturesTodayErrorVisibility, v => v.TodaysLecturesErrorTextBlock.Visibility)
+                .DisposeWith(disposables);
+
+            // Commands
+            this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.ScheduleLecturesButton);
+
+            // Responsiveness
             this.WhenAnyValue(v => v.MainGrid.ActualHeight)
                 .Subscribe(_ =>
                 {
-                    TodaysLecturesScrollViewer.Height = MainGrid.ActualHeight - 180;
+                    TodaysLecturesScrollViewer.Height = MainGrid.ActualHeight - 275;
                 })
                 .DisposeWith(disposables);
         });

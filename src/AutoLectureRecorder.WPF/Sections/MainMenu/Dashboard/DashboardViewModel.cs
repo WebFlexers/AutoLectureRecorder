@@ -13,7 +13,9 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
+using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
@@ -28,6 +30,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
 
     public ReactiveCommand<Unit, Unit> FindClosestScheduledLectureToNowCommand { get; }
     public ReactiveCommand<Unit, Unit> LoadAllScheduledLecturesCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateToCreateLectureCommand { get; }
 
     [Reactive] 
     public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; private set; } = new();
@@ -38,6 +41,11 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
+
+    [Reactive]
+    public Visibility TodaysLecturesVisibility { get; set; } = Visibility.Collapsed;
+    [Reactive]
+    public Visibility NoLecturesTodayErrorVisibility { get; set; } = Visibility.Visible;
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, IScheduledLectureRepository lectureData)
     {
@@ -58,6 +66,12 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             AllScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(
                 await _lectureData.GetAllScheduledLecturesAsync()
             );
+        });
+
+        NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
+        {
+            var mainMenuViewModel = (MainMenuViewModel)screenFactory.GetMainMenuViewModel();
+            mainMenuViewModel.SetRoutedViewHostContent(typeof(CreateLectureViewModel));
         });
 
         // Get a notification when a scheduled lecture is either added or deleted
@@ -90,6 +104,21 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
                             .OrderBy(lecture => lecture.StartTime)
                     );
             }).DisposeWith(disposables);
+
+            this.WhenAnyValue(vm => vm.TodaysLectures)
+                .Subscribe(scheduledLectures =>
+                {
+                    if (scheduledLectures.Any())
+                    {
+                        TodaysLecturesVisibility = Visibility.Visible;
+                        NoLecturesTodayErrorVisibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        TodaysLecturesVisibility = Visibility.Collapsed;
+                        NoLecturesTodayErrorVisibility = Visibility.Visible;
+                    }
+                }).DisposeWith(disposables);
 
             await HandleActivation();
         });

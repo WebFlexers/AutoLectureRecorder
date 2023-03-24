@@ -39,8 +39,8 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                 .DisposeWith(disposables);
 
             // temp navigation to Create Lectures page (TODO: Replace it in the future)
-            this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.HelpButton)
-                .DisposeWith(disposables);
+            //this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.HelpButton)
+            //    .DisposeWith(disposables);
 
             // Navigate back and forward using the 2 arrow-like mouse buttons (if the user's mouse has them)
             this.Events().MouseDown
