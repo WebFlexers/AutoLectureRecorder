@@ -53,7 +53,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     [Reactive]
     public ValidatableScheduledLecture ScheduledLectureValidationErrors { get; set; } = new();
     [Reactive]
-    public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Hidden;
+    public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Collapsed;
 
     public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen,
                                   IValidationFactory validationFactory, IScheduledLectureRepository scheduledLectureRepository)

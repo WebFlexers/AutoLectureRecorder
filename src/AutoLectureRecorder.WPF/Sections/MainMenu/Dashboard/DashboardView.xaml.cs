@@ -33,11 +33,10 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
 
             // Responsiveness
             this.WhenAnyValue(v => v.MainGrid.ActualHeight)
-                .Subscribe(_ =>
-                {
-                    TodaysLecturesScrollViewer.Height = MainGrid.ActualHeight - 275;
-                })
-                .DisposeWith(disposables);
+            .Subscribe(_ =>
+            {
+                TodaysLecturesScrollViewer.Height = MainGrid.ActualHeight - 275;
+            }).DisposeWith(disposables);
         });
     }
 
@@ -55,7 +54,7 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
 
         this.NextLectureSubjectNameTextBlock.Text = ViewModel.NextScheduledLecture.SubjectName;
 
-        // The goal here is show only the relevant times on screen.
+        // The goal here is to show only the relevant times on screen.
         // So for example, if the time distance from now to the closest scheduled lecture
         // is less than a day, we will not show 0 Days, but hide the days completely.
         // The same applies for hours and minutes

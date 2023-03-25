@@ -186,7 +186,7 @@
 
             <!-- Horizontal Line 1 -->
             <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
-                  Height="1"
+                  Height="0.5"
                   Margin="0,25"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
@@ -259,7 +259,7 @@
             </Grid>
 
             <!-- Horizontal Line 2 -->
-            <Grid Height="1"
+            <Grid Height="0.5"
                   Margin="0,25"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>

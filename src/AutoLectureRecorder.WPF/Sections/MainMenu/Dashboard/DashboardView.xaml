@@ -64,7 +64,7 @@
                 </StackPanel>
 
                 <!-- Horizontal Line -->
-                <Grid Height="1"
+                <Grid Height="0.5"
                       d:Width="770"
                       Width="{Binding ElementName=MainDashboardStackPanel,Path=ActualWidth}"
                       Margin="0,20"
@@ -280,9 +280,10 @@
 
 
         <!-- Vertical Line -->
-        <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
+        <Grid Grid.Column="0" 
+              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
               Grid.RowSpan="2" 
-              Width="1"
+              Width="0.5"
               HorizontalAlignment="Right"
               Background="{StaticResource SectionLineBrush}">
         </Grid>
@@ -306,7 +307,7 @@
                        FontSize="30" />
 
             <!-- Horizontal Line -->
-            <Grid Height="1"
+            <Grid Height="0.5"
                   d:Width="770"
                   Width="{Binding ElementName=ScheduledLecturesStackPanel,Path=ActualWidth}"
                   Margin="0,31.5,0,10"
@@ -314,6 +315,7 @@
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
+            <!-- Error message for empty todays lectures -->
             <TextBlock x:Name="TodaysLecturesErrorTextBlock"  
                        TextWrapping="Wrap"
                        TextAlignment="Center"
@@ -322,8 +324,9 @@
                 No scheduled lectures were found. Click below to begin scheduling
             </TextBlock>
 
+            <!-- All the scheduled lectures for today -->
             <ScrollViewer x:Name="TodaysLecturesScrollViewer"  
-                          VerticalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
                           Height="530"
                           d:Height="0"
@@ -374,6 +377,7 @@
                 </ItemsControl>
             </ScrollViewer>
 
+            <!-- Schedule lectures button -->
             <Button x:Name="ScheduleLecturesButton"
                     IsDefault="True"
                     Height="55"

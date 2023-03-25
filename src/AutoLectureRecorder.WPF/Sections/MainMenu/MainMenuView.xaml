@@ -210,7 +210,7 @@
 
         <!-- Vertical Line -->
         <Grid Grid.Column="0"
-              Width="1"
+              Width="0.5"
               HorizontalAlignment="Right"
               Background="{StaticResource SectionLineBrush}"
               Panel.ZIndex="-1">
