@@ -40,6 +40,14 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         { DayOfWeek.Sunday, new() },
     };
 
+    public bool MondayHasLectures => ScheduledLecturesByDay[DayOfWeek.Monday].Any();
+    public bool TuesdayHasLectures => ScheduledLecturesByDay[DayOfWeek.Tuesday].Any();
+    public bool WednesdayHasLectures => ScheduledLecturesByDay[DayOfWeek.Wednesday].Any();
+    public bool ThursdayHasLectures => ScheduledLecturesByDay[DayOfWeek.Thursday].Any();
+    public bool FridayHasLectures => ScheduledLecturesByDay[DayOfWeek.Friday].Any();
+    public bool SaturdayHasLectures => ScheduledLecturesByDay[DayOfWeek.Saturday].Any();
+    public bool SundayHasLectures => ScheduledLecturesByDay[DayOfWeek.Sunday].Any();
+
     public ScheduleViewModel(ILogger<ScheduleViewModel> logger, IScreenFactory screenFactory, IScheduledLectureRepository lectureRepository)
     {
         _logger = logger;

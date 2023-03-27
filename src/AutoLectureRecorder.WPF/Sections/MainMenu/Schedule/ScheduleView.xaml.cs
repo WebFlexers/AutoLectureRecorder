@@ -1,7 +1,10 @@
 ﻿using ReactiveUI;
 using System;
+using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Windows;
+using System.Windows.Controls;
+using MaterialDesignThemes.Wpf;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
@@ -50,5 +53,48 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
         //    IsScheduled = true,
         //    WillAutoUpload = false
         //};
+    }
+
+    private void LecturesScrollViewers_OnScrollChanged(object sender, ScrollChangedEventArgs e)
+    {
+        if (sender is not ScrollViewer scrollViewer) return;
+
+        var downArrowPackIcon = default(PackIcon);
+
+        switch (scrollViewer.Name)
+        {
+            case nameof(MondaysLecturesScrollViewer):
+                downArrowPackIcon = MondayDownArrowPackIcon;
+                break;
+            case nameof(TuesdaysLecturesScrollViewer):
+                downArrowPackIcon = TuesdayDownArrowPackIcon;
+                break;
+            case nameof(WednesdaysLecturesScrollViewer):
+                downArrowPackIcon = WednesdayDownArrowPackIcon;
+                break;
+            case nameof(ThursdaysLecturesScrollViewer):
+                downArrowPackIcon = ThursdayDownArrowPackIcon;
+                break;
+            case nameof(FridaysLecturesScrollViewer):
+                downArrowPackIcon = FridayDownArrowPackIcon;
+                break;
+            case nameof(SaturdaysLecturesScrollViewer):
+                downArrowPackIcon = SaturdayDownArrowPackIcon;
+                break;
+            case nameof(SundaysLecturesScrollViewer):
+                downArrowPackIcon = SundayDownArrowPackIcon;
+                break;
+        }
+
+        if (downArrowPackIcon == null) return;
+
+        if (scrollViewer.VerticalOffset.Equals(scrollViewer.ScrollableHeight))
+        {
+            downArrowPackIcon.Visibility = Visibility.Hidden;
+        }
+        else
+        {
+            downArrowPackIcon.Visibility = Visibility.Visible;
+        }
     }
 }

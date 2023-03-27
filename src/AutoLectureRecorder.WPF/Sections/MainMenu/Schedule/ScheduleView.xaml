@@ -74,7 +74,8 @@
                           Grid.Column="0" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 0">
+                          Margin="6, 10, 6, 0"
+                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="MondaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -89,6 +90,18 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <materialDesign:PackIcon x:Name="MondayDownArrowPackIcon"
+                                     Grid.Row="2" Grid.Column="0"
+                                     xf:Animations.PrimaryBinding="{Binding MondayHasLectures}"
+                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                     xf:Animations.IterationBehavior="Forever"
+                                     Width="22"
+                                     Height="22"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
@@ -108,7 +121,8 @@
                           Grid.Column="1" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 0">
+                          Margin="6, 10, 6, 0"
+                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="TuesdaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -123,6 +137,18 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <materialDesign:PackIcon x:Name="TuesdayDownArrowPackIcon"
+                                     Grid.Row="2" Grid.Column="1"
+                                     xf:Animations.PrimaryBinding="{Binding TuesdayHasLectures}"
+                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                     xf:Animations.IterationBehavior="Forever"
+                                     Width="22"
+                                     Height="22"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
@@ -142,7 +168,8 @@
                           Grid.Column="2" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 0">
+                          Margin="6, 10, 6, 0"
+                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="WednesdaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -157,6 +184,18 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <materialDesign:PackIcon x:Name="WednesdayDownArrowPackIcon"
+                                     Grid.Row="2" Grid.Column="2"
+                                     xf:Animations.PrimaryBinding="{Binding WednesdayHasLectures}"
+                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                     xf:Animations.IterationBehavior="Forever"
+                                     Width="22"
+                                     Height="22"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
@@ -176,7 +215,8 @@
                           Grid.Column="3" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 10">
+                          Margin="6, 10, 6, 10"
+                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="ThursdaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -191,6 +231,18 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <materialDesign:PackIcon x:Name="ThursdayDownArrowPackIcon"
+                                     Grid.Row="2" Grid.Column="3"
+                                     xf:Animations.PrimaryBinding="{Binding ThursdayHasLectures}"
+                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                     xf:Animations.IterationBehavior="Forever"
+                                     Width="22"
+                                     Height="22"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
@@ -210,7 +262,8 @@
                           Grid.Column="4" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 0">
+                          Margin="6, 10, 6, 0"
+                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="FridaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -225,6 +278,18 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <materialDesign:PackIcon x:Name="FridayDownArrowPackIcon"
+                                     Grid.Row="2" Grid.Column="4"
+                                     xf:Animations.PrimaryBinding="{Binding FridayHasLectures}"
+                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                     xf:Animations.IterationBehavior="Forever"
+                                     Width="22"
+                                     Height="22"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="4" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
@@ -244,7 +309,8 @@
                           Grid.Column="5" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 0">
+                          Margin="6, 10, 6, 0"
+                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="SaturdaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -260,7 +326,11 @@
                 </ItemsControl>
             </ScrollViewer>
 
-            <materialDesign:PackIcon Grid.Row="2" Grid.Column="5"
+            <materialDesign:PackIcon x:Name="SaturdayDownArrowPackIcon" 
+                                     Grid.Row="2" Grid.Column="5"
+                                     xf:Animations.PrimaryBinding="{Binding SaturdayHasLectures}"
+                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
@@ -286,7 +356,8 @@
                           Grid.Column="6" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 0">
+                          Margin="6, 10, 6, 0"
+                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="SundaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -301,6 +372,18 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <materialDesign:PackIcon x:Name="SundayDownArrowPackIcon"
+                                     Grid.Row="2" Grid.Column="6"
+                                     xf:Animations.PrimaryBinding="{Binding SundayHasLectures}"
+                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                     xf:Animations.IterationBehavior="Forever"
+                                     Width="22"
+                                     Height="22"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="ArrowBottomCircle"/>
         </Grid>
     </Border>
 </rxui:ReactiveUserControl>
