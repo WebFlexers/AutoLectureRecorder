@@ -17,7 +17,8 @@
             d:DesignWidth="1160"
             d:DesignHeight="768">
 
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -41,7 +42,7 @@
             <StackPanel x:Name="MainDashboardStackPanel"
                         Margin="35,35,35,0">
                 <!-- Welcome back -->
-                <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}">
+                <StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 TextElement.FontWeight="Medium">
                         <TextBlock Text="Welcome Back, "
@@ -73,7 +74,7 @@
                 </Grid>
 
                 <!-- Next scheduled lecture -->
-                <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=200}">
+                <StackPanel>
                     <TextBlock Text="Scheduled Recording"
                                TextElement.FontWeight="Medium"
                                FontSize="22" />
@@ -148,8 +149,7 @@
                 </StackPanel>
                 
                 <!-- Statistics -->
-                <TextBlock xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=400}"
-                           Text="Statistics"
+                <TextBlock Text="Statistics"
                            TextElement.FontWeight="Medium"
                            FontSize="22"
                            Margin="0,20" />
@@ -157,7 +157,6 @@
             </StackPanel>
 
             <Grid Grid.Row="1"
-                  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=400}"
                   Margin="35,0,35,35"
                   MaxHeight="220"
                   MinHeight="170"
@@ -281,7 +280,6 @@
 
         <!-- Vertical Line -->
         <Grid Grid.Column="0" 
-              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
               Grid.RowSpan="2" 
               Width="0.5"
               HorizontalAlignment="Right"
@@ -296,7 +294,6 @@
         
         <!-- Todays Lectures -->
         <StackPanel x:Name="ScheduledLecturesStackPanel"
-                    xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}"
                     Grid.Column="1"
                     Margin="35">
             <TextBlock Text="Scheduled Lectures for Today"

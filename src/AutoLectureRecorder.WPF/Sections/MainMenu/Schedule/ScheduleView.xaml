@@ -8,6 +8,8 @@
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.Schedule"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+            xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             TextElement.FontWeight="Medium"
@@ -18,7 +20,7 @@
 
     <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}" 
             CornerRadius="20" 
-            Margin="35, 45, 35, 35" 
+            Margin="35, 45, 35, 25" 
             BorderBrush="{StaticResource SectionLineBrush}"
             BorderThickness="0.8"
             Background="{DynamicResource MaterialDesignPaper}">
@@ -45,6 +47,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="37"/>
             </Grid.RowDefinitions>
 
             <Border Grid.Column="0" Grid.Row="0" 
@@ -59,6 +62,7 @@
                     Background="{StaticResource PrimaryDarkerBrush}">
             </Border>
 
+            <!-- Monday -->
             <TextBlock Grid.Column="0" Grid.Row="0"
                        Text="Monday"
                        FontSize="18"
@@ -66,13 +70,33 @@
                        Padding="0, 25"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
 
-            <!-- Vertical Line -->
-            <Grid Grid.Column="0" Grid.Row="1"
+            <ScrollViewer x:Name="MondaysLecturesScrollViewer"  
+                          Grid.Column="0" Grid.Row="1"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="6, 10, 6, 0">
+                <ItemsControl x:Name="MondaysLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ScheduledLectureComponent 
+                                x:Name="LectureComponent"
+                                Height="120"
+                                Margin="0, 0, 0, 10"
+                                VerticalAlignment="Top"
+                                Lecture="{Binding Path=., Mode=TwoWay}"
+                                Click="ScheduledLectureComponent_OnClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
+            <!-- Tuesday -->
             <TextBlock Grid.Column="1" Grid.Row="0"
                        Text="Tuesday"
                        FontSize="18"
@@ -80,13 +104,33 @@
                        Padding="0, 25"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
 
-            <!-- Vertical Line -->
-            <Grid Grid.Column="1" Grid.Row="1"
+            <ScrollViewer x:Name="TuesdaysLecturesScrollViewer"  
+                          Grid.Column="1" Grid.Row="1"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="6, 10, 6, 0">
+                <ItemsControl x:Name="TuesdaysLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ScheduledLectureComponent 
+                                x:Name="LectureComponent"
+                                Height="120"
+                                Margin="0, 0, 0, 10"
+                                VerticalAlignment="Top"
+                                Lecture="{Binding Path=., Mode=TwoWay}"
+                                Click="ScheduledLectureComponent_OnClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
+            <!-- Wednesday -->
             <TextBlock Grid.Column="2" Grid.Row="0"
                        Text="Wednesday"
                        FontSize="18"
@@ -94,13 +138,33 @@
                        Padding="0, 25"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
 
-            <!-- Vertical Line -->
-            <Grid Grid.Column="2" Grid.Row="1"
+            <ScrollViewer x:Name="WednesdaysLecturesScrollViewer"  
+                          Grid.Column="2" Grid.Row="1"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="6, 10, 6, 0">
+                <ItemsControl x:Name="WednesdaysLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ScheduledLectureComponent 
+                                x:Name="LectureComponent"
+                                Height="120"
+                                Margin="0, 0, 0, 10"
+                                VerticalAlignment="Top"
+                                Lecture="{Binding Path=., Mode=TwoWay}"
+                                Click="ScheduledLectureComponent_OnClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
+            <!-- Thursday -->
             <TextBlock Grid.Column="3" Grid.Row="0"
                        Text="Thursday"
                        FontSize="18"
@@ -108,13 +172,33 @@
                        Padding="0, 25"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
 
-            <!-- Vertical Line -->
-            <Grid Grid.Column="3" Grid.Row="1"
+            <ScrollViewer x:Name="ThursdaysLecturesScrollViewer"  
+                          Grid.Column="3" Grid.Row="1"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="6, 10, 6, 10">
+                <ItemsControl x:Name="ThursdaysLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ScheduledLectureComponent 
+                                x:Name="LectureComponent"
+                                Height="120"
+                                Margin="0, 0, 0, 6"
+                                VerticalAlignment="Top"
+                                Lecture="{Binding Path=., Mode=TwoWay}"
+                                Click="ScheduledLectureComponent_OnClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
+            <!-- Friday -->
             <TextBlock Grid.Column="4" Grid.Row="0"
                        Text="Friday"
                        FontSize="18"
@@ -122,13 +206,33 @@
                        Padding="0, 25"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
 
-            <!-- Vertical Line -->
-            <Grid Grid.Column="4" Grid.Row="1"
+            <ScrollViewer x:Name="FridaysLecturesScrollViewer"  
+                          Grid.Column="4" Grid.Row="1"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="6, 10, 6, 0">
+                <ItemsControl x:Name="FridaysLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ScheduledLectureComponent 
+                                x:Name="LectureComponent"
+                                Height="120"
+                                Margin="0, 0, 0, 10"
+                                VerticalAlignment="Top"
+                                Lecture="{Binding Path=., Mode=TwoWay}"
+                                Click="ScheduledLectureComponent_OnClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="4" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
+            <!-- Saturday -->
             <TextBlock Grid.Column="5" Grid.Row="0"
                        Text="Saturday"
                        FontSize="18"
@@ -136,19 +240,67 @@
                        Padding="0, 25"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
 
-            <!-- Vertical Line -->
-            <Grid Grid.Column="5" Grid.Row="1"
+            <ScrollViewer x:Name="SaturdaysLecturesScrollViewer"  
+                          Grid.Column="5" Grid.Row="1"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="6, 10, 6, 0">
+                <ItemsControl x:Name="SaturdaysLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ScheduledLectureComponent 
+                                x:Name="LectureComponent"
+                                Height="120"
+                                Margin="0, 0, 0, 10"
+                                VerticalAlignment="Top"
+                                Lecture="{Binding Path=., Mode=TwoWay}"
+                                Click="ScheduledLectureComponent_OnClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <materialDesign:PackIcon Grid.Row="2" Grid.Column="5"
+                                     Width="22"
+                                     Height="22"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="ArrowBottomCircle"/>
+
+            <Grid Grid.Column="5" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{StaticResource SectionLineBrush}">
             </Grid>
 
+            <!-- Sunday -->
             <TextBlock Grid.Column="6" Grid.Row="0"
                        Text="Sunday"
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
                        Foreground="{StaticResource PrimaryTextBrush}"/>
+
+            <ScrollViewer x:Name="SundaysLecturesScrollViewer"  
+                          Grid.Column="6" Grid.Row="1"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Margin="6, 10, 6, 0">
+                <ItemsControl x:Name="SundaysLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ScheduledLectureComponent 
+                                x:Name="LectureComponent"
+                                Height="120"
+                                Margin="0, 0, 0, 10"
+                                VerticalAlignment="Top"
+                                Lecture="{Binding Path=., Mode=TwoWay}"
+                                Click="ScheduledLectureComponent_OnClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
     </Border>
 </rxui:ReactiveUserControl>

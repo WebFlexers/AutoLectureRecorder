@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using System;
 
 namespace AutoLectureRecorder.Data.ReactiveModels;
 

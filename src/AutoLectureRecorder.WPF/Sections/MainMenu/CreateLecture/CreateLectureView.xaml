@@ -17,8 +17,7 @@
             d:DesignWidth="1160"
             d:DesignHeight="768">
     <Grid>
-        <d:Grid Grid.Column="1"
-                d:Width="135"
+        <d:Grid d:Width="135"
                 d:Height="30"
                 d:Background="Black"
                 d:HorizontalAlignment="Right"

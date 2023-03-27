@@ -25,7 +25,7 @@
 
         <!-- Left Side Menu -->
         <Grid Grid.Row="0"
-              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=200}"
+              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=400}"
               x:Name="MainMenuGrid"
               Width="200">
             <Grid.RowDefinitions>

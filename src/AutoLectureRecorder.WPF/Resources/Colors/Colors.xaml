@@ -3,6 +3,7 @@
     
     <Color x:Key="PrimaryColor">#58c8df</Color>
     <Color x:Key="PrimaryDarkerColor">#53A7DD</Color>
+    <Color x:Key="PrimaryDarkerHoverColor">#4891BF</Color>
     <Color x:Key="PrimaryTextColor">#F3F3F3</Color>
     <Color x:Key="SecondaryTextColor">#9d9d9e</Color>
     <Color x:Key="SectionLineColor">#b9b9ba</Color>
@@ -14,6 +15,7 @@
     
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
     <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{StaticResource PrimaryDarkerColor}" />
+    <SolidColorBrush x:Key="PrimaryDarkerHoverBrush" Color="{StaticResource PrimaryDarkerHoverColor}" />
     <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}" />
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}"/>
     <SolidColorBrush x:Key="SectionLineBrush" Color="{StaticResource SectionLineColor}" />
