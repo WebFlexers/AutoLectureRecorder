@@ -10,7 +10,11 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
 {
     private readonly ILogger<EdgeWebDriverDownloader> _logger;
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly string _appDataAlrPath = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "AutoLectureRecorder");
     private const string WebDriverName = "msedgedriver";
+    private const string CurrentEdgeDriverStoreFileName = "current_edge_version.txt";
 
     public EdgeWebDriverDownloader(ILogger<EdgeWebDriverDownloader> logger, IHttpClientFactory httpClientFactory)
     {
@@ -27,7 +31,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
         {
             string edgeVersion = GetEdgeVersionFromRegistry();
 
-            if (IsLatestWebDriverVersionInstalled(edgeVersion))
+            if (await IsLatestWebDriverVersionInstalled(edgeVersion))
             {
                 _logger.LogInformation("The latest version of the edge web driver is already installed");
                 return true; 
@@ -38,7 +42,10 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
             DeleteOldDriverIfExists();
             string zippedFilePath = await DownloadDriverToTempFolder(edgeVersion, progress);
             ExtractDriverToAppData(zippedFilePath, edgeVersion);
+            var storeVersion = StoreCurrentEdgeVersionToFile(edgeVersion);
             DeleteZippedFile(zippedFilePath);
+
+            await storeVersion;
 
             _logger.LogInformation("Edge web driver downloaded successfully!");
 
@@ -53,9 +60,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
 
     private void DeleteOldDriverIfExists()
     {
-        var webDriverDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "AutoLectureRecorder");
+        var webDriverDirectory = _appDataAlrPath;
 
         if (Directory.Exists(webDriverDirectory) == false) return;
 
@@ -85,17 +90,15 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
         }
     }
 
-    private bool IsLatestWebDriverVersionInstalled(string edgeVersion)
+    private async Task<bool> IsLatestWebDriverVersionInstalled(string latestEdgeVersion)
     {
-        // TODO: Check if it is the correct version, not just that the driver exists
-        var webDriverPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "AutoLectureRecorder",
-            $"{WebDriverName}.exe");
+        (bool success, string edgeVersion) = await RetrieveCurrentEdgeVersionFromFile();
 
-        if (File.Exists(webDriverPath)) return true;
-        
-        return false;
+        if (success == false) return false;
+
+        var webDriverPath = Path.Combine(_appDataAlrPath, $"{WebDriverName}.exe");
+
+        return File.Exists(webDriverPath) && edgeVersion == latestEdgeVersion;
     }
 
     private void DeleteZippedFile(string zippedFilePath)
@@ -113,11 +116,8 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
 
     private void ExtractDriverToAppData(string zippedFilePath, string edgeVersion)
     {
-        string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "AutoLectureRecorder");
-
-        // Extract to current directory
-        ZipFile.ExtractToDirectory(zippedFilePath, path);
+        // Extract to Auto Lecture Recorder app data directory
+        ZipFile.ExtractToDirectory(zippedFilePath, _appDataAlrPath);
 
         _logger.LogDebug("Successfully extracted zipped file to current directory");
     }
@@ -166,7 +166,46 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
         }
 
         var edgeVersion = new Version(edgeVersionObject as string);
-        _logger.LogDebug("Edge version found on the computer: {edgeVersion}", edgeVersion);
+        _logger.LogDebug("Edge version found on the computer: {latestEdgeVersion}", edgeVersion);
         return edgeVersion.ToString();
+    }
+
+    private async Task<bool> StoreCurrentEdgeVersionToFile(string edgeVersion)
+    {
+        try
+        {
+            string filePath = Path.Combine(_appDataAlrPath, CurrentEdgeDriverStoreFileName);
+            await File.WriteAllTextAsync(filePath, edgeVersion);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to store edge version to a file");
+            return false;
+        }
+    }
+
+    private async Task<(bool success, string edgeVersion)> RetrieveCurrentEdgeVersionFromFile()
+    {
+        try
+        {
+            string filePath = Path.Combine(_appDataAlrPath, CurrentEdgeDriverStoreFileName);
+
+            if (File.Exists(filePath) == false)
+            {
+                _logger.LogWarning("The {file} file did not exist", CurrentEdgeDriverStoreFileName);
+                return (false, string.Empty);
+            }
+
+            string edgeVersion = await File.ReadAllTextAsync(filePath);
+            _logger.LogInformation("Retrieved current edge version: {latestEdgeVersion}", edgeVersion);
+
+            return (true, edgeVersion);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to retrieve current Edge Version");
+            return (false, string.Empty);
+        }
     }
 }

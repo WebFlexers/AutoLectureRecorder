@@ -2,5 +2,5 @@
 
 public interface IWebDriverDownloader
 {
-    Task<bool> Download(IProgress<float>? progress);
+    Task<bool> Download(IProgress<float>? progress = null);
 }
