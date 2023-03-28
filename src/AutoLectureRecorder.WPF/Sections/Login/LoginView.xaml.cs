@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Windows;
+using System.Windows.Data;
 
 namespace AutoLectureRecorder.Sections.Login;
 
@@ -20,8 +21,7 @@ public partial class LoginView : ReactiveUserControl<LoginViewModel>
 
             PasswordTextbox.Events().PasswordChanged
                 .Subscribe(e => 
-                    ViewModel!.Password = PasswordTextbox.Password
-                    )
+                    ViewModel!.Password = PasswordTextbox.Password)
                 .DisposeWith(disposables);
 
             this.OneWayBind(ViewModel, vm => vm.DownloadProgressValue, v => v.DownloadProgressBar.Value)

@@ -43,8 +43,6 @@ public class UnipiEdgeWebDriver : IWebDriver
     /// <summary>
     /// Login to Microsoft Teams through the web driver using the provided credentials
     /// </summary>
-    /// <param name="academicEmailAddress"></param>
-    /// <param name="password"></param>
     public (bool result, string resultMessage) LoginToMicrosoftTeams(string academicEmailAddress, string password)
     {
         if (_driver == null)
