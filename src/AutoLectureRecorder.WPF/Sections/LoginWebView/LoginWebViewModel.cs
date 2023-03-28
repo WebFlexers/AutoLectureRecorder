@@ -36,7 +36,9 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         _studentAccountData = studentAccountData;
 
         MessageBus.Current.SendMessage(true, PubSubMessages.UpdateWindowTopMost);
-        MessageBus.Current.Listen<(string, string)>(PubSubMessages.GetStudentAccount).Subscribe(account =>
+
+        MessageBus.Current.Listen<(string, string)>(PubSubMessages.PrepareLogin)
+        .Subscribe(account =>
         {
             _academicEmailAddress = account.Item1;
             _password = account.Item2;

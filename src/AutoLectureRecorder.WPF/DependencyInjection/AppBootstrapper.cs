@@ -33,6 +33,9 @@ public class AppBootstrapper
 
     private void ConfigureServices(IServiceCollection services)
     {
+        // Add Microsoft Services
+        services.AddHttpClient();
+
         // Add Main Window and Routing
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton(sp => new MainWindow { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
@@ -52,6 +55,7 @@ public class AppBootstrapper
         // Add Custom Services
         services.AddSingleton<ISqliteDataAccess, SqliteDataAccess>();
         services.AddTransient<IWebDriver, UnipiEdgeWebDriver>();
+        services.AddTransient<IWebDriverDownloader, EdgeWebDriverDownloader>();
         services.AddTransient<IStudentAccountRepository, StudentAccountRepository>();
         services.AddTransient<IScheduledLectureRepository, ScheduledLectureRepository>();
     }

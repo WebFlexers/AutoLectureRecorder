@@ -2,6 +2,8 @@
 using System;
 using System.Reactive.Disposables;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
@@ -13,6 +15,8 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
 
         this.WhenActivated(disposables =>
         {
+            DataContext = ViewModel;
+
             // Item Source bindings
             this.OneWayBind(ViewModel, vm => vm.TodaysLectures, v => v.TodaysLecturesListView.ItemsSource)
                 .DisposeWith(disposables);
@@ -35,7 +39,7 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
             this.WhenAnyValue(v => v.MainGrid.ActualHeight)
             .Subscribe(_ =>
             {
-                TodaysLecturesScrollViewer.Height = MainGrid.ActualHeight - 275;
+                TodaysLecturesScrollViewer.Height = MainGrid.ActualHeight - 313;
             }).DisposeWith(disposables);
         });
     }
@@ -78,5 +82,23 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
         timeFormatBuilder.Append($"{timeDiff.Value.Seconds} Second{(timeDiff.Value.Seconds == 1 ? "" : "s")}");
 
         this.NextLectureTimeTextBlock.Text = timeFormatBuilder.ToString();
+    }
+
+    private void TodaysLecturesScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
+    {
+        if (sender is not ScrollViewer scrollViewer) return;
+
+        var downArrowPackIcon = LecturesDownArrowPackIcon;
+
+        if (downArrowPackIcon == null) return;
+
+        if (scrollViewer.VerticalOffset.Equals(scrollViewer.ScrollableHeight))
+        {
+            downArrowPackIcon.Visibility = Visibility.Hidden;
+        }
+        else
+        {
+            downArrowPackIcon.Visibility = Visibility.Visible;
+        }
     }
 }

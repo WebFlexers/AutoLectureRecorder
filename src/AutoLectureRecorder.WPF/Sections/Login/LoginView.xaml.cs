@@ -24,6 +24,15 @@ public partial class LoginView : ReactiveUserControl<LoginViewModel>
                     )
                 .DisposeWith(disposables);
 
+            this.OneWayBind(ViewModel, vm => vm.DownloadProgressValue, v => v.DownloadProgressBar.Value)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.DownloadProgressValueString, v => v.DownloadProgressTextBlock.Text)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.WebDriverProgressVisibility, v => v.ProgressGrid.Visibility)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.WebDriverProgressVisibility, v => v.ProgressHelperTextBlock.Visibility)
+                .DisposeWith(disposables);
+
             this.OneWayBind(ViewModel, vm => vm.ErrorMessage, v => v.ErrorTextBlock.Text)
                 .DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.IsErrorMessageVisible, v => v.ErrorTextBlock.Visibility)

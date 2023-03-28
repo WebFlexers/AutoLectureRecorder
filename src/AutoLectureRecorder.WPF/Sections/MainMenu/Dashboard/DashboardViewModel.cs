@@ -36,6 +36,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; private set; } = new();
     [Reactive]
     public ObservableCollection<ReactiveScheduledLecture> TodaysLectures { get; private set; } = new();
+    public bool AreLecturesScheduledToday => TodaysLectures.Any();
 
     [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }

@@ -44,7 +44,7 @@
                 <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=650}">
                     <TextBlock Text="ACADEMIC EMAIL ADDRESS"
                                FontSize="18"
-                               Margin="0,35,0,5"
+                               Margin="0,20,0,5"
                                Foreground="{StaticResource SecondaryTextBrush}" />
                     <TextBox x:Name="EmailTextbox"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}" />
@@ -61,7 +61,7 @@
                 <Button x:Name="SubmitButton"
                         xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=800}"
                         IsDefault="True"
-                        Margin="0, 40, 0, 0"
+                        Margin="0, 30, 0, 0"
                         d:Height="50"
                         Height="{Binding ElementName=PasswordTextbox, Path=ActualHeight}"
                         Content="Login"
@@ -98,6 +98,24 @@
                     to it in any way. Instead it is stored locally on your pc
                     in an encrypted form.
                 </TextBlock>
+
+                <TextBlock x:Name="ProgressHelperTextBlock"  
+                           Text="Preparing Auto Lecture Recorder..."
+                           Margin="0, 15, 0, 3"/>
+                <Grid x:Name="ProgressGrid">
+                    <ProgressBar x:Name="DownloadProgressBar" 
+                                 Height="20"
+                                 Foreground="{StaticResource PrimaryBrush}"
+                                 Background="{StaticResource PrimaryDarkerBrush}"
+                                 d:Value="0"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Style="{StaticResource MaterialDesignLinearProgressBar}"/>
+                    <TextBlock x:Name="DownloadProgressTextBlock"
+                               Text="0%"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource PrimaryTextBrush}"/>
+                </Grid>
 
                 <TextBlock x:Name="ErrorTextBlock" 
                            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=1100}"

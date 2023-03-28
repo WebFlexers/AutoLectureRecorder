@@ -9,6 +9,7 @@
             xmlns:system="clr-namespace:System;assembly=mscorlib"
             xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.Dashboard"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             TextElement.FontWeight="Normal"
@@ -317,62 +318,82 @@
                        TextWrapping="Wrap"
                        TextAlignment="Center"
                        FontSize="18"
-                       Padding="50, 20, 50, 15">
+                       Padding="50, 20, 50, 15"
+                       d:Visibility="Collapsed">
                 No scheduled lectures were found. Click below to begin scheduling
             </TextBlock>
 
             <!-- All the scheduled lectures for today -->
-            <ScrollViewer x:Name="TodaysLecturesScrollViewer"  
-                          VerticalScrollBarVisibility="Hidden"
-                          HorizontalScrollBarVisibility="Disabled"
-                          Height="530"
-                          d:Height="0"
-                          Margin="0, 10"
-                          d:Margin="0">
-                <ItemsControl x:Name="TodaysLecturesListView"
-                              Padding="6, 10">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border CornerRadius="12"
-                                    Padding="15"
-                                    Margin="0,0,0,15"
-                                    Background="{DynamicResource MaterialDesignPaper}">
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0"
-                                                      BlurRadius="18"
-                                                      Opacity="0.1"
-                                                      Direction="-75" />
-                                </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="37"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer x:Name="TodaysLecturesScrollViewer"
+                              Grid.Row="0"
+                              VerticalScrollBarVisibility="Hidden"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Height="493"
+                              Margin="0, 10"
+                              d:Margin="0"
+                              ScrollChanged="TodaysLecturesScrollViewer_OnScrollChanged">
+                    <ItemsControl x:Name="TodaysLecturesListView"
+                                  Padding="6, 10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="12"
+                                        Padding="15"
+                                        Margin="0,0,0,15"
+                                        Background="{DynamicResource MaterialDesignPaper}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0"
+                                                          BlurRadius="18"
+                                                          Opacity="0.1"
+                                                          Direction="-75" />
+                                    </Border.Effect>
 
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50px"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50px"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" 
-                                           Source="../../../Icons/Dashboard/pending_64px.png"
-                                           Width="50px"/>
-                                    <StackPanel Grid.Column="1" 
-                                                VerticalAlignment="Center"
-                                                Margin="20, 0, 0, 0">
-                                        <TextBlock Text="{Binding SubjectName}"
-                                                   FontSize="18"
-                                                   TextWrapping="NoWrap"
-                                                   TextTrimming="CharacterEllipsis"
-                                        />
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding StartTime, StringFormat={}{0:h:mm tt}}"/>
-                                            <TextBlock Text=" - "></TextBlock>
-                                            <TextBlock Text="{Binding EndTime, StringFormat={}{0:h:mm tt}}"/>
+                                        <Image Grid.Column="0" 
+                                               Source="../../../Icons/Dashboard/pending_64px.png"
+                                               Width="50px"/>
+                                        <StackPanel Grid.Column="1" 
+                                                    VerticalAlignment="Center"
+                                                    Margin="20, 0, 0, 0">
+                                            <TextBlock Text="{Binding SubjectName}"
+                                                       FontSize="18"
+                                                       TextWrapping="NoWrap"
+                                                       TextTrimming="CharacterEllipsis"
+                                            />
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding StartTime, StringFormat={}{0:h:mm tt}}"/>
+                                                <TextBlock Text=" - "></TextBlock>
+                                                <TextBlock Text="{Binding EndTime, StringFormat={}{0:h:mm tt}}"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <materialDesign:PackIcon x:Name="LecturesDownArrowPackIcon"
+                                         Grid.Row="1"
+                                         xf:Animations.PrimaryBinding="{Binding AreLecturesScheduledToday}"
+                                         xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                         xf:Animations.IterationBehavior="Forever"
+                                         Width="22"
+                                         Height="22"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Foreground="{StaticResource PrimaryBrush}"
+                                         Kind="ArrowBottomCircle"/>
+            </Grid>
 
             <!-- Schedule lectures button -->
             <Button x:Name="ScheduleLecturesButton"
@@ -383,7 +404,8 @@
                     FontSize="18"
                     Margin="0, 20, 0, 0"
                     Foreground="{StaticResource PrimaryTextBrush}"
-                    Content="Schedule Lectures">
+                    Content="Schedule Lectures"
+                    d:Visibility="Collapsed">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="1,1"
                                          StartPoint="0,0">

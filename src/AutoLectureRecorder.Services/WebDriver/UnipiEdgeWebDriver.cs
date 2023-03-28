@@ -15,7 +15,6 @@ public class UnipiEdgeWebDriver : IWebDriver
         _logger = logger;
     }
 
-    // TODO: Automate the download of the correct edge web driver
     /// <summary>
     /// Creates a web driver backed by the Edge browser.
     /// </summary>

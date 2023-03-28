@@ -49,7 +49,7 @@ public partial class App : Application
         // This is required for the WebView2 to work inside the app
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
 
-        bool showStartupWindow = false;
+        bool showStartupWindow = true;
 
         // Show a startup window as a loading screen while the app loads
         StartupWindow? startupWindow = null;
