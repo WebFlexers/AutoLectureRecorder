@@ -12,7 +12,8 @@ public class WindowFactory : IWindowFactory
     /// Creates a transparent loading window that covers fully
     /// the given window and sits exactly on top of it with Topmost true
     /// </summary>
-    public Window CreateTransparentOverlayWindow(Window? backgroundWindowOfOverlay, Func<Task>? cancelDelegate)
+    public Window CreateTransparentOverlayWindow(Window? backgroundWindowOfOverlay, 
+        bool isWindowFullscreen, Func<Task>? cancelDelegate)
     {
         if (backgroundWindowOfOverlay == null)
         {
@@ -26,7 +27,8 @@ public class WindowFactory : IWindowFactory
             Left = backgroundWindowOfOverlay.Left,
             Width = backgroundWindowOfOverlay.ActualWidth,
             Height = backgroundWindowOfOverlay.ActualHeight,
-            Topmost = true
+            Topmost = true,
+            WindowState = isWindowFullscreen ? WindowState.Maximized : WindowState.Normal
         };
 
         return overlayWindow;

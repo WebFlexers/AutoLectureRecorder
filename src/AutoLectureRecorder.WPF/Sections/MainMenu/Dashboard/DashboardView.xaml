@@ -318,7 +318,7 @@
                        TextWrapping="Wrap"
                        TextAlignment="Center"
                        FontSize="18"
-                       Padding="50, 20, 50, 15"
+                       Padding="50, 20, 50, 0"
                        d:Visibility="Collapsed">
                 No scheduled lectures were found. Click below to begin scheduling
             </TextBlock>
@@ -363,7 +363,11 @@
                                                Width="50px"/>
                                         <StackPanel Grid.Column="1" 
                                                     VerticalAlignment="Center"
-                                                    Margin="20, 0, 0, 0">
+                                                    Margin="20, 0, 0, 0"
+                                                    ToolTipService.InitialShowDelay="300">
+                                            <StackPanel.ToolTip>
+                                                <TextBlock Text="{Binding SubjectName}"/>
+                                            </StackPanel.ToolTip>
                                             <TextBlock Text="{Binding SubjectName}"
                                                        FontSize="18"
                                                        TextWrapping="NoWrap"
@@ -402,7 +406,7 @@
                     Width="250"
                     Cursor="Hand"
                     FontSize="18"
-                    Margin="0, 20, 0, 0"
+                    Margin="0, 0, 0, 0"
                     Foreground="{StaticResource PrimaryTextBrush}"
                     Content="Schedule Lectures"
                     d:Visibility="Collapsed">

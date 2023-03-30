@@ -62,19 +62,19 @@
 
                                 <Grid.ToolTip>
                                     <TextBlock>
-                                    Select the subject name or write it out if it doesn't already exist
-                                    <LineBreak /> <LineBreak />
-                                    Warning: If you have multiple lectures of the same subject on different days or hours
-                                    <LineBreak />
-                                    You should create a different lecture entry for each one and choose the same subject, in order for the recordings to be grouped correctly
-                                    <LineBreak /> <LineBreak />
-                                    For Example: If you have computer science at 8 AM on Monday and 10AM on Tuesday you should add them in the following manner:
-                                    <LineBreak />
-                                    1. Write out Computer Science as subject name in the Subject Name field. Then fill out the rest of the fields and click Create Lecture
-                                    <LineBreak />
-                                    2. Now that you have already created a lecture with Computer Science as the subject, 
-                                    <LineBreak />
-                                    in order to add a second lecture with different time or day, select Computer Science as Subject Name and fill in the rest of the fields for the second lecture
+                                        Select the subject name or write it out if it doesn't already exist
+                                        <LineBreak /> <LineBreak />
+                                        Warning: If you have multiple lectures of the same subject on different days or hours
+                                        <LineBreak />
+                                        You should create a different lecture entry for each one and choose the same subject, in order for the recordings to be grouped correctly
+                                        <LineBreak /> <LineBreak />
+                                        For Example: If you have computer science at 8 AM on Monday and 10AM on Tuesday you should add them in the following manner:
+                                        <LineBreak />
+                                        1. Write out Computer Science as subject name in the Subject Name field. Then fill out the rest of the fields and click Create Lecture
+                                        <LineBreak />
+                                        2. Now that you have already created a lecture with Computer Science as the subject, 
+                                        <LineBreak />
+                                        in order to add a second lecture with different time or day, select Computer Science as Subject Name and fill in the rest of the fields for the second lecture
                                     </TextBlock>
                                 </Grid.ToolTip>
 

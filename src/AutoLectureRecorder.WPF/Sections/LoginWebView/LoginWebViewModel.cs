@@ -59,7 +59,8 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams);
 
         var mainWindow = Application.Current.MainWindow!;
-        _overlayWindow = _windowFactory.CreateTransparentOverlayWindow(mainWindow, () =>
+        var isWindowFullScreen = mainWindow.WindowState == WindowState.Maximized;
+        _overlayWindow = _windowFactory.CreateTransparentOverlayWindow(mainWindow, isWindowFullScreen, () =>
         {
             _loginCancellationTokenSource.Cancel();
             return Task.CompletedTask;

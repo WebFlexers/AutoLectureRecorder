@@ -11,12 +11,7 @@
             d:Background="White"
             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <wpf:WebView2 x:Name="MainWebView" 
-                      Grid.Row="1"
                       IsHitTestVisible="False"/>
     </Grid>
 </rxui:ReactiveUserControl>
