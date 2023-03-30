@@ -6,7 +6,7 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Services.DataAccess;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;

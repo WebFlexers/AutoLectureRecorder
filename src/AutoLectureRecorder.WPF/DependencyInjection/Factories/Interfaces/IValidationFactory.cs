@@ -2,7 +2,7 @@
 using AutoLectureRecorder.Data.ReactiveModels;
 using FluentValidation;
 
-namespace AutoLectureRecorder.DependencyInjection.Factories;
+namespace AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 
 public interface IValidationFactory
 {

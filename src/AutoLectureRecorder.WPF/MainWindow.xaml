@@ -52,7 +52,6 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-
         </Grid.RowDefinitions>
         
         <!-- TitleBar -->
@@ -62,8 +61,7 @@
             <StackPanel x:Name="TitlebarButtonsStackPanel"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal"
-                        >
+                        Orientation="Horizontal">
                 <Button x:Name="MinimizeWindowButton"
                         Style="{StaticResource TitlebarMinimizeButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Services.DataAccess.Validation;
 using FluentValidation;
 

@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Services.WebDriver;
+﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
+using AutoLectureRecorder.Services.WebDriver;
 using System;
 using System.Collections.Generic;
 

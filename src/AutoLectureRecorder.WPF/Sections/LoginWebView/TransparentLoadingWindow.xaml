@@ -1,0 +1,77 @@
+﻿<Window x:Class="AutoLectureRecorder.Sections.LoginWebView.TransparentLoadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoLectureRecorder.Sections.LoginWebView"
+        xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        Title="TransparentLoadingWindow" Height="450" Width="800">
+
+        <Grid>
+            <Grid x:Name="BackgroundGrid"  
+                  Background="Gray" Opacity="0.7"/>
+
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <Border Opacity="0.8"
+                        CornerRadius="14"
+                        Background="White"
+                        Margin="0,0,0,20"
+                        Padding="15, 8">
+                    <TextBlock x:Name="SignInTextBlock"
+                               FontSize="22"
+                               TextAlignment="Center">
+                        Signing you in
+                    </TextBlock>
+                </Border>
+                <materialDesign:Card
+                    Opacity="0.8"
+                    Padding="4"
+                    UniformCornerRadius="14"
+                    Width="100"
+                    Height="100"
+                    Margin="0, 0, 0, 20">
+                    <ProgressBar
+                        Width="70"
+                        Height="70"
+                        IsIndeterminate="True"
+                        Style="{StaticResource MaterialDesignCircularProgressBar}"/>
+                </materialDesign:Card>
+                <Border x:Name="PleaseWaitBorder" 
+                        Opacity="0.8"
+                        CornerRadius="14"
+                        Background="White"
+                        Padding="15, 8">
+                    <TextBlock FontSize="22"
+                               TextAlignment="Center">
+                        Please wait
+                    </TextBlock>
+                </Border>
+            </StackPanel>
+            <Button x:Name="CancelButton"
+                    Opacity="0.9"
+                    Height="40"
+                    Width="120"
+                    Cursor="Hand"
+                    FontSize="18"
+                    Margin="0, 20, 0, 20"
+                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Content="Cancel"
+                    VerticalAlignment="Bottom"
+                    Click="CancelButton_OnClick">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="1,1"
+                                         StartPoint="0,0">
+                        <GradientStop Color="{StaticResource PrimaryColor}" />
+                        <GradientStop Color="{StaticResource PrimaryDarkerColor}"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </Grid>
+</Window>

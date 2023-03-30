@@ -1,5 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
 using FluentValidation;

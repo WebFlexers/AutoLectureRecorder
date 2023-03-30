@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using System;
 
@@ -16,7 +17,6 @@ public class ViewModelFactory : IViewModelFactory
     /// <summary>
     /// Creates a new routable ViewModel using the DI system
     /// </summary>
-    /// <returns> An IRoutableViewModel </returns>
     public IRoutableViewModel CreateRoutableViewModel(Type viewModelType)
     {
         if (typeof(IRoutableViewModel).IsAssignableFrom(viewModelType) == false)

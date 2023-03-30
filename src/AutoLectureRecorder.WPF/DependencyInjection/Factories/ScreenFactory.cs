@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Sections.MainMenu;
+﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
+using AutoLectureRecorder.Sections.MainMenu;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using System;

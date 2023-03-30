@@ -17,7 +17,7 @@ public partial class LoginWebView : ReactiveUserControl<LoginWebViewModel>
                 .DisposeWith(disposables);
 
             // Bind to LoginToMicrosoftTeams Command and clear the browsing data
-            // after to prevent a change in the login proccess
+            // after to prevent a change in the login process
             MainWebView
                 .Events().CoreWebView2InitializationCompleted
                 .Subscribe(async (e) =>

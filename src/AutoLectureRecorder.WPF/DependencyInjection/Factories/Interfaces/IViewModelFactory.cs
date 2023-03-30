@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 
-namespace AutoLectureRecorder.DependencyInjection.Factories;
+namespace AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 
 public interface IViewModelFactory
 {

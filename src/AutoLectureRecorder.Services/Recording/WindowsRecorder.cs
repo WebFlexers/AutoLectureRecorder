@@ -95,7 +95,7 @@ public class WindowsRecorder : IRecorder, IDisposable
     /// <summary>
     /// Stops the recording and starts the file saving process.
     /// IMPORTANT: When this method returns the file saving process is not
-    /// done yet. If you want to execute code after is has finished use the
+    /// done yet. If you want to execute code after it has finished use the
     /// OnRecordingComplete and/or OnRecordingFailed methods
     /// </summary>
     public IRecorder StopRecording()

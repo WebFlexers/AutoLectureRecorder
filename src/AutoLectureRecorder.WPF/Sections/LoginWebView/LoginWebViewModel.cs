@@ -1,4 +1,4 @@
-﻿using AutoLectureRecorder.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.Login;
 using AutoLectureRecorder.Sections.MainMenu;
@@ -9,7 +9,10 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace AutoLectureRecorder.Sections.LoginWebView;
 
@@ -19,6 +22,9 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     private readonly IStudentAccountRepository _studentAccountData;
     private readonly ILogger<LoginWebViewModel> _logger;
     private readonly IViewModelFactory _viewModelFactory;
+    private readonly IWindowFactory _windowFactory;
+
+    private Window? _overlayWindow;
 
     public ViewModelActivator Activator { get; } = new();
     public string UrlPathSegment => nameof(LoginWebViewModel);
@@ -26,25 +32,46 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
     public ReactiveCommand<Unit, Unit> LoginToMicrosoftTeamsCommand { get; }
 
+    private readonly CancellationTokenSource _loginCancellationTokenSource;
+    private readonly CancellationToken _loginCancellationToken;
     public LoginWebViewModel(ILogger<LoginWebViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory,
-                             IWebDriverFactory webDriverFactory, IStudentAccountRepository studentAccountData)
+                             IWindowFactory windowFactory, IWebDriverFactory webDriverFactory, IStudentAccountRepository studentAccountData)
     {
         _logger = logger;
         HostScreen = screenFactory.GetMainWindowViewModel();
         _viewModelFactory = viewModelFactory;
+        _windowFactory = windowFactory;
         _webDriverFactory = webDriverFactory;
         _studentAccountData = studentAccountData;
+
+        _loginCancellationTokenSource = new CancellationTokenSource();
+        _loginCancellationToken = _loginCancellationTokenSource.Token;
 
         MessageBus.Current.SendMessage(true, PubSubMessages.UpdateWindowTopMost);
 
         MessageBus.Current.Listen<(string, string)>(PubSubMessages.PrepareLogin)
-        .Subscribe(account =>
+        .Subscribe(credentials =>
         {
-            _academicEmailAddress = account.Item1;
-            _password = account.Item2;
+            _academicEmailAddress = credentials.Item1;
+            _password = credentials.Item2;
         });
 
         LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams);
+
+        var mainWindow = Application.Current.MainWindow!;
+        _overlayWindow = _windowFactory.CreateTransparentOverlayWindow(mainWindow, () =>
+        {
+            _loginCancellationTokenSource.Cancel();
+            return Task.CompletedTask;
+        });
+        _overlayWindow.Show();
+    }
+
+    private void NavigateToLoginAfterCancel()
+    {
+        HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
+        MessageBus.Current.SendMessage("The login process was cancelled. If you want to continue, input your credentials and try again", 
+            PubSubMessages.UpdateLoginErrorMessage);
     }
 
     [Reactive]
@@ -52,21 +79,31 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
     private string _academicEmailAddress = "";
     private string _password = "";
+    private IWebDriver? _webDriver;
+    private Task<(bool result, string resultMessage)>? _loginTask;
+
     private async Task LoginToMicrosoftTeams()
     {
-        IWebDriver? webDriver = null;
-
-        Task<(bool, string)> loginTask = Task.Run(() =>
+        if (_loginCancellationToken.IsCancellationRequested)
         {
-            webDriver = _webDriverFactory.CreateUnipiEdgeWebDriver(true, TimeSpan.FromSeconds(17));
-            return webDriver.LoginToMicrosoftTeams(_academicEmailAddress, _password);
-        });
+            NavigateToLoginAfterCancel();
+            _overlayWindow?.Close();
+            return;
+        }
 
-        (bool, string) loginResult = await loginTask;
+        _loginTask = Task.Run(() =>
+        {
+            _webDriver = _webDriverFactory.CreateUnipiEdgeWebDriver(true, TimeSpan.FromSeconds(17));
+            return _webDriver.LoginToMicrosoftTeams(_academicEmailAddress, _password, _loginCancellationToken);
+        }, _loginCancellationToken);
 
-        _logger.LogInformation("Login Result: {result}, Message: {message}", loginResult.Item1, loginResult.Item2);
+        (bool isSuccessful, string resultMessage) = await _loginTask;
 
-        if (loginResult.Item1)
+        _logger.LogInformation("Login Result: {result}, Message: {message}", isSuccessful, resultMessage);
+
+        _overlayWindow?.Close();
+
+        if (isSuccessful)
         {
             await _studentAccountData.DeleteStudentAccountAsync();
             await _studentAccountData.InsertStudentAccountAsync(_academicEmailAddress.Split("@")[0], _academicEmailAddress, _password);
@@ -75,11 +112,11 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         else
         {
             HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
-            MessageBus.Current.SendMessage(loginResult.Item2, PubSubMessages.UpdateLoginErrorMessage);
+            MessageBus.Current.SendMessage(resultMessage, PubSubMessages.UpdateLoginErrorMessage);
         }
 
-        webDriver?.Dispose();
-        loginTask.Dispose();
+        _webDriver?.Dispose();
+        _loginTask.Dispose();
 
         MessageBus.Current.SendMessage(false, PubSubMessages.UpdateWindowTopMost);
     }

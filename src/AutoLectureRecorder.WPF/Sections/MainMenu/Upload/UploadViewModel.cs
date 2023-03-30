@@ -1,4 +1,4 @@
-﻿using AutoLectureRecorder.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using ReactiveUI;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Upload;

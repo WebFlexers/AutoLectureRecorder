@@ -1,5 +1,4 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
+using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 

@@ -1,4 +1,4 @@
-﻿using AutoLectureRecorder.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess;
 using Microsoft.Extensions.Logging;
@@ -61,11 +61,8 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         });
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
 
-        // To handle fullscreen player mode we can't just move the VlcPlayer control to a new view,
-        // because it stops the player and creates many problems. Instead we have to hide everything from
-        // the screen and make the window fullscreen
-        //MessageBus.Current.Listen<bool>(PubSubMessages.UpdateWindowTopMost)
-        //    .Subscribe(tm => IsWindowTopMost = tm);
+        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateWindowTopMost)
+            .Subscribe(tm => IsWindowTopMost = tm);
 
         MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen)
             .Subscribe(makeVideoFullScreen =>

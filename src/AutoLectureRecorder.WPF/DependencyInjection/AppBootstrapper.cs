@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories;
+using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.Recording;
 using AutoLectureRecorder.Services.WebDriver;
@@ -43,10 +44,9 @@ public class AppBootstrapper
 
         // Add Factories
         services.AddTransient<IScreenFactory, ScreenFactory>();
+        services.AddTransient<IWindowFactory, WindowFactory>();
         services.AddTransient<IViewModelFactory, ViewModelFactory>();
-
         services.AddTransient<IValidationFactory, ValidatorFactory>();
-
         services.AddTransient<IWebDriverFactory, WebDriverFactory>();
 
         // Add Views and ViewModels

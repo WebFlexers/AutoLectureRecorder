@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DynamicData.Kernel;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 
@@ -40,10 +41,14 @@ public class UnipiEdgeWebDriver : IWebDriver
         _driver.Manage().Timeouts().ImplicitWait = implicitWaitTime;
     }
 
+    private const string CancelLoginErrorMessage = 
+        "The login process was cancelled. If you want to continue, input your credentials and try again";
+
     /// <summary>
     /// Login to Microsoft Teams through the web driver using the provided credentials
     /// </summary>
-    public (bool result, string resultMessage) LoginToMicrosoftTeams(string academicEmailAddress, string password)
+    public (bool result, string resultMessage) LoginToMicrosoftTeams(string academicEmailAddress, string password, 
+        CancellationToken? cancellationToken = null)
     {
         if (_driver == null)
         {
@@ -54,18 +59,28 @@ public class UnipiEdgeWebDriver : IWebDriver
         {
             _driver.Url = MicrosoftTeamsAuthUrl;
 
-            // Turn email characters to lower, because capital letters fail the login proccess 
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
+
+            // Turn email characters to lower, because capital letters fail the login process 
             _driver.FindElement(By.Id("i0116")).SendKeys(academicEmailAddress.ToLower());
+
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
 
             // Submit to go to University login page
             _driver.FindElement(By.XPath("//input[@type='submit']")).Click();
+
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
 
             // Split the academic email address to get the registration number for login
             _driver.FindElement(By.Id("username")).SendKeys(academicEmailAddress.Split("@")[0]);
 
             _driver.FindElement(By.Id("password")).SendKeys(password);
 
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
+
             _driver.FindElement(By.Id("loginButton")).Click();
+
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
 
             // class: banner banner-danger banner-dismissible -> Wrong credentials in unipi auth page
             // class: mdc-card p-4 w-lg-66 m-auto -> Too many requests in unipi auth page
@@ -81,6 +96,8 @@ public class UnipiEdgeWebDriver : IWebDriver
 
             if (loginResultElement.GetAttribute("class").Trim().Equals("row text-title"))
             {
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
+
                 _logger.LogInformation("Successful login of {email}", academicEmailAddress);
                 return (true, "success");
             }

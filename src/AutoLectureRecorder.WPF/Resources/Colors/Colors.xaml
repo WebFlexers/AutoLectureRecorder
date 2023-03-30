@@ -11,8 +11,6 @@
     <Color x:Key="SuccessColor">#62DD53</Color>
     <Color x:Key="ErrorColor">#F44336</Color>
 
-    <!-- Complementary of primary lighter: #e27b66 -->
-    
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
     <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{StaticResource PrimaryDarkerColor}" />
     <SolidColorBrush x:Key="PrimaryDarkerHoverBrush" Color="{StaticResource PrimaryDarkerHoverColor}" />

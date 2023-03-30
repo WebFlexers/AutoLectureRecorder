@@ -1,4 +1,4 @@
-﻿using AutoLectureRecorder.DependencyInjection.Factories;
+﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.LoginWebView;
 using AutoLectureRecorder.Services.WebDriver;
