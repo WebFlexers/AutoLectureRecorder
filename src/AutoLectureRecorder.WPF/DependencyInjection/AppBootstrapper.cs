@@ -6,6 +6,7 @@ using AutoLectureRecorder.Services.WebDriver;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReactiveUI;
+using Serilog;
 using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +28,15 @@ public class AppBootstrapper
 
                // Configure the rest of the Dependency Injection
                ConfigureServices(services);
+            })
+            .ConfigureLogging((hostContext, builder) =>
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(hostContext.Configuration)
+                    .WriteTo.File("logs.txt")
+                    .CreateLogger();
+
+                builder.AddSerilog();
             })
             .Build();
 

@@ -1,4 +1,4 @@
-﻿namespace AutoLectureRecorder.Services.WebDriver.SeleniumUtilities;
+﻿namespace AutoLectureRecorder.Services.HttpUtilities;
 
 public static class HttpClientExtensions
 {

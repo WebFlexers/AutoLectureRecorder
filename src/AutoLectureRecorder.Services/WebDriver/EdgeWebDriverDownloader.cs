@@ -1,4 +1,4 @@
-﻿using AutoLectureRecorder.Services.WebDriver.SeleniumUtilities;
+﻿using AutoLectureRecorder.Services.HttpUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System.IO.Compression;

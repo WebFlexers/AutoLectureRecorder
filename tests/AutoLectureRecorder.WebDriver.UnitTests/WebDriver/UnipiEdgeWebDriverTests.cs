@@ -1,5 +1,4 @@
 ﻿using AutoLectureRecorder.Services.WebDriver;
-using AutoLectureRecorder.WebDriver.UnitTests;
 using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.WebDriver.UnitTests.WebDriver;

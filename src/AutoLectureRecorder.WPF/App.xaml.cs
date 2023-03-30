@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using Serilog;
 using Application = System.Windows.Application;
 
 namespace AutoLectureRecorder;
@@ -45,6 +46,8 @@ public partial class App : Application
         {
             Application.Current.Shutdown();
         }
+
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
         // This is required for the WebView2 to work inside the app
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
@@ -110,6 +113,12 @@ public partial class App : Application
             router.Navigate.Execute(services.GetRequiredService<LoginViewModel>());
         }
         
+    }
+
+    private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        var ex = e.ExceptionObject as Exception;
+        Log.Fatal(ex, "An unhandled exception occurred");
     }
 
     protected override async void OnExit(ExitEventArgs e)
