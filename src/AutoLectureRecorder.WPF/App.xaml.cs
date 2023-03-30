@@ -91,6 +91,10 @@ public partial class App : Application
             startupWindow!.Close();
         }
 
+        // Set the main window, to fix a bug that caused the
+        // Application.Current.MainWindow to work on debug, but fail in production
+        this.MainWindow = mainWindow;
+
         mainWindow.Show();
 
         // Make the window fullscreen if it's dimensions exceed the screen dimensions
