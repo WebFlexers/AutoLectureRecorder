@@ -52,7 +52,9 @@ public partial class App : Application
         // If we are in development populate the database with sample data
         if (Debugger.IsAttached)
         {
-            new SampleData(new SqliteDataAccess("Data Source=.\\AutoLectureRecorderDB.db;")).Seed();
+            await new SampleData(
+                    new SqliteDataAccess("Data Source=.\\AutoLectureRecorderDB.db;"))
+                        .Seed();
         }
 
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;

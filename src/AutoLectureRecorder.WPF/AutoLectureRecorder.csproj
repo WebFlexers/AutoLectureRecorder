@@ -96,7 +96,7 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	  <None Update="AutoLectureRecorderDB.db">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 

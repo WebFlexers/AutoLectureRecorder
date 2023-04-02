@@ -215,7 +215,7 @@
                           Grid.Column="3" Grid.Row="1"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
-                          Margin="6, 10, 6, 10"
+                          Margin="6, 10, 6, 0"
                           ScrollChanged="LecturesScrollViewers_OnScrollChanged">
                 <ItemsControl x:Name="ThursdaysLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
@@ -223,7 +223,7 @@
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
                                 Height="120"
-                                Margin="0, 0, 0, 6"
+                                Margin="0, 0, 0, 10"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
                                 Click="ScheduledLectureComponent_OnClick"/>

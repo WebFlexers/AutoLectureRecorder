@@ -323,7 +323,7 @@
 
         <!-- Success and Failure Snackbars -->
         <materialDesign:Snackbar x:Name="InsertionFailedSnackbar"
-                                 Message="Lecture failed to be added... Correct the mistakes and try again"
+                                 Message="Lecture failed to be added..."
                                  d:IsActive="false"
                                  Background="{StaticResource ErrorBrush}"
                                  Margin="0,0,0,20"/>

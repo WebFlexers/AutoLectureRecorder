@@ -87,7 +87,15 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         {
             if (await ValidateLectureAndUpdateUI() == false) return;
 
-            var newLecture = await InsertScheduledLectureToDb();
+            var newLecture = await _scheduledLectureRepository.InsertScheduledLectureAsync(ScheduledLecture);
+
+            if (newLecture == null)
+            {
+                IsFailedInsertionSnackbarActive = true;
+                IsSuccessfulInsertionSnackbarActive = false;
+                return;
+            }
+
             _justSuccessfullyAddedLecture = true;
 
             // If the new lecture has a subject name that didn't exist previously, add it to the list
@@ -241,18 +249,5 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         }
 
         return isLectureValid;
-    }
-
-    private Task<ReactiveScheduledLecture?> InsertScheduledLectureToDb()
-    {
-        var result = _scheduledLectureRepository.InsertScheduledLectureAsync(
-            ScheduledLecture.SubjectName, ScheduledLecture.Semester,
-            ScheduledLecture.MeetingLink, ScheduledLecture.Day,
-            ScheduledLecture.StartTime, ScheduledLecture.EndTime,
-            ScheduledLecture.IsScheduled, ScheduledLecture.WillAutoUpload);
-
-        _logger.LogInformation("Inserted scheduled lecture to database");
-
-        return result;
     }
 }

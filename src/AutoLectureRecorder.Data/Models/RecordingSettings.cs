@@ -9,4 +9,6 @@ public class RecordingSettings
     public int IsInputDeviceEnabled { get; set; }
     public int Quality { get; set; }
     public double Fps { get; set; }
+    public int OutputFrameWidth { get; set; }
+    public int OutputFrameHeight { get; set; }
 }

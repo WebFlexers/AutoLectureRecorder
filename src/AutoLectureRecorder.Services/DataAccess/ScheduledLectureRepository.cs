@@ -270,8 +270,6 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             _logger.LogError(e, "An error occurred while trying to delete scheduled lecture with id {id}", id);
             return false;
         }
-
-        // TODO: Add logging everywhere and return types of bool where needed
     }
 
     private ReactiveScheduledLecture CreateReactiveScheduledLecture(ScheduledLecture scheduledLecture)

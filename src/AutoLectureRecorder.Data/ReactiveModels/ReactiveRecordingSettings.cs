@@ -19,4 +19,8 @@ public class ReactiveRecordingSettings : ReactiveObject
     public int Quality { get; set; }
     [Reactive]
     public double Fps { get; set; }
+    [Reactive]
+    public int OutputFrameWidth { get; set; }
+    [Reactive]
+    public int OutputFrameHeight { get; set; }
 }
