@@ -1,7 +1,9 @@
 ﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
+using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
@@ -13,17 +15,13 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
 
         this.WhenActivated(disposables =>
         {
+            DataContext = ViewModel;
+
             // Observable collection bindings
             this.OneWayBind(ViewModel, vm => vm.DistinctScheduledLectures, v => v.SubjectNameComboBox.ItemsSource)
                 .DisposeWith(disposables);
 
             // Combobox behaviour
-            this.WhenAnyValue(v => v.SubjectNameComboBox.Text)
-                .Subscribe(searchText =>
-                {
-                    ViewModel!.FilterSubjectNamesCommand.Execute(searchText);
-                }).DisposeWith(disposables);;
-
             SubjectNameComboBox.Events().GotFocus
                 .Subscribe(e =>
                 {
@@ -35,10 +33,6 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
 
                     SubjectNameComboBox.IsDropDownOpen = true;
                 }).DisposeWith(disposables);;
-
-            this.BindCommand(ViewModel, vm => vm.AutoFillSemesterAndLinkCommand, 
-                v => v.SubjectNameComboBox, nameof(SubjectNameComboBox.LostFocus))
-                .DisposeWith(disposables);;
 
             // Fields values bindings
             this.Bind(ViewModel, vm => vm.ScheduledLecture.SubjectName, v => v.SubjectNameComboBox.Text)
@@ -87,9 +81,32 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
                 .DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.IsSuccessfulInsertionSnackbarActive, v => v.InsertionSucceededSnackbar.IsActive)
                 .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsFailedUpdateSnackbarActive, v => v.UpdateFailedSnackbar.IsActive)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsSuccessfulUpdateSnackbarActive, v => v.UpdateSucceededSnackbar.IsActive)
+                .DisposeWith(disposables);
+
+            // Buttons visibility and state
+            this.OneWayBind(ViewModel, vm => vm.IsUpdateModeSelected, v => v.UpdateButton.Visibility,
+                    value => value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsUpdateModeSelected, v => v.SubmitButton.Visibility,
+                    value => value ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsUpdateModeSelected, v => v.UpdateButton.IsEnabled)
+                .DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsUpdateModeSelected, v => v.SubmitButton.IsEnabled,
+                    value => !value)
+                .DisposeWith(disposables);
 
             // Commands
+            this.BindCommand(ViewModel, vm => vm.AutoFillSemesterAndLinkCommand, 
+                    v => v.SubjectNameComboBox, nameof(SubjectNameComboBox.LostFocus))
+                .DisposeWith(disposables);;
+
             this.BindCommand(ViewModel, vm => vm.CreateScheduledLectureCommand, v => v.SubmitButton)
+                .DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.UpdateScheduledLectureCommand, v => v.UpdateButton)
                 .DisposeWith(disposables);
         });
     }

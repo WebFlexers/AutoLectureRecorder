@@ -81,7 +81,7 @@
                                 <ComboBox x:Name="SubjectNameComboBox"
                                           IsEditable="True"
                                           IsTextSearchEnabled="True"
-                                          TextSearch.TextPath="SubjectName"
+                                          DisplayMemberPath="SubjectName"
                                           materialDesign:HintAssist.Hint="Subject Name"
                                           Width="390"
                                           Padding="16,16,55,16"
@@ -312,6 +312,7 @@
             <Button x:Name="SubmitButton"
                     Grid.Column="1"
                     IsDefault="True"
+                    IsEnabled="True"
                     d:Height="50"
                     Height="{Binding ElementName=DayComboBox, Path=ActualHeight}"
                     VerticalAlignment="Bottom"
@@ -319,6 +320,19 @@
                     FontSize="18"
                     Foreground="{StaticResource PrimaryTextBrush}"
                     Content="Create Lecture"/>
+
+            <Button x:Name="UpdateButton"
+                    Grid.Column="1"
+                    IsDefault="True"
+                    IsEnabled="False"
+                    d:Visibility="Collapsed"
+                    d:Height="50"
+                    Height="{Binding ElementName=DayComboBox, Path=ActualHeight}"
+                    VerticalAlignment="Bottom"
+                    Cursor="Hand"
+                    FontSize="18"
+                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Content="Update Lecture"/>
         </Grid>
 
         <!-- Success and Failure Snackbars -->
@@ -330,6 +344,19 @@
 
         <materialDesign:Snackbar x:Name="InsertionSucceededSnackbar"
                                  Message="Lecture added successfully!"
+                                 d:IsActive="false"
+                                 Background="{StaticResource SuccessBrush}"
+                                 Margin="0,0,0,20" />
+
+        <!-- Update and Failure Snackbars -->
+        <materialDesign:Snackbar x:Name="UpdateFailedSnackbar"
+                                 Message="Lecture failed to be updated..."
+                                 d:IsActive="false"
+                                 Background="{StaticResource ErrorBrush}"
+                                 Margin="0,0,0,20"/>
+
+        <materialDesign:Snackbar x:Name="UpdateSucceededSnackbar"
+                                 Message="Lecture was updated successfully!"
                                  d:IsActive="false"
                                  Background="{StaticResource SuccessBrush}"
                                  Margin="0,0,0,20" />
