@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Services.HttpUtilities;
+﻿using System.Diagnostics;
+using AutoLectureRecorder.Services.HttpUtilities;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -15,7 +16,8 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "AutoLectureRecorder");
     private const string WebDriverName = "msedgedriver";
-    private const string CurrentEdgeDriverStoreFileName = "current_edge_version.txt";
+    private const string WebDriverProcessName = "msedgedriver";
+    private const string CurrentEdgeDriverStoreFileName = "current_edge_driver_version.txt";
 
     public EdgeWebDriverDownloader(ILogger<EdgeWebDriverDownloader> logger, IHttpClientFactory httpClientFactory)
     {
@@ -40,7 +42,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
 
             _logger.LogInformation("Starting automated edge web driver download...");
 
-            DeleteOldDriverIfExists();
+            await DeleteOldDriverIfExists();
             string zippedFilePath = await DownloadDriverToTempFolder(edgeVersion, progress);
             ExtractDriverToAppData(zippedFilePath, edgeVersion);
             var storeVersion = StoreCurrentEdgeVersionToFile(edgeVersion);
@@ -59,7 +61,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
         }
     }
 
-    private void DeleteOldDriverIfExists()
+    private async Task DeleteOldDriverIfExists()
     {
         var webDriverDirectory = _appDataAlrDirectory;
 
@@ -82,11 +84,25 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
         }
 
         // Delete the driver
-        foreach (var fileName in Directory.GetFiles(webDriverDirectory))
+        foreach (var filePath in Directory.GetFiles(webDriverDirectory))
         {
-            if (fileName.Contains(WebDriverName) == false) continue;
+            if (filePath.Contains(WebDriverName) == false) continue;
 
-            File.Delete(fileName);
+            Process[] processes = Process.GetProcessesByName(WebDriverProcessName);
+
+            if (processes.Any())
+            {
+                var waitForKillTasks = new List<Task>();
+                foreach (Process process in processes)
+                {
+                    process.Kill();
+                    waitForKillTasks.Add(process.WaitForExitAsync());
+                }
+
+                await Task.WhenAll(waitForKillTasks);
+            }
+
+            File.Delete(filePath);
             _logger.LogInformation("Old web driver deleted");
         }
     }
@@ -166,7 +182,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
             return string.Empty;
         }
 
-        var edgeVersion = new Version(edgeVersionObject as string);
+        var edgeVersion = new Version((string)edgeVersionObject);
         _logger.LogDebug("Edge version found on the computer: {latestEdgeVersion}", edgeVersion);
         return edgeVersion.ToString();
     }
