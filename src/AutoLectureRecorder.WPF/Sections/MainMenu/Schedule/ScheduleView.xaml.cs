@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Controls;
+using AutoLectureRecorder.Data.ReactiveModels;
 using MaterialDesignThemes.Wpf;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
@@ -43,16 +44,9 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
 
     private void ScheduledLectureComponent_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO: Add a parameter with the ReactiveScheduledLecture in the Command
-        ViewModel!.NavigateToCreateLectureCommand.Execute().Subscribe();
-        //ViewModel!.Lecture = new ReactiveScheduledLecture
-        //{
-        //    SubjectName = "Jack",
-        //    StartTime = DateTime.Now,
-        //    EndTime = DateTime.Now,
-        //    IsScheduled = true,
-        //    WillAutoUpload = false
-        //};
+        var lectureComponent = (ScheduledLectureComponent)sender;
+        ViewModel!.NavigateToCreateLectureCommand.Execute(lectureComponent.Lecture)
+            .Subscribe();
     }
 
     private void LecturesScrollViewers_OnScrollChanged(object sender, ScrollChangedEventArgs e)

@@ -1,33 +1,19 @@
 ﻿using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace AutoLectureRecorder.Services.DataAccess;
 
 public class StudentAccountRepository : IStudentAccountRepository
 {
     private readonly ISqliteDataAccess _dataAccess;
+    private readonly ILogger<StudentAccountRepository> _logger;
 
-    public StudentAccountRepository(ISqliteDataAccess dataAccess)
+    public StudentAccountRepository(ISqliteDataAccess dataAccess, ILogger<StudentAccountRepository> logger)
     {
         _dataAccess = dataAccess;
-    }
-
-    /// <summary>
-    /// Insert a new student account to the database asynchronously
-    /// </summary>
-    public async Task InsertStudentAccountAsync(string registrationNumber, string academicEmailAddress, string password)
-    {
-        var student = new StudentAccount
-        {
-            RegistrationNumber = registrationNumber,
-            EmailAddress = academicEmailAddress,
-            Password = password
-        };
-
-        string sql = "insert into StudentAccount (RegistrationNumber, EmailAddress, Password)" +
-                     "values (@RegistrationNumber, @EmailAddress, @Password)";
-
-        await _dataAccess.SaveData(sql, student).ConfigureAwait(false);
+        _logger = logger;
     }
 
     /// <summary>
@@ -35,30 +21,80 @@ public class StudentAccountRepository : IStudentAccountRepository
     /// </summary>
     public async Task<ReactiveStudentAccount?> GetStudentAccountAsync()
     {
-        string sql = "select * from StudentAccount";
-        var result = await _dataAccess.LoadData<StudentAccount, dynamic>(sql, new { }).ConfigureAwait(false);
-        var studentAccount = result.FirstOrDefault();
-
-        if (result.Count == 0)
+        try
         {
+            string sql = "select * from StudentAccount";
+            var result = await _dataAccess.LoadData<StudentAccount, dynamic>(sql, new { }).ConfigureAwait(false);
+            var studentAccount = result.FirstOrDefault();
+
+            if (studentAccount == null) return null;
+
+            return new ReactiveStudentAccount
+            {
+                Id = studentAccount.Id,
+                RegistrationNumber = studentAccount.RegistrationNumber,
+                EmailAddress = studentAccount.EmailAddress,
+                Password = studentAccount.Password
+            };
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while trying to get student account");
             return null;
         }
+    }
 
-        return new ReactiveStudentAccount
+    /// <summary>
+    /// Insert a new student account to the database asynchronously
+    /// </summary>
+    public async Task<bool> InsertStudentAccountAsync(string registrationNumber, string academicEmailAddress, string password)
+    {
+        try
         {
-            Id = studentAccount.Id,
-            RegistrationNumber = studentAccount.RegistrationNumber,
-            EmailAddress = studentAccount.EmailAddress,
-            Password = studentAccount.Password
-        };
+            var student = new StudentAccount
+            {
+                RegistrationNumber = registrationNumber,
+                EmailAddress = academicEmailAddress,
+                Password = password
+            };
+
+            string sql = "insert into StudentAccount (RegistrationNumber, EmailAddress, Password)" +
+                         "values (@RegistrationNumber, @EmailAddress, @Password)";
+
+            int rowsAffectedNumber = await _dataAccess.SaveData(sql, student).ConfigureAwait(false);
+
+            if (rowsAffectedNumber == 1)
+            {
+                _logger.LogInformation("Successfully inserted student account");
+                return true;
+            }
+        
+            _logger.LogWarning("Failed to insert student account with registration number {rn}", registrationNumber);
+            return false;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while trying to insert student account");
+            return false;
+        }
     }
 
     /// <summary>
     /// Wipe out the student account table asynchronously
     /// </summary>
-    public async Task DeleteStudentAccountAsync()
+    public async Task<bool> DeleteStudentAccountAsync()
     {
-        string sql = "delete from StudentAccount";
-        await _dataAccess.SaveData<dynamic>(sql, new { }).ConfigureAwait(false);
+        try
+        {
+            string sql = "delete from StudentAccount";
+            await _dataAccess.SaveData<dynamic>(sql, new { }).ConfigureAwait(false);
+            _logger.LogInformation("Successfully deleted student account");
+            return true;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while trying to delete student account");
+            return false;
+        }
     }
 }

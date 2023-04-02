@@ -1,7 +1,6 @@
 ﻿using AutoLectureRecorder.DependencyInjection;
 using AutoLectureRecorder.Sections.Login;
 using AutoLectureRecorder.Sections.MainMenu;
-using AutoLectureRecorder.Services.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
@@ -12,8 +11,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using AutoLectureRecorder.Services.DataAccess;
 using Serilog;
 using Application = System.Windows.Application;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Seeding;
 
 namespace AutoLectureRecorder;
 
@@ -45,6 +47,12 @@ public partial class App : Application
         if (_mutexCreated == false)
         {
             Application.Current.Shutdown();
+        }
+
+        // If we are in development populate the database with sample data
+        if (Debugger.IsAttached)
+        {
+            new SampleData(new SqliteDataAccess("Data Source=.\\AutoLectureRecorderDB.db;")).Seed();
         }
 
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
@@ -153,22 +161,22 @@ public partial class App : Application
     // Access to app Styles
     public static Style? GetStyleFromResourceDictionary(string styleName, string resourceDictionaryName)
     {
-        var titleBarResources = new ResourceDictionary
+        var resourceDictionary = new ResourceDictionary
         {
             Source = new Uri($"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/{resourceDictionaryName}",
                 UriKind.RelativeOrAbsolute)
         };
-        return titleBarResources[styleName] as Style;
+        return resourceDictionary[styleName] as Style;
     }
 
     public static ResourceDictionary GetResourceDictionary(string resourceDictionaryName, string relativePath)
     {
-        var titleBarResources = new ResourceDictionary
+        var resourceDictionary = new ResourceDictionary
         {
             Source = new Uri(
                 $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/{relativePath}/{resourceDictionaryName}",
                 UriKind.RelativeOrAbsolute)
         };
-        return titleBarResources;
+        return resourceDictionary;
     }
 }

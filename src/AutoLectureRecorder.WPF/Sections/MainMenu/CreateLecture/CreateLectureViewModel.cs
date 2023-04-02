@@ -1,7 +1,7 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
@@ -29,6 +29,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     public ReactiveCommand<string, Unit> FilterSubjectNamesCommand { get; }
     public ReactiveCommand<Unit, Unit> AutoFillSemesterAndLinkCommand { get; }
     public ReactiveCommand<Unit, Unit> CreateScheduledLectureCommand { get; }
+    public ReactiveCommand<Unit, Unit> UpdateScheduledLectureCommand { get; }
     public ReactiveCommand<Unit, Unit> ValidateScheduledLectureCommand { get; }
 
     // Used to avoid validating empty fields right after successful lecture insertion
@@ -40,10 +41,6 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     [Reactive]
     public bool IsSuccessfulInsertionSnackbarActive { get; set; }
 
-    // Used to disable the semester field when an already existing Subject name is selected
-    [Reactive]
-    public bool IsSemesterEnabled { get; set; } = true;
-
     // Used to get the unique subject names
     [Reactive]
     public ObservableCollection<ReactiveScheduledLecture> DistinctScheduledLectures { get; private set; } = new();
@@ -54,6 +51,9 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     public ValidatableScheduledLecture ScheduledLectureValidationErrors { get; set; } = new();
     [Reactive]
     public Visibility ValidateErrorsVisibility { get; set; } = Visibility.Collapsed;
+
+    [Reactive] 
+    public bool IsUpdateModeSelected { get; set; } = false;
 
     public CreateLectureViewModel(ILogger<CreateLectureViewModel> logger, IScreenFactory hostScreen,
                                   IValidationFactory validationFactory, IScheduledLectureRepository scheduledLectureRepository)
@@ -74,12 +74,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             if (existingLecture != null)
             {
                 ScheduledLecture.Semester = existingLecture.Semester;
-                IsSemesterEnabled = false;
                 ScheduledLecture.MeetingLink = existingLecture.MeetingLink;
-            }
-            else
-            {
-                IsSemesterEnabled = true;
             }
         });
 
@@ -90,15 +85,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
         CreateScheduledLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var isLectureValid = await ValidateScheduledLecture();
-
-            if (isLectureValid == false)
-            {
-                IsSuccessfulInsertionSnackbarActive = false;
-                IsFailedInsertionSnackbarActive = true;
-                ValidateErrorsVisibility = Visibility.Visible;
-                return;
-            }
+            if (await ValidateLectureAndUpdateUI() == false) return;
 
             var newLecture = await InsertScheduledLectureToDb();
             _justSuccessfullyAddedLecture = true;
@@ -115,11 +102,17 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
             IsFailedInsertionSnackbarActive = false;
             IsSuccessfulInsertionSnackbarActive = true;
-            IsSemesterEnabled = false;
 
             // Send message to recalculate the closest scheduled lecture to now,
             // in case the new lecture is closer
             MessageBus.Current.SendMessage(true, PubSubMessages.CheckClosestScheduledLecture);
+        });
+
+        UpdateScheduledLectureCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            if (await ValidateLectureAndUpdateUI() == false) return;
+
+            // TODO: Continue this method
         });
 
         // Validate all the fields whenever any validatable field inside Scheduled Lecture changes
@@ -163,13 +156,15 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                 }
             });
 
-        // Get the Scheduled Lectures grouped by name
-        Observable.StartAsync(async () =>
-        {
-            var distinctNamesTask = _scheduledLectureRepository.GetScheduledLecturesGroupedByName();
-            var distinctNames = await distinctNamesTask;
+        // Determine whether we are 
 
-            if (distinctNames != null)
+        // Get the Scheduled Lectures grouped by name, in order prevent adding
+        // lectures that conflict with the existing ones
+        var getLecturesObservable = Observable.StartAsync(async () =>
+        {
+            var distinctNames = await _scheduledLectureRepository.GetScheduledLecturesGroupedByNameAsync();
+
+            if (distinctNames.Any())
             {
                 DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(distinctNames);
             }
@@ -177,9 +172,37 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             {
                 DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>();
             }
-
-            distinctNamesTask.Dispose();
         });
+
+        MessageBus.Current.Listen<ReactiveScheduledLecture>(PubSubMessages.SetUpdateModeToScheduledLecture)
+            .Subscribe(lecture =>
+            {
+                getLecturesObservable.Subscribe(_ =>
+                {
+                    IsUpdateModeSelected = true;
+                    ScheduledLecture = lecture;
+                });
+            });
+    }
+
+    /// <summary>
+    /// Validates the lecture and shows the error snackbar
+    /// if it fails.
+    /// </summary>
+    /// <returns>True if the validation was successful and false otherwise</returns>
+    private async Task<bool> ValidateLectureAndUpdateUI()
+    {
+        var isLectureValid = await ValidateScheduledLecture();
+
+        if (isLectureValid == false)
+        {
+            IsSuccessfulInsertionSnackbarActive = false;
+            IsFailedInsertionSnackbarActive = true;
+            ValidateErrorsVisibility = Visibility.Visible;
+            return false;
+        }
+
+        return true;
     }
 
     private void ClearDayAndTimeFields()

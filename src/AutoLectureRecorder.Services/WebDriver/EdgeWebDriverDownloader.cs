@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Services.HttpUtilities;
+using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System.IO.Compression;
@@ -10,7 +11,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
 {
     private readonly ILogger<EdgeWebDriverDownloader> _logger;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly string _appDataAlrPath = Path.Combine(
+    private readonly string _appDataAlrDirectory = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "AutoLectureRecorder");
     private const string WebDriverName = "msedgedriver";
@@ -60,7 +61,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
 
     private void DeleteOldDriverIfExists()
     {
-        var webDriverDirectory = _appDataAlrPath;
+        var webDriverDirectory = _appDataAlrDirectory;
 
         if (Directory.Exists(webDriverDirectory) == false) return;
 
@@ -96,7 +97,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
 
         if (success == false) return false;
 
-        var webDriverPath = Path.Combine(_appDataAlrPath, $"{WebDriverName}.exe");
+        var webDriverPath = Path.Combine(_appDataAlrDirectory, $"{WebDriverName}.exe");
 
         return File.Exists(webDriverPath) && edgeVersion == latestEdgeVersion;
     }
@@ -117,7 +118,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
     private void ExtractDriverToAppData(string zippedFilePath, string edgeVersion)
     {
         // Extract to Auto Lecture Recorder app data directory
-        ZipFile.ExtractToDirectory(zippedFilePath, _appDataAlrPath);
+        ZipFile.ExtractToDirectory(zippedFilePath, _appDataAlrDirectory);
 
         _logger.LogDebug("Successfully extracted zipped file to current directory");
     }
@@ -174,7 +175,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
     {
         try
         {
-            string filePath = Path.Combine(_appDataAlrPath, CurrentEdgeDriverStoreFileName);
+            string filePath = Path.Combine(_appDataAlrDirectory, CurrentEdgeDriverStoreFileName);
             await File.WriteAllTextAsync(filePath, edgeVersion);
             return true;
         }
@@ -189,7 +190,7 @@ public class EdgeWebDriverDownloader : IWebDriverDownloader
     {
         try
         {
-            string filePath = Path.Combine(_appDataAlrPath, CurrentEdgeDriverStoreFileName);
+            string filePath = Path.Combine(_appDataAlrDirectory, CurrentEdgeDriverStoreFileName);
 
             if (File.Exists(filePath) == false)
             {

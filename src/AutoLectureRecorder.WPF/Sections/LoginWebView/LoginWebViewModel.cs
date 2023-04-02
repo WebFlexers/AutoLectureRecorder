@@ -2,8 +2,9 @@
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.Login;
 using AutoLectureRecorder.Sections.MainMenu;
-using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using AutoLectureRecorder.Services.WebDriver;
+using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -12,7 +13,6 @@ using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 
 namespace AutoLectureRecorder.Sections.LoginWebView;
 
@@ -24,7 +24,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     private readonly IViewModelFactory _viewModelFactory;
     private readonly IWindowFactory _windowFactory;
 
-    private Window? _overlayWindow;
+    private readonly Window? _overlayWindow;
 
     public ViewModelActivator Activator { get; } = new();
     public string UrlPathSegment => nameof(LoginWebViewModel);
@@ -49,7 +49,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
         MessageBus.Current.SendMessage(true, PubSubMessages.UpdateWindowTopMost);
 
-        MessageBus.Current.Listen<(string, string)>(PubSubMessages.PrepareLogin)
+        MessageBus.Current.Listen<(string, string)>(PubSubMessages.FillLoginCredentials)
         .Subscribe(credentials =>
         {
             _academicEmailAddress = credentials.Item1;
@@ -80,7 +80,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
     private string _academicEmailAddress = "";
     private string _password = "";
-    private IWebDriver? _webDriver;
+    private IAlrWebDriver? _webDriver;
     private Task<(bool result, string resultMessage)>? _loginTask;
 
     private async Task LoginToMicrosoftTeams()

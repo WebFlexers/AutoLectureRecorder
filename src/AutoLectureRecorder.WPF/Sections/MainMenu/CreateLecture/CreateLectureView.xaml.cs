@@ -14,35 +14,36 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
         this.WhenActivated(disposables =>
         {
             // Observable collection bindings
-            this.OneWayBind(ViewModel, vm => vm.DistinctScheduledLectures, v => v.SubjectNameComboBox.ItemsSource);
+            this.OneWayBind(ViewModel, vm => vm.DistinctScheduledLectures, v => v.SubjectNameComboBox.ItemsSource)
+                .DisposeWith(disposables);
 
             // Combobox behaviour
             this.WhenAnyValue(v => v.SubjectNameComboBox.Text)
                 .Subscribe(searchText =>
                 {
-                    this.ViewModel!.FilterSubjectNamesCommand.Execute(searchText);
-                });
+                    ViewModel!.FilterSubjectNamesCommand.Execute(searchText);
+                }).DisposeWith(disposables);;
 
             SubjectNameComboBox.Events().GotFocus
                 .Subscribe(e =>
                 {
-                    if (this.ViewModel!.DistinctScheduledLectures.Count == 0)
+                    if (ViewModel!.DistinctScheduledLectures.Count == 0)
                     {
-                        this.SubjectNameComboBox.IsDropDownOpen = false;
+                        SubjectNameComboBox.IsDropDownOpen = false;
                         return;
                     }
 
-                    this.SubjectNameComboBox.IsDropDownOpen = true;
-                });
+                    SubjectNameComboBox.IsDropDownOpen = true;
+                }).DisposeWith(disposables);;
 
-            this.BindCommand(ViewModel, vm => vm.AutoFillSemesterAndLinkCommand, v => v.SubjectNameComboBox, nameof(SubjectNameComboBox.LostFocus));
+            this.BindCommand(ViewModel, vm => vm.AutoFillSemesterAndLinkCommand, 
+                v => v.SubjectNameComboBox, nameof(SubjectNameComboBox.LostFocus))
+                .DisposeWith(disposables);;
 
             // Fields values bindings
             this.Bind(ViewModel, vm => vm.ScheduledLecture.SubjectName, v => v.SubjectNameComboBox.Text)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ScheduledLecture.Semester, v => v.SemesterComboBox.Text)
-                .DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.IsSemesterEnabled, v => v.SemesterComboBox.IsEnabled)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ScheduledLecture.MeetingLink, v => v.MeetingLinkTextBox.Text)
                 .DisposeWith(disposables);
@@ -88,7 +89,8 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
                 .DisposeWith(disposables);
 
             // Commands
-            this.BindCommand(ViewModel, vm => vm.CreateScheduledLectureCommand, v => v.SubmitButton);
+            this.BindCommand(ViewModel, vm => vm.CreateScheduledLectureCommand, v => v.SubmitButton)
+                .DisposeWith(disposables);
         });
     }
 }

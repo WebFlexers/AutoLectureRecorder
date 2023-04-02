@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Disposables;
-using System.Threading.Tasks;
-using AutoLectureRecorder.Data.ReactiveModels;
+﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
-using AutoLectureRecorder.Services.DataAccess;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
-public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
+public class ScheduleViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly ILogger<ScheduleViewModel> _logger;
+    private readonly IViewModelFactory _viewModelFactory;
     private readonly IScheduledLectureRepository _lectureRepository;
-    public ViewModelActivator Activator { get; }
     public string UrlPathSegment => nameof(ScheduleViewModel);
     public IScreen HostScreen { get; }
 
     [Reactive]
-    public ReactiveScheduledLecture? Lecture { get; set; }
+    public ReactiveCommand<ReactiveScheduledLecture, Unit> NavigateToCreateLectureCommand { get; set; }
 
     [Reactive]
-    public ReactiveCommand<Unit, Unit> NavigateToCreateLectureCommand { get; set; }
-
-    [Reactive]
-    public Dictionary<DayOfWeek, List<ReactiveScheduledLecture>> ScheduledLecturesByDay { get; set; } = new()
+    public Dictionary<DayOfWeek, ObservableCollection<ReactiveScheduledLecture>> ScheduledLecturesByDay { get; set; } = new()
     {
         { DayOfWeek.Monday, new() },
         { DayOfWeek.Tuesday, new() },
@@ -48,22 +48,22 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     public bool SaturdayHasLectures => ScheduledLecturesByDay[DayOfWeek.Saturday].Any();
     public bool SundayHasLectures => ScheduledLecturesByDay[DayOfWeek.Sunday].Any();
 
-    public ScheduleViewModel(ILogger<ScheduleViewModel> logger, IScreenFactory screenFactory, IScheduledLectureRepository lectureRepository)
+    public ScheduleViewModel(ILogger<ScheduleViewModel> logger, IScreenFactory screenFactory, 
+        IViewModelFactory viewModelFactory, IScheduledLectureRepository lectureRepository)
     {
         _logger = logger;
+        _viewModelFactory = viewModelFactory;
         _lectureRepository = lectureRepository;
         HostScreen = screenFactory.GetMainMenuViewModel();
-        Activator = new ViewModelActivator();
 
-        NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
+        NavigateToCreateLectureCommand = ReactiveCommand.Create<ReactiveScheduledLecture>(lecture =>
         {
-            Debug.WriteLine("It was clicked in ViewModel");
+            var createLectureVm = _viewModelFactory.CreateRoutableViewModel(typeof(CreateLectureViewModel));
+            HostScreen.Router.Navigate.Execute(createLectureVm).Subscribe();
+            MessageBus.Current.SendMessage(lecture, PubSubMessages.SetUpdateModeToScheduledLecture);
         });
 
-        this.WhenActivated(async disposables =>
-        {
-            await FetchAllScheduledLectures().DisposeWith(disposables);
-        });
+        Observable.StartAsync(FetchAllScheduledLectures);
     }
 
     public async Task FetchAllScheduledLectures()

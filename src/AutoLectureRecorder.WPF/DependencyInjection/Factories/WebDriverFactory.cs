@@ -1,5 +1,6 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Services.WebDriver;
+using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -7,14 +8,14 @@ namespace AutoLectureRecorder.DependencyInjection.Factories;
 
 public class WebDriverFactory : IWebDriverFactory
 {
-    private readonly IEnumerable<IWebDriver> _webDrivers;
+    private readonly IEnumerable<IAlrWebDriver> _webDrivers;
 
-    public WebDriverFactory(IEnumerable<IWebDriver> webDrivers)
+    public WebDriverFactory(IEnumerable<IAlrWebDriver> webDrivers)
     {
         _webDrivers = webDrivers;
     }
 
-    public IWebDriver CreateUnipiEdgeWebDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
+    public IAlrWebDriver CreateUnipiEdgeWebDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
     {
         UnipiEdgeWebDriver? edgeWebDriver = null;
         foreach (var webDriver in _webDrivers)

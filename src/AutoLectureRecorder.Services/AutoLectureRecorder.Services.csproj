@@ -24,8 +24,4 @@
     <ProjectReference Include="..\AutoLectureRecorder.Data\AutoLectureRecorder.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="WebDriver\Interfaces\" />
-  </ItemGroup>
-
 </Project>

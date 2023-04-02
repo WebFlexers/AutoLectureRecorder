@@ -328,6 +328,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="37"/>
+                    <RowDefinition Height="10"/> 
                 </Grid.RowDefinitions>
                 <ScrollViewer x:Name="TodaysLecturesScrollViewer"
                               Grid.Row="0"
@@ -408,8 +409,7 @@
                     FontSize="18"
                     Margin="0, 0, 0, 0"
                     Foreground="{StaticResource PrimaryTextBrush}"
-                    Content="Schedule Lectures"
-                    d:Visibility="Collapsed">
+                    Content="Schedule Lectures">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="1,1"
                                          StartPoint="0,0">

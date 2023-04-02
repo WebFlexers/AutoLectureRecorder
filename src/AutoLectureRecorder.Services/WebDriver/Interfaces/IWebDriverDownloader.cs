@@ -1,4 +1,4 @@
-﻿namespace AutoLectureRecorder.Services.WebDriver;
+﻿namespace AutoLectureRecorder.Services.WebDriver.Interfaces;
 
 public interface IWebDriverDownloader
 {

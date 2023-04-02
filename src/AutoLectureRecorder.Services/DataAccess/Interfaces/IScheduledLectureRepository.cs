@@ -1,26 +1,21 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
 
-namespace AutoLectureRecorder.Services.DataAccess;
+namespace AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 public interface IScheduledLectureRepository
 {
     /// <summary>
-    /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture asynchronously
-    /// </summary>
-    Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(string subjectName, int semester, string meetingLink, DayOfWeek? day,
-                                             DateTime? startTime, DateTime? endTime, bool isScheduled, bool willAutoUpload);
-    /// <summary>
     /// Gets all the scheduled lectures from the database asynchronously
     /// </summary>
-    Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesAsync();
+    Task<List<ReactiveScheduledLecture>?> GetAllScheduledLecturesAsync();
     /// <summary>
     /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database asynchronously
     /// </summary>
-    Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesSortedAsync();
+    Task<List<ReactiveScheduledLecture>?> GetAllScheduledLecturesSortedAsync();
     /// <summary>
     /// Gets all the scheduled lectures of the given day from the database asynchronously
     /// </summary>
-    Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek? day);
+    Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesByDayAsync(DayOfWeek? day);
     /// <summary>
     /// Gets the scheduled lecture with the given id from the database asynchronously
     /// </summary>
@@ -32,13 +27,21 @@ public interface IScheduledLectureRepository
     /// <summary>
     /// Gets the distinct subject names from the database asynchronously
     /// </summary>
-    Task<List<string>?> GetDistinctSubjectNames();
+    Task<List<string>?> GetDistinctSubjectNamesAsync();
     /// <summary>
     /// Gets the scheduled lectures with distinct subject names
     /// </summary>
-    Task<List<ReactiveScheduledLecture?>> GetScheduledLecturesGroupedByName();
+    Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByNameAsync();
+    /// <summary>
+    /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture with filled Id asynchronously
+    /// </summary>
+    Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(ReactiveScheduledLecture lecture);
+    /// <summary>
+    /// Updates the scheduled lecture using the Id
+    /// </summary>
+    Task<bool> UpdateScheduledLectureAsync(ReactiveScheduledLecture lecture);
     /// <summary>
     /// Deletes the lecture with the given id if it exists
     /// </summary>
-    Task DeleteScheduledLectureById(int id);
+    Task<bool> DeleteScheduledLectureByIdAsync(int id);
 }

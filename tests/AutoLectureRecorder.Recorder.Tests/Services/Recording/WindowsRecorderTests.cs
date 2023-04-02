@@ -40,6 +40,8 @@ public class WindowsRecorderTests
 
         recorder.StartRecording(windowHandle);
 
+        Assert.True(recorder.IsRecording);
+
         await Task.Delay(3000);
 
         bool finishedSuccessfully = false;
@@ -55,7 +57,7 @@ public class WindowsRecorderTests
                 recordingFailed = true;
             });
 
-        while (recorder.IsRecordingDone == false)
+        while (recorder.IsRecording)
         {
             await Task.Delay(100);
         }
@@ -63,7 +65,7 @@ public class WindowsRecorderTests
         var currentDirectory = Directory.GetCurrentDirectory();
         Assert.True(File.Exists(Path.Combine(currentDirectory, $"{videoFileName}.mp4")));
         Assert.True(finishedSuccessfully);
-        Assert.True(recorder.IsRecordingDone);
+        Assert.False(recorder.IsRecording);
         Assert.False(recordingFailed);
     }
 }

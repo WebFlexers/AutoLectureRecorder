@@ -1,6 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Services.DataAccess;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -16,6 +15,7 @@ using System.Windows;
 using System.Windows.Threading;
 using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
@@ -78,14 +78,19 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         // Get a notification when a scheduled lecture is either added or deleted
         // in order to search again for the closest one
         MessageBus.Current.Listen<bool>(PubSubMessages.CheckClosestScheduledLecture)
-            .Subscribe(async (shouldCheck) =>
+            .Subscribe(shouldCheck =>
             {
               if (!shouldCheck) return;
 
-              var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
-              AllScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(lecturesSorted);
-              NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
+              Observable.StartAsync(async () =>
+              {
+                  var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+                  AllScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(lecturesSorted);
+                  NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
+              });
             });
+
+        Observable.StartAsync(FetchTodaysLectures);
 
         // Create a timer that constantly calculates the difference
         // between now and the closest scheduled lecture
@@ -120,12 +125,10 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
                         NoLecturesTodayErrorVisibility = Visibility.Visible;
                     }
                 }).DisposeWith(disposables);
-
-            await HandleActivation();
         });
     }
 
-    private async Task HandleActivation()
+    private async Task FetchTodaysLectures()
     {
         var todaysLecturesUnsorted = await _lectureData
             .GetScheduledLecturesByDayAsync(DateTime.Now.DayOfWeek);

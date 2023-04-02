@@ -1,7 +1,7 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.LoginWebView;
-using AutoLectureRecorder.Services.WebDriver;
+using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Configuration;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -134,7 +134,7 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel, IActivatableVi
 
         HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));
         MessageBus.Current.SendMessage<(string academicEmailAddress, string password)>((AcademicEmailAddress, Password), 
-            PubSubMessages.PrepareLogin);
+            PubSubMessages.FillLoginCredentials);
 
         _downloadWebDriverTask.Dispose();
     }

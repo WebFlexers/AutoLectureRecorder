@@ -13,10 +13,10 @@ public class WindowsRecorder : IRecorder, IDisposable
     private Action? _onRecordingFailed;
     private Func<Task>? _onRecordingFailedAsync;
 
-    public bool IsRecordingDone { get; set; }
+    public bool IsRecording { get; set; } = false;
 
-    public string? RecordingDirectoryPath;
-    public string? RecordingFileName;
+    public string? RecordingDirectoryPath { get; set; }
+    public string? RecordingFileName { get; set; }
     public string? RecordingFilePath => string.IsNullOrWhiteSpace(RecordingDirectoryPath) ||
                                         string.IsNullOrWhiteSpace(RecordingFileName) 
         ? null 
@@ -87,6 +87,7 @@ public class WindowsRecorder : IRecorder, IDisposable
 
         _recorder.Record(videoPath);
 
+        IsRecording = true;
         _logger.LogInformation("Started Recording...");
 
         return this;
@@ -139,18 +140,20 @@ public class WindowsRecorder : IRecorder, IDisposable
 
     private void RecorderOnRecordingComplete(object? sender, RecordingCompleteEventArgs e)
     {
-        IsRecordingDone = true;
+        IsRecording = false;
         _logger.LogInformation("Recording completed successfully!");
         _onRecordingComplete?.Invoke();
         _onRecordingCompleteAsync?.Invoke();
+        _recorder?.Dispose();
     }
 
     private void RecorderOnRecordingFailed(object? sender, RecordingFailedEventArgs e)
     {
-        IsRecordingDone = true;
+        IsRecording = false;
         _logger.LogError("Recording failed to complete with error: {error}", e.Error);
         _onRecordingFailed?.Invoke();
         _onRecordingFailedAsync?.Invoke();
+        _recorder?.Dispose();
     }
 
     public void Dispose()

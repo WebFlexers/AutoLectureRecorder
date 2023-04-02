@@ -1,8 +1,10 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using AutoLectureRecorder.Services.Recording;
 using AutoLectureRecorder.Services.WebDriver;
+using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReactiveUI;
@@ -65,7 +67,7 @@ public class AppBootstrapper
 
         // Add Custom Services
         services.AddSingleton<ISqliteDataAccess, SqliteDataAccess>();
-        services.AddTransient<IWebDriver, UnipiEdgeWebDriver>();
+        services.AddTransient<IAlrWebDriver, UnipiEdgeWebDriver>();
         services.AddTransient<IWebDriverDownloader, EdgeWebDriverDownloader>();
         services.AddTransient<IRecorder, WindowsRecorder>();
         services.AddTransient<IStudentAccountRepository, StudentAccountRepository>();

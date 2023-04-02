@@ -1,6 +1,6 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

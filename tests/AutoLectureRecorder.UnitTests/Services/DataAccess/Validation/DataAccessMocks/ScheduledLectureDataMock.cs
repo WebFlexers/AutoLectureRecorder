@@ -1,33 +1,43 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess.Validation.DataAccessMocks;
 
 internal class ScheduledLectureDataMock : IScheduledLectureRepository
 {
-    private readonly List<ReactiveScheduledLecture> _lectures;
+    private readonly List<ReactiveScheduledLecture>? _lectures;
 
-    public ScheduledLectureDataMock(List<ReactiveScheduledLecture> lectures)
+    public ScheduledLectureDataMock(List<ReactiveScheduledLecture>? lectures)
     {
         _lectures = lectures;
     }
 
-    public Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesAsync()
+    public Task<List<ReactiveScheduledLecture>?> GetAllScheduledLecturesAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName()
+    public Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByNameAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task DeleteScheduledLectureById(int id)
+    public Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(ReactiveScheduledLecture lecture)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<string>?> GetDistinctSubjectNames()
+    public Task<bool> UpdateScheduledLectureAsync(ReactiveScheduledLecture lecture)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> DeleteScheduledLectureByIdAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<string>?> GetDistinctSubjectNamesAsync()
     {
         throw new NotImplementedException();
     }
@@ -42,7 +52,7 @@ internal class ScheduledLectureDataMock : IScheduledLectureRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<ReactiveScheduledLecture>> GetScheduledLecturesByDayAsync(DayOfWeek? day)
+    public Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesByDayAsync(DayOfWeek? day)
     {
         return Task.FromResult(_lectures);
     }
@@ -52,7 +62,7 @@ internal class ScheduledLectureDataMock : IScheduledLectureRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<ReactiveScheduledLecture>> GetAllScheduledLecturesSortedAsync()
+    public Task<List<ReactiveScheduledLecture>?> GetAllScheduledLecturesSortedAsync()
     {
         throw new NotImplementedException();
     }

@@ -86,12 +86,6 @@
                                           Width="390"
                                           Padding="16,16,55,16"
                                           Style="{StaticResource MaterialDesignOutlinedComboBox}">
-
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding SubjectName}" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
 
                                 <Image Source="../../../Icons/CreateLecture/question_mark.png"
@@ -163,7 +157,6 @@
                         </Grid.ToolTip>
 
                         <TextBox x:Name="MeetingLinkTextBox"
-                                 Text="{Binding MeetingLink, ValidatesOnDataErrors=True}"
                                  materialDesign:HintAssist.Hint="Team or Meeting Link"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  Padding="16,16,55,16" />

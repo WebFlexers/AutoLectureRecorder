@@ -1,5 +1,7 @@
-﻿using AutoLectureRecorder.Data.ReactiveModels;
+﻿using AutoLectureRecorder.Data.Models;
+using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.Services.DataAccess;
+using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess;
@@ -7,43 +9,19 @@ namespace AutoLectureRecorder.UnitTests.Services.DataAccess;
 public class ScheduledLectureDataTests
 {
     private readonly ITestOutputHelper _output;
+    private readonly ILogger<ScheduledLectureRepository> _logger;
 
     public ScheduledLectureDataTests(ITestOutputHelper output)
     {
         _output = output;
-    }
-
-    [Fact]
-    public async Task InsertScheduledLecture_ShouldInsertAScheduledLecture()
-    {
-        var lectureToInsert = CreateSampleReactiveScheduledLecture();
-
-        var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var scheduledLectureRepository = new ScheduledLectureRepository(dataAccess);
-
-        var insertedScheduledLecture = await scheduledLectureRepository.InsertScheduledLectureAsync(lectureToInsert.SubjectName, lectureToInsert.Semester, 
-                                                                                         lectureToInsert.MeetingLink, lectureToInsert.Day,
-                                                                                         lectureToInsert.StartTime, lectureToInsert.EndTime, 
-                                                                                         lectureToInsert.IsScheduled, lectureToInsert.WillAutoUpload);
-
-        Assert.Equal("Ανάλυση 1", insertedScheduledLecture!.SubjectName);
-        Assert.Equal(5, insertedScheduledLecture.Semester);
-        Assert.Equal("https://teams.microsoft.com", insertedScheduledLecture.MeetingLink);
-        Assert.Equal(DayOfWeek.Monday, insertedScheduledLecture.Day);
-        Assert.Equal("08:15", insertedScheduledLecture.StartTime!.Value.ToString("HH:mm"));
-        Assert.Equal("10:15", insertedScheduledLecture.EndTime!.Value.ToString("HH:mm"));
-        Assert.True(insertedScheduledLecture.IsScheduled);
-        Assert.False(insertedScheduledLecture.WillAutoUpload);
-
-        // Delete it so it will not affect other tests
-        await scheduledLectureRepository.DeleteScheduledLectureById(insertedScheduledLecture.Id);
+        _logger = XUnitLogger.CreateLogger<ScheduledLectureRepository>(output);
     }
 
     [Fact]
     public async Task GetScheduledLectureById_ShouldFetchTheScheduledLectureWithTheId()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var scheduledLectureData = new ScheduledLectureRepository(dataAccess);
+        var scheduledLectureData = new ScheduledLectureRepository(dataAccess, _logger);
 
         var fetchedScheduleLecture = await scheduledLectureData.GetScheduledLectureByIdAsync(1);
 
@@ -61,7 +39,7 @@ public class ScheduledLectureDataTests
     public async Task GetAllScheduledLecturesSortedAsync_ShouldReturnAListOfSortedLecturesByDayAndStartTime()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var scheduledLectureData = new ScheduledLectureRepository(dataAccess);
+        var scheduledLectureData = new ScheduledLectureRepository(dataAccess, _logger);
 
         var results = await scheduledLectureData.GetAllScheduledLecturesSortedAsync();
 
@@ -88,10 +66,11 @@ public class ScheduledLectureDataTests
     public async Task GetAllScheduledLectures_ShouldReturnAListOfTheScheduledLectures()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var scheduledLectureData = new ScheduledLectureRepository(dataAccess);
+        var scheduledLectureData = new ScheduledLectureRepository(dataAccess, _logger);
 
         var allScheduledLectures = await scheduledLectureData.GetAllScheduledLecturesAsync();
 
+        Assert.NotNull(allScheduledLectures);
         Assert.True(allScheduledLectures.Count == 5);
     }
 
@@ -99,12 +78,14 @@ public class ScheduledLectureDataTests
     public async Task GetScheduledLecturesByDay_ShouldReturnAListOfTheScheduledLecturesInTheDay()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var scheduledLectureData = new ScheduledLectureRepository(dataAccess);
+        var scheduledLectureData = new ScheduledLectureRepository(dataAccess, _logger);
 
         var scheduledLectures = await scheduledLectureData.GetScheduledLecturesByDayAsync(DayOfWeek.Tuesday);
+        Assert.NotNull(scheduledLectures);
         Assert.True(scheduledLectures.Count == 3);
 
         scheduledLectures = await scheduledLectureData.GetScheduledLecturesByDayAsync(DayOfWeek.Monday);
+        Assert.NotNull(scheduledLectures);
         Assert.True(scheduledLectures.Count == 2);
     }
 
@@ -112,10 +93,11 @@ public class ScheduledLectureDataTests
     public async Task GetDistinctScheduledLectureSubjectNames_ShouldFetchDistinctSubjectNames()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var scheduledLectureData = new ScheduledLectureRepository(dataAccess);
+        var scheduledLectureData = new ScheduledLectureRepository(dataAccess, _logger);
 
-        var results = await scheduledLectureData.GetDistinctSubjectNames();
+        var results = await scheduledLectureData.GetDistinctSubjectNamesAsync();
 
+        Assert.NotNull(results);
         Assert.True(results.Count == 4);
         Assert.Equal("Αντικειμενοστρεφής ανάπτυξη εφαρμογών", results[0]);
         Assert.Equal("Τεχνολογία Λογισμικού", results[1]);
@@ -127,9 +109,9 @@ public class ScheduledLectureDataTests
     public async Task GetDistinctScheduledLecturesByName_ShouldFetchAllScheduledLecturesWithDistinctNames()
     {
         var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
-        var scheduledLectureData = new ScheduledLectureRepository(dataAccess);
+        var scheduledLectureData = new ScheduledLectureRepository(dataAccess, _logger);
 
-        var results = await scheduledLectureData.GetScheduledLecturesGroupedByName();
+        var results = await scheduledLectureData.GetScheduledLecturesGroupedByNameAsync();
 
         foreach (ReactiveScheduledLecture? lecture in results)
         {
@@ -141,6 +123,52 @@ public class ScheduledLectureDataTests
         Assert.NotNull(results.FirstOrDefault(lecture => lecture.SubjectName == "Τεχνολογία Λογισμικού"));
         Assert.NotNull(results.FirstOrDefault(lecture => lecture.SubjectName == "Αλληλεπίδραση Ανθρώπου Υπολογιστή"));
         Assert.NotNull(results.FirstOrDefault(lecture => lecture.SubjectName == "Πιθανότητες και Στατιστική"));
+    }
+
+    [Fact]
+    public async Task InsertScheduledLecture_ShouldInsertAScheduledLecture()
+    {
+        var lectureToInsert = CreateSampleReactiveScheduledLecture();
+
+        var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
+        var scheduledLectureRepository = new ScheduledLectureRepository(dataAccess, _logger);
+
+        var insertedScheduledLecture = await scheduledLectureRepository.InsertScheduledLectureAsync(lectureToInsert);
+
+        Assert.Equal("Ανάλυση 1", insertedScheduledLecture!.SubjectName);
+        Assert.Equal(5, insertedScheduledLecture.Semester);
+        Assert.Equal("https://teams.microsoft.com", insertedScheduledLecture.MeetingLink);
+        Assert.Equal(DayOfWeek.Monday, insertedScheduledLecture.Day);
+        Assert.Equal("08:15", insertedScheduledLecture.StartTime!.Value.ToString("HH:mm"));
+        Assert.Equal("10:15", insertedScheduledLecture.EndTime!.Value.ToString("HH:mm"));
+        Assert.True(insertedScheduledLecture.IsScheduled);
+        Assert.False(insertedScheduledLecture.WillAutoUpload);
+
+        // Delete it so it will not affect other tests
+        await scheduledLectureRepository.DeleteScheduledLectureByIdAsync(insertedScheduledLecture.Id);
+    }
+
+    [Fact]
+    public async Task UpdateScheduledLecture_ShouldUpdateTheScheduledLecture()
+    {
+        var lectureToUpdate = CreateSampleReactiveScheduledLecture();
+
+        var dataAccess = new SqliteDataAccess(DataAccessMockHelper.CreateConfiguration());
+        var scheduledLectureRepository = new ScheduledLectureRepository(dataAccess, _logger);
+
+        lectureToUpdate.SubjectName = "Updated name";
+        lectureToUpdate.MeetingLink = "It's a new link";
+
+        var isSuccessful = await scheduledLectureRepository.UpdateScheduledLectureAsync(lectureToUpdate);
+
+        string sql = "select * from ScheduledLectures where Id=@Id";
+        var result = await dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Id = lectureToUpdate.Id });
+
+        Assert.True(isSuccessful);
+        var updatedLectureInDb = result.First();
+        Assert.NotNull(updatedLectureInDb);
+        Assert.Equal("Updated name", updatedLectureInDb.SubjectName);
+        Assert.Equal("It's a new link", updatedLectureInDb.MeetingLink);
     }
 
     private static ReactiveScheduledLecture CreateSampleReactiveScheduledLecture()

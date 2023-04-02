@@ -4,7 +4,9 @@ namespace AutoLectureRecorder.Services.Recording;
 
 public interface IRecorder
 {
-    bool IsRecordingDone { get; set; }
+    bool IsRecording { get; set; }
+    string? RecordingDirectoryPath { get; set; }
+    string? RecordingFileName { get; set; }
     string? RecordingFilePath { get; }
     RecorderOptions Options { get; set; }
 
@@ -19,7 +21,7 @@ public interface IRecorder
     /// <summary>
     /// Stops the recording and starts the file saving process.
     /// IMPORTANT: When this method returns the file saving process is not
-    /// done yet. If you want to execute code after is has finished use the
+    /// done yet. If you want to execute code after it has finished use the
     /// OnRecordingComplete and/or OnRecordingFailed methods
     /// </summary>
     IRecorder StopRecording();

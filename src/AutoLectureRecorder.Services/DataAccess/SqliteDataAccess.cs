@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using Dapper;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using System.Data;
@@ -7,11 +8,18 @@ namespace AutoLectureRecorder.Services.DataAccess;
 
 public class SqliteDataAccess : ISqliteDataAccess
 {
-    private readonly IConfiguration _config;
+    private readonly IConfiguration? _config;
+    private readonly string _connectionString;
 
     public SqliteDataAccess(IConfiguration config)
     {
         _config = config;
+        _connectionString = config.GetConnectionString("Default")!;
+    }
+
+    public SqliteDataAccess(string connectionString)
+    {
+        _connectionString = connectionString;
     }
 
     /// <summary>
@@ -28,7 +36,7 @@ public class SqliteDataAccess : ISqliteDataAccess
             U parameters,
             string connectionStringName = "Default")
     {
-        string connectionString = _config.GetConnectionString(connectionStringName)!;
+        string connectionString = _connectionString;
 
         using IDbConnection connection = new SqliteConnection(connectionString);
 
@@ -46,17 +54,17 @@ public class SqliteDataAccess : ISqliteDataAccess
     /// <param name="sqlStatement">The sql statement</param>
     /// <param name="parameters">The parameters</param>
     /// <param name="connectionStringName">The connection string name. The default is "Default"</param>
-    /// <returns>A list of the given object type with the result of the query</returns>
-    public async Task SaveData<T>(
+    /// <returns>An int indicating the number of rows affected</returns>
+    public async Task<int> SaveData<T>(
         string sqlStatement,
         T parameters,
         string connectionStringName = "Default")
     {
-        string connectionString = _config.GetConnectionString(connectionStringName)!;
+        string connectionString = _connectionString;
 
         using IDbConnection connection = new SqliteConnection(connectionString);
 
-        await connection.ExecuteAsync(
+        return await connection.ExecuteAsync(
             sqlStatement,
             parameters).ConfigureAwait(false);
     }

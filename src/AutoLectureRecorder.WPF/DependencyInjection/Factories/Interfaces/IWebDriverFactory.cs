@@ -1,9 +1,9 @@
-﻿using AutoLectureRecorder.Services.WebDriver;
+﻿using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using System;
 
 namespace AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 
 public interface IWebDriverFactory
 {
-    IWebDriver CreateUnipiEdgeWebDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222");
+    IAlrWebDriver CreateUnipiEdgeWebDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222");
 }
