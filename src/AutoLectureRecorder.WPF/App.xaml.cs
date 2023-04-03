@@ -1,7 +1,11 @@
 ﻿using AutoLectureRecorder.DependencyInjection;
 using AutoLectureRecorder.Sections.Login;
 using AutoLectureRecorder.Sections.MainMenu;
+using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Seeding;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -11,11 +15,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using AutoLectureRecorder.Services.DataAccess;
-using Serilog;
+using AutoLectureRecorder.Resources.Themes;
 using Application = System.Windows.Application;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
-using AutoLectureRecorder.Services.DataAccess.Seeding;
 
 namespace AutoLectureRecorder;
 
@@ -42,6 +43,9 @@ public partial class App : Application
         _mutex.SetAccessControl(securitySettings);
     }
 
+    //[DllImport("UXTheme.dll", SetLastError = true, EntryPoint = "#138")] 
+    //public static extern bool ShouldSystemUseDarkMode();
+
     protected override async void OnStartup(StartupEventArgs e)
     {
         if (_mutexCreated == false)
@@ -62,7 +66,7 @@ public partial class App : Application
         // This is required for the WebView2 to work inside the app
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
 
-        bool showStartupWindow = true;
+        bool showStartupWindow = false;
 
         // Show a startup window as a loading screen while the app loads
         StartupWindow? startupWindow = null;
@@ -171,14 +175,29 @@ public partial class App : Application
         return resourceDictionary[styleName] as Style;
     }
 
-    public static ResourceDictionary GetResourceDictionary(string resourceDictionaryName, string relativePath)
+    public static ResourceDictionary GetCurrentThemeDictionary()
     {
-        var resourceDictionary = new ResourceDictionary
+        ResourceDictionary resourceDictionary;
+
+        if (ThemeManager.CurrentColorTheme == ColorTheme.Light)
         {
-            Source = new Uri(
-                $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/{relativePath}/{resourceDictionaryName}",
-                UriKind.RelativeOrAbsolute)
-        };
+            resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(
+                    $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/LightTheme.xaml",
+                    UriKind.RelativeOrAbsolute)
+            };
+        }
+        else
+        {
+            resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(
+                    $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/DarkTheme.xaml",
+                    UriKind.RelativeOrAbsolute)
+            };
+        }
+
         return resourceDictionary;
     }
 }

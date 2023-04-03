@@ -9,6 +9,7 @@
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Normal"
              TextElement.FontSize="15"
+             FontFamily="{materialDesign:MaterialDesignFont}"
              Foreground="{DynamicResource SecondaryTextBrush}"
              d:DesignHeight="43" d:DesignWidth="210">
 

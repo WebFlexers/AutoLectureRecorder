@@ -12,6 +12,7 @@
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{materialDesign:MaterialDesignFont}"
             TextElement.FontWeight="Normal"
             TextElement.FontSize="14"
             mc:Ignorable="d" 
@@ -66,7 +67,7 @@
                         Height="{Binding ElementName=PasswordTextbox, Path=ActualHeight}"
                         Content="Login"
                         FontSize="18"
-                        Foreground="{DynamicResource MaterialDesignPaper}"
+                        Foreground="{DynamicResource PrimaryTextBrush}"
                         Style="{StaticResource MaterialDesignFlatMidBgButton}">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="1,1"

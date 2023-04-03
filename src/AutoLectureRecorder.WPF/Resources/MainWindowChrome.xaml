@@ -33,7 +33,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
-                            <!-- Margin="{Binding Source={x:Static WindowChrome.ResizeBorderThicknessProperty}, Path=ResizeBorderThicknessProperty}" -->
+
                             <ContentPresenter Content="{TemplateBinding Content}" />
                         </Border>
                     </Grid>

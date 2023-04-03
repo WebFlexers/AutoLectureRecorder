@@ -21,6 +21,8 @@
     <None Remove="Icons\Dashboard\pending_64px.png" />
     <None Remove="Icons\Dashboard\video_camera.png" />
     <None Remove="Icons\Login\app_icon_filled256x256.png" />
+    <None Remove="Icons\Menu\moon_blue_32x32.png" />
+    <None Remove="Icons\Menu\sun_yellow_32x32.png" />
     <None Remove="Images\Login\online_learning.png" />
   </ItemGroup>
 
@@ -84,6 +86,12 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="Icons\Login\app_icon_filled256x256.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Icons\Menu\moon_blue_32x32.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Icons\Menu\sun_yellow_32x32.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="Images\Login\online_learning.png">

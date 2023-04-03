@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using AutoLectureRecorder.Resources.Themes;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
@@ -104,17 +105,5 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
         {
             downArrowPackIcon.Visibility = Visibility.Visible;
         }
-    }
-
-    private void DashboardView_OnMouseDown(object sender, MouseButtonEventArgs e)
-    {
-        var palette = new PaletteHelper();
-
-        var colors = App.GetResourceDictionary("Colors.xaml", "Resources/Colors");
-        var primaryColor = (Color)colors["PrimaryColor"];
-        var secondaryColor = (Color)colors["SecondaryTextColor"];
-
-        var darkTheme = Theme.Create(Theme.Dark, primaryColor, secondaryColor);
-        palette.SetTheme(darkTheme);
     }
 }

@@ -81,7 +81,7 @@ public partial class ScheduledLectureComponent
 
     private void OnHover()
     {
-        _colors ??= App.GetResourceDictionary("Colors.xaml", "Resources/Colors");
+        _colors ??= App.GetCurrentThemeDictionary();
         MainBorder.BorderBrush = _colors["PrimaryDarkerHoverBrush"] as SolidColorBrush;
         MainBorder.BorderThickness = new Thickness(1);
         SubjectNameBackgroundBorder1.Background = _colors["PrimaryDarkerHoverBrush"] as SolidColorBrush;
@@ -90,7 +90,7 @@ public partial class ScheduledLectureComponent
 
     private void OnHoverLeave()
     {
-        _colors ??= App.GetResourceDictionary("Colors.xaml", "Resources/Colors");
+        _colors ??= App.GetCurrentThemeDictionary();
         MainBorder.BorderBrush = _colors["PrimaryDarkerBrush"] as SolidColorBrush;
         MainBorder.BorderThickness = new Thickness(0);
         SubjectNameBackgroundBorder1.Background = _colors["PrimaryDarkerBrush"] as SolidColorBrush;

@@ -8,6 +8,7 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:AutoLectureRecorder"
                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                     xmlns:mainmenu="clr-namespace:AutoLectureRecorder.Resources.MainMenu"
                      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                      Background="{DynamicResource MaterialDesignPaper}"
                      TextElement.FontWeight="Medium"
@@ -62,6 +63,11 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
+
+                <!-- Light - Dark mode Toggler -->
+                <mainmenu:ThemeToggler Margin="0, 6, 20, 0"
+                                       WindowChrome.IsHitTestVisibleInChrome="True" />
+
                 <Button x:Name="MinimizeWindowButton"
                         Style="{StaticResource TitlebarMinimizeButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" />
