@@ -1,14 +1,9 @@
-﻿using MaterialDesignThemes.Wpf;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using AutoLectureRecorder.Resources.Themes;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
@@ -31,10 +26,12 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
                 .DisposeWith(disposables);
 
             // Visibilities
-            this.OneWayBind(ViewModel, vm => vm.TodaysLecturesVisibility, v => v.TodaysLecturesScrollViewer.Visibility)
+            this.OneWayBind(ViewModel, vm => vm.AreLecturesScheduledToday, v => v.TodaysLecturesScrollViewer.Visibility,
+                    value => value ? Visibility.Visible : Visibility.Collapsed)
                 .DisposeWith(disposables);
 
-            this.OneWayBind(ViewModel, vm => vm.NoLecturesTodayErrorVisibility, v => v.TodaysLecturesErrorTextBlock.Visibility)
+            this.OneWayBind(ViewModel, vm => vm.AreLecturesScheduledToday, v => v.TodaysLecturesErrorTextBlock.Visibility,
+                    value => value ? Visibility.Collapsed : Visibility.Visible)
                 .DisposeWith(disposables);
 
             // Commands

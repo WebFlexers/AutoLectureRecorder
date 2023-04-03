@@ -171,7 +171,7 @@
                 <!-- Total Lectures -->
                 <Border CornerRadius="12"
                         Grid.Column="0"
-                        Background="{DynamicResource SecondaryBackgroundBrush}">
+                        Background="{DynamicResource PrimaryBackgroundBrush}">
 
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
@@ -202,7 +202,7 @@
                         CornerRadius="12"
                         VerticalAlignment="Top"
                         Margin="30,0,0,0"
-                        Background="{DynamicResource SecondaryBackgroundBrush}">
+                        Background="{DynamicResource PrimaryBackgroundBrush}">
 
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
@@ -239,7 +239,7 @@
                         CornerRadius="12"
                         VerticalAlignment="Bottom"
                         Margin="30,20,0,0"
-                        Background="{DynamicResource SecondaryBackgroundBrush}">
+                        Background="{DynamicResource PrimaryBackgroundBrush}">
 
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
@@ -346,7 +346,7 @@
                                 <Border CornerRadius="12"
                                         Padding="15"
                                         Margin="0,0,0,15"
-                                        Background="{DynamicResource MaterialDesignPaper}">
+                                        Background="{DynamicResource PrimaryBackgroundBrush}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0"
                                                           BlurRadius="18"

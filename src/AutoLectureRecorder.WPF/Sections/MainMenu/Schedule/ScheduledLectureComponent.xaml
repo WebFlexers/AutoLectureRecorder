@@ -18,7 +18,7 @@
     <Border x:Name="MainBorder" 
             CornerRadius="12" 
             BorderBrush="{DynamicResource PrimaryDarkerHoverBrush}"
-            Background="{DynamicResource SecondaryBackgroundBrush}"
+            Background="{DynamicResource PrimaryBackgroundBrush}"
             Cursor="Hand">
 
         <Border.Effect>

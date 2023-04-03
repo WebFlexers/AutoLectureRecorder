@@ -1,5 +1,8 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
+using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -11,11 +14,7 @@ using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Threading;
-using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
-using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 
@@ -29,24 +28,18 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     public ViewModelActivator Activator { get; }
 
     public ReactiveCommand<Unit, Unit> FindClosestScheduledLectureToNowCommand { get; }
-    public ReactiveCommand<Unit, Unit> LoadAllScheduledLecturesCommand { get; }
     public ReactiveCommand<Unit, Unit> NavigateToCreateLectureCommand { get; }
 
-    [Reactive] 
-    public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; private set; } = new();
     [Reactive]
     public ObservableCollection<ReactiveScheduledLecture> TodaysLectures { get; private set; } = new();
-    public bool AreLecturesScheduledToday => TodaysLectures.Any();
+
+    private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
+    public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;
 
     [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
-
-    [Reactive]
-    public Visibility TodaysLecturesVisibility { get; set; } = Visibility.Collapsed;
-    [Reactive]
-    public Visibility NoLecturesTodayErrorVisibility { get; set; } = Visibility.Visible;
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, IScheduledLectureRepository lectureData)
     {
@@ -62,13 +55,6 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
         });
 
-        LoadAllScheduledLecturesCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            AllScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(
-                await _lectureData.GetAllScheduledLecturesAsync()
-            );
-        });
-
         NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
         {
             var mainMenuViewModel = (MainMenuViewModel)screenFactory.GetMainMenuViewModel();
@@ -82,15 +68,25 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             {
               if (!shouldCheck) return;
 
-              Observable.StartAsync(async () =>
+              Observable.FromAsync(async () =>
               {
                   var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
-                  AllScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(lecturesSorted);
+                  if (lecturesSorted == null || lecturesSorted.Any() == false) return;
+
                   NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
-              });
+              }).Catch((Exception e) =>
+              {
+                  _logger.LogError(e, "An error occurred while searching for closest scheduled lectures to now");
+                  return Observable.Empty<Unit>();
+              }).Subscribe();
             });
 
-        Observable.StartAsync(FetchTodaysLectures);
+        Observable.FromAsync(FetchTodaysLectures)
+            .Catch((Exception e) =>
+            {
+                _logger.LogError(e, "An error occurred while fetching todays lectures");
+                return Observable.Empty<Unit>();
+            }).Subscribe();
 
         // Create a timer that constantly calculates the difference
         // between now and the closest scheduled lecture
@@ -100,38 +96,18 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         FindClosestScheduledLectureToNowCommand.Execute().Subscribe();
         timer.Start();
 
-        this.WhenActivated(async disposables =>
-        {
-            this.WhenAnyValue(vm => vm.AllScheduledLectures)
-                .Subscribe(scheduledLectures =>
-                {
-                    TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(
-                        scheduledLectures.Where(lecture => lecture.Day == DateTime.Now.DayOfWeek)
-                            .OrderBy(lecture => lecture.StartTime)
-                    );
-            }).DisposeWith(disposables);
-
+        _areLecturesScheduledToday = 
             this.WhenAnyValue(vm => vm.TodaysLectures)
-                .Subscribe(scheduledLectures =>
-                {
-                    if (scheduledLectures.Any())
-                    {
-                        TodaysLecturesVisibility = Visibility.Visible;
-                        NoLecturesTodayErrorVisibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        TodaysLecturesVisibility = Visibility.Collapsed;
-                        NoLecturesTodayErrorVisibility = Visibility.Visible;
-                    }
-                }).DisposeWith(disposables);
-        });
+                .Select(lectures => lectures.Any())
+                .ToProperty(this, vm => vm.AreLecturesScheduledToday);
     }
 
     private async Task FetchTodaysLectures()
     {
         var todaysLecturesUnsorted = await _lectureData
             .GetScheduledLecturesByDayAsync(DateTime.Now.DayOfWeek);
+
+        if (todaysLecturesUnsorted == null || todaysLecturesUnsorted.Any() == false) return;
 
         var todaysLecturesSortedByStartTime = 
             todaysLecturesUnsorted.OrderBy(lecture => lecture.StartTime);
