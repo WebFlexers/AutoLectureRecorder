@@ -8,7 +8,7 @@
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Normal"
              TextElement.FontSize="15"
-             Foreground="{StaticResource SecondaryTextBrush}"
+             Foreground="{DynamicResource SecondaryTextBrush}"
              mc:Ignorable="d"
              d:DesignHeight="43"
              d:DesignWidth="210">
@@ -22,7 +22,7 @@
             <Canvas Width="24"
                     Height="24">
                 <Path x:Name="ShapePath"
-                      Fill="{StaticResource SecondaryTextBrush}"
+                      Fill="{DynamicResource SecondaryTextBrush}"
                       Data="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z" />
             </Canvas>
         </Viewbox>

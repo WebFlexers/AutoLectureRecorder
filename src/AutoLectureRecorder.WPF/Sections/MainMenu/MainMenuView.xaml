@@ -45,22 +45,22 @@
                 <Grid Margin="0,35,0,0">
                     <Button x:Name="DashboardButton"
                             Height="55"
-                            Background="{StaticResource ButtonHoverBrush}"
+                            Background="{DynamicResource ButtonHoverBrush}"
                             BorderThickness="0"
                             Cursor="Arrow"
                             Padding="0,5"
-                            Style="{StaticResource MaterialDesignFlatButton}">
+                            Style="{DynamicResource MaterialDesignFlatButton}">
 
                         <Button.Content>
                             <mainmenu:Dashboard x:Name="DashboardButtonContent"
                                                 TextElement.FontSize="14"
-                                                FillColor="{StaticResource PrimaryBrush}" />
+                                                FillColor="{DynamicResource PrimaryBrush}" />
                         </Button.Content>
                     </Button>
 
                     <Grid x:Name="DashboardSelectedLineGrid"
                           HorizontalAlignment="Right"
-                          Background="{StaticResource PrimaryBrush}"
+                          Background="{DynamicResource PrimaryBrush}"
                           Width="3"
                           Height="55"/>
                 </Grid>
@@ -79,13 +79,13 @@
                             <mainmenu:Schedule x:Name="ScheduleButtonContent"
                                                Margin="0,0,7,0"
                                                TextElement.FontSize="14"
-                                               FillColor="{StaticResource SecondaryTextBrush}" />
+                                               FillColor="{DynamicResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
                     <Grid x:Name="ScheduleSelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
-                          Background="{StaticResource PrimaryBrush}"
+                          Background="{DynamicResource PrimaryBrush}"
                           Width="3"
                           Height="55"/>
                 </Grid>
@@ -104,14 +104,14 @@
                             <mainmenu:Upload x:Name="UploadButtonContent"
                                              Margin="0,0,26,0"
                                              TextElement.FontSize="14"
-                                             FillColor="{StaticResource SecondaryTextBrush}" />
+                                             FillColor="{DynamicResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
 
                     <Grid x:Name="UploadSelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
-                          Background="{StaticResource PrimaryBrush}"
+                          Background="{DynamicResource PrimaryBrush}"
                           Width="3"
                           Height="55" />
                 </Grid>
@@ -130,14 +130,14 @@
                             <mainmenu:Library x:Name="LibraryButtonContent"
                                               Margin="0,0,24,0"
                                               TextElement.FontSize="14"
-                                              FillColor="{StaticResource SecondaryTextBrush}" />
+                                              FillColor="{DynamicResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
                     
                     <Grid x:Name="LibrarySelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
-                          Background="{StaticResource PrimaryBrush}"
+                          Background="{DynamicResource PrimaryBrush}"
                           Width="3"
                           Height="55" />
                 </Grid>
@@ -156,14 +156,14 @@
                             <mainmenu:Settings x:Name="SettingsButtonContent"
                                                Margin="0,0,15,0"
                                                TextElement.FontSize="14"
-                                               FillColor="{StaticResource SecondaryTextBrush}" />
+                                               FillColor="{DynamicResource SecondaryTextBrush}" />
                         </Button.Content>
                     </Button>
 
                     <Grid x:Name="SettingsSelectedLineGrid"
                           Visibility="Hidden"
                           HorizontalAlignment="Right"
-                          Background="{StaticResource PrimaryBrush}"
+                          Background="{DynamicResource PrimaryBrush}"
                           Width="3"
                           Height="55" />
                 </Grid>
@@ -185,7 +185,7 @@
                         <mainmenu:Help x:Name="HelpButtonContent"
                                        Margin="0,0,32,0"
                                        TextElement.FontSize="14"
-                                       FillColor="{StaticResource SecondaryTextBrush}" />
+                                       FillColor="{DynamicResource SecondaryTextBrush}" />
                     </Button.Content>
                 </Button>
 
@@ -202,7 +202,7 @@
                         <mainmenu:Logout x:Name="LogoutButtonContent"
                                          Margin="0,0,15,0"
                                          TextElement.FontSize="14"
-                                         FillColor="{StaticResource SecondaryTextBrush}" />
+                                         FillColor="{DynamicResource SecondaryTextBrush}" />
                     </Button.Content>
                 </Button>
             </StackPanel>
@@ -212,7 +212,7 @@
         <Grid Grid.Column="0"
               Width="0.5"
               HorizontalAlignment="Right"
-              Background="{StaticResource SectionLineBrush}"
+              Background="{DynamicResource SectionLineBrush}"
               Panel.ZIndex="-1">
         </Grid>
 

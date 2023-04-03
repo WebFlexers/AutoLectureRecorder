@@ -16,7 +16,8 @@
             TextElement.FontSize="14"
             mc:Ignorable="d"
             d:DesignWidth="1160"
-            d:DesignHeight="768">
+            d:DesignHeight="768"
+            MouseDown="DashboardView_OnMouseDown">
 
     <Grid x:Name="MainGrid"
           xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
@@ -57,7 +58,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Let's get recording"
                                    FontSize="18"
-                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"
                                    Margin="0,5,13,0" />
                         <Image Source="../../../Icons/Dashboard/video_camera.png"
                                Width="25"
@@ -71,7 +72,7 @@
                       Width="{Binding ElementName=MainDashboardStackPanel,Path=ActualWidth}"
                       Margin="0,20"
                       HorizontalAlignment="Right"
-                      Background="{StaticResource SectionLineBrush}">
+                      Background="{DynamicResource SectionLineBrush}">
                 </Grid>
 
                 <!-- Next scheduled lecture -->
@@ -82,7 +83,7 @@
 
                     <TextBlock Text="Next Scheduled lecture"
                                FontSize="18"
-                               Foreground="{StaticResource SecondaryTextBrush}"
+                               Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,20,0,10" />
 
                     <Border CornerRadius="12"
@@ -90,8 +91,8 @@
                         <Border.Background>
                             <LinearGradientBrush EndPoint="1,1"
                                                  StartPoint="0,0">
-                                <GradientStop Color="{StaticResource PrimaryColor}" />
-                                <GradientStop Color="{StaticResource PrimaryDarkerColor}"
+                                <GradientStop Color="{DynamicResource PrimaryColor}" />
+                                <GradientStop Color="{DynamicResource PrimaryDarkerColor}"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Border.Background>
@@ -104,7 +105,7 @@
                         <TextBlock x:Name="NextLectureSubjectNameTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{StaticResource PrimaryTextBrush}"
+                                   Foreground="{DynamicResource PrimaryTextBrush}"
                                    FontSize="20"
                                    MaxWidth="650"
                                    TextWrapping="WrapWithOverflow"
@@ -117,7 +118,7 @@
                     <!-- Starting in -->
                     <TextBlock Text="Starting in"
                                FontSize="18"
-                               Foreground="{StaticResource SecondaryTextBrush}"
+                               Foreground="{DynamicResource SecondaryTextBrush}"
                                Margin="0,15,0,10" />
 
                     <Border CornerRadius="12"
@@ -139,7 +140,7 @@
                         <TextBlock x:Name="NextLectureTimeTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{StaticResource PrimaryTextBrush}"
+                                   Foreground="{DynamicResource PrimaryTextBrush}"
                                    FontSize="20"
                                    MaxWidth="650"
                                    TextWrapping="WrapWithOverflow"
@@ -170,7 +171,7 @@
                 <!-- Total Lectures -->
                 <Border CornerRadius="12"
                         Grid.Column="0"
-                        Background="{StaticResource PrimaryTextBrush}">
+                        Background="{DynamicResource PrimaryTextBrush}">
 
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
@@ -201,7 +202,7 @@
                         CornerRadius="12"
                         VerticalAlignment="Top"
                         Margin="30,0,0,0"
-                        Background="{StaticResource PrimaryTextBrush}">
+                        Background="{DynamicResource PrimaryTextBrush}">
 
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
@@ -238,7 +239,7 @@
                         CornerRadius="12"
                         VerticalAlignment="Bottom"
                         Margin="30,20,0,0"
-                        Background="{StaticResource PrimaryTextBrush}">
+                        Background="{DynamicResource PrimaryTextBrush}">
 
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
@@ -284,7 +285,7 @@
               Grid.RowSpan="2" 
               Width="0.5"
               HorizontalAlignment="Right"
-              Background="{StaticResource SectionLineBrush}">
+              Background="{DynamicResource SectionLineBrush}">
         </Grid>
 
         
@@ -310,7 +311,7 @@
                   Width="{Binding ElementName=ScheduledLecturesStackPanel,Path=ActualWidth}"
                   Margin="0,31.5,0,10"
                   HorizontalAlignment="Right"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Error message for empty todays lectures -->
@@ -396,7 +397,7 @@
                                          Height="22"
                                          VerticalAlignment="Center"
                                          HorizontalAlignment="Center"
-                                         Foreground="{StaticResource PrimaryBrush}"
+                                         Foreground="{DynamicResource PrimaryBrush}"
                                          Kind="ArrowBottomCircle"/>
             </Grid>
 
@@ -408,13 +409,13 @@
                     Cursor="Hand"
                     FontSize="18"
                     Margin="0, 0, 0, 0"
-                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
                     Content="Schedule Lectures">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="1,1"
                                          StartPoint="0,0">
-                        <GradientStop Color="{StaticResource PrimaryColor}" />
-                        <GradientStop Color="{StaticResource PrimaryDarkerColor}"
+                        <GradientStop Color="{DynamicResource PrimaryColor}" />
+                        <GradientStop Color="{DynamicResource PrimaryDarkerColor}"
                                       Offset="1" />
                     </LinearGradientBrush>
                 </Button.Background>

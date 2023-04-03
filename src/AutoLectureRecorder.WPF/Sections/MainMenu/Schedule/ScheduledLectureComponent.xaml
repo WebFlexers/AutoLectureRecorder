@@ -15,7 +15,7 @@
 
     <Border x:Name="MainBorder" 
             CornerRadius="12" 
-            BorderBrush="{StaticResource PrimaryDarkerHoverBrush}"
+            BorderBrush="{DynamicResource PrimaryDarkerHoverBrush}"
             Background="{DynamicResource MaterialDesignPaper}"
             Cursor="Hand">
 
@@ -30,13 +30,13 @@
             <Border x:Name="SubjectNameBackgroundBorder1" CornerRadius="12" 
                     Height="50"
                     VerticalAlignment="Top"
-                    Background="{StaticResource PrimaryDarkerBrush}"/>
+                    Background="{DynamicResource PrimaryDarkerBrush}"/>
 
             <Border x:Name="SubjectNameBackgroundBorder2" 
                     Height="30"
                     Margin="0, 20, 0, 0"
                     VerticalAlignment="Top"
-                    Background="{StaticResource PrimaryDarkerBrush}"/>
+                    Background="{DynamicResource PrimaryDarkerBrush}"/>
 
             <Border Padding="10, 6, 10, 0">
                 <StackPanel VerticalAlignment="Top">
@@ -46,7 +46,7 @@
                                TextTrimming="CharacterEllipsis"
                                Height="45"
                                FontSize="16"
-                               Foreground="{StaticResource PrimaryTextBrush}"
+                               Foreground="{DynamicResource PrimaryTextBrush}"
                                d:Text="Test Subject Name">
                     </TextBlock>
 

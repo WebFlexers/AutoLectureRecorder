@@ -48,7 +48,7 @@
                                HorizontalAlignment="Left"
                                TextWrapping="Wrap"
                                FontSize="16"
-                               Foreground="{StaticResource SecondaryTextBrush}" />
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
                 </StackPanel>
 
                 <!-- Subject Fields -->
@@ -100,7 +100,7 @@
                                        TextWrapping="Wrap"
                                        HorizontalAlignment="Left"
                                        d:Text="Your subject name is WRONG. Deal with it. OK? Deal - with - It"
-                                       Foreground="{StaticResource ErrorBrush}" />
+                                       Foreground="{DynamicResource ErrorBrush}" />
                         </StackPanel>
 
                         <StackPanel>
@@ -129,7 +129,7 @@
                                        TextWrapping="Wrap"
                                        HorizontalAlignment="Left"
                                        d:Text="Them semester can't be null, can it?"
-                                       Foreground="{StaticResource ErrorBrush}" />
+                                       Foreground="{DynamicResource ErrorBrush}" />
                         </StackPanel>
                         
                     </StackPanel>
@@ -171,7 +171,7 @@
                                Margin="5,5,0,0"
                                TextWrapping="Wrap"
                                d:Text="Your link is WRONG. Deal with it. OK? Deal - with - It"
-                               Foreground="{StaticResource ErrorBrush}"/>
+                               Foreground="{DynamicResource ErrorBrush}"/>
                     
                 </StackPanel>
             </Grid>
@@ -180,7 +180,7 @@
             <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
                   Height="0.5"
                   Margin="0,25"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Day - Time Details -->
@@ -200,7 +200,7 @@
                                HorizontalAlignment="Left"
                                TextWrapping="Wrap"
                                FontSize="16"
-                               Foreground="{StaticResource SecondaryTextBrush}" />
+                               Foreground="{DynamicResource SecondaryTextBrush}" />
                 </StackPanel>
 
                 <!-- Day - Time Fields -->
@@ -224,7 +224,7 @@
                                Margin="5,5,0,0"
                                TextWrapping="Wrap"
                                d:Text="Your day is WRONG. Deal with it. OK? Deal - with - It"
-                               Foreground="{StaticResource ErrorBrush}" />
+                               Foreground="{DynamicResource ErrorBrush}" />
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Stretch"
@@ -245,7 +245,7 @@
                                TextWrapping="Wrap"
                                HorizontalAlignment="Center"
                                d:Text="Your times are WRONG. Deal with it. OK? Deal - with - It"
-                               Foreground="{StaticResource ErrorBrush}" />
+                               Foreground="{DynamicResource ErrorBrush}" />
 
                 </StackPanel>
             </Grid>
@@ -253,7 +253,7 @@
             <!-- Horizontal Line 2 -->
             <Grid Height="0.5"
                   Margin="0,25"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Lecture Settings -->
@@ -272,7 +272,7 @@
                                HorizontalAlignment="Left"
                                TextWrapping="Wrap"
                                FontSize="16"
-                               Foreground="{StaticResource SecondaryTextBrush}">
+                               Foreground="{DynamicResource SecondaryTextBrush}">
                         Information about whether the lecture will be scheduled immediately
                         and whether it will be automatically uploaded
                     </TextBlock>
@@ -318,7 +318,7 @@
                     VerticalAlignment="Bottom"
                     Cursor="Hand"
                     FontSize="18"
-                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
                     Content="Create Lecture"/>
 
             <Button x:Name="UpdateButton"
@@ -331,7 +331,7 @@
                     VerticalAlignment="Bottom"
                     Cursor="Hand"
                     FontSize="18"
-                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
                     Content="Update Lecture"/>
         </Grid>
 
@@ -339,26 +339,26 @@
         <materialDesign:Snackbar x:Name="InsertionFailedSnackbar"
                                  Message="Lecture failed to be added..."
                                  d:IsActive="false"
-                                 Background="{StaticResource ErrorBrush}"
+                                 Background="{DynamicResource ErrorBrush}"
                                  Margin="0,0,0,20"/>
 
         <materialDesign:Snackbar x:Name="InsertionSucceededSnackbar"
                                  Message="Lecture added successfully!"
                                  d:IsActive="false"
-                                 Background="{StaticResource SuccessBrush}"
+                                 Background="{DynamicResource SuccessBrush}"
                                  Margin="0,0,0,20" />
 
         <!-- Update and Failure Snackbars -->
         <materialDesign:Snackbar x:Name="UpdateFailedSnackbar"
                                  Message="Lecture failed to be updated..."
                                  d:IsActive="false"
-                                 Background="{StaticResource ErrorBrush}"
+                                 Background="{DynamicResource ErrorBrush}"
                                  Margin="0,0,0,20"/>
 
         <materialDesign:Snackbar x:Name="UpdateSucceededSnackbar"
                                  Message="Lecture was updated successfully!"
                                  d:IsActive="false"
-                                 Background="{StaticResource SuccessBrush}"
+                                 Background="{DynamicResource SuccessBrush}"
                                  Margin="0,0,0,20" />
     </Grid>
 </rxui:ReactiveUserControl>

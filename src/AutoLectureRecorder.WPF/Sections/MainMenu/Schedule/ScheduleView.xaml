@@ -21,7 +21,7 @@
     <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}" 
             CornerRadius="20" 
             Margin="35, 45, 35, 25" 
-            BorderBrush="{StaticResource SectionLineBrush}"
+            BorderBrush="{DynamicResource SectionLineBrush}"
             BorderThickness="0.8"
             Background="{DynamicResource MaterialDesignPaper}">
 
@@ -53,13 +53,13 @@
             <Border Grid.Column="0" Grid.Row="0" 
                     Grid.ColumnSpan="7" 
                     CornerRadius="20"
-                    Background="{StaticResource PrimaryDarkerBrush}">
+                    Background="{DynamicResource PrimaryDarkerBrush}">
             </Border>
 
             <Border Grid.Column="0" Grid.Row="0" 
                     Margin="0,50,0,0"
                     Grid.ColumnSpan="7" 
-                    Background="{StaticResource PrimaryDarkerBrush}">
+                    Background="{DynamicResource PrimaryDarkerBrush}">
             </Border>
 
             <!-- Monday -->
@@ -68,7 +68,7 @@
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
-                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                       Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="MondaysLecturesScrollViewer"  
                           Grid.Column="0" Grid.Row="1"
@@ -100,13 +100,13 @@
                                      Height="22"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Tuesday -->
@@ -115,7 +115,7 @@
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
-                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                       Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="TuesdaysLecturesScrollViewer"  
                           Grid.Column="1" Grid.Row="1"
@@ -147,13 +147,13 @@
                                      Height="22"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Wednesday -->
@@ -162,7 +162,7 @@
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
-                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                       Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="WednesdaysLecturesScrollViewer"  
                           Grid.Column="2" Grid.Row="1"
@@ -194,13 +194,13 @@
                                      Height="22"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Thursday -->
@@ -209,7 +209,7 @@
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
-                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                       Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="ThursdaysLecturesScrollViewer"  
                           Grid.Column="3" Grid.Row="1"
@@ -241,13 +241,13 @@
                                      Height="22"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Friday -->
@@ -256,7 +256,7 @@
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
-                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                       Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="FridaysLecturesScrollViewer"  
                           Grid.Column="4" Grid.Row="1"
@@ -288,13 +288,13 @@
                                      Height="22"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="4" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Saturday -->
@@ -303,7 +303,7 @@
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
-                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                       Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="SaturdaysLecturesScrollViewer"  
                           Grid.Column="5" Grid.Row="1"
@@ -335,13 +335,13 @@
                                      Height="22"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
             <Grid Grid.Column="5" Grid.Row="1" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
-                  Background="{StaticResource SectionLineBrush}">
+                  Background="{DynamicResource SectionLineBrush}">
             </Grid>
 
             <!-- Sunday -->
@@ -350,7 +350,7 @@
                        FontSize="18"
                        TextAlignment="Center"
                        Padding="0, 25"
-                       Foreground="{StaticResource PrimaryTextBrush}"/>
+                       Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="SundaysLecturesScrollViewer"  
                           Grid.Column="6" Grid.Row="1"
@@ -382,7 +382,7 @@
                                      Height="22"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="{StaticResource PrimaryBrush}"
+                                     Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
         </Grid>
     </Border>

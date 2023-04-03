@@ -11,14 +11,14 @@
     <Color x:Key="SuccessColor">#62DD53</Color>
     <Color x:Key="ErrorColor">#F44336</Color>
 
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
-    <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{StaticResource PrimaryDarkerColor}" />
-    <SolidColorBrush x:Key="PrimaryDarkerHoverBrush" Color="{StaticResource PrimaryDarkerHoverColor}" />
-    <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}" />
-    <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}"/>
-    <SolidColorBrush x:Key="SectionLineBrush" Color="{StaticResource SectionLineColor}" />
-    <SolidColorBrush x:Key="ButtonHoverBrush" Color="{StaticResource ButtonHoverColor}" />
-    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}" />
-    <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
+    <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{DynamicResource PrimaryDarkerColor}" />
+    <SolidColorBrush x:Key="PrimaryDarkerHoverBrush" Color="{DynamicResource PrimaryDarkerHoverColor}" />
+    <SolidColorBrush x:Key="PrimaryTextBrush" Color="{DynamicResource PrimaryTextColor}" />
+    <SolidColorBrush x:Key="SecondaryTextBrush" Color="{DynamicResource SecondaryTextColor}"/>
+    <SolidColorBrush x:Key="SectionLineBrush" Color="{DynamicResource SectionLineColor}" />
+    <SolidColorBrush x:Key="ButtonHoverBrush" Color="{DynamicResource ButtonHoverColor}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
+    <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}" />
 
 </ResourceDictionary>

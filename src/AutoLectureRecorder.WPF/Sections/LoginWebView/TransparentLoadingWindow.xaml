@@ -20,7 +20,7 @@
                         HorizontalAlignment="Center">
                 <Border Opacity="0.8"
                         CornerRadius="14"
-                        Background="White"
+                        Background="{DynamicResource MaterialDesignPaper}"
                         Margin="0,0,0,20"
                         Padding="15, 8">
                     <TextBlock x:Name="SignInTextBlock"
@@ -33,6 +33,7 @@
                     Opacity="0.8"
                     Padding="4"
                     UniformCornerRadius="14"
+                    Background="{DynamicResource MaterialDesignPaper}"
                     Width="100"
                     Height="100"
                     Margin="0, 0, 0, 20">
@@ -45,7 +46,7 @@
                 <Border x:Name="PleaseWaitBorder" 
                         Opacity="0.8"
                         CornerRadius="14"
-                        Background="White"
+                        Background="{DynamicResource MaterialDesignPaper}"
                         Padding="15, 8">
                     <TextBlock FontSize="22"
                                TextAlignment="Center">
@@ -60,15 +61,15 @@
                     Cursor="Hand"
                     FontSize="18"
                     Margin="0, 20, 0, 20"
-                    Foreground="{StaticResource PrimaryTextBrush}"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
                     Content="Cancel"
                     VerticalAlignment="Bottom"
                     Click="CancelButton_OnClick">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="1,1"
                                          StartPoint="0,0">
-                        <GradientStop Color="{StaticResource PrimaryColor}" />
-                        <GradientStop Color="{StaticResource PrimaryDarkerColor}"
+                        <GradientStop Color="{DynamicResource PrimaryColor}" />
+                        <GradientStop Color="{DynamicResource PrimaryDarkerColor}"
                                       Offset="1" />
                     </LinearGradientBrush>
                 </Button.Background>

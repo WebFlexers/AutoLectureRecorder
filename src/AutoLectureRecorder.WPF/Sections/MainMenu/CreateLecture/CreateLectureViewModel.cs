@@ -2,12 +2,10 @@
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Services.DataAccess.Interfaces;
-using FluentValidation;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
@@ -17,6 +15,8 @@ using System.Windows;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
+// TODO: Give the user the ability to add an overlapping lecture, but warn him.
+// TODO: If they add it as activated any overlapping lectures must be deactivated
 public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
     private readonly ILogger<CreateLectureViewModel> _logger;
@@ -108,7 +108,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
                 DistinctScheduledLectures!.Add(newLecture!);
             }
 
-            ClearDayAndTimeFields();
+            ClearDayAndTime();
 
             IsFailedInsertionSnackbarActive = false;
             IsSuccessfulInsertionSnackbarActive = true;
@@ -258,7 +258,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         return true;
     }
 
-    private void ClearDayAndTimeFields()
+    private void ClearDayAndTime()
     {
         ScheduledLecture.Day = null;
         ScheduledLecture.StartTime = null;
