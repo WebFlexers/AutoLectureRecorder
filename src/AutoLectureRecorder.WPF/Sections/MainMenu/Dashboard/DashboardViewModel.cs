@@ -36,6 +36,8 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
     public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;
 
+    private DispatcherTimer? _nextLectureCalculatorTimer;
+
     [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
     [Reactive]
@@ -61,6 +63,13 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             mainMenuViewModel.SetRoutedViewHostContent(typeof(CreateLectureViewModel));
         });
 
+        Observable.FromAsync(FetchTodaysLectures)
+            .Catch((Exception e) =>
+            {
+                _logger.LogError(e, "An error occurred while fetching todays lectures");
+                return Observable.Empty<Unit>();
+            }).Subscribe();
+
         // Get a notification when a scheduled lecture is either added or deleted
         // in order to search again for the closest one
         MessageBus.Current.Listen<bool>(PubSubMessages.CheckClosestScheduledLecture)
@@ -81,21 +90,17 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
               }).Subscribe();
             });
 
-        Observable.FromAsync(FetchTodaysLectures)
-            .Catch((Exception e) =>
-            {
-                _logger.LogError(e, "An error occurred while fetching todays lectures");
-                return Observable.Empty<Unit>();
-            }).Subscribe();
-
         // Create a timer that constantly calculates the difference
         // between now and the closest scheduled lecture
-        var timer = new DispatcherTimer();
-        timer.Interval = TimeSpan.FromMilliseconds(500);
-        timer.Tick += CalculateClosestLectureTimeDiffTick;
-        FindClosestScheduledLectureToNowCommand.Execute().Subscribe();
-        timer.Start();
-
+        _nextLectureCalculatorTimer = new DispatcherTimer();
+        _nextLectureCalculatorTimer.Interval = TimeSpan.FromMilliseconds(500);
+        _nextLectureCalculatorTimer.Tick += CalculateClosestLectureTimeDiffTick;
+        FindClosestScheduledLectureToNowCommand.Execute()
+        .Subscribe(_ =>
+        {
+            _nextLectureCalculatorTimer.Start();
+        });
+        
         _areLecturesScheduledToday = 
             this.WhenAnyValue(vm => vm.TodaysLectures)
                 .Select(lectures => lectures.Any())
@@ -119,6 +124,27 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     private void CalculateClosestLectureTimeDiffTick(object? sender, EventArgs e)
     {
         NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
+
+        if (NextScheduledLectureTimeDiff < TimeSpan.FromSeconds(1))
+        {
+            _nextLectureCalculatorTimer!.Stop();
+            Observable.FromAsync(async () =>
+            {
+                // Wait 1 second to make sure enough time has passed
+                // to find the closest scheduled lecture after the current
+                await Task.Delay(TimeSpan.FromSeconds(1));
+
+                FindClosestScheduledLectureToNowCommand.Execute()
+                    .Subscribe(_ =>
+                    {
+                        _nextLectureCalculatorTimer.Start();
+                    });
+            }).Catch((Exception ex) =>
+            {
+                _logger.LogError(ex, "An error occurred while trying to find closest lecture after the previous reached 0");
+                return Observable.Empty<Unit>();
+            }).Subscribe();
+        }
     }
 
     private static ReactiveScheduledLecture? FindClosestScheduledLectureToNow(IReadOnlyList<ReactiveScheduledLecture>? lecturesSorted)
@@ -175,7 +201,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             counter--;
         }
 
-        // If there are scheduled lectures after today we just return the
+        // If closest scheduled lecture is after today we just return the
         // first lecture that is after today, because they are sorted
         if (lecturesSorted[counter].Day != today)
         {

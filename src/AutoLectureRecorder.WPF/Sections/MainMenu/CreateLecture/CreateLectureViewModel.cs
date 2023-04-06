@@ -12,7 +12,6 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using MaterialDesignThemes.Wpf;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
@@ -220,6 +219,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         var getLecturesTask = PopulateLecturesWithDistinctSubjectNames();
 
         MessageBus.Current.Listen<ReactiveScheduledLecture>(PubSubMessages.SetUpdateModeToScheduledLecture)
+            .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe(async lecture =>
             {
                 await getLecturesTask;
