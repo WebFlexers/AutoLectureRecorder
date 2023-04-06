@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using AutoLectureRecorder.Data.ReactiveModels;
 using MaterialDesignThemes.Wpf;
+using ReactiveMarbles.ObservableEvents;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
@@ -39,6 +40,8 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
 
             this.OneWayBind(ViewModel, vm => vm.ScheduledLecturesByDay[DayOfWeek.Sunday], 
                 v => v.SundaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
+
+            ScheduledLectureComponent.Events()
         });
     }
 

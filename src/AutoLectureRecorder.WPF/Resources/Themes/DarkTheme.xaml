@@ -10,6 +10,7 @@
     <Color x:Key="SectionLineColor">#b9b9ba</Color>
     <Color x:Key="ButtonHoverColor">#36484C</Color>
     <Color x:Key="SunYellowColor">#F5D44D</Color>
+    <Color x:Key="WarningColor">#DF782D</Color>
     <Color x:Key="SuccessColor">#62DD53</Color>
     <Color x:Key="ErrorColor">#F44336</Color>
 
@@ -23,6 +24,7 @@
     <SolidColorBrush x:Key="SectionLineBrush" Color="{DynamicResource SectionLineColor}" />
     <SolidColorBrush x:Key="ButtonHoverBrush" Color="{DynamicResource ButtonHoverColor}" />
     <SolidColorBrush x:Key="SunYellowBrush" Color="{DynamicResource SunYellowColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
     <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
     <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}" />
 </ResourceDictionary>

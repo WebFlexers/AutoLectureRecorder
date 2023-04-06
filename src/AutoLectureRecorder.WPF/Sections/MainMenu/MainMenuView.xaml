@@ -40,7 +40,8 @@
                        Height="80"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"
-                       Margin="0,35,0,0" />
+                       Margin="0,35,0,0" 
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
 
                 <!-- Dashboard -->
                 <Grid Margin="0,35,0,0">

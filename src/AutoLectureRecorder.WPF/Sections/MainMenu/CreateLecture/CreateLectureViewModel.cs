@@ -12,6 +12,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using MaterialDesignThemes.Wpf;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
@@ -44,6 +45,8 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     public bool IsFailedUpdateSnackbarActive { get; set; }
     [Reactive]
     public bool IsSuccessfulUpdateSnackbarActive { get; set; }
+    [Reactive]
+    public bool IsConfirmationDialogActive { get; set; }
 
     // Used to get the unique subject names
     [Reactive]
@@ -87,6 +90,8 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
         CreateScheduledLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
+            IsConfirmationDialogActive = true;
+
             if (await ValidateLectureAndUpdateUI() == false) return;
 
             var newLecture = await _scheduledLectureRepository.InsertScheduledLectureAsync(ScheduledLecture);
@@ -101,11 +106,11 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             _justSuccessfullyAddedLecture = true;
 
             // If the new lecture has a subject name that didn't exist previously, add it to the list
-            if (DistinctScheduledLectures!.Any(
+            if (DistinctScheduledLectures.Any(
                 lecture => lecture.SubjectName.Equals(ScheduledLecture.SubjectName)) == false
             )
             {
-                DistinctScheduledLectures!.Add(newLecture!);
+                DistinctScheduledLectures.Add(newLecture!);
             }
 
             ClearDayAndTime();
@@ -246,6 +251,11 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     private async Task<bool> ValidateLectureAndUpdateUI()
     {
         var isLectureValid = await ValidateScheduledLecture();
+
+        if (string.IsNullOrWhiteSpace(ScheduledLectureValidationErrors.TimeWarning) == false)
+        {
+
+        }
 
         if (isLectureValid == false)
         {

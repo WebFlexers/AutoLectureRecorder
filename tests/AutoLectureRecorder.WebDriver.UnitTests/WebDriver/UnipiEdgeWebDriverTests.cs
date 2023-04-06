@@ -50,30 +50,33 @@ public class UnipiEdgeWebDriverTests
         Assert.False(actual.Item1);
     }
 
-    [Fact]
-    public void LoginToMicrosoftTeams_3ShouldReturnFalseAndTooManyRequestsError()
-    {
-        var logger = XUnitLogger.CreateLogger<UnipiEdgeWebDriver>(_testOutputHelper);
+    // The test below is useful, but not deterministic, since the client will not always get throttle
+    // and in that case this test fails
 
-        string[] account = File.ReadAllLines("academic_account.txt");
+    //[Fact]
+    //public void LoginToMicrosoftTeams_3ShouldReturnFalseAndTooManyRequestsError()
+    //{
+    //    var logger = XUnitLogger.CreateLogger<UnipiEdgeWebDriver>(_testOutputHelper);
 
-        using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
-        unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
+    //    string[] account = File.ReadAllLines("academic_account.txt");
 
-        bool IsThrottled = false;
+    //    using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
+    //    unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
-        for (int i = 0; i < 10; i++)
-        {
-            (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], "random_password_that_is_wrong_hopefully");
-            Assert.False(actual.Item1);
+    //    bool IsThrottled = false;
 
-            if (actual.Item2.Contains("Access Denied"))
-            {
-                IsThrottled = true;
-                break;
-            }
-        }
+    //    for (int i = 0; i < 10; i++)
+    //    {
+    //        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], "random_password_that_is_wrong_hopefully");
+    //        Assert.False(actual.Item1);
 
-        Assert.True(IsThrottled);
-    }
+    //        if (actual.Item2.Contains("Access Denied"))
+    //        {
+    //            IsThrottled = true;
+    //            break;
+    //        }
+    //    }
+
+    //    Assert.True(IsThrottled);
+    //}
 }

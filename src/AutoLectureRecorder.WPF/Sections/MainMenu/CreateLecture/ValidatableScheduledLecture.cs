@@ -3,6 +3,7 @@ using FluentValidation;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Threading.Tasks;
+using AutoLectureRecorder.Services.DataAccess.Validation;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
@@ -21,6 +22,13 @@ public class ValidatableScheduledLecture : ReactiveObject
     public string? DayError { get; set; }
     [Reactive]
     public string? TimeError { get; set; }
+    // Warning is less severe than error. A lecture with warnings
+    // should still be created, but with extra verification
+    [Reactive]
+    public string? TimeWarning { get; set; }
+
+    [Reactive] 
+    public bool HasWarnings { get; set; } = false;
 
     /// <summary>
     /// Validates the Scheduled Lecture class instance and stores any error messages
@@ -51,7 +59,15 @@ public class ValidatableScheduledLecture : ReactiveObject
                     DayError = error.ErrorMessage;
                     break;
                 case nameof(lecture.StartTime):
-                    TimeError = error.ErrorMessage;
+                    if (error.ErrorCode == ScheduledLectureErrorCodes.OverlappingLecture)
+                    {
+                        HasWarnings = true;
+                        TimeWarning = error.ErrorMessage;
+                    }
+                    else
+                    {
+                        TimeError = error.ErrorMessage;
+                    }
                     break;
                 case nameof(lecture.EndTime):
                     TimeError = error.ErrorMessage;

@@ -1,7 +1,6 @@
 ﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
-using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
@@ -84,6 +83,10 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
             this.OneWayBind(ViewModel, vm => vm.IsFailedUpdateSnackbarActive, v => v.UpdateFailedSnackbar.IsActive)
                 .DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.IsSuccessfulUpdateSnackbarActive, v => v.UpdateSucceededSnackbar.IsActive)
+                .DisposeWith(disposables);
+
+            // Dialogs
+            this.Bind(ViewModel, vm => vm.IsConfirmationDialogActive, v => v.ConfirmationDialogHost.IsOpen)
                 .DisposeWith(disposables);
 
             // Buttons visibility and state

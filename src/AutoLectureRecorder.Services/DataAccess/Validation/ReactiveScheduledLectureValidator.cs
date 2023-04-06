@@ -47,27 +47,30 @@ public class ReactiveScheduledLectureValidator : AbstractValidator<ReactiveSched
                 .WithMessage("Both start time and end time must be filled")
             .LessThan(p => p.EndTime)
                 .WithMessage("The start time of a lecture can't be greater than the end time")
-            .Must((lecture, startTime, context) => NotOverlapWithOtherLectures(lecture.Day, startTime, lecture.EndTime, context))
-                .WithMessage("The specified start time and end time overlap with {conflictingSubjectName}, " +
-                             "which is scheduled at {conflictingDay} " +
-                             "{conflictingStartTime} - {conflictingEndTime}");
+            .Must((lecture, startTime, context) => NotOverlapWithOtherLectures(lecture.Day, startTime, lecture.EndTime, _existingLectures, context))
+                .WithMessage("The specified timespan overlaps with {conflictingSubjectName}, " +
+                             "which is scheduled at {conflictingDay} at " +
+                             "{conflictingStartTime} - {conflictingEndTime}")
+                .WithErrorCode(ScheduledLectureErrorCodes.OverlappingLecture);
 
         RuleFor(p => p.EndTime)
             .NotNull()
                 .WithMessage("Both start time and end time must be filled");
     }
 
-    private bool NotOverlapWithOtherLectures(DayOfWeek? day, DateTime? startTime, DateTime? endTime, 
-        ValidationContext<ReactiveScheduledLecture> context)
+    public static bool NotOverlapWithOtherLectures(DayOfWeek? day, DateTime? startTime, DateTime? endTime, 
+        List<ReactiveScheduledLecture>? existingLectures, ValidationContext<ReactiveScheduledLecture>? context)
     {
         if (day == null) return true;
 
-        if (_existingLectures == null || _existingLectures.Any() == false) return true;
+        if (existingLectures == null || existingLectures.Any() == false) return true;
 
-        foreach (var existingLecture in _existingLectures)
+        foreach (var existingLecture in existingLectures)
         {
             if (startTime <= existingLecture.EndTime && existingLecture.StartTime <= endTime)
             {
+                if (context == null) return false;
+
                 context.MessageFormatter.AppendArgument("conflictingSubjectName", 
                     existingLecture.SubjectName);
                 context.MessageFormatter.AppendArgument("conflictingDay", 
@@ -76,6 +79,7 @@ public class ReactiveScheduledLectureValidator : AbstractValidator<ReactiveSched
                     existingLecture.StartTime!.Value.ToString("hh:mm:ss"));
                 context.MessageFormatter.AppendArgument("conflictingEndTime",
                     existingLecture.EndTime!.Value.ToString("hh:mm:ss"));
+
                 return false;
             }
         }

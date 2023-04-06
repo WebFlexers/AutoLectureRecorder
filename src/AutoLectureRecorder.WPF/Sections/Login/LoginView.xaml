@@ -133,6 +133,7 @@
             </StackPanel>
 
             <StackPanel xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=150, Delay=950}"
+                        Grid.Column="0"
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Center"
                         Margin="50,0,0,100">
@@ -154,10 +155,17 @@
                     Margin="100">
                 <Border.Background>
                     <ImageBrush Stretch="UniformToFill"
-                                RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                RenderOptions.BitmapScalingMode="HighQuality"
                                 RenderOptions.EdgeMode="Aliased"
                                 ImageSource="../../Images/Login/online_learning.png" />
                 </Border.Background>
+
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0"
+                                      BlurRadius="150"
+                                      Opacity="0.05"
+                                      Direction="-75" />
+                </Border.Effect>
             </Border>
 
             <!-- ALR Brand Logo-->
@@ -168,8 +176,9 @@
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right">
                 <Image Source="../../Icons/Login/app_icon_filled256x256.png"
-                       Width="70" />
-                <TextBlock Text="AutoLectureRecorder"
+                       Width="70"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBlock Text="Auto Lecture Recorder"
                            FontWeight="DemiBold"
                            FontSize="26"
                            Foreground="{DynamicResource PrimaryBrush}"
