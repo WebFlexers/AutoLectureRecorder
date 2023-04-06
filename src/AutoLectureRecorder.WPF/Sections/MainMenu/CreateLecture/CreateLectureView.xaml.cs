@@ -22,6 +22,7 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
 
             // Combobox behaviour
             SubjectNameComboBox.Events().GotFocus
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(e =>
                 {
                     if (ViewModel!.DistinctScheduledLectures.Count == 0)

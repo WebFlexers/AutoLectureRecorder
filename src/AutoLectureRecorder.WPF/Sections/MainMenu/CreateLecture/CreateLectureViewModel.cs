@@ -12,6 +12,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
@@ -89,7 +90,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
         CreateScheduledLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            IsConfirmationDialogActive = true;
+            //IsConfirmationDialogActive = true;
 
             if (await ValidateLectureAndUpdateUI() == false) return;
 
@@ -144,12 +145,13 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         });
 
         // Update autocomplete
-        this.WhenAnyValue(vm => vm.ScheduledLecture.SubjectName)
-            .Throttle(TimeSpan.FromMilliseconds(800))
-            .Subscribe(async searchText =>
-            {
-                await FilterSubjectNames(searchText);
-            });
+        //this.WhenAnyValue(vm => vm.ScheduledLecture.SubjectName)
+        //    .Throttle(TimeSpan.FromMilliseconds(800))
+        //    .ObserveOn(RxApp.MainThreadScheduler)
+        //    .Subscribe(async searchText =>
+        //    {
+        //        await FilterSubjectNames(searchText);
+        //    });
 
         // Validate all the fields whenever any validatable field inside Scheduled Lecture changes
         this.WhenAnyValue(vm => vm.ScheduledLecture.SubjectName, vm => vm.ScheduledLecture.Semester,
@@ -233,14 +235,17 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     {
         var lecturesWithDistinctNames = await _scheduledLectureRepository.GetScheduledLecturesGroupedByNameAsync();
 
-        if (lecturesWithDistinctNames != null && lecturesWithDistinctNames.Any())
+        Dispatcher.CurrentDispatcher.Invoke(() =>
         {
-            DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(lecturesWithDistinctNames);
-        }
-        else
-        {
-            DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>();
-        }
+            if (lecturesWithDistinctNames != null && lecturesWithDistinctNames.Any())
+            {
+                DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(lecturesWithDistinctNames);
+            }
+            else
+            {
+                DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>();
+            }
+        });
     }
 
     /// <summary>
@@ -254,18 +259,16 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
         if (string.IsNullOrWhiteSpace(ScheduledLectureValidationErrors.TimeWarning) == false)
         {
-
+            // TODO : Implement this
         }
 
-        if (isLectureValid == false)
-        {
-            IsSuccessfulInsertionSnackbarActive = false;
-            IsFailedInsertionSnackbarActive = true;
-            ValidateErrorsVisibility = Visibility.Visible;
-            return false;
-        }
+        if (isLectureValid) return true;
 
-        return true;
+        IsSuccessfulInsertionSnackbarActive = false;
+        IsFailedInsertionSnackbarActive = true;
+        ValidateErrorsVisibility = Visibility.Visible;
+        return false;
+
     }
 
     private void ClearDayAndTime()
@@ -278,28 +281,28 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
         ScheduledLectureValidationErrors.TimeError = string.Empty;
     }
 
-    /// <summary>
-    /// Filters the distinct scheduled lectures list by a search term
-    /// </summary>
-    /// <param name="containedText">The search term</param>
-    private async Task FilterSubjectNames(string? containedText)
-    {
-        if (containedText == null) return;
+    ///// <summary>
+    ///// Filters the distinct scheduled lectures list by a search term
+    ///// </summary>
+    ///// <param name="containedText">The search term</param>
+    //private async Task FilterSubjectNames(string? containedText)
+    //{
+    //    if (containedText == null) return;
 
-        var lecturesWithDistinctNames = await _scheduledLectureRepository.GetScheduledLecturesGroupedByNameAsync();
+    //    var lecturesWithDistinctNames = await _scheduledLectureRepository.GetScheduledLecturesGroupedByNameAsync();
 
-        if (lecturesWithDistinctNames == null || lecturesWithDistinctNames.Any() == false) return;
+    //    if (lecturesWithDistinctNames == null || lecturesWithDistinctNames.Any() == false) return;
 
-        DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>();
+    //    DistinctScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>();
 
-        foreach (var lecture in lecturesWithDistinctNames)
-        {
-            if (lecture.SubjectName.Contains(containedText))
-            {
-                DistinctScheduledLectures.Add(lecture);
-            }
-        }
-    }
+    //    foreach (var lecture in lecturesWithDistinctNames)
+    //    {
+    //        if (lecture.SubjectName.Contains(containedText))
+    //        {
+    //            DistinctScheduledLectures.Add(lecture);
+    //        }
+    //    }
+    //}
 
     private async Task<bool> ValidateScheduledLecture()
     {
