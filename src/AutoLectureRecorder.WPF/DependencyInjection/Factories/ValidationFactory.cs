@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace AutoLectureRecorder.DependencyInjection.Factories;
 
-public class ValidatorFactory : IValidationFactory
+public class ValidationFactory : IValidationFactory
 {
     public IValidator<ReactiveScheduledLecture> CreateReactiveScheduledLectureValidator(List<ReactiveScheduledLecture>? existingLectures = null)
     {

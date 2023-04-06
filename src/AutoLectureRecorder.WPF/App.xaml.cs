@@ -137,6 +137,7 @@ public partial class App : Application
     {
         var ex = e.ExceptionObject as Exception;
         Log.Fatal(ex, "An unhandled exception occurred");
+        Log.CloseAndFlush();
     }
 
     protected override async void OnExit(ExitEventArgs e)
@@ -145,6 +146,8 @@ public partial class App : Application
         {
             await Bootstrapper.AppHost.StopAsync();
         }
+
+        await Log.CloseAndFlushAsync();
 
         base.OnExit(e);
 

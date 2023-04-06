@@ -7,10 +7,12 @@ using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using Serilog;
 using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
+using Splat.Serilog;
 
 namespace AutoLectureRecorder.DependencyInjection;
 
@@ -35,10 +37,11 @@ public class AppBootstrapper
             {
                 Log.Logger = new LoggerConfiguration()
                     .ReadFrom.Configuration(hostContext.Configuration)
-                    .WriteTo.File("logs.txt")
                     .CreateLogger();
 
+                builder.ClearProviders();
                 builder.AddSerilog();
+                Locator.CurrentMutable.UseSerilogFullLogger();
             })
             .Build();
 
@@ -58,7 +61,7 @@ public class AppBootstrapper
         services.AddTransient<IScreenFactory, ScreenFactory>();
         services.AddTransient<IWindowFactory, WindowFactory>();
         services.AddTransient<IViewModelFactory, ViewModelFactory>();
-        services.AddTransient<IValidationFactory, ValidatorFactory>();
+        services.AddTransient<IValidationFactory, ValidationFactory>();
         services.AddTransient<IWebDriverFactory, WebDriverFactory>();
 
         // Add Views and ViewModels
