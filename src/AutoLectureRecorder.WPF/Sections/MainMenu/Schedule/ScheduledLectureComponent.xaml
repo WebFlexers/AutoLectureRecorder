@@ -10,78 +10,71 @@
     TextElement.FontWeight="Medium"
     TextElement.FontSize="14"
     FontFamily="{materialDesign:MaterialDesignFont}"
-    d:DesignHeight="120" d:DesignWidth="155.5"
+    d:DesignHeight="105" d:DesignWidth="155.5"
     MouseDown="ScheduledLectureComponent_OnMouseDown"
     MouseEnter="ScheduledLectureComponent_OnMouseEnter"
     MouseLeave="ScheduledLectureComponent_OnMouseLeave">
 
-    <Border x:Name="MainBorder" 
-            CornerRadius="12" 
-            BorderBrush="{DynamicResource PrimaryDarkerHoverBrush}"
-            Background="{DynamicResource PrimaryBackgroundBrush}"
-            Cursor="Hand">
+    <Grid Cursor="Hand">
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=MainBorder}" />
+        </Grid.OpacityMask>
 
-        <Border.Effect>
-            <DropShadowEffect ShadowDepth="0"
-                              BlurRadius="18"
-                              Opacity="0.1"
-                              Direction="-75" />
-        </Border.Effect>
+        <Border x:Name="MainBorder" 
+                CornerRadius="5" 
+                BorderBrush="{DynamicResource PrimaryDarkerHoverBrush}"
+                Background="{DynamicResource SecondaryBackgroundBrush}"/> 
+
+        <Border x:Name="LeftSidebarBorder" 
+                Width="5.5"
+                HorizontalAlignment="Left"
+                Background="{DynamicResource SuccessBrush}"/>
 
         <Grid>
-            <Border x:Name="SubjectNameBackgroundBorder1" CornerRadius="12" 
-                    Height="50"
-                    VerticalAlignment="Top"
-                    Background="{DynamicResource PrimaryDarkerBrush}"/>
-
-            <Border x:Name="SubjectNameBackgroundBorder2" 
-                    Height="30"
-                    Margin="0, 20, 0, 0"
-                    VerticalAlignment="Top"
-                    Background="{DynamicResource PrimaryDarkerBrush}"/>
-
-            <Border Padding="10, 6, 10, 0">
-                <StackPanel VerticalAlignment="Top">
+            <VirtualizingStackPanel x:Name="MainStackPanel" 
+                                    IsVirtualizing="True"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Margin="0, 6, 0, 0">
+                <Border Height="45">
                     <TextBlock x:Name="SubjectNameTextBlock" 
                                TextAlignment="Center" 
                                TextWrapping="Wrap"
                                TextTrimming="CharacterEllipsis"
-                               Height="45"
                                FontSize="16"
-                               Foreground="{DynamicResource PrimaryTextBrush}"
                                d:Text="Test Subject Name">
                     </TextBlock>
+                </Border>
 
-                    <TextBlock x:Name="TimeTextBlock" 
-                               FontSize="13"
-                               Margin="0,5,0,0">
-                        10:00am - 12:00pm
-                    </TextBlock>
+                <TextBlock x:Name="TimeTextBlock" 
+                           FontSize="13"
+                           TextAlignment="Center"
+                           Foreground="{DynamicResource SecondaryTextBrush}">
+                    10:00am - 12:00pm
+                </TextBlock>
 
-                    <StackPanel x:Name="CheckboxesStackPanel"
-                                Height="45"
-                                Margin="-10, 5, -10, 0"
-                                VerticalAlignment="Bottom"
-                                Cursor="Arrow"
-                                MouseDown="CheckboxesStackPanel_OnMouseDown">
-                        <CheckBox x:Name="ActiveCheckBox" 
-                                  Content="Active"
-                                  Padding="4,0,0,0"
-                                  Margin="8, 0, 0, 1"
-                                  VerticalAlignment="Bottom"
-                                  Checked="CheckBox_CheckedChanged"
-                                  Unchecked="CheckBox_CheckedChanged"/>
+                <VirtualizingStackPanel x:Name="CheckboxesStackPanel"
+                                        IsVirtualizing="True"
+                                        Margin="0, 5, -10, 0"
+                                        Orientation="Horizontal"
+                                        Cursor="Arrow"
+                                        MouseDown="CheckboxesStackPanel_OnMouseDown">
+                    <CheckBox x:Name="ActiveCheckBox" 
+                              Content="Active"
+                              Padding="4,0,0,0"
+                              VerticalAlignment="Bottom"
+                              Checked="CheckBox_CheckedChanged"
+                              Unchecked="CheckBox_CheckedChanged"/>
 
-                        <CheckBox x:Name="UploadCheckBox" 
-                                  Content="Upload"
-                                  Margin="8, 0, 0, 0"
-                                  Padding="4,0,0,0"
-                                  VerticalAlignment="Bottom"
-                                  Checked="CheckBox_CheckedChanged"
-                                  Unchecked="CheckBox_CheckedChanged"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
+                    <CheckBox x:Name="UploadCheckBox" 
+                              Content="Upload"
+                              Margin="2, 0, 0, 0"
+                          
+                              VerticalAlignment="Bottom"
+                              Checked="CheckBox_CheckedChanged"
+                              Unchecked="CheckBox_CheckedChanged"/>
+                </VirtualizingStackPanel>
+            </VirtualizingStackPanel>
         </Grid>
-    </Border>
+    </Grid>
 </UserControl>

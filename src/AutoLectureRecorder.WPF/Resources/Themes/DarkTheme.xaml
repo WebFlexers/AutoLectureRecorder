@@ -13,6 +13,7 @@
     <Color x:Key="WarningColor">#DF782D</Color>
     <Color x:Key="SuccessColor">#62DD53</Color>
     <Color x:Key="ErrorColor">#F44336</Color>
+    <Color x:Key="ErrorDarkerColor">#E55045</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
     <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{DynamicResource PrimaryDarkerColor}" />
@@ -27,4 +28,5 @@
     <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
     <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
     <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}" />
+    <SolidColorBrush x:Key="ErrorDarkerBrush" Color="{DynamicResource ErrorDarkerColor}" />
 </ResourceDictionary>

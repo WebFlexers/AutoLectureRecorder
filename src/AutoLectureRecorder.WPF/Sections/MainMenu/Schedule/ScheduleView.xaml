@@ -20,10 +20,10 @@
             d:DesignHeight="768">
 
     <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}" 
-            CornerRadius="20" 
-            Margin="35, 45, 35, 25" 
+            CornerRadius="10.6" 
+            Margin="25, 45, 25, 25"
             BorderBrush="{DynamicResource SectionLineBrush}"
-            BorderThickness="0.8"
+            BorderThickness="1"
             Background="{DynamicResource MaterialDesignPaper}">
 
         <Grid x:Name="MainGrid">
@@ -47,13 +47,14 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="37"/>
             </Grid.RowDefinitions>
 
             <Border Grid.Column="0" Grid.Row="0" 
                     Grid.ColumnSpan="7" 
-                    CornerRadius="20"
+                    CornerRadius="10"
                     Background="{DynamicResource PrimaryDarkerBrush}">
             </Border>
 
@@ -62,6 +63,20 @@
                     Grid.ColumnSpan="7" 
                     Background="{DynamicResource PrimaryDarkerBrush}">
             </Border>
+
+            <!-- Action bar -->
+            <ToolBarTray Grid.Row="1" Grid.Column="0"
+                         Grid.ColumnSpan="7">
+                <ToolBar
+                    ClipToBounds="False"
+                    Style="{StaticResource MaterialDesignToolBar}"
+                    Height="50"
+                    Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                    d:Width="1310"
+                    Background="{DynamicResource SecondaryBackgroundBrush}">
+
+                </ToolBar>
+            </ToolBarTray>
 
             <!-- Monday -->
             <TextBlock Grid.Column="0" Grid.Row="0"
@@ -72,28 +87,34 @@
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="MondaysLecturesScrollViewer"  
-                          Grid.Column="0" Grid.Row="1"
+                          Grid.Column="0" Grid.Row="2"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
                           Margin="6, 10, 6, 0"
-                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
+                          ScrollChanged="LecturesScrollViewer_OnScrollChanged">
                 <ItemsControl x:Name="MondaysLecturesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
-                                Height="120"
-                                Margin="0, 0, 0, 10"
+                                Height="105"
+                                Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
-                                Click="ScheduledLectureComponent_OnClick"/>
+                                Click="ScheduledLectureComponent_OnClick"
+                                CheckedChanged="LectureComponent_OnCheckedChanged"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
 
             <materialDesign:PackIcon x:Name="MondayDownArrowPackIcon"
-                                     Grid.Row="2" Grid.Column="0"
+                                     Grid.Row="3" Grid.Column="0"
                                      xf:Animations.PrimaryBinding="{Binding MondayHasLectures}"
                                      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
                                      xf:Animations.IterationBehavior="Forever"
@@ -104,7 +125,7 @@
                                      Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
-            <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+            <Grid Grid.Column="0" Grid.Row="2" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{DynamicResource SectionLineBrush}">
@@ -119,18 +140,25 @@
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="TuesdaysLecturesScrollViewer"  
-                          Grid.Column="1" Grid.Row="1"
+                          Grid.Column="1" Grid.Row="2"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Standard"
                           Margin="6, 10, 6, 0"
-                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
+                          ScrollChanged="LecturesScrollViewer_OnScrollChanged">
                 <ItemsControl x:Name="TuesdaysLecturesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
-                                Height="120"
-                                Margin="0, 0, 0, 10"
+                                Height="105"
+                                Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
                                 Click="ScheduledLectureComponent_OnClick"/>
@@ -140,7 +168,7 @@
             </ScrollViewer>
 
             <materialDesign:PackIcon x:Name="TuesdayDownArrowPackIcon"
-                                     Grid.Row="2" Grid.Column="1"
+                                     Grid.Row="3" Grid.Column="1"
                                      xf:Animations.PrimaryBinding="{Binding TuesdayHasLectures}"
                                      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
                                      xf:Animations.IterationBehavior="Forever"
@@ -151,7 +179,7 @@
                                      Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
-            <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
+            <Grid Grid.Column="1" Grid.Row="2" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{DynamicResource SectionLineBrush}">
@@ -166,18 +194,25 @@
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="WednesdaysLecturesScrollViewer"  
-                          Grid.Column="2" Grid.Row="1"
+                          Grid.Column="2" Grid.Row="2"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Standard"
                           Margin="6, 10, 6, 0"
-                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
+                          ScrollChanged="LecturesScrollViewer_OnScrollChanged">
                 <ItemsControl x:Name="WednesdaysLecturesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
-                                Height="120"
-                                Margin="0, 0, 0, 10"
+                                Height="105"
+                                Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
                                 Click="ScheduledLectureComponent_OnClick"/>
@@ -187,7 +222,7 @@
             </ScrollViewer>
 
             <materialDesign:PackIcon x:Name="WednesdayDownArrowPackIcon"
-                                     Grid.Row="2" Grid.Column="2"
+                                     Grid.Row="3" Grid.Column="2"
                                      xf:Animations.PrimaryBinding="{Binding WednesdayHasLectures}"
                                      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
                                      xf:Animations.IterationBehavior="Forever"
@@ -198,7 +233,7 @@
                                      Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
-            <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
+            <Grid Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{DynamicResource SectionLineBrush}">
@@ -213,18 +248,25 @@
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="ThursdaysLecturesScrollViewer"  
-                          Grid.Column="3" Grid.Row="1"
+                          Grid.Column="3" Grid.Row="2 "
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Standard"
                           Margin="6, 10, 6, 0"
-                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
+                          ScrollChanged="LecturesScrollViewer_OnScrollChanged">
                 <ItemsControl x:Name="ThursdaysLecturesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
-                                Height="120"
-                                Margin="0, 0, 0, 10"
+                                Height="105"
+                                Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
                                 Click="ScheduledLectureComponent_OnClick"/>
@@ -234,7 +276,7 @@
             </ScrollViewer>
 
             <materialDesign:PackIcon x:Name="ThursdayDownArrowPackIcon"
-                                     Grid.Row="2" Grid.Column="3"
+                                     Grid.Row="3" Grid.Column="3"
                                      xf:Animations.PrimaryBinding="{Binding ThursdayHasLectures}"
                                      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
                                      xf:Animations.IterationBehavior="Forever"
@@ -245,7 +287,7 @@
                                      Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
-            <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="2"
+            <Grid Grid.Column="3" Grid.Row="2" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{DynamicResource SectionLineBrush}">
@@ -260,18 +302,25 @@
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="FridaysLecturesScrollViewer"  
-                          Grid.Column="4" Grid.Row="1"
+                          Grid.Column="4" Grid.Row="2"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Standard"
                           Margin="6, 10, 6, 0"
-                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
+                          ScrollChanged="LecturesScrollViewer_OnScrollChanged">
                 <ItemsControl x:Name="FridaysLecturesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
-                                Height="120"
-                                Margin="0, 0, 0, 10"
+                                Height="105"
+                                Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
                                 Click="ScheduledLectureComponent_OnClick"/>
@@ -281,7 +330,7 @@
             </ScrollViewer>
 
             <materialDesign:PackIcon x:Name="FridayDownArrowPackIcon"
-                                     Grid.Row="2" Grid.Column="4"
+                                     Grid.Row="3" Grid.Column="4"
                                      xf:Animations.PrimaryBinding="{Binding FridayHasLectures}"
                                      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
                                      xf:Animations.IterationBehavior="Forever"
@@ -292,7 +341,7 @@
                                      Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
-            <Grid Grid.Column="4" Grid.Row="1" Grid.RowSpan="2"
+            <Grid Grid.Column="4" Grid.Row="2" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{DynamicResource SectionLineBrush}">
@@ -307,18 +356,25 @@
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="SaturdaysLecturesScrollViewer"  
-                          Grid.Column="5" Grid.Row="1"
+                          Grid.Column="5" Grid.Row="2"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Standard"
                           Margin="6, 10, 6, 0"
-                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
+                          ScrollChanged="LecturesScrollViewer_OnScrollChanged">
                 <ItemsControl x:Name="SaturdaysLecturesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
-                                Height="120"
-                                Margin="0, 0, 0, 10"
+                                Height="105"
+                                Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
                                 Click="ScheduledLectureComponent_OnClick"/>
@@ -328,7 +384,7 @@
             </ScrollViewer>
 
             <materialDesign:PackIcon x:Name="SaturdayDownArrowPackIcon" 
-                                     Grid.Row="2" Grid.Column="5"
+                                     Grid.Row="3" Grid.Column="5"
                                      xf:Animations.PrimaryBinding="{Binding SaturdayHasLectures}"
                                      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
                                      xf:Animations.IterationBehavior="Forever"
@@ -339,7 +395,7 @@
                                      Foreground="{DynamicResource PrimaryBrush}"
                                      Kind="ArrowBottomCircle"/>
 
-            <Grid Grid.Column="5" Grid.Row="1" Grid.RowSpan="2"
+            <Grid Grid.Column="5" Grid.Row="2" Grid.RowSpan="2"
                   Width="0.5"
                   HorizontalAlignment="Right"
                   Background="{DynamicResource SectionLineBrush}">
@@ -354,18 +410,25 @@
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
 
             <ScrollViewer x:Name="SundaysLecturesScrollViewer"  
-                          Grid.Column="6" Grid.Row="1"
+                          Grid.Column="6" Grid.Row="2"
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Standard"
                           Margin="6, 10, 6, 0"
-                          ScrollChanged="LecturesScrollViewers_OnScrollChanged">
+                          ScrollChanged="LecturesScrollViewer_OnScrollChanged">
                 <ItemsControl x:Name="SundaysLecturesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:ScheduledLectureComponent 
                                 x:Name="LectureComponent"
-                                Height="120"
-                                Margin="0, 0, 0, 10"
+                                Height="105"
+                                Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
                                 Click="ScheduledLectureComponent_OnClick"/>
@@ -375,7 +438,7 @@
             </ScrollViewer>
 
             <materialDesign:PackIcon x:Name="SundayDownArrowPackIcon"
-                                     Grid.Row="2" Grid.Column="6"
+                                     Grid.Row="3" Grid.Column="6"
                                      xf:Animations.PrimaryBinding="{Binding SundayHasLectures}"
                                      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
                                      xf:Animations.IterationBehavior="Forever"

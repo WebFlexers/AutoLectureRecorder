@@ -205,7 +205,7 @@
                         <mainmenu:Logout x:Name="LogoutButtonContent"
                                          Margin="0,0,15,0"
                                          TextElement.FontSize="14"
-                                         FillColor="{DynamicResource SecondaryTextBrush}" />
+                                         FillColor="{DynamicResource ErrorDarkerBrush}" />
                     </Button.Content>
                 </Button>
             </StackPanel>
