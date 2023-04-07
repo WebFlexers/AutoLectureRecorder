@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -21,7 +20,7 @@ namespace AutoLectureRecorder.Sections.MainMenu.Dashboard;
 public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
     private readonly ILogger<DashboardViewModel> _logger;
-    private readonly IScheduledLectureRepository _lectureData;
+    private readonly IScheduledLectureRepository _scheduledLectureRepository;
 
     public string UrlPathSegment => nameof(DashboardViewModel);
     public IScreen HostScreen { get; }
@@ -43,16 +42,17 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
 
-    public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, IScheduledLectureRepository lectureData)
+    public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, 
+        IScheduledLectureRepository scheduledLectureRepository)
     {
         HostScreen = screenFactory.GetMainMenuViewModel();
         _logger = logger;
-        _lectureData = lectureData;
+        _scheduledLectureRepository = scheduledLectureRepository;
         Activator = new ViewModelActivator();
 
         FindClosestScheduledLectureToNowCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+            var lecturesSorted = await _scheduledLectureRepository.GetAllScheduledLecturesSortedAsync();
             NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
             NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
         });
@@ -79,7 +79,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
 
               Observable.FromAsync(async () =>
               {
-                  var lecturesSorted = await _lectureData.GetAllScheduledLecturesSortedAsync();
+                  var lecturesSorted = await _scheduledLectureRepository.GetAllScheduledLecturesSortedAsync();
                   if (lecturesSorted == null || lecturesSorted.Any() == false) return;
 
                   NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
@@ -109,7 +109,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
 
     private async Task FetchTodaysLectures()
     {
-        var todaysLecturesUnsorted = await _lectureData
+        var todaysLecturesUnsorted = await _scheduledLectureRepository
             .GetScheduledLecturesByDayAsync(DateTime.Now.DayOfWeek);
 
         if (todaysLecturesUnsorted == null || todaysLecturesUnsorted.Any() == false) return;

@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Data.ReactiveModels;
+﻿using System.Linq;
+using AutoLectureRecorder.Data.ReactiveModels;
 using FluentValidation;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -28,6 +29,8 @@ public class ValidatableScheduledLecture : ReactiveObject
     public string? TimeWarning { get; set; }
 
     [Reactive] 
+    public bool HasErrors { get; set; } = false;
+    [Reactive] 
     public bool HasWarnings { get; set; } = false;
 
     /// <summary>
@@ -43,7 +46,6 @@ public class ValidatableScheduledLecture : ReactiveObject
 
         foreach (var error in result.Errors)
         {
-
             switch (error.PropertyName)
             {
                 case nameof(lecture.SubjectName):
@@ -59,9 +61,8 @@ public class ValidatableScheduledLecture : ReactiveObject
                     DayError = error.ErrorMessage;
                     break;
                 case nameof(lecture.StartTime):
-                    if (error.ErrorCode == ScheduledLectureErrorCodes.OverlappingLecture)
+                    if (error.Severity == Severity.Warning)
                     {
-                        HasWarnings = true;
                         TimeWarning = error.ErrorMessage;
                     }
                     else
@@ -74,6 +75,9 @@ public class ValidatableScheduledLecture : ReactiveObject
                     break;
             }
         }
+
+        HasErrors = result.Errors.Any(error => error.Severity == Severity.Error);
+        HasWarnings = result.Errors.Any(error => error.Severity == Severity.Warning);
 
         return result.IsValid;
     }

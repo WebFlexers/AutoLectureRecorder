@@ -95,6 +95,8 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel
 
         UpdateScheduledLectureCommand = ReactiveCommand.CreateFromTask<ReactiveScheduledLecture>(async lecture =>
         {
+            if (await DisableConflictingLectures(lecture) == false) return;
+
             var result = await _lectureRepository.UpdateScheduledLectureAsync(lecture);
 
             if (result == false) return;
@@ -154,5 +156,47 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel
         }
 
         return false;
+    }
+
+    private async Task<bool> DisableConflictingLectures(ReactiveScheduledLecture lectureToKeep)
+    {
+        if (lectureToKeep.IsScheduled == false || lectureToKeep.Day == null) return true;
+
+        var dayLectures = AllScheduledLecturesByDay[lectureToKeep.Day.Value];
+
+        if (dayLectures.Any() == false) return false;
+
+        var updateLecturesTasks = new List<Task>();
+        foreach (var existingLecture in dayLectures)
+        {
+            if (ReactiveScheduledLecture.AreLecturesOverlapping(lectureToKeep, existingLecture))
+            {
+                // TODO: Make IsActive update on the UI correctly
+                existingLecture.IsScheduled = false;
+                var visibleLecture = VisibleScheduledLecturesByDay[lectureToKeep.Day.Value]
+                    .FirstOrDefault(lecture => lecture.Id == existingLecture.Id);
+                if (visibleLecture != null)
+                {
+                    visibleLecture = new ReactiveScheduledLecture
+                    {
+                        Id = existingLecture.Id,
+                        SubjectName = existingLecture.SubjectName,
+                        Semester = existingLecture.Semester,
+                        MeetingLink = existingLecture.MeetingLink,
+                        Day = existingLecture.Day,
+                        StartTime = existingLecture.StartTime,
+                        EndTime = existingLecture.EndTime,
+                        IsScheduled = existingLecture.IsScheduled,
+                        WillAutoUpload = existingLecture.WillAutoUpload
+                    };
+                }
+
+                updateLecturesTasks.Add(_lectureRepository.UpdateScheduledLectureAsync(existingLecture));
+            }
+        }
+
+        await Task.WhenAll(updateLecturesTasks);
+
+        return true;
     }
 }

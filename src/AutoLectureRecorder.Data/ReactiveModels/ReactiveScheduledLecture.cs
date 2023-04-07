@@ -23,4 +23,9 @@ public class ReactiveScheduledLecture : ReactiveObject
     public bool IsScheduled { get; set; }
     [Reactive]
     public bool WillAutoUpload { get; set; }
+
+    public static bool AreLecturesOverlapping(ReactiveScheduledLecture lecture1, ReactiveScheduledLecture lecture2)
+    {
+        return lecture1.StartTime <= lecture2.EndTime && lecture2.StartTime <= lecture1.EndTime;
+    }
 }

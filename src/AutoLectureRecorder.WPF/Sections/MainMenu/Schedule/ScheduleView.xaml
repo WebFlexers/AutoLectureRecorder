@@ -161,7 +161,8 @@
                                 Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
-                                Click="ScheduledLectureComponent_OnClick"/>
+                                Click="ScheduledLectureComponent_OnClick"
+                                CheckedChanged="LectureComponent_OnCheckedChanged"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -215,7 +216,8 @@
                                 Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
-                                Click="ScheduledLectureComponent_OnClick"/>
+                                Click="ScheduledLectureComponent_OnClick"
+                                CheckedChanged="LectureComponent_OnCheckedChanged"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -269,7 +271,8 @@
                                 Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
-                                Click="ScheduledLectureComponent_OnClick"/>
+                                Click="ScheduledLectureComponent_OnClick"
+                                CheckedChanged="LectureComponent_OnCheckedChanged"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -323,7 +326,8 @@
                                 Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
-                                Click="ScheduledLectureComponent_OnClick"/>
+                                Click="ScheduledLectureComponent_OnClick"
+                                CheckedChanged="LectureComponent_OnCheckedChanged"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -377,7 +381,8 @@
                                 Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
-                                Click="ScheduledLectureComponent_OnClick"/>
+                                Click="ScheduledLectureComponent_OnClick"
+                                CheckedChanged="LectureComponent_OnCheckedChanged"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -431,7 +436,8 @@
                                 Margin="0, 0, 0, 15"
                                 VerticalAlignment="Top"
                                 Lecture="{Binding Path=., Mode=TwoWay}"
-                                Click="ScheduledLectureComponent_OnClick"/>
+                                Click="ScheduledLectureComponent_OnClick"
+                                CheckedChanged="LectureComponent_OnCheckedChanged"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
