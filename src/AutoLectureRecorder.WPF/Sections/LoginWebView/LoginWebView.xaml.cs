@@ -2,6 +2,7 @@
 using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
+using AutoLectureRecorder.Resources.Themes;
 using Microsoft.Web.WebView2.Core;
 
 namespace AutoLectureRecorder.Sections.LoginWebView;
@@ -23,8 +24,15 @@ public partial class LoginWebView : ReactiveUserControl<LoginWebViewModel>
                 .Events().CoreWebView2InitializationCompleted
                 .Subscribe(async (e) =>
                 {
-                    // TODO: Check whether we are on Dark or Light Mode and set webview2 color scheme accordingly
-                    MainWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
+                    if (ThemeManager.CurrentColorTheme == ColorTheme.Dark)
+                    {
+                        MainWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Dark;
+                    }
+                    else
+                    {
+                        MainWebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Light;
+                    }
+                    
                     await MainWebView.CoreWebView2.Profile.ClearBrowsingDataAsync().DisposeWith(disposables);
                     ViewModel?.LoginToMicrosoftTeamsCommand.Execute().Subscribe().DisposeWith(disposables);   
                 }).DisposeWith(disposables);

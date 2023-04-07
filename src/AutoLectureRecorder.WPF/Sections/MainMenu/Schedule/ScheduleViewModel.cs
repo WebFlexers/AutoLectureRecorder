@@ -171,13 +171,17 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel
         {
             if (ReactiveScheduledLecture.AreLecturesOverlapping(lectureToKeep, existingLecture))
             {
-                // TODO: Make IsActive update on the UI correctly
+                // Update lecture in the All lectures list
                 existingLecture.IsScheduled = false;
-                var visibleLecture = VisibleScheduledLecturesByDay[lectureToKeep.Day.Value]
-                    .FirstOrDefault(lecture => lecture.Id == existingLecture.Id);
-                if (visibleLecture != null)
+
+                // Update lecture in the visible list in order for the UI to update as well
+                var todaysLectures = VisibleScheduledLecturesByDay[existingLecture.Day!.Value];
+                var lectureInVisibleList = todaysLectures.FirstOrDefault(lecture => lecture.Id == existingLecture.Id);
+
+                if (lectureInVisibleList != null && lectureInVisibleList.Id != lectureToKeep.Id)
                 {
-                    visibleLecture = new ReactiveScheduledLecture
+                    var lectureIndex = todaysLectures.IndexOf(lectureInVisibleList);
+                    VisibleScheduledLecturesByDay[existingLecture.Day!.Value][lectureIndex] = new ReactiveScheduledLecture
                     {
                         Id = existingLecture.Id,
                         SubjectName = existingLecture.SubjectName,
@@ -196,6 +200,10 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel
         }
 
         await Task.WhenAll(updateLecturesTasks);
+
+        // Send message to recalculate the closest scheduled lecture to now,
+        // in case the newly updated lecture is closer
+        MessageBus.Current.SendMessage(true, PubSubMessages.CheckClosestScheduledLecture);
 
         return true;
     }

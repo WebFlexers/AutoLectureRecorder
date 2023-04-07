@@ -147,12 +147,16 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         }
     }
 
-    private static ReactiveScheduledLecture? FindClosestScheduledLectureToNow(IReadOnlyList<ReactiveScheduledLecture>? lecturesSorted)
+    private static ReactiveScheduledLecture? FindClosestScheduledLectureToNow(IReadOnlyCollection<ReactiveScheduledLecture>? lecturesSorted)
     {
         if (lecturesSorted == null || lecturesSorted.Any() == false)
         {
-            return default;
+            return null;
         }
+
+        var activeLectures = lecturesSorted
+            .Where(lecture => lecture.IsScheduled)
+            .ToList();
 
         DayOfWeek today = DateTime.Today.DayOfWeek;
         TimeSpan currentTime = DateTime.Now.TimeOfDay;
@@ -163,9 +167,9 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         // scheduled for today or any day after today (until Sunday).
         //  E.g. If today is Friday we check if there is a scheduled lecture at Friday, Saturday or Sunday
         int counter = 0;
-        while (counter < lecturesSorted.Count)
+        while (counter < activeLectures.Count)
         {
-            if (lecturesSorted[counter].Day >= today)
+            if (activeLectures[counter].Day >= today)
             {
                 closestDayIsTodayOrAfterUntilSunday = true;
                 break;
@@ -179,39 +183,39 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         // will be the closest
         if (closestDayIsTodayOrAfterUntilSunday == false)
         {
-            return lecturesSorted[0];
+            return activeLectures[0];
         }
 
         // If the closest day is today we need to check if the start
         // time of the lecture is after the current time of day.
         // So we continue where we left off using the same counter
-        while (counter < lecturesSorted.Count && lecturesSorted[counter].Day == today)
+        while (counter < activeLectures.Count && activeLectures[counter].Day == today)
         {
-            if (lecturesSorted[counter].StartTime!.Value.TimeOfDay >= currentTime)
+            if (activeLectures[counter].StartTime!.Value.TimeOfDay >= currentTime)
             {
-                return lecturesSorted[counter];
+                return activeLectures[counter];
             }
 
             counter++;
         }
 
         // Let's not overstep
-        if (counter == lecturesSorted.Count)
+        if (counter == activeLectures.Count)
         {
             counter--;
         }
 
         // If closest scheduled lecture is after today we just return the
         // first lecture that is after today, because they are sorted
-        if (lecturesSorted[counter].Day != today)
+        if (activeLectures[counter].Day != today)
         {
-            return lecturesSorted[counter];
+            return activeLectures[counter];
         }
 
         // If we get at this point it means that that there are scheduled lectures only for today
         // and no other day, but they all start before the current time. So we just return the
         // first element of the list, again because it is sorted by day first and then by start time
-        return lecturesSorted[0];
+        return activeLectures[0];
     }
 
     private TimeSpan? CalculateNextScheduledLectureTimeDiff()

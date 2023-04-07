@@ -12,14 +12,10 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Threading;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 
-// TODO: Give the user the ability to add an overlapping lecture, but warn him.
-// TODO: If they add it as activated any overlapping lectures must be deactivated
 public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
     private readonly ILogger<CreateLectureViewModel> _logger;

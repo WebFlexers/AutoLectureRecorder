@@ -39,11 +39,14 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
                         <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                Foreground="{DynamicResource ErrorDarkerBrush}"
+                                Opacity="0.6"
                                 FontSize="16"
                                 Content="CANCEL"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
                         <Button x:Name="AddAnywayButton"  
                                 Style="{StaticResource MaterialDesignFlatButton}"
+                                Foreground="{DynamicResource SuccessBrush}"
                                 FontSize="16"
                                 Content="ADD ANYWAY"/>
                     </StackPanel>
