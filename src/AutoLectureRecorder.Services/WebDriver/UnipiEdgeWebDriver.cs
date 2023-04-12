@@ -25,25 +25,34 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
     /// <param name="debuggerAddress">The debugger address that will host the WebView2</param>
     public void StartDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
     {
-        EdgeOptions edgeOptions = new EdgeOptions();
-        var driverPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\AutoLectureRecorder";
-        var driverService = EdgeDriverService.CreateDefaultService(driverPath);
-        driverService.HideCommandPromptWindow = true;
-        // Disable mic
-        edgeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_mic", 2);
-        // Disable camera
-        edgeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_camera", 2);
-        edgeOptions.AddAdditionalOption("useAutomationExtension", false);
-        edgeOptions.AddAdditionalOption("ms:inPrivate", true);
-
-        if (useWebView)
+        try
         {
-            edgeOptions.UseWebView = true;
-            edgeOptions.DebuggerAddress = debuggerAddress;
-        }
+            EdgeOptions edgeOptions = new EdgeOptions();
+            var driverPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\AutoLectureRecorder";
+            var driverService = EdgeDriverService.CreateDefaultService(driverPath);
+            driverService.HideCommandPromptWindow = true;
+            //// Disable mic
+            //edgeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_mic", 2);
+            //// Disable camera
+            //edgeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_camera", 2);
+            edgeOptions.AddAdditionalOption("permissions.default.microphone", 0);
+            edgeOptions.AddAdditionalOption("permissions.default.camera", 0);
+            edgeOptions.AddAdditionalOption("useAutomationExtension", false);
 
-        _driver = new EdgeDriver(driverService, edgeOptions);
-        _driver.Manage().Timeouts().ImplicitWait = implicitWaitTime;
+            if (useWebView)
+            {
+                edgeOptions.UseWebView = true;
+                edgeOptions.DebuggerAddress = debuggerAddress;
+            }
+
+            _driver = new EdgeDriver(driverService, edgeOptions);
+            _driver.Manage().Timeouts().ImplicitWait = implicitWaitTime;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while trying to start the Web Driver");
+            throw ex;
+        }
     }
 
     private const string CancelLoginErrorMessage = 
