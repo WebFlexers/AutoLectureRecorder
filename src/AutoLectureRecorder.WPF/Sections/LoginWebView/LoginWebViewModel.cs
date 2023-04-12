@@ -47,7 +47,8 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         _loginCancellationTokenSource = new CancellationTokenSource();
         _loginCancellationToken = _loginCancellationTokenSource.Token;
 
-        MessageBus.Current.SendMessage(true, PubSubMessages.UpdateWindowTopMost);
+        // TODO: Examine topmost -> Update (12/04/2022) Seems to be working well without topmost
+        // MessageBus.Current.SendMessage(true, PubSubMessages.UpdateWindowTopMost);
 
         MessageBus.Current.Listen<(string, string)>(PubSubMessages.FillLoginCredentials)
         .Subscribe(credentials =>
@@ -119,6 +120,6 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         _webDriver?.Dispose();
         _loginTask.Dispose();
 
-        MessageBus.Current.SendMessage(false, PubSubMessages.UpdateWindowTopMost);
+        //MessageBus.Current.SendMessage(false, PubSubMessages.UpdateWindowTopMost);
     }
 }

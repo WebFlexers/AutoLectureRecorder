@@ -61,8 +61,8 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         });
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
 
-        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateWindowTopMost)
-            .Subscribe(tm => IsWindowTopMost = tm);
+        //MessageBus.Current.Listen<bool>(PubSubMessages.UpdateWindowTopMost)
+        //    .Subscribe(tm => IsWindowTopMost = tm);
 
         MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen)
             .Subscribe(makeVideoFullScreen =>

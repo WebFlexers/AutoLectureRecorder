@@ -64,7 +64,7 @@
                     Width="120"
                     Cursor="Hand"
                     FontSize="16"
-                    Margin="0, 20, 0, 20"
+                    Margin="0, 20, 0, 30"
                     Foreground="{DynamicResource PrimaryTextBrush}"
                     Content="Cancel"
                     VerticalAlignment="Bottom"
