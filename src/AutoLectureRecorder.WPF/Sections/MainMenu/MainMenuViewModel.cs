@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
+﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.Login;
 using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
@@ -40,6 +41,8 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     public ReactiveCommand<Unit, Unit> NavigateToSettingsCommand { get; }
     public ReactiveCommand<Unit, Unit> NavigateToUploadCommand { get; }
 
+    public ReactiveCommand<Unit, Unit> NavigateToRecordWindowCommand { get; }
+
     public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
     public ReactiveCommand<Unit, Unit> NavigateForwardCommand { get; }
 
@@ -52,7 +55,8 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     [Reactive]
     public Visibility MenuVisibility { get; set; } = Visibility.Visible;
 
-    public MainMenuViewModel(ILogger<MainMenuViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory, IStudentAccountRepository studentAccountData)
+    public MainMenuViewModel(ILogger<MainMenuViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory, 
+        IWindowFactory windowFactory, IStudentAccountRepository studentAccountData)
     {
         _logger = logger;
         _viewModelFactory = viewModelFactory;
@@ -71,6 +75,24 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
             SetRoutedViewHostContent(typeof(SettingsViewModel)));
         NavigateToUploadCommand = ReactiveCommand.Create(() =>
             SetRoutedViewHostContent(typeof(UploadViewModel)));
+
+        NavigateToRecordWindowCommand = ReactiveCommand.Create(() =>
+        {
+            // TODO: Modify this test method
+            var recordWindow = windowFactory.CreateRecordWindow(new ReactiveScheduledLecture
+            {
+                Id = 1,
+                SubjectName = "My test lecture",
+                Semester = 2,
+                MeetingLink = "https://teams.microsoft.com/l/team/19%3a4f80471db6464f18a64f47be0dcd660d%40thread.tacv2/conversations?groupId=29a0e98c-f210-4df8-afe9-a9f9f6d02264&tenantId=d9c8dee3-558b-483d-b502-d31fa0cb24de",
+                Day = DayOfWeek.Wednesday,
+                StartTime = DateTime.UtcNow,
+                EndTime = DateTime.UtcNow.AddMinutes(1),
+                IsScheduled = true,
+                WillAutoUpload = false
+            });
+            recordWindow.Show();
+        });
 
         NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
         NavigateForwardCommand = ReactiveCommand.Create(NavigateForward);

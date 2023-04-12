@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using AutoLectureRecorder.Data.Models;
+﻿using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 namespace AutoLectureRecorder.Services.DataAccess.Seeding;

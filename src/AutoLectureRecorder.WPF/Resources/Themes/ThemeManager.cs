@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -14,37 +15,36 @@ public static class ThemeManager
 
     public static ColorTheme CurrentColorTheme { get; set; } = ColorTheme.Light;
 
-    public static void InitializeTheme(DependencyObject obj)
-    {
-        SwitchToLightTheme(obj);
-        //if (ShouldSystemUseDarkMode())
-        //{
-        //    SwitchToDarkTheme();
-        //}
-        //else
-        //{
-        //    SwitchToLightTheme();
-        //}
-    }
+    //public static void InitializeTheme()
+    //{
+    //    if (ShouldSystemUseDarkMode())
+    //    {
+    //        SwitchToDarkTheme();
+    //    }
+    //    else
+    //    {
+    //        SwitchToLightTheme();
+    //    }
+    //}
 
-    public static void SwitchToLightTheme(DependencyObject obj)
+    public static void SwitchToLightTheme(ICollection<DependencyObject> windows)
     {
         CurrentColorTheme = ColorTheme.Light;
         
         SetMaterialDesignTheme();
 
-        AppThemeSelector.SetCurrentThemeDictionary(obj, new Uri(
+        AppThemeSelector.SetCurrentThemeDictionary(windows, new Uri(
             $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/LightTheme.xaml",
             UriKind.RelativeOrAbsolute));
     }
 
-    public static void SwitchToDarkTheme(DependencyObject obj)
+    public static void SwitchToDarkTheme(ICollection<DependencyObject> windows)
     {
         CurrentColorTheme = ColorTheme.Dark;
         
         SetMaterialDesignTheme();
 
-        AppThemeSelector.SetCurrentThemeDictionary(obj, new Uri(
+        AppThemeSelector.SetCurrentThemeDictionary(windows, new Uri(
             $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/DarkTheme.xaml",
             UriKind.RelativeOrAbsolute));
     }

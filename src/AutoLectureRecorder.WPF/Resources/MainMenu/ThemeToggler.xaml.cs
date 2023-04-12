@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using AutoLectureRecorder.Resources.Themes;
 
@@ -13,11 +14,11 @@ public partial class ThemeToggler : UserControl
 
     private void ToggleButton_Checked(object sender, RoutedEventArgs e)
     {
-        ThemeManager.SwitchToLightTheme(Application.Current.MainWindow!);
+        ThemeManager.SwitchToLightTheme(Application.Current.Windows.Cast<Window>().ToArray());
     }
 
     private void ToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
     {
-        ThemeManager.SwitchToDarkTheme(Application.Current.MainWindow!);
+        ThemeManager.SwitchToDarkTheme(Application.Current.Windows.Cast<Window>().ToArray());
     }
 }

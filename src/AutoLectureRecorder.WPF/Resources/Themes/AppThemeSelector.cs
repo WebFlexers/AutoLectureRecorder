@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -18,9 +19,12 @@ public class AppThemeSelector : DependencyObject
         return (Uri)obj.GetValue(CurrentThemeDictionaryProperty);
     }
 
-    public static void SetCurrentThemeDictionary(DependencyObject obj, Uri value)
+    public static void SetCurrentThemeDictionary(ICollection<DependencyObject> windows, Uri value)
     {
-        obj.SetValue(CurrentThemeDictionaryProperty, value);
+        foreach (var obj in windows)
+        {
+            obj.SetValue(CurrentThemeDictionaryProperty, value);
+        }
     }
 
     private static void CurrentThemeDictionaryChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

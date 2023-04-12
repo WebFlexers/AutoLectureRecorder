@@ -1,5 +1,6 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
+using AutoLectureRecorder.Sections.MainMenu.RecordLectures;
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using AutoLectureRecorder.Services.Recording;
@@ -53,9 +54,11 @@ public class AppBootstrapper
         // Add Microsoft Services
         services.AddHttpClient();
 
-        // Add Main Window and Routing
+        // Add Windows
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton(sp => new MainWindow { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
+        services.AddTransient<RecordWindowViewModel>();
+        services.AddTransient(sp => new RecordWindow { ViewModel = sp.GetRequiredService<RecordWindowViewModel>() });
 
         // Add Factories
         services.AddTransient<IScreenFactory, ScreenFactory>();

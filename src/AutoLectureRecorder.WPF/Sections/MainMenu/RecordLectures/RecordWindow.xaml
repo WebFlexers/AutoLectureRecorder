@@ -1,0 +1,84 @@
+﻿ <rxui:ReactiveWindow 
+     x:Name="RecordMainWindow"
+     x:Class="AutoLectureRecorder.Sections.MainMenu.RecordLectures.RecordWindow"
+     x:TypeArguments="local:RecordWindowViewModel"
+     xmlns:rxui="http://reactiveui.net"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.RecordLectures"
+     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     Background="{DynamicResource MaterialDesignPaper}"
+     TextElement.FontWeight="Medium"
+     TextElement.FontSize="14"
+     FontFamily="{materialDesign:MaterialDesignFont}"
+     WindowStartupLocation="CenterScreen"
+     mc:Ignorable="d"
+     Title="MainWindow"
+     MinWidth="1160"
+     MinHeight="710"
+     Width="1360"
+     Height="768">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/MainWindowChrome.xaml" />
+                <ResourceDictionary Source="/Resources/TitleBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+        <Window.Style>
+        <!-- Avoid titlebar resize handle getting smaller on maximize -->
+        <Style TargetType="local:RecordWindow"
+               BasedOn="{StaticResource WindowChromeStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=RecordMainWindow, Path=WindowState}"
+                             Value="Maximized">
+                    <Setter Property="WindowChrome.WindowChrome">
+                        <Setter.Value>
+                            <WindowChrome CaptionHeight="38" />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <!-- TitleBar -->
+        <Grid x:Name="TitlebarGrid"
+              Grid.Row="0"
+              Panel.ZIndex="10">
+            <StackPanel x:Name="TitlebarButtonsStackPanel"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+
+                <Button x:Name="MinimizeWindowButton"
+                        Style="{StaticResource TitlebarMinimizeButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                <Button x:Name="ToggleWindowStateButton"
+                        Style="{StaticResource TitlebarMaximizeButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                <Button x:Name="CloseWindowButton"
+                        Style="{StaticResource TitlebarCloseButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" />
+            </StackPanel>
+        </Grid>
+
+        <wpf:WebView2 x:Name="MainWebView" 
+                      Grid.Row="1"
+                      IsHitTestVisible="False"/>
+        
+    </Grid>
+ </rxui:ReactiveWindow>

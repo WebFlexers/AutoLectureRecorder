@@ -38,6 +38,9 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
             this.BindCommand(ViewModel, vm => vm.NavigateToUploadCommand, v => v.UploadButton)
                 .DisposeWith(disposables);
 
+            this.BindCommand(ViewModel, vm => vm.NavigateToRecordWindowCommand, v => v.HelpButton)
+                .DisposeWith(disposables);
+
             // Navigate back and forward using the 2 arrow-like mouse buttons (if the user's mouse has them)
             this.Events().MouseDown
                 .Subscribe(e =>
