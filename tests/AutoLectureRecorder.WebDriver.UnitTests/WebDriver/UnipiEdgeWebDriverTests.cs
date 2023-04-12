@@ -30,7 +30,7 @@ public class UnipiEdgeWebDriverTests
         using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
         unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
-        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], account[1]);
+        (bool, string) actual = unipiWebDriver.Login(account[0], account[1]);
 
         Assert.Equal(expected, actual);
     }
@@ -45,7 +45,7 @@ public class UnipiEdgeWebDriverTests
         using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
         unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
-        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], "random_password_that_is_wrong_hopefully");
+        (bool, string) actual = unipiWebDriver.Login(account[0], "random_password_that_is_wrong_hopefully");
 
         Assert.False(actual.Item1);
     }
@@ -67,7 +67,7 @@ public class UnipiEdgeWebDriverTests
 
     //    for (int i = 0; i < 10; i++)
     //    {
-    //        (bool, string) actual = unipiWebDriver.LoginToMicrosoftTeams(account[0], "random_password_that_is_wrong_hopefully");
+    //        (bool, string) actual = unipiWebDriver.Login(account[0], "random_password_that_is_wrong_hopefully");
     //        Assert.False(actual.Item1);
 
     //        if (actual.Item2.Contains("Access Denied"))

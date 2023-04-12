@@ -95,7 +95,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         _loginTask = Task.Run(() =>
         {
             _webDriver = _webDriverFactory.CreateUnipiEdgeWebDriver(true, TimeSpan.FromSeconds(17));
-            return _webDriver.LoginToMicrosoftTeams(_academicEmailAddress, _password, _loginCancellationToken);
+            return _webDriver.Login(_academicEmailAddress, _password, _loginCancellationToken);
         }, _loginCancellationToken);
 
         (bool isSuccessful, string resultMessage) = await _loginTask;
