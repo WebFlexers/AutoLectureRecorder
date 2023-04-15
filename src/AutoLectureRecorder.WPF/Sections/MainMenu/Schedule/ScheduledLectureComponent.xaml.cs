@@ -7,6 +7,8 @@ namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
 public partial class ScheduledLectureComponent
 {
+    // TODO: Fix memory leak
+
     public ScheduledLectureComponent()
     {
         InitializeComponent();

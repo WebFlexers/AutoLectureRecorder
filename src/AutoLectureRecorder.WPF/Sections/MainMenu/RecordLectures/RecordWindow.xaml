@@ -21,7 +21,8 @@
      MinWidth="1160"
      MinHeight="710"
      Width="1360"
-     Height="768">
+     Height="768"
+     Closing="RecordWindow_OnClosing">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -79,6 +80,5 @@
         <wpf:WebView2 x:Name="MainWebView" 
                       Grid.Row="1"
                       IsHitTestVisible="False"/>
-        
     </Grid>
  </rxui:ReactiveWindow>

@@ -24,6 +24,16 @@ public class ReactiveScheduledLecture : ReactiveObject
     [Reactive]
     public bool WillAutoUpload { get; set; }
 
+    /// <summary>
+    /// Calculates the timespan between StartTime and EndTime
+    /// </summary>
+    public TimeSpan CalculateLectureDuration()
+    {
+        if (StartTime == null || EndTime == null) return TimeSpan.Zero;
+
+        return EndTime.Value.Subtract(StartTime.Value);
+    }
+
     public static bool AreLecturesOverlapping(ReactiveScheduledLecture lecture1, ReactiveScheduledLecture lecture2)
     {
         return lecture1.StartTime <= lecture2.EndTime && lecture2.StartTime <= lecture1.EndTime;

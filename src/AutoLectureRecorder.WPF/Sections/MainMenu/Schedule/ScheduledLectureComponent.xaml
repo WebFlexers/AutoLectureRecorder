@@ -43,20 +43,22 @@
                                TextWrapping="Wrap"
                                TextTrimming="CharacterEllipsis"
                                FontSize="16"
+                               Padding="7, 0"
                                d:Text="Test Subject Name">
                     </TextBlock>
                 </Grid>
 
                 <TextBlock x:Name="TimeTextBlock" 
                            FontSize="13"
-                           TextAlignment="Center">
-                    10:00am - 12:00pm
+                           TextAlignment="Center"
+                           d:Text="10:00am - 12:00pm">
                 </TextBlock>
 
                 <VirtualizingStackPanel x:Name="CheckboxesStackPanel"
                                         IsVirtualizing="True"
                                         Margin="0, 5, 0, 0"
                                         Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
                                         Cursor="Arrow"
                                         MouseDown="CheckboxesStackPanel_OnMouseDown">
                     <CheckBox x:Name="ActiveCheckBox" 

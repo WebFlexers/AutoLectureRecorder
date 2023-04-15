@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="LibVLCSharp" Version="3.7.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />

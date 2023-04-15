@@ -1,8 +1,11 @@
 ﻿
+using System.Diagnostics;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace AutoLectureRecorder.Services.WebDriver;
 
@@ -31,13 +34,10 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             var driverPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\AutoLectureRecorder";
             var driverService = EdgeDriverService.CreateDefaultService(driverPath);
             driverService.HideCommandPromptWindow = true;
-            //// Disable mic
-            //edgeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_mic", 2);
-            //// Disable camera
-            //edgeOptions.AddUserProfilePreference("profile.default_content_setting_values.media_stream_camera", 2);
+
+            // Disable camera and microphone
             edgeOptions.AddAdditionalOption("permissions.default.microphone", 0);
             edgeOptions.AddAdditionalOption("permissions.default.camera", 0);
-            edgeOptions.AddAdditionalOption("useAutomationExtension", false);
 
             if (useWebView)
             {
@@ -51,7 +51,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred while trying to start the Web Driver");
-            throw ex;
+            throw;
         }
     }
 
@@ -88,44 +88,50 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _driver.FindElement(By.XPath("//input[@type='submit']")).Click();
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
 
-            // Split the academic email address to get the registration number for login
-            _driver.FindElement(By.Id("username")).SendKeys(academicEmailAddress.Split("@")[0]);
-
-            _driver.FindElement(By.Id("password")).SendKeys(password);
-            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
-
-            _driver.FindElement(By.Id("loginButton")).Click();
-            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
-
-            // class: banner banner-danger banner-dismissible -> Wrong credentials in unipi auth page
-            // class: mdc-card p-4 w-lg-66 m-auto -> Too many requests in unipi auth page
-            // class: row text-title -> Successful login
-            var loginResultElement = _driver.FindElement(
-                By.XPath("//div[@class='banner banner-danger banner-dismissible' or @class='mdc-card p-4 w-lg-66 m-auto' or @class='row text-title']"));
-
-            var resultMessage = loginResultElement.Text;
-            var tagName = loginResultElement.TagName;
-            var className = loginResultElement.GetAttribute("class");
-            _logger.LogDebug("TagName: {tag}", tagName);
-            _logger.LogDebug("ClassName: {class}", className);
-
-            if (loginResultElement.GetAttribute("class").Trim().Equals("row text-title"))
-            {
-                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
-
-                _logger.LogInformation("Successful login of {email}", academicEmailAddress);
-                return (true, "success");
-            }
-
-            _logger.LogWarning("Authentication failed. Error message: {message}", resultMessage);
-
-            return (false, resultMessage);
+            return EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred while trying to login to microsoft teams");
             return (false, "Login failed. Check your credentials and try again");
         }
+    }
+
+    private (bool result, string resultMessage) EnterUniversityCredentials(string academicEmailAddress, string password,
+        CancellationToken? cancellationToken = null)
+    {
+        // Split the academic email address to get the registration number for login
+        _driver!.FindElement(By.Id("username")).SendKeys(academicEmailAddress.Split("@")[0]);
+
+        _driver.FindElement(By.Id("password")).SendKeys(password);
+        if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
+
+        _driver.FindElement(By.Id("loginButton")).Click();
+        if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
+
+        // class: banner banner-danger banner-dismissible -> Wrong credentials in unipi auth page
+        // class: mdc-card p-4 w-lg-66 m-auto -> Too many requests in unipi auth page
+        // class: row text-title -> Successful login
+        var loginResultElement = _driver.FindElement(
+            By.XPath("//div[@class='banner banner-danger banner-dismissible' or @class='mdc-card p-4 w-lg-66 m-auto' or @class='row text-title']"));
+
+        var resultMessage = loginResultElement.Text;
+        var tagName = loginResultElement.TagName;
+        var className = loginResultElement.GetAttribute("class");
+        _logger.LogDebug("TagName: {tag}", tagName);
+        _logger.LogDebug("ClassName: {class}", className);
+
+        if (loginResultElement.GetAttribute("class").Trim().Equals("row text-title"))
+        {
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelLoginErrorMessage);
+
+            _logger.LogInformation("Successful login of {email}", academicEmailAddress);
+            return (true, "success");
+        }
+
+        _logger.LogWarning("Authentication failed. Error message: {message}", resultMessage);
+
+        return (false, resultMessage);
     }
 
     private const string CancelJoinMeetingErrorMessage = 
@@ -150,25 +156,42 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _driver.Url = meetingLink;
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
+            // Handle the open app popup:
+            // TODO: Write comment
+            var wait = new WebDriverWait(_driver, _driver.Manage().Timeouts().ImplicitWait);
+            wait.Until(driver => ((IJavaScriptExecutor)driver)
+                .ExecuteScript("return document.readyState").Equals("complete"));
+
+            var urlWithoutOpenAppPrompt = _driver.Url;
+            _driver.Url = "http://www.onepixelwebsite.com/";
+            _driver.Url = urlWithoutOpenAppPrompt;
+
             _driver.FindElement(By.Id("openTeamsClientInBrowser")).Click();
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
             // class: powerbar-profile fadeable -> Exists in the meeting page if the user is already logged in
             // class: form-group col-md-24 -> Exists in the login page if the user is NOT already logged in
             var nextElement = _driver.FindElement(
-                By.XPath("//div[@class='powerbar-profile fadeable' or @class='form-group col-md-24']"));
+                By.XPath($"//div[@class='powerbar-profile fadeable' or @class='form-group col-md-24' or @data-test-id='{academicEmailAddress}']"));
 
+            var dataTestId = nextElement.GetAttribute("data-test-id");
             var className = nextElement.GetAttribute("class");
             _logger.LogDebug("JoinMeeting: Stage 1 ClassName -> {class}", className);
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-            (bool loginResult, string loginResultMessage) = (true, string.Empty);
-            if (nextElement.GetAttribute("class").Trim().Equals("form-group col-md-24"))
+            if (className.Trim().Equals("form-group col-md-24"))
             {
-                (loginResult, loginResultMessage) = Login(academicEmailAddress, password, cancellationToken);
+                (bool loginResult, string loginResultMessage) = Login(academicEmailAddress, password, cancellationToken, false);
+                if (loginResult == false) return (false, loginResultMessage);
             }
+            else if (dataTestId != null && dataTestId.Trim().Equals(academicEmailAddress))
+            {
+                nextElement.Click();
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-            if (loginResult == false) return (false, loginResultMessage);
+                EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+                _driver.FindElement(By.Id("idSIButton9")).Click();
+            }
 
             // Get this element to make sure the page has loaded before reducing the implicit wait
             // to find the notifications popup and disable it only if it exists
@@ -180,7 +203,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _previousImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
             try
             {
-                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
                 _driver.FindElement(By.XPath("//button[@title='Dismiss']")).Click();
             }
             catch (NoSuchElementException ex)
@@ -212,7 +235,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogDebug(ex, "Couldn't find join button. Waiting...");
+                    _logger.LogTrace(ex, "Couldn't find join button. Waiting...");
                 }
 
                 if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
@@ -238,7 +261,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
         }
         catch (Exception ex)
         {
-            _logger.LogError("Login failed with exception: {ex}", ex);
+            _logger.LogError("Join meeting failed with exception: {ex}", ex);
             return (false, "Failed to join the meeting. Check your internet connection. Also if you have changed your" +
                            "academic password logout and login again");
         }

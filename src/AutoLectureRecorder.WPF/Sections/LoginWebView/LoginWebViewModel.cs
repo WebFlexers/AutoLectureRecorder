@@ -13,6 +13,9 @@ using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using AutoLectureRecorder.Resources.Themes;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace AutoLectureRecorder.Sections.LoginWebView;
 
@@ -30,10 +33,11 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     public string UrlPathSegment => nameof(LoginWebViewModel);
     public IScreen HostScreen { get; }
 
-    public ReactiveCommand<Unit, Unit> LoginToMicrosoftTeamsCommand { get; }
+    public ReactiveCommand<WebView2, Unit> LoginToMicrosoftTeamsCommand { get; }
 
     private readonly CancellationTokenSource _loginCancellationTokenSource;
     private readonly CancellationToken _loginCancellationToken;
+
     public LoginWebViewModel(ILogger<LoginWebViewModel> logger, IScreenFactory screenFactory, IViewModelFactory viewModelFactory,
                              IWindowFactory windowFactory, IWebDriverFactory webDriverFactory, IStudentAccountRepository studentAccountData)
     {
@@ -57,7 +61,15 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
             _password = credentials.Item2;
         });
 
-        LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask(LoginToMicrosoftTeams);
+        LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask<WebView2>(async webview2 =>
+        {
+            webview2.CoreWebView2.Profile.PreferredColorScheme = ThemeManager.CurrentColorTheme == ColorTheme.Dark
+                ? CoreWebView2PreferredColorScheme.Dark
+                : CoreWebView2PreferredColorScheme.Light;
+
+            await webview2.CoreWebView2.Profile.ClearBrowsingDataAsync();
+            await LoginToMicrosoftTeams();
+        });
 
         var mainWindow = Application.Current.MainWindow!;
         var isWindowFullScreen = mainWindow.WindowState == WindowState.Maximized;

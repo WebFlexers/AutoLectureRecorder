@@ -2,6 +2,7 @@
 using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,6 +10,8 @@ namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
 public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
 {
+    private readonly CompositeDisposable _externalDisposables = new();
+
     public ScheduleView()
     {
         InitializeComponent();
@@ -37,14 +40,16 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
 
             this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Sunday], 
                 v => v.SundaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
+
+            disposables.Add(_externalDisposables);
         });
     }
 
     private void ScheduledLectureComponent_OnClick(object sender, RoutedEventArgs e)
     {
         var lectureComponent = (ScheduledLectureComponent)sender;
-        ViewModel!.NavigateToCreateLectureCommand.Execute(lectureComponent.Lecture)
-            .Subscribe();
+        ViewModel!.NavigateToCreateLectureCommand?.Execute(lectureComponent.Lecture)
+            .Subscribe().DisposeWith(_externalDisposables);
     }
 
     private void LecturesScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
@@ -60,56 +65,63 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
             case nameof(MondaysLecturesScrollViewer):
                 if (endOfScrollViewerReached)
                 {
-                    ViewModel!.LoadNextScheduledLecturesCommand
-                        .Execute(DayOfWeek.Monday).Subscribe();
+                    ViewModel!.LoadNextScheduledLecturesCommand?
+                        .Execute(DayOfWeek.Monday)
+                        .Subscribe().DisposeWith(_externalDisposables);
                 }
                 downArrowPackIcon = MondayDownArrowPackIcon;
                 break;
             case nameof(TuesdaysLecturesScrollViewer):
                 if (endOfScrollViewerReached)
                 {
-                    ViewModel!.LoadNextScheduledLecturesCommand
-                        .Execute(DayOfWeek.Tuesday).Subscribe();
+                    ViewModel!.LoadNextScheduledLecturesCommand?
+                        .Execute(DayOfWeek.Tuesday)
+                        .Subscribe().DisposeWith(_externalDisposables);
                 }
                 downArrowPackIcon = TuesdayDownArrowPackIcon;
                 break;
             case nameof(WednesdaysLecturesScrollViewer):
                 if (endOfScrollViewerReached)
                 {
-                    ViewModel!.LoadNextScheduledLecturesCommand
-                        .Execute(DayOfWeek.Wednesday).Subscribe();
+                    ViewModel!.LoadNextScheduledLecturesCommand?
+                        .Execute(DayOfWeek.Wednesday)
+                        .Subscribe().DisposeWith(_externalDisposables);
                 }
                 downArrowPackIcon = WednesdayDownArrowPackIcon;
                 break;
             case nameof(ThursdaysLecturesScrollViewer):
                 if (endOfScrollViewerReached)
                 {
-                    ViewModel!.LoadNextScheduledLecturesCommand
-                        .Execute(DayOfWeek.Thursday).Subscribe();
+                    ViewModel!.LoadNextScheduledLecturesCommand?
+                        .Execute(DayOfWeek.Thursday)
+                        .Subscribe().DisposeWith(_externalDisposables);
                 }
                 downArrowPackIcon = ThursdayDownArrowPackIcon;
                 break;
             case nameof(FridaysLecturesScrollViewer):
                 if (endOfScrollViewerReached)
                 {
-                    ViewModel!.LoadNextScheduledLecturesCommand
-                        .Execute(DayOfWeek.Friday).Subscribe();
+                    ViewModel!.LoadNextScheduledLecturesCommand?
+                        .Execute(DayOfWeek.Friday)
+                        .Subscribe().DisposeWith(_externalDisposables);
                 }
                 downArrowPackIcon = FridayDownArrowPackIcon;
                 break;
             case nameof(SaturdaysLecturesScrollViewer):
                 if (endOfScrollViewerReached)
                 {
-                    ViewModel!.LoadNextScheduledLecturesCommand
-                        .Execute(DayOfWeek.Saturday).Subscribe();
+                    ViewModel!.LoadNextScheduledLecturesCommand?
+                        .Execute(DayOfWeek.Saturday)
+                        .Subscribe().DisposeWith(_externalDisposables);
                 }
                 downArrowPackIcon = SaturdayDownArrowPackIcon;
                 break;
             case nameof(SundaysLecturesScrollViewer):
                 if (endOfScrollViewerReached)
                 {
-                    ViewModel!.LoadNextScheduledLecturesCommand
-                        .Execute(DayOfWeek.Sunday).Subscribe();
+                    ViewModel!.LoadNextScheduledLecturesCommand?
+                        .Execute(DayOfWeek.Sunday)
+                        .Subscribe().DisposeWith(_externalDisposables);
                 }
                 downArrowPackIcon = SundayDownArrowPackIcon;
                 break;
@@ -131,7 +143,8 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
     {
         if (sender is not ScheduledLectureComponent lectureComponent) return;
 
-        ViewModel!.UpdateScheduledLectureCommand
-            .Execute(lectureComponent.Lecture).Subscribe();
+        ViewModel!.UpdateScheduledLectureCommand?
+            .Execute(lectureComponent.Lecture)
+            .Subscribe().DisposeWith(_externalDisposables);
     }
 }
