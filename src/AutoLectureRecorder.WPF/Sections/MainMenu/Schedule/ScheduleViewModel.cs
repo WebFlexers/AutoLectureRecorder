@@ -98,13 +98,6 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         });
     }
 
-    ~ScheduleViewModel()
-    {
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
-        GC.Collect();
-    }
-
     public async Task PopulateAllScheduledLectures()
     {
         var allLectures = await _lectureRepository.GetAllScheduledLecturesAsync();

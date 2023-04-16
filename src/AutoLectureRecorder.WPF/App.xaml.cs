@@ -91,18 +91,18 @@ public partial class App : Application
 
         if (showStartupWindow)
         {
-            var endTime = Stopwatch.GetTimestamp();
-            var diff = Stopwatch.GetElapsedTime(startTime, endTime);
+            //var endTime = Stopwatch.GetTimestamp();
+            //var diff = Stopwatch.GetElapsedTime(startTime, endTime);
 
-            // If the loading takes less that the amount of seconds below
-            // wait until at least that amount is over in order to show the
-            // beautiful loading screen, along with it's animations
-            if (diff < TimeSpan.FromSeconds(2.5))
-            {
-                await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
-            }
+            //// If the loading takes less that the amount of seconds below
+            //// wait until at least that amount is over in order to show the
+            //// beautiful loading screen, along with it's animations
+            //if (diff < TimeSpan.FromSeconds(2.5))
+            //{
+            //    await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
+            //}
 
-            startupWindow!.Close();
+            //startupWindow!.Close();
         }
 
         // Set the main window, to fix a bug that caused the
