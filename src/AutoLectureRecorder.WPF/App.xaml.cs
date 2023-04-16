@@ -178,13 +178,24 @@ public partial class App : Application
         return resourceDictionary[styleName] as Style;
     }
 
+    private static ResourceDictionary? _resourceDictionary;
+    private static ColorTheme? _currentDictionaryTheme;
+
     public static ResourceDictionary GetCurrentThemeDictionary()
     {
-        ResourceDictionary resourceDictionary;
+        if (_currentDictionaryTheme != null && _currentDictionaryTheme == ThemeManager.CurrentColorTheme)
+        {
+            return _resourceDictionary!;
+        }
+
+        if (_currentDictionaryTheme == null)
+        {
+            _currentDictionaryTheme = ThemeManager.CurrentColorTheme;
+        }
 
         if (ThemeManager.CurrentColorTheme == ColorTheme.Light)
         {
-            resourceDictionary = new ResourceDictionary
+            _resourceDictionary = new ResourceDictionary
             {
                 Source = new Uri(
                     $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/LightTheme.xaml",
@@ -193,7 +204,7 @@ public partial class App : Application
         }
         else
         {
-            resourceDictionary = new ResourceDictionary
+            _resourceDictionary = new ResourceDictionary
             {
                 Source = new Uri(
                     $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/DarkTheme.xaml",
@@ -201,6 +212,6 @@ public partial class App : Application
             };
         }
 
-        return resourceDictionary;
+        return _resourceDictionary;
     }
 }

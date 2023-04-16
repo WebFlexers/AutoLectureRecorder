@@ -90,7 +90,7 @@ public class RecordWindowViewModel : ReactiveObject, IScreen
             _cancellationTokenSource.Cancel();
             if (_joinMeetingTask != null)
             {
-                await _joinMeetingTask;
+                var result = await _joinMeetingTask;
             }
             _webDriver?.Dispose();
             _joinMeetingTask?.Dispose();

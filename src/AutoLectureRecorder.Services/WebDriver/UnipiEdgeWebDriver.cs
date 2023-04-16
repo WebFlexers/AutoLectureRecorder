@@ -230,6 +230,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             {
                 try
                 {
+                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
                     _driver.FindElement(By.XPath("//button[contains(@data-tid, 'join-btn')]")).Click();
                     clickedJoinButton = true;
                 }
@@ -237,8 +238,6 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                 {
                     _logger.LogTrace(ex, "Couldn't find join button. Waiting...");
                 }
-
-                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
             } while (DateTime.UtcNow < maximumWaitDateTime);
 
             // TODO: Check for multiple multiple Join buttons and click the latest one (rare)

@@ -1,10 +1,12 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ReactiveUI;
 using System;
+using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using ReactiveMarbles.ObservableEvents;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
@@ -20,36 +22,29 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
         {
             DataContext = ViewModel;
 
-            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Monday], 
+            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Monday],
                 v => v.MondaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
 
-            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Tuesday], 
+            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Tuesday],
                 v => v.TuesdaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
 
-            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Wednesday], 
+            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Wednesday],
                 v => v.WednesdaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
 
-            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Thursday], 
+            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Thursday],
                 v => v.ThursdaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
 
-            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Friday], 
+            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Friday],
                 v => v.FridaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
 
-            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Saturday], 
+            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Saturday],
                 v => v.SaturdaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
 
-            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Sunday], 
+            this.OneWayBind(ViewModel, vm => vm.VisibleScheduledLecturesByDay[DayOfWeek.Sunday],
                 v => v.SundaysLecturesItemsControl.ItemsSource).DisposeWith(disposables);
 
             disposables.Add(_externalDisposables);
         });
-    }
-
-    private void ScheduledLectureComponent_OnClick(object sender, RoutedEventArgs e)
-    {
-        var lectureComponent = (ScheduledLectureComponent)sender;
-        ViewModel!.NavigateToCreateLectureCommand?.Execute(lectureComponent.Lecture)
-            .Subscribe().DisposeWith(_externalDisposables);
     }
 
     private void LecturesScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
@@ -137,14 +132,5 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
         {
             downArrowPackIcon.Visibility = Visibility.Visible;
         }
-    }
-
-    private void LectureComponent_OnCheckedChanged(object sender, RoutedEventArgs e)
-    {
-        if (sender is not ScheduledLectureComponent lectureComponent) return;
-
-        ViewModel!.UpdateScheduledLectureCommand?
-            .Execute(lectureComponent.Lecture)
-            .Subscribe().DisposeWith(_externalDisposables);
     }
 }

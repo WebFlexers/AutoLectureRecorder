@@ -1,17 +1,14 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using DynamicData;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -30,13 +27,11 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     // Used for pagination
     public const int LoadItemsCount = 5;
 
-    public ReactiveCommand<ReactiveScheduledLecture, Unit>? NavigateToCreateLectureCommand { get; private set; }
     public ReactiveCommand<DayOfWeek, bool>? LoadNextScheduledLecturesCommand { get; private set; }
-    public ReactiveCommand<ReactiveScheduledLecture, Unit>? UpdateScheduledLectureCommand { get; private set; }
+    public ReactiveCommand<ReactiveScheduledLecture, bool>? DisableConflictingLecturesCommand { get; private set; }
     public Task? PopulateAllScheduledLecturesTask { get; private set; }
 
-    [Reactive]
-    public Dictionary<DayOfWeek, ObservableCollection<ReactiveScheduledLecture>> VisibleScheduledLecturesByDay { get; set; } = new()
+    public DisposableDictionary<DayOfWeek, DisposableObservableCollection<ReactiveScheduledLecture>> VisibleScheduledLecturesByDay { get; set; } = new()
     {
         { DayOfWeek.Sunday, new() },
         { DayOfWeek.Monday, new() },
@@ -58,7 +53,6 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         { DayOfWeek.Saturday, 0 }
     };
 
-    [Reactive]
     public Dictionary<DayOfWeek, List<ReactiveScheduledLecture>> AllScheduledLecturesByDay { get; set; } = new()
     {
         { DayOfWeek.Sunday, new() },
@@ -88,35 +82,27 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
         this.WhenActivated(disposables =>
         {
-            NavigateToCreateLectureCommand = ReactiveCommand.Create<ReactiveScheduledLecture>(lecture =>
-            {
-                var createLectureVm = _viewModelFactory.CreateRoutableViewModel(typeof(CreateLectureViewModel));
-                HostScreen.Router.Navigate.Execute(createLectureVm).Subscribe();
-                MessageBus.Current.SendMessage(lecture, PubSubMessages.SetUpdateModeToScheduledLecture);
-            });
-            NavigateToCreateLectureCommand.DisposeWith(disposables);
-
             LoadNextScheduledLecturesCommand = ReactiveCommand.CreateFromTask<DayOfWeek, bool>(LoadNextScheduledLectures);
-            LoadNextScheduledLecturesCommand.DisposeWith(disposables);
 
-            UpdateScheduledLectureCommand = ReactiveCommand.CreateFromTask<ReactiveScheduledLecture>(async lecture =>
-            {
-                if (await DisableConflictingLectures(lecture) == false) return;
+            DisableConflictingLecturesCommand =
+                ReactiveCommand.CreateFromTask<ReactiveScheduledLecture, bool>(DisableConflictingLectures);
 
-                var result = await _lectureRepository.UpdateScheduledLectureAsync(lecture);
-
-                if (result == false) return;
-
-                // Send message to recalculate the closest scheduled lecture to now,
-                // in case the newly updated lecture is closer
-                MessageBus.Current.SendMessage(true, PubSubMessages.CheckClosestScheduledLecture);
-            });
-            UpdateScheduledLectureCommand.DisposeWith(disposables);
+            MessageBus.Current.Listen<ReactiveScheduledLecture>(PubSubMessages.DisableConflictingLectures)
+                .Select(lecture => lecture)
+                .InvokeCommand(DisableConflictingLecturesCommand)
+                .DisposeWith(disposables);
 
             PopulateAllScheduledLecturesTask = PopulateAllScheduledLectures();
             PopulateAllScheduledLecturesTask.DisposeWith(disposables);
-            
+            VisibleScheduledLecturesByDay.DisposeWith(disposables);
         });
+    }
+
+    ~ScheduleViewModel()
+    {
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
     }
 
     public async Task PopulateAllScheduledLectures()

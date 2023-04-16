@@ -240,15 +240,15 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         // Since the lecture is not today we iterate through the days until we reach
         // the day of the scheduled lecture
         int dayCounter = (int)today;
-        while (dayCounter <= 7)
+        while (dayCounter <= 6)
         {
             // Start counting the days from tomorrow
             dayCounter++;
 
             // When we surpass Sunday we go to Monday
-            if (dayCounter > 7)
+            if (dayCounter > 6)
             {
-                dayCounter = 1;
+                dayCounter = 0;
             }
 
             if ((int)NextScheduledLecture.Day!.Value == dayCounter)
