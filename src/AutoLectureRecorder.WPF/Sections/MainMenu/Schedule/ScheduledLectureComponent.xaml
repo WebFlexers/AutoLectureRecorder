@@ -1,0 +1,81 @@
+﻿<UserControl
+    x:Class="AutoLectureRecorder.Sections.MainMenu.Schedule.ScheduledLectureComponent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    mc:Ignorable="d" 
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontWeight="Medium"
+    TextElement.FontSize="14"
+    FontFamily="{materialDesign:MaterialDesignFont}"
+    d:DesignHeight="105" d:DesignWidth="155.5"
+    MouseDown="ScheduledLectureComponent_OnMouseDown"
+    MouseEnter="ScheduledLectureComponent_OnMouseEnter"
+    MouseLeave="ScheduledLectureComponent_OnMouseLeave">
+
+    <Grid Cursor="Hand">
+        <Grid.OpacityMask>
+            <VisualBrush Visual="{Binding ElementName=MainBorder}" />
+        </Grid.OpacityMask>
+
+        <Border x:Name="MainBorder" 
+                CornerRadius="7" 
+                BorderBrush="{DynamicResource PrimaryDarkerHoverBrush}"
+                Background="{DynamicResource SecondaryBackgroundBrush}"/> 
+
+        <Border x:Name="LeftSidebarBorder" 
+                Width="7"
+                HorizontalAlignment="Left"
+                Background="{DynamicResource SuccessBrush}"/>
+
+        <Grid>
+            <VirtualizingStackPanel x:Name="MainStackPanel" 
+                                    IsVirtualizing="True"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Margin="0, 6, 0, 0">
+                <Grid Height="45">
+                    <TextBlock x:Name="SubjectNameTextBlock" 
+                               VerticalAlignment="Center"
+                               TextAlignment="Center" 
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               FontSize="16"
+                               Padding="7, 0"
+                               d:Text="Test Subject Name">
+                    </TextBlock>
+                </Grid>
+
+                <TextBlock x:Name="TimeTextBlock" 
+                           FontSize="13"
+                           TextAlignment="Center"
+                           d:Text="10:00am - 12:00pm">
+                </TextBlock>
+
+                <VirtualizingStackPanel x:Name="CheckboxesStackPanel"
+                                        IsVirtualizing="True"
+                                        Margin="0, 5, 0, 0"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        Cursor="Arrow"
+                                        MouseDown="CheckboxesStackPanel_OnMouseDown">
+                    <CheckBox x:Name="ActiveCheckBox" 
+                              Content="Active"
+                              Padding="4,0,0,0"
+                              VerticalAlignment="Bottom"
+                              Checked="CheckBox_CheckedChanged"
+                              Unchecked="CheckBox_CheckedChanged"/>
+
+                    <CheckBox x:Name="UploadCheckBox" 
+                              Content="Upload"
+                              Margin="2, 0, 0, 0"
+                              VerticalAlignment="Bottom"
+                              Checked="CheckBox_CheckedChanged"
+                              Unchecked="CheckBox_CheckedChanged"/>
+                </VirtualizingStackPanel>
+            </VirtualizingStackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

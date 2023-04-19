@@ -1,12 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ReactiveMarbles.ObservableEvents;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
@@ -45,6 +43,22 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
 
             disposables.Add(_externalDisposables);
         });
+    }
+
+    private void ScheduledLectureComponent_OnClick(object sender, RoutedEventArgs e)
+    {
+        var lectureComponent = (ScheduledLectureComponent)sender;
+        ViewModel!.NavigateToCreateLectureCommand?.Execute(lectureComponent.Lecture)
+            .Subscribe().DisposeWith(_externalDisposables);
+    }
+
+    private void LectureComponent_OnCheckedChanged(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ScheduledLectureComponent lectureComponent) return;
+
+        ViewModel!.UpdateScheduledLectureCommand?
+            .Execute(lectureComponent.Lecture)
+            .Subscribe().DisposeWith(_externalDisposables);
     }
 
     private void LecturesScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)

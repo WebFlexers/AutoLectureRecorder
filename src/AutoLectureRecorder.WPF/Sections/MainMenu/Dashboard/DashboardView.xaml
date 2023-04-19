@@ -7,6 +7,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:system="clr-namespace:System;assembly=mscorlib"
+            xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.Dashboard"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,7 +19,8 @@
             d:DesignWidth="1160"
             d:DesignHeight="768">
 
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -388,6 +390,9 @@
 
                 <materialDesign:PackIcon x:Name="LecturesDownArrowPackIcon"
                                          Grid.Row="1"
+                                         xf:Animations.PrimaryBinding="{Binding AreLecturesScheduledToday}"
+                                         xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
+                                         xf:Animations.IterationBehavior="Forever"
                                          Width="22"
                                          Height="22"
                                          VerticalAlignment="Center"
