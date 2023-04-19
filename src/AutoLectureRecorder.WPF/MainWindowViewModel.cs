@@ -75,25 +75,14 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     private void ToggleFullscreenVideoMode()
     {
         IsWindowTopMost = _isFullScreenVideoPlaying;
-
-        if (_isFullScreenVideoPlaying)
-        {
-            MainWindowState = WindowState.Maximized;
-        }
-        else
-        {
-            MainWindowState = WindowState.Normal;
-        }
+        MainWindowState = _isFullScreenVideoPlaying ? WindowState.Maximized : WindowState.Normal;
     }
 
     public void SetRoutedViewHostContent(Type type)
     {
-        if (Router.NavigationStack.LastOrDefault()?.GetType() == type)
-        {
-            return;
-        }
+        if (Router.NavigationStack.LastOrDefault()?.GetType() == type) return;
 
-        Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(type));
+        Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(type));
 
         _logger.LogInformation("Navigated to {viewModel}", type.Name);
     }

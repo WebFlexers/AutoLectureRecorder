@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -32,15 +33,17 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     [Reactive]
     public ObservableCollection<ReactiveScheduledLecture> TodaysLectures { get; private set; } = new();
 
-    private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
+    private ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
     public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;
 
-    private DispatcherTimer? _nextLectureCalculatorTimer;
+    private readonly DispatcherTimer? _nextLectureCalculatorTimer;
 
     [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
+
+    private CompositeDisposable? _disposables;
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, 
         IScheduledLectureRepository scheduledLectureRepository)
@@ -60,35 +63,22 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
         {
             var mainMenuViewModel = (MainMenuViewModel)screenFactory.GetMainMenuViewModel();
-            mainMenuViewModel.SetRoutedViewHostContent(typeof(CreateLectureViewModel));
+            mainMenuViewModel.Navigate(typeof(CreateLectureViewModel));
         });
-
-        Observable.FromAsync(FetchTodaysLectures)
-            .Catch((Exception e) =>
-            {
-                _logger.LogError(e, "An error occurred while fetching todays lectures");
-                return Observable.Empty<Unit>();
-            }).Subscribe();
 
         // Get a notification when a scheduled lecture is either added or deleted
         // in order to search again for the closest one
         MessageBus.Current.Listen<bool>(PubSubMessages.CheckClosestScheduledLecture)
-            .Subscribe(shouldCheck =>
+            .Select(shouldCheck => shouldCheck)
+            .InvokeCommand(ReactiveCommand.CreateFromTask<bool>(async shouldCheck =>
             {
-              if (!shouldCheck) return;
+                if (shouldCheck == false) return;
 
-              Observable.FromAsync(async () =>
-              {
-                  var lecturesSorted = await _scheduledLectureRepository.GetAllScheduledLecturesSortedAsync();
-                  if (lecturesSorted == null || lecturesSorted.Any() == false) return;
+                var lecturesSorted = await _scheduledLectureRepository.GetAllScheduledLecturesSortedAsync();
+                if (lecturesSorted == null || lecturesSorted.Any() == false) return;
 
-                  NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
-              }).Catch((Exception e) =>
-              {
-                  _logger.LogError(e, "An error occurred while searching for closest scheduled lectures to now");
-                  return Observable.Empty<Unit>();
-              }).Subscribe();
-            });
+                NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
+            }));
 
         // Create a timer that constantly calculates the difference
         // between now and the closest scheduled lecture
@@ -100,11 +90,25 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
         {
             _nextLectureCalculatorTimer.Start();
         });
-        
-        _areLecturesScheduledToday = 
-            this.WhenAnyValue(vm => vm.TodaysLectures)
-                .Select(lectures => lectures.Any())
-                .ToProperty(this, vm => vm.AreLecturesScheduledToday);
+
+        this.WhenActivated(disposables =>
+        {
+            _disposables = disposables;
+
+            Observable.FromAsync(FetchTodaysLectures)
+                .Catch((Exception e) =>
+                {
+                    _logger.LogError(e, "An error occurred while fetching todays lectures");
+                    return Observable.Empty<Unit>();
+                }).Subscribe()
+                .DisposeWith(disposables);
+
+            _areLecturesScheduledToday = 
+                this.WhenAnyValue(vm => vm.TodaysLectures)
+                    .Select(lectures => lectures.Any())
+                    .ToProperty(this, vm => vm.AreLecturesScheduledToday)
+                    .DisposeWith(disposables);
+        });
     }
 
     private async Task FetchTodaysLectures()
@@ -114,36 +118,28 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
 
         if (todaysLecturesUnsorted == null || todaysLecturesUnsorted.Any() == false) return;
 
-        var todaysLecturesSortedByStartTime = 
+        var todaysLecturesSortedByStartTime =
             todaysLecturesUnsorted.OrderBy(lecture => lecture.StartTime);
 
         // TODO: Create a way to detect whether a lecture was successfully recorded and change the icon accordingly
         TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(todaysLecturesSortedByStartTime);
     }
 
-    private void CalculateClosestLectureTimeDiffTick(object? sender, EventArgs e)
+    private async void CalculateClosestLectureTimeDiffTick(object? sender, EventArgs e)
     {
         NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
 
         if (NextScheduledLectureTimeDiff < TimeSpan.FromSeconds(1))
         {
             _nextLectureCalculatorTimer!.Stop();
-            Observable.FromAsync(async () =>
-            {
-                // Wait 1 second to make sure enough time has passed
-                // to find the closest scheduled lecture after the current
-                await Task.Delay(TimeSpan.FromSeconds(1));
 
-                FindClosestScheduledLectureToNowCommand.Execute()
-                    .Subscribe(_ =>
-                    {
-                        _nextLectureCalculatorTimer.Start();
-                    });
-            }).Catch((Exception ex) =>
+            await Task.Delay(TimeSpan.FromSeconds(1));
+
+            FindClosestScheduledLectureToNowCommand.Execute()
+            .Subscribe(_ =>
             {
-                _logger.LogError(ex, "An error occurred while trying to find closest lecture after the previous reached 0");
-                return Observable.Empty<Unit>();
-            }).Subscribe();
+                _nextLectureCalculatorTimer.Start();
+            }).DisposeWith(_disposables!);
         }
     }
 

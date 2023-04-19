@@ -18,8 +18,7 @@
             d:DesignHeight="768">
     <Grid>
         <!-- Design time grid that represents the titlebar buttons -->
-        <d:Grid d:Grid.Column="2"
-                d:Width="135"
+        <d:Grid d:Width="135"
                 d:Height="30"
                 d:Background="Black"
                 d:HorizontalAlignment="Right"

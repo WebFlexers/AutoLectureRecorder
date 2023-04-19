@@ -35,7 +35,8 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
                 .DisposeWith(disposables);
 
             // Commands
-            this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.ScheduleLecturesButton);
+            this.BindCommand(ViewModel, vm => vm.NavigateToCreateLectureCommand, v => v.ScheduleLecturesButton)
+                .DisposeWith(disposables);
 
             // Responsiveness
             this.WhenAnyValue(v => v.MainGrid.ActualHeight)

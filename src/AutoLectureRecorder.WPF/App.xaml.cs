@@ -124,11 +124,11 @@ public partial class App : Application
 
         if (isLoggedIn)
         {
-            router.Navigate.Execute(services.GetRequiredService<MainMenuViewModel>());
+            router.NavigateAndReset.Execute(services.GetRequiredService<MainMenuViewModel>());
         }
         else
         {
-            router.Navigate.Execute(services.GetRequiredService<LoginViewModel>());
+            router.NavigateAndReset.Execute(services.GetRequiredService<LoginViewModel>());
         }
         
     }

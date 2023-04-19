@@ -36,7 +36,7 @@ public class ScheduledLectureViewModel : ReactiveObject, IActivatableViewModel
         NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
         {
             var mainMenuVm = _viewModelFactory.CreateRoutableViewModel(typeof(MainMenuViewModel));
-            ((MainMenuViewModel)mainMenuVm).SetRoutedViewHostContent(typeof(CreateLectureViewModel));
+            ((MainMenuViewModel)mainMenuVm).Navigate(typeof(CreateLectureViewModel));
             MessageBus.Current.SendMessage(ScheduledLecture, PubSubMessages.SetUpdateModeToScheduledLecture);
         });
 

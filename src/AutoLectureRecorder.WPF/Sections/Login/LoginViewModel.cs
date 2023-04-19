@@ -132,7 +132,7 @@ public class LoginViewModel : ReactiveObject, IRoutableViewModel, IActivatableVi
             return;
         }
 
-        HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));
+        HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));
         MessageBus.Current.SendMessage<(string academicEmailAddress, string password)>((AcademicEmailAddress, Password), 
             PubSubMessages.FillLoginCredentials);
 

@@ -83,7 +83,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
     private void NavigateToLoginAfterCancel()
     {
-        HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
+        HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
         MessageBus.Current.SendMessage("The login process was cancelled. If you want to continue, input your credentials and try again", 
             PubSubMessages.UpdateLoginErrorMessage);
     }
@@ -121,11 +121,11 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         {
             await _studentAccountData.DeleteStudentAccountAsync();
             await _studentAccountData.InsertStudentAccountAsync(_academicEmailAddress.Split("@")[0], _academicEmailAddress, _password);
-            HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(MainMenuViewModel)));
+            HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(MainMenuViewModel)));
         }
         else
         {
-            HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
+            HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
             MessageBus.Current.SendMessage(resultMessage, PubSubMessages.UpdateLoginErrorMessage);
         }
 

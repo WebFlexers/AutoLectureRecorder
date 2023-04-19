@@ -48,9 +48,14 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; }
 
-    // An extra navigation stack that handles forward navigation
-    // since it doesn't already exist in ReactiveUI
-    private readonly Stack<Type> _navigationStack = new();
+    // An extra navigation stack that handles forward and back navigation
+    // since it doesn't already exist in ReactiveUI.
+    // IMPORTANT: It also avoids memory leaks caused by ViewModel instances
+    // being directly referenced by the ReactiveUI Router NavigationStack.
+    // For that reason NavigateAndReset must always be used instead of Navigate
+    // in order for the NavigationStack of the Router to only contain the current ViewModel
+    private int _currentNavigationIndex = 0;
+    private readonly List<Type> _navigationStack = new();
 
     [Reactive]
     public Visibility MenuVisibility { get; set; } = Visibility.Visible;
@@ -64,17 +69,17 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         HostScreen = screenFactory.GetMainWindowViewModel();
 
         NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
-            SetRoutedViewHostContent(typeof(CreateLectureViewModel)));
+            Navigate(typeof(CreateLectureViewModel)));
         NavigateToDashboardCommand = ReactiveCommand.Create(() =>
-            SetRoutedViewHostContent(typeof(DashboardViewModel)));
+            Navigate(typeof(DashboardViewModel)));
         NavigateToLibraryCommand = ReactiveCommand.Create(() =>
-            SetRoutedViewHostContent(typeof(LibraryViewModel)));
+            Navigate(typeof(LibraryViewModel)));
         NavigateToScheduleCommand = ReactiveCommand.Create(() =>
-            SetRoutedViewHostContent(typeof(ScheduleViewModel)));
+            Navigate(typeof(ScheduleViewModel)));
         NavigateToSettingsCommand = ReactiveCommand.Create(() =>
-            SetRoutedViewHostContent(typeof(SettingsViewModel)));
+            Navigate(typeof(SettingsViewModel)));
         NavigateToUploadCommand = ReactiveCommand.Create(() =>
-            SetRoutedViewHostContent(typeof(UploadViewModel)));
+            Navigate(typeof(UploadViewModel)));
 
         NavigateToRecordWindowCommand = ReactiveCommand.Create(() =>
         {
@@ -116,28 +121,33 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
     private async Task Logout()
     {
         await _studentAccountData.DeleteStudentAccountAsync();
-        HostScreen.Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
+        HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));
     }
 
-    public void SetRoutedViewHostContent(Type type)
+    private void ToggleMenuVisibility(bool isFullScreen)
     {
-        if (Router.NavigationStack.LastOrDefault()?.GetType() == type)
-        {
-            return;
-        }
+        MenuVisibility = isFullScreen ? Visibility.Collapsed : Visibility.Visible;
+    }
 
-        Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(type));
+    private void SetRoutedViewHostContent(Type type)
+    {
+        if (Router.NavigationStack.LastOrDefault()?.GetType() == type) return;
 
-        _navigationStack.Push(type);
+        // Navigate and reset to avoid memory leaks with ViewModels being retained in memory
+        Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(type));
         _logger.LogInformation("Navigated to {viewModel}", type.Name);
     }
 
-    private void NavigateBack()
+    public void NavigateBack()
     {
-        if (Router.NavigationStack.Count > 1)
+        var backIndex = _currentNavigationIndex - 1;
+        var navigationStackCount = _navigationStack.Count;
+
+        if (navigationStackCount > 1 && backIndex >= 0)
         {
-            Router.NavigateBack.Execute();
-            _logger.LogInformation("Navigated to {viewModel}", Router.GetCurrentViewModel()!.ToString());
+            _currentNavigationIndex = backIndex;
+            var viewModelType = _navigationStack.ElementAt(backIndex);
+            SetRoutedViewHostContent(viewModelType);
         }
         else
         {
@@ -145,21 +155,36 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         }
     }
 
-    private void NavigateForward()
+    public void Navigate(Type type)
     {
-        if (_navigationStack.Count > 1)
+        if (_currentNavigationIndex < _navigationStack.Count - 1)
         {
-            Router.Navigate.Execute(_viewModelFactory.CreateRoutableViewModel(_navigationStack.Pop()));
-            _logger.LogInformation("Navigated to {viewModel}", Router.GetCurrentViewModel()!.ToString());
+            for (int i = _navigationStack.Count - 1; i > _currentNavigationIndex; i--)
+            {
+                _navigationStack.RemoveAt(i);
+            }
+        }
+
+        _navigationStack.Add(type);
+        _currentNavigationIndex = _navigationStack.Count - 1;
+
+        SetRoutedViewHostContent(type);
+    }
+
+    public void NavigateForward()
+    {
+        var forwardIndex = _currentNavigationIndex + 1;
+        var navigationStackCount = _navigationStack.Count;
+
+        if (navigationStackCount > 1 && forwardIndex < navigationStackCount)
+        {
+            _currentNavigationIndex = forwardIndex;
+            var viewModelType = _navigationStack.ElementAt(forwardIndex);
+            SetRoutedViewHostContent(viewModelType);
         }
         else
         {
             _logger.LogWarning("Tried to navigate forward, but there was no ViewModel left on the stack");
         }
-    }
-
-    private void ToggleMenuVisibility(bool isFullScreen)
-    {
-        MenuVisibility = isFullScreen ? Visibility.Collapsed : Visibility.Visible;
     }
 }

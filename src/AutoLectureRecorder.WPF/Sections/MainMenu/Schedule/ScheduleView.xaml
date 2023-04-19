@@ -8,7 +8,6 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.Schedule"
-            xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -20,8 +19,7 @@
             d:DesignWidth="1360"
             d:DesignHeight="768">
 
-    <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}" 
-            CornerRadius="10.6" 
+    <Border CornerRadius="10.6" 
             Margin="25, 45, 25, 25"
             BorderBrush="{DynamicResource SectionLineBrush}"
             BorderThickness="1"
@@ -114,9 +112,6 @@
 
             <materialDesign:PackIcon x:Name="MondayDownArrowPackIcon"
                                      Grid.Row="3" Grid.Column="0"
-                                     xf:Animations.PrimaryBinding="{Binding MondayHasLectures}"
-                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
-                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
@@ -167,9 +162,6 @@
 
             <materialDesign:PackIcon x:Name="TuesdayDownArrowPackIcon"
                                      Grid.Row="3" Grid.Column="1"
-                                     xf:Animations.PrimaryBinding="{Binding TuesdayHasLectures}"
-                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
-                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
@@ -220,9 +212,6 @@
 
             <materialDesign:PackIcon x:Name="WednesdayDownArrowPackIcon"
                                      Grid.Row="3" Grid.Column="2"
-                                     xf:Animations.PrimaryBinding="{Binding WednesdayHasLectures}"
-                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
-                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
@@ -273,9 +262,6 @@
 
             <materialDesign:PackIcon x:Name="ThursdayDownArrowPackIcon"
                                      Grid.Row="3" Grid.Column="3"
-                                     xf:Animations.PrimaryBinding="{Binding ThursdayHasLectures}"
-                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
-                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
@@ -326,9 +312,6 @@
 
             <materialDesign:PackIcon x:Name="FridayDownArrowPackIcon"
                                      Grid.Row="3" Grid.Column="4"
-                                     xf:Animations.PrimaryBinding="{Binding FridayHasLectures}"
-                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
-                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
@@ -379,9 +362,6 @@
 
             <materialDesign:PackIcon x:Name="SaturdayDownArrowPackIcon" 
                                      Grid.Row="3" Grid.Column="5"
-                                     xf:Animations.PrimaryBinding="{Binding SaturdayHasLectures}"
-                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
-                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
@@ -432,9 +412,6 @@
 
             <materialDesign:PackIcon x:Name="SundayDownArrowPackIcon"
                                      Grid.Row="3" Grid.Column="6"
-                                     xf:Animations.PrimaryBinding="{Binding SundayHasLectures}"
-                                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Bounce}, Event=None}"
-                                     xf:Animations.IterationBehavior="Forever"
                                      Width="22"
                                      Height="22"
                                      VerticalAlignment="Center"
