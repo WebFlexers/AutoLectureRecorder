@@ -75,7 +75,7 @@ public class AppBootstrapper
         services.AddSingleton<ISqliteDataAccess, SqliteDataAccess>();
         services.AddTransient<IAlrWebDriver, UnipiEdgeWebDriver>();
         services.AddTransient<IWebDriverDownloader, EdgeWebDriverDownloader>();
-        services.AddTransient<IRecorder, WindowsRecorder>();
+        //services.AddTransient<IRecorder, WindowsRecorder>();
         services.AddTransient<IStudentAccountRepository, StudentAccountRepository>();
         services.AddTransient<IScheduledLectureRepository, ScheduledLectureRepository>();
     }
