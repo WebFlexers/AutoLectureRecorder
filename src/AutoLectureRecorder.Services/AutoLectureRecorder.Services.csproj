@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+    <PackageReference Include="ScreenRecorderLib" Version="5.2.0" />
 	<PackageReference Include="Selenium.WebDriver" Version="4.8.2" />
   </ItemGroup>
 
