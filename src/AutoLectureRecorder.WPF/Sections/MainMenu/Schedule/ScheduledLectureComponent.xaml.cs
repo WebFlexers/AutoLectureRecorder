@@ -1,15 +1,26 @@
-﻿using AutoLectureRecorder.Data.ReactiveModels;
+﻿using System.Reactive;
+using AutoLectureRecorder.Data.ReactiveModels;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using AutoLectureRecorder.ReactiveUiUtilities;
+using ReactiveUI;
+using System;
+using System.Reactive.Disposables;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
 public partial class ScheduledLectureComponent
 {
+    private readonly CompositeDisposable _disposables = new();
+
     public ScheduledLectureComponent()
     {
         InitializeComponent();
+
+        MessageBus.Current.Listen<Unit>(PubSubMessages.UpdateTheme)
+            .Subscribe(_ => OnHoverLeave(false))
+            .DisposeWith(_disposables);
     }
 
     public ReactiveScheduledLecture Lecture
@@ -36,7 +47,7 @@ public partial class ScheduledLectureComponent
             return;
         }
 
-        _colors ??= App.GetCurrentThemeDictionary();
+        _colors = App.GetCurrentThemeDictionary();
         if (lecture.IsScheduled)
         {
             LeftSidebarBorder.Background = _colors["SuccessBrush"] as SolidColorBrush;
@@ -99,7 +110,7 @@ public partial class ScheduledLectureComponent
     private const double OutlineBorderThickness = 2.5;
     private void OnHover()
     {
-        _colors ??= App.GetCurrentThemeDictionary();
+        _colors = App.GetCurrentThemeDictionary();
         MainBorder.BorderBrush = _colors["PrimaryBrush"] as SolidColorBrush;
         MainBorder.BorderThickness = new Thickness(OutlineBorderThickness);
 
@@ -110,14 +121,17 @@ public partial class ScheduledLectureComponent
 
     }
 
-    private void OnHoverLeave()
+    private void OnHoverLeave(bool restoreWidth = true)
     {
-        _colors ??= App.GetCurrentThemeDictionary();
+        _colors = App.GetCurrentThemeDictionary();
         MainBorder.BorderThickness = new Thickness(0);
         MainBorder.Background = _colors["SecondaryBackgroundBrush"] as SolidColorBrush;
 
-        LeftSidebarBorder.Margin = new Thickness(0);
-        LeftSidebarBorder.Width += OutlineBorderThickness;
+        if (restoreWidth)
+        {
+            LeftSidebarBorder.Margin = new Thickness(0);
+            LeftSidebarBorder.Width += OutlineBorderThickness;
+        }
     }
 
     private void CheckBox_CheckedChanged(object sender, RoutedEventArgs e)
@@ -136,5 +150,10 @@ public partial class ScheduledLectureComponent
         };
 
         RaiseEvent(new RoutedEventArgs(CheckedChangedEvent));
+    }
+
+    private void ScheduledLectureComponent_OnUnloaded(object sender, RoutedEventArgs e)
+    {
+        _disposables.Dispose();
     }
 }

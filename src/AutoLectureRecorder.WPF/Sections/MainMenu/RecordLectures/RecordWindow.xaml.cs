@@ -1,13 +1,11 @@
-﻿using ReactiveUI;
+﻿using ReactiveMarbles.ObservableEvents;
+using ReactiveUI;
 using System;
 using System.ComponentModel;
+using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
-using AutoLectureRecorder.Resources.Themes;
-using ReactiveMarbles.ObservableEvents;
-using Microsoft.Web.WebView2.Core;
-using System.Reactive;
 
 namespace AutoLectureRecorder.Sections.MainMenu.RecordLectures;
 

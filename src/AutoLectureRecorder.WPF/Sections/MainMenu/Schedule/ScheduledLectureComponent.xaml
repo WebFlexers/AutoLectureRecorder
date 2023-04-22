@@ -13,7 +13,8 @@
     d:DesignHeight="105" d:DesignWidth="155.5"
     MouseDown="ScheduledLectureComponent_OnMouseDown"
     MouseEnter="ScheduledLectureComponent_OnMouseEnter"
-    MouseLeave="ScheduledLectureComponent_OnMouseLeave">
+    MouseLeave="ScheduledLectureComponent_OnMouseLeave"
+    Unloaded="ScheduledLectureComponent_OnUnloaded">
 
     <Grid Cursor="Hand">
         <Grid.OpacityMask>

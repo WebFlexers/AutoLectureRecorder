@@ -6,10 +6,15 @@ using AutoLectureRecorder.Sections.MainMenu.Upload;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
+using System.Reactive;
 using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
+using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Resources.Themes;
+using MaterialDesignThemes.Wpf;
 
 namespace AutoLectureRecorder.Sections.MainMenu;
 
@@ -65,6 +70,10 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
             {
                 UpdateMenuButtonsStyle();
             }).DisposeWith(disposables);
+
+            MessageBus.Current.Listen<Unit>(PubSubMessages.UpdateTheme)
+                .Subscribe(_ => UpdateMenuButtonsStyle())
+                .DisposeWith(disposables);
         });
     }
 

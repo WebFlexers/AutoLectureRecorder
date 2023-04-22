@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
+using AutoLectureRecorder.ReactiveUiUtilities;
 using MaterialDesignThemes.Wpf;
+using ReactiveUI;
 
 namespace AutoLectureRecorder.Resources.Themes;
 
@@ -36,6 +39,8 @@ public static class ThemeManager
         AppThemeSelector.SetCurrentThemeDictionary(windows, new Uri(
             $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/LightTheme.xaml",
             UriKind.RelativeOrAbsolute));
+
+        MessageBus.Current.SendMessage(Unit.Default, PubSubMessages.UpdateTheme);
     }
 
     public static void SwitchToDarkTheme(ICollection<DependencyObject> windows)
@@ -47,6 +52,8 @@ public static class ThemeManager
         AppThemeSelector.SetCurrentThemeDictionary(windows, new Uri(
             $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/DarkTheme.xaml",
             UriKind.RelativeOrAbsolute));
+
+        MessageBus.Current.SendMessage(Unit.Default, PubSubMessages.UpdateTheme);
     }
 
     private static void SetMaterialDesignTheme()
