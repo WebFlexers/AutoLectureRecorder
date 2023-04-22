@@ -19,17 +19,44 @@ public class WindowsRecorderTests
     [Fact]
     public async Task StartRecording_ShouldRecordScreenFor3Seconds()
     {
-        await TestSuccessfulRecording("RecordScreenTest");
+        await TestSuccessfulRecording("RecordScreenTest", TimeSpan.FromSeconds(3));
     }
 
     [Fact]
     public async Task StartRecording_ShouldRecordWindowFor3Seconds()
     {
         IntPtr thisWindowHandle = GetForegroundWindow();
-        await TestSuccessfulRecording("RecordWindowTest", thisWindowHandle);
+        await TestSuccessfulRecording("RecordWindowTest", TimeSpan.FromSeconds(3), thisWindowHandle);
     }
 
-    private async Task TestSuccessfulRecording(string videoFileName, IntPtr? windowHandle = null)
+    [Fact]
+    public async Task StartRecording_ShouldDetectIdenticalNameAndCreateNewFile()
+    {
+        var recorder = await TestSuccessfulRecording("RecordScreenTest", TimeSpan.FromSeconds(1));
+        recorder.StartRecording(autoDeleteIdenticalFile: false);
+
+        await Task.Delay(TimeSpan.FromSeconds(2));
+        recorder.StopRecording();
+        while (recorder.IsRecording)
+        {
+            await Task.Delay(200);
+        }
+
+        recorder.StartRecording(autoDeleteIdenticalFile: false);
+
+        await Task.Delay(TimeSpan.FromSeconds(2));
+        recorder.StopRecording();
+        while (recorder.IsRecording)
+        {
+            await Task.Delay(200);
+        }
+
+        var currentDirectory = Directory.GetCurrentDirectory();
+        Assert.True(File.Exists(Path.Combine(currentDirectory, "RecordScreenTest (1).mp4")));
+        Assert.True(File.Exists(Path.Combine(currentDirectory, "RecordScreenTest (2).mp4")));
+    }
+
+    private async Task<IRecorder> TestSuccessfulRecording(string videoFileName, TimeSpan recordingTime, IntPtr? windowHandle = null)
     {
         var logger = XUnitLogger.CreateLogger<WindowsRecorder>(_output);
         var recorder = new WindowsRecorder(logger)
@@ -42,7 +69,7 @@ public class WindowsRecorderTests
 
         Assert.True(recorder.IsRecording);
 
-        await Task.Delay(3000);
+        await Task.Delay(recordingTime);
 
         bool finishedSuccessfully = false;
         bool recordingFailed = false;
@@ -59,7 +86,7 @@ public class WindowsRecorderTests
 
         while (recorder.IsRecording)
         {
-            await Task.Delay(100);
+            await Task.Delay(200);
         }
 
         var currentDirectory = Directory.GetCurrentDirectory();
@@ -67,5 +94,7 @@ public class WindowsRecorderTests
         Assert.True(finishedSuccessfully);
         Assert.False(recorder.IsRecording);
         Assert.False(recordingFailed);
+
+        return recorder;
     }
 }

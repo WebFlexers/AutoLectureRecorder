@@ -12,11 +12,15 @@ public interface IRecorder
 
     /// <summary>
     /// Starts a new recording. If no windowHandle is specified the main screen is recorded.
-    /// Otherwise only the specified window is recorded.
+    /// Otherwise only the specified window is recorded. If a recording with the exact same
+    /// file path already exists it is deleted by default. This behaviour can be modified
+    /// using the autoDeleteIdenticalFile argument.
     /// </summary>
     /// <param name="windowHandle">The handle of the window to record</param>
+    /// <param name="autoDeleteIdenticalFile">Whether or not to automatically delete an existing file with
+    /// the exact same name as the specified Recording File Path</param>
     /// <exception cref="ArgumentException">Thrown when RecordingDirectoryPath or RecordingFileName are not specified</exception>
-    IRecorder StartRecording(IntPtr? windowHandle = null);
+    IRecorder StartRecording(IntPtr? windowHandle = null, bool autoDeleteIdenticalFile = true);
 
     /// <summary>
     /// Stops the recording and starts the file saving process.

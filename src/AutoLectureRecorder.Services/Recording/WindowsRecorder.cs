@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
 using ScreenRecorderLib;
 
 namespace AutoLectureRecorder.Services.Recording;
@@ -50,21 +51,22 @@ public class WindowsRecorder : IRecorder, IDisposable
 
     /// <summary>
     /// Starts a new recording. If no windowHandle is specified the main screen is recorded.
-    /// Otherwise only the specified window is recorded.
+    /// Otherwise only the specified window is recorded. If a recording with the exact same
+    /// file path already exists it is deleted by default. This behaviour can be modified
+    /// using the autoDeleteIdenticalFile argument.
     /// </summary>
     /// <param name="windowHandle">The handle of the window to record</param>
+    /// <param name="autoDeleteIdenticalFile">Whether or not to automatically delete an existing file with
+    /// the exact same name as the specified Recording File Path</param>
     /// <exception cref="ArgumentException">Thrown when RecordingDirectoryPath or RecordingFileName are not specified</exception>
-    public IRecorder StartRecording(IntPtr? windowHandle = null)
+    public IRecorder StartRecording(IntPtr? windowHandle = null, bool autoDeleteIdenticalFile = true)
     {
         if (RecordingFilePath == null)
         {
             throw new ArgumentException("RecordingDirectoryPath and RecordingFileName must not be null or empty");
         }
 
-        if (File.Exists(RecordingFilePath))
-        {
-            File.Delete(RecordingFilePath);
-        }
+        TryToDeleteIdenticalFile(autoDeleteIdenticalFile);
 
         if (windowHandle != null)
         {
@@ -73,10 +75,8 @@ public class WindowsRecorder : IRecorder, IDisposable
                 new WindowRecordingSource(windowHandle.Value)
             };
 
-            Options.SourceOptions = new SourceOptions
-            {
-                RecordingSources = sources
-            };
+            Options.SourceOptions ??= new SourceOptions();
+            Options.SourceOptions.RecordingSources = sources;
         }
 
         string videoPath = RecordingFilePath;
@@ -91,6 +91,41 @@ public class WindowsRecorder : IRecorder, IDisposable
         _logger.LogInformation("Started Recording...");
 
         return this;
+    }
+
+    private void TryToDeleteIdenticalFile(bool shouldDelete)
+    {
+        try
+        {
+            bool fileExists = File.Exists(RecordingFilePath);
+
+            if (shouldDelete && fileExists)
+            {
+                File.Delete(RecordingFilePath!);
+            }
+            else if (fileExists)
+            {
+                RecordingFileName = IncrementNumberInParentheses(RecordingFileName!);
+            }
+        }
+        catch (IOException ex)
+        {
+            _logger.LogWarning(ex, "Failed to delete identical recording file");
+            RecordingFileName = IncrementNumberInParentheses(RecordingFileName!);
+        }
+    }
+
+    /// <summary>
+    /// Searches if the input string ends with a number surrounded by parentheses.
+    /// If it is found it returns the same string, but with the number incremented by 1.
+    /// Otherwise the exact same string is returned;
+    /// </summary>
+    private string IncrementNumberInParentheses(string input)
+    {
+        var match = Regex.Match(input, @"\((\d+)\)$");
+        if (match.Success == false) return $"{input} (1)";
+
+        return $"{input.Substring(0, match.Groups[1].Index)}{int.Parse(match.Groups[1].Value) + 1})";
     }
 
     /// <summary>
@@ -158,6 +193,10 @@ public class WindowsRecorder : IRecorder, IDisposable
 
     public void Dispose()
     {
-        _recorder?.Dispose();
+        if (_recorder == null) return;
+
+        _recorder.OnRecordingComplete -= RecorderOnRecordingComplete;
+        _recorder.OnRecordingFailed -= RecorderOnRecordingFailed;
+        _recorder.Dispose();
     }
 }

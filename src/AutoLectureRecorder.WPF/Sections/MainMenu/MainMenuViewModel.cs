@@ -107,7 +107,8 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         // To handle fullscreen player mode we can't just move the VlcPlayer control to a new view,
         // because it stops the player and creates many problems. Instead we have to hide everything from
         // the screen and make the window fullscreen
-        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen).Subscribe(ToggleMenuVisibility);
+        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen)
+            .Subscribe(ToggleMenuVisibility);
 
         // Navigate to the Dashboard at startup
         this.WhenActivated(disposables =>
@@ -138,6 +139,22 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         _logger.LogInformation("Navigated to {viewModel}", type.Name);
     }
 
+    public void Navigate(Type type)
+    {
+        if (_currentNavigationIndex < _navigationStack.Count - 1)
+        {
+            for (int i = _navigationStack.Count - 1; i > _currentNavigationIndex; i--)
+            {
+                _navigationStack.RemoveAt(i);
+            }
+        }
+
+        _navigationStack.Add(type);
+        _currentNavigationIndex = _navigationStack.Count - 1;
+
+        SetRoutedViewHostContent(type);
+    }
+
     public void NavigateBack()
     {
         var backIndex = _currentNavigationIndex - 1;
@@ -153,22 +170,6 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         {
             _logger.LogWarning("Tried to navigate back, but there was no ViewModel left on the stack");
         }
-    }
-
-    public void Navigate(Type type)
-    {
-        if (_currentNavigationIndex < _navigationStack.Count - 1)
-        {
-            for (int i = _navigationStack.Count - 1; i > _currentNavigationIndex; i--)
-            {
-                _navigationStack.RemoveAt(i);
-            }
-        }
-
-        _navigationStack.Add(type);
-        _currentNavigationIndex = _navigationStack.Count - 1;
-
-        SetRoutedViewHostContent(type);
     }
 
     public void NavigateForward()
