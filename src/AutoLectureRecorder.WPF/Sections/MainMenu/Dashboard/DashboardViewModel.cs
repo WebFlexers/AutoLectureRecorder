@@ -33,7 +33,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     [Reactive]
     public ObservableCollection<ReactiveScheduledLecture> TodaysLectures { get; private set; } = new();
 
-    private ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
+    private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
     public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;
 
     private readonly DispatcherTimer? _nextLectureCalculatorTimer;
@@ -42,8 +42,6 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
-
-    private CompositeDisposable? _disposables;
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, 
         IScheduledLectureRepository scheduledLectureRepository)
@@ -91,10 +89,13 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             _nextLectureCalculatorTimer.Start();
         });
 
+        _areLecturesScheduledToday =
+            this.WhenAnyValue(vm => vm.TodaysLectures)
+                .Select(lectures => lectures.Any())
+                .ToProperty(this, vm => vm.AreLecturesScheduledToday);
+
         this.WhenActivated(disposables =>
         {
-            _disposables = disposables;
-
             Observable.FromAsync(FetchTodaysLectures)
                 .Catch((Exception e) =>
                 {
@@ -102,12 +103,6 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
                     return Observable.Empty<Unit>();
                 }).Subscribe()
                 .DisposeWith(disposables);
-
-            _areLecturesScheduledToday = 
-                this.WhenAnyValue(vm => vm.TodaysLectures)
-                    .Select(lectures => lectures.Any())
-                    .ToProperty(this, vm => vm.AreLecturesScheduledToday)
-                    .DisposeWith(disposables);
         });
     }
 
@@ -139,7 +134,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             .Subscribe(_ =>
             {
                 _nextLectureCalculatorTimer.Start();
-            }).DisposeWith(_disposables!);
+            });
         }
     }
 
