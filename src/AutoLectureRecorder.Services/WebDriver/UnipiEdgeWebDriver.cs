@@ -156,12 +156,11 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _driver.Url = meetingLink;
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-            // Handle the open app popup:
-            // TODO: Write comment
-            var wait = new WebDriverWait(_driver, _driver.Manage().Timeouts().ImplicitWait);
-            wait.Until(driver => ((IJavaScriptExecutor)driver)
-                .ExecuteScript("return document.readyState").Equals("complete"));
-
+            // To handle the open microsoft teams app popup we can't use the selenium popup manager, because this one is OS level.
+            // Instead when the page loads a new url is generated which doesn't show the popup if navigated to.
+            // Refreshing the page still opens the popup. New tab isn't available in WebView2 in WPF. So to avoid the popup we
+            // navigate to a very lightweight website, like onepixelwebsite.com and then to the new url
+            WaitUntilLoaded();
             var urlWithoutOpenAppPrompt = _driver.Url;
             _driver.Url = "http://www.onepixelwebsite.com/";
             _driver.Url = urlWithoutOpenAppPrompt;
@@ -171,25 +170,38 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
             // class: powerbar-profile fadeable -> Exists in the meeting page if the user is already logged in
             // class: form-group col-md-24 -> Exists in the login page if the user is NOT already logged in
+            // id: username -> Exists in the unipi login page if we are redirected there
+            // data-test-id: '{academicEmailAddress}' -> Exists in the screen where the logged in account is selected
+            WaitUntilLoaded();
             var nextElement = _driver.FindElement(
-                By.XPath($"//div[@class='powerbar-profile fadeable' or @class='form-group col-md-24' or @data-test-id='{academicEmailAddress}']"));
+                By.XPath($"//div[@class='powerbar-profile fadeable' or @class='form-group col-md-24' or @id='username' or @data-test-id='{academicEmailAddress}']"));
 
+            var id = nextElement.GetAttribute("id");
             var dataTestId = nextElement.GetAttribute("data-test-id");
-            var className = nextElement.GetAttribute("class");
-            _logger.LogDebug("JoinMeeting: Stage 1 ClassName -> {class}", className);
+            var classNameTrimmed = nextElement.GetAttribute("class").Trim();
+            _logger.LogDebug("JoinMeeting: Stage 1 ClassName -> {class}", classNameTrimmed);
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-            if (className.Trim().Equals("form-group col-md-24"))
+            if (classNameTrimmed.Equals("form-group col-md-24"))
             {
                 (bool loginResult, string loginResultMessage) = Login(academicEmailAddress, password, cancellationToken, false);
                 if (loginResult == false) return (false, loginResultMessage);
+                _driver.FindElement(By.Id("idSIButton9")).Click();
+            }
+            else if (id.Trim().Equals("username"))
+            {
+                EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                _driver.FindElement(By.Id("idSIButton9")).Click();
             }
             else if (dataTestId != null && dataTestId.Trim().Equals(academicEmailAddress))
             {
                 nextElement.Click();
                 if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
-
                 EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
                 _driver.FindElement(By.Id("idSIButton9")).Click();
             }
 
@@ -203,7 +215,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _previousImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
             try
             {
-                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                 _driver.FindElement(By.XPath("//button[@title='Dismiss']")).Click();
             }
             catch (NoSuchElementException ex)
@@ -223,7 +235,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
             var maximumWaitDateTime = DateTime.UtcNow.Add(meetingDuration);
 
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
 
             bool clickedJoinButton = false;
             do
@@ -260,7 +272,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
         }
         catch (Exception ex)
         {
-            _logger.LogError("Join meeting failed with exception: {ex}", ex);
+            _logger.LogError(ex, "Join meeting failed with exception");
             return (false, "Failed to join the meeting. Check your internet connection. Also if you have changed your" +
                            "academic password logout and login again");
         }
@@ -271,6 +283,13 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                 _driver.Manage().Timeouts().ImplicitWait = _previousImplicitWait;
             }
         }
+    }
+
+    private void WaitUntilLoaded()
+    {
+        var wait = new WebDriverWait(_driver, _driver.Manage().Timeouts().ImplicitWait);
+        wait.Until(driver => ((IJavaScriptExecutor)driver)
+            .ExecuteScript("return document.readyState").Equals("complete"));
     }
 
     public void Dispose()
