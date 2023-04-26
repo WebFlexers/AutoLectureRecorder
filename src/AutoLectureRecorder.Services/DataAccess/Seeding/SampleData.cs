@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Data.Models;
+using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 namespace AutoLectureRecorder.Services.DataAccess.Seeding;
@@ -10,9 +11,9 @@ public class SampleData
     private readonly ISqliteDataAccess _dataAccess;
     private readonly Random _random;
 
+    public List<ScheduledLecture> ScheduledLectures { get; set; } = new();
     public List<RecordedLecture> RecordedLectures { get; set; } = new();
     public RecordingSettings? RecordingSettings { get; set; }
-    public List<ScheduledLecture> ScheduledLectures { get; set; } = new();
     public Statistics? Statistics { get; set; }
 
     public SampleData(ISqliteDataAccess dataAccess)
@@ -20,9 +21,9 @@ public class SampleData
         _dataAccess = dataAccess;
         _random = new Random(RandomSeed);
 
+        CreateScheduledLectures();
         CreateRecordedLectures();
         CreateRecordingSettings();
-        CreateScheduledLectures();
         CreateStatistics();
     }
 
@@ -31,40 +32,43 @@ public class SampleData
     /// </summary>
     public async Task Seed()
     {
-        await DeleteEverythingFrom("RecordedLectures");
-        await DeleteEverythingFrom("RecordingSettings");
-        await DeleteEverythingFrom("ScheduledLectures");
-        await DeleteEverythingFrom("Statistics");
+        await _dataAccess.BeginTransaction();
+
+        var deleteTasks = new List<Task>
+        {
+            DeleteEverythingFrom("RecordedLectures"),
+            DeleteEverythingFrom("RecordingSettings"),
+            DeleteEverythingFrom("ScheduledLectures"),
+            DeleteEverythingFrom("Statistics")
+        };
+
+        await Task.WhenAll(deleteTasks);
+
+        var insertTasks = new List<Task>();
 
         foreach (var recordedLecture in RecordedLectures)
         {
-            await InsertRecordedLectureToDb(recordedLecture);
+            insertTasks.Add(InsertRecordedLectureToDb(recordedLecture));
         }
 
         if (RecordingSettings != null)
         {
-            await InsertRecordingSettingsToDb(RecordingSettings);
+            insertTasks.Add(InsertRecordingSettingsToDb(RecordingSettings));
         }
 
         foreach (var scheduledLecture in ScheduledLectures)
         {
-            await InsertScheduledLectureToDb(scheduledLecture);
+            insertTasks.Add(InsertScheduledLectureToDb(scheduledLecture));
         }
 
         if (Statistics != null)
         {
-            await InsertStatisticsToDb(Statistics);
+            insertTasks.Add(InsertStatisticsToDb(Statistics));
         }
-    }
 
-    private void CreateRecordedLectures()
-    {
+        await Task.WhenAll(insertTasks);
 
-    }
-
-    private void CreateRecordingSettings()
-    {
-
+        _dataAccess.CommitPendingTransaction();
     }
 
     private static readonly string[] CourseNames =
@@ -81,9 +85,15 @@ public class SampleData
     };
     private void CreateScheduledLectures()
     {
-        int lectureId = 0;
+        int lectureId = 1;
+        bool shouldLectureBeActive = true;
+
         for (int semester = 1; semester <= 8; semester++)
         {
+            if (semester > 1)
+            {
+                shouldLectureBeActive = false;
+            }
             for (int day = 0; day < 7; day++)
             {
                 // Pick times starting from 10 am
@@ -109,7 +119,7 @@ public class SampleData
                         Day = day,
                         StartTime = startTime.ToString("HH:mm"),
                         EndTime = endTime.ToString("HH:mm"),
-                        IsScheduled = _random.Next(2),
+                        IsScheduled = shouldLectureBeActive ? 1 : 0,
                         WillAutoUpload = _random.Next(2)
                     };
 
@@ -120,6 +130,60 @@ public class SampleData
                 }
             }
         }
+    }
+
+    private void CreateRecordedLectures()
+    {
+        int id = 1;
+
+        var lastDateTimeByDay = new Dictionary<DayOfWeek, DateTime?>
+        {
+            { DayOfWeek.Sunday, new DateTime(2021, 1, 3) },
+            { DayOfWeek.Monday, new DateTime(2021, 1, 4) },
+            { DayOfWeek.Tuesday, new DateTime(2021, 1, 5) },
+            { DayOfWeek.Wednesday, new DateTime(2021, 1, 6) },
+            { DayOfWeek.Thursday, new DateTime(2021, 1, 7) },
+            { DayOfWeek.Friday, new DateTime(2021, 1, 8) },
+            { DayOfWeek.Saturday, new DateTime(2021, 1, 9) },
+        };
+
+        foreach (var scheduledLecture in ScheduledLectures)
+        {
+            bool shouldHaveCloudLink = _random.Next(3) != 2;
+            var scheduledLectureDay = (DayOfWeek)scheduledLecture.Day;
+            var recordingDate = lastDateTimeByDay[scheduledLectureDay];
+            var startTime = Convert.ToDateTime(scheduledLecture.StartTime);
+            var endTime = Convert.ToDateTime(scheduledLecture.EndTime);
+
+            var startDateTime = recordingDate!.Value.Add(startTime.TimeOfDay).Subtract(TimeSpan.FromHours(1));
+            var endDateTime = recordingDate!.Value.Add(endTime.TimeOfDay);
+            for (int i = 0; i < _random.Next(2, 20); i++)
+            {
+                var recordedLecture = new RecordedLecture
+                {
+                    Id = id++,
+                    StudentRegistrationNumber = "p19165",
+                    SubjectName = scheduledLecture.SubjectName,
+                    Semester = scheduledLecture.Semester,
+                    CloudLink = shouldHaveCloudLink 
+                        ? "https://link.storjshare.io/s/jwwlss3g44lwvp5etxkxcn6oo6ya/newdemo/Big%20Buck%20Bunny%20Demo.mp4?wrap=0" 
+                        : null,
+                    StartedAt = startDateTime.ToString("G"),
+                    EndedAt = endDateTime.ToString("G"),
+                };
+                RecordedLectures.Add(recordedLecture);
+                startDateTime = startDateTime.Add(TimeSpan.FromHours(1));
+                endDateTime = endDateTime.Add(TimeSpan.FromHours(1));
+            }
+
+            lastDateTimeByDay[scheduledLectureDay] = lastDateTimeByDay[scheduledLectureDay]!
+                .Value.Add(TimeSpan.FromDays(7));
+        }
+    }
+
+    private void CreateRecordingSettings()
+    {
+
     }
 
     private void CreateStatistics()
@@ -135,7 +199,7 @@ public class SampleData
 
     private async Task InsertRecordedLectureToDb(RecordedLecture recordedLecture)
     {
-        string sql = "insert into RecordedLecture (StudentRegistrationNumber, SubjectName, Semester, CloudLink, StartedAt, EndedAt) " +
+        string sql = "insert into RecordedLectures (StudentRegistrationNumber, SubjectName, Semester, CloudLink, StartedAt, EndedAt) " +
                      "values (@StudentRegistrationNumber, @SubjectName, @Semester, @CloudLink, @StartedAt, @EndedAt)";
 
         await _dataAccess.SaveData(sql, recordedLecture).ConfigureAwait(false);

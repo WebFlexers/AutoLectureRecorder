@@ -14,11 +14,9 @@ public class ReactiveRecordedLecture : ReactiveObject
     [Reactive]
     public int Semester { get; set; }
     [Reactive]
-    public string CloudLink { get; set; }
+    public string? CloudLink { get; set; }
     [Reactive]
-    public DateTime? RecordingDate { get; set; }
+    public DateTime? StartedAt { get; set; }
     [Reactive]
-    public DateTime? StartedAtTime { get; set; }
-    [Reactive]
-    public DateTime? EndedAtTime { get; set; }
+    public DateTime? EndedAt { get; set; }
 }
