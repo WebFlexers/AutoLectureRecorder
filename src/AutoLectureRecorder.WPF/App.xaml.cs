@@ -53,9 +53,11 @@ public partial class App : Application
             Application.Current.Shutdown();
         }
 
+        bool showStartupWindow = true;
         // If we are in development populate the database with sample data
         if (Debugger.IsAttached)
         {
+            showStartupWindow = false;
             await new SampleData(
                     new SqliteDataAccess("Data Source=.\\AutoLectureRecorderDB.db;"))
                         .Seed();
@@ -65,8 +67,6 @@ public partial class App : Application
 
         // This is required for the WebView2 to work inside the app
         Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--remote-debugging-port=9222");
-
-        bool showStartupWindow = false;
 
         // Show a startup window as a loading screen while the app loads
         StartupWindow? startupWindow = null;
@@ -91,18 +91,18 @@ public partial class App : Application
 
         if (showStartupWindow)
         {
-            //var endTime = Stopwatch.GetTimestamp();
-            //var diff = Stopwatch.GetElapsedTime(startTime, endTime);
+            var endTime = Stopwatch.GetTimestamp();
+            var diff = Stopwatch.GetElapsedTime(startTime, endTime);
 
-            //// If the loading takes less that the amount of seconds below
-            //// wait until at least that amount is over in order to show the
-            //// beautiful loading screen, along with it's animations
-            //if (diff < TimeSpan.FromSeconds(2.5))
-            //{
-            //    await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
-            //}
+            // If the loading takes less that the amount of seconds below
+            // wait until at least that amount is over in order to show the
+            // beautiful loading screen, along with it's animations
+            if (diff < TimeSpan.FromSeconds(2.5))
+            {
+                await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
+            }
 
-            //startupWindow!.Close();
+            startupWindow!.Close();
         }
 
         // Set the main window, to fix a bug that caused the
