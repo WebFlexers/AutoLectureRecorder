@@ -1,11 +1,8 @@
-﻿
-using System.Diagnostics;
-using AutoLectureRecorder.Services.WebDriver.Interfaces;
+﻿using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 
 namespace AutoLectureRecorder.Services.WebDriver;
 
@@ -35,9 +32,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             var driverService = EdgeDriverService.CreateDefaultService(driverPath);
             driverService.HideCommandPromptWindow = true;
 
-            // Disable camera and microphone
-            edgeOptions.AddAdditionalOption("permissions.default.microphone", 0);
-            edgeOptions.AddAdditionalOption("permissions.default.camera", 0);
+            edgeOptions.AddArgument("disable-notifications");
 
             if (useWebView)
             {
@@ -151,6 +146,9 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             throw new NullReferenceException("Attempted to login to microsoft teams with a null web driver");
         }
 
+        // Store the implicit wait time to revert to it after changing it
+        _previousImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
+
         try
         {
             _driver.Url = meetingLink;
@@ -165,54 +163,136 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _driver.Url = "http://www.onepixelwebsite.com/";
             _driver.Url = urlWithoutOpenAppPrompt;
 
-            _driver.FindElement(By.Id("openTeamsClientInBrowser")).Click();
-            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
-
-            // class: powerbar-profile fadeable -> Exists in the meeting page if the user is already logged in
-            // class: form-group col-md-24 -> Exists in the login page if the user is NOT already logged in
-            // id: username -> Exists in the unipi login page if we are redirected there
-            // data-test-id: '{academicEmailAddress}' -> Exists in the screen where the logged in account is selected
-            WaitUntilLoaded();
+            // id: openTeamsClientInBrowser -> Exists when the link is a meeting link
+            // data-tid: joinOnWeb -> Exists when the link is a direct meeting link
             var nextElement = _driver.FindElement(
-                By.XPath($"//div[@class='powerbar-profile fadeable' or @class='form-group col-md-24' or @id='username' or @data-test-id='{academicEmailAddress}']"));
-
-            var id = nextElement.GetAttribute("id");
-            var dataTestId = nextElement.GetAttribute("data-test-id");
-            var classNameTrimmed = nextElement.GetAttribute("class").Trim();
-            _logger.LogDebug("JoinMeeting: Stage 1 ClassName -> {class}", classNameTrimmed);
+                By.XPath("//button[@data-tid='joinOnWeb' or @id='openTeamsClientInBrowser']"));
+            
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-            if (classNameTrimmed.Equals("form-group col-md-24"))
-            {
-                (bool loginResult, string loginResultMessage) = Login(academicEmailAddress, password, cancellationToken, false);
-                if (loginResult == false) return (false, loginResultMessage);
-                _driver.FindElement(By.Id("idSIButton9")).Click();
-            }
-            else if (id.Trim().Equals("username"))
-            {
-                EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+            bool isDirectMeetingLink = nextElement.GetAttribute("data-tid") == "joinOnWeb";
+            bool isTeamLink = nextElement.GetAttribute("id") == "openTeamsClientInBrowser";
 
-                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
-                _driver.FindElement(By.Id("idSIButton9")).Click();
-            }
-            else if (dataTestId != null && dataTestId.Trim().Equals(academicEmailAddress))
+            if (isDirectMeetingLink)
             {
                 nextElement.Click();
                 if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
-                EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+
+                var continueWithoutAudioButton = _driver.FindElement(
+                    By.XPath("//button[@translate-once='getUserMedia_continue_button']"));
+                continueWithoutAudioButton.Click();
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
+                // Here we will have to check whether we are signed in or not
+                // class: anonymous-pre-join-footer -> Exists when the user is NOT logged in
+                // class: ExperienceContainerWrap-experience-container-ffb71058-4663-4e21-b94b-750cc5c43f2f ->
+                //        Refers to the iframe containing the meeting. Exists when the user is logged in
+                nextElement = _driver.FindElement(
+                    By.XPath("//div[@class='anonymous-pre-join-footer' or @class='experience-container-root']"));
+
+                bool userIsNotLoggedIn = nextElement.GetAttribute("class") == "anonymous-pre-join-footer";
+
+                if (userIsNotLoggedIn)
+                {
+                    var signInAnchor = nextElement.FindElement(By.TagName("a"));
+                    signInAnchor.Click();
+
+                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
+                    (bool loginResult, string loginResultMessage) = Login(academicEmailAddress, password, cancellationToken, false);
+                    if (loginResult == false) return (false, loginResultMessage);
+                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                    _driver.FindElement(By.Id("idSIButton9")).Click();
+
+                    _driver.FindElement(
+                        By.XPath("//button[@translate-once='getUserMedia_continue_button']")).Click();
+                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                }
+            }
+            else if (isTeamLink)
+            {
+                // class: powerbar-profile fadeable -> Exists in the meeting page if the user is already logged in
+                // class: form-group col-md-24 -> Exists in the login page if the user is NOT already logged in
+                // id: username -> Exists in the unipi login page if we are redirected there
+                // data-test-id: '{academicEmailAddress}' -> Exists in the screen where the logged in account is selected
+                WaitUntilLoaded();
+                nextElement = _driver.FindElement(
+                    By.XPath($"//div[@class='powerbar-profile fadeable' or @class='form-group col-md-24' or @id='username' or @data-test-id='{academicEmailAddress}']"));
+
+                var id = nextElement.GetAttribute("id");
+                var dataTestId = nextElement.GetAttribute("data-test-id");
+                var classNameTrimmed = nextElement.GetAttribute("class").Trim();
+                _logger.LogDebug("JoinMeeting: Stage 1 ClassName -> {class}", classNameTrimmed);
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
+                if (classNameTrimmed.Equals("form-group col-md-24"))
+                {
+                    (bool loginResult, string loginResultMessage) = Login(academicEmailAddress, password, cancellationToken, false);
+                    if (loginResult == false) return (false, loginResultMessage);
+                    _driver.FindElement(By.Id("idSIButton9")).Click();
+                }
+                else if (id.Trim().Equals("username"))
+                {
+                    EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+
+                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                    _driver.FindElement(By.Id("idSIButton9")).Click();
+                }
+                else if (dataTestId != null && dataTestId.Trim().Equals(academicEmailAddress))
+                {
+                    nextElement.Click();
+                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                    EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+
+                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                    _driver.FindElement(By.Id("idSIButton9")).Click();
+                }
+
+                // Get this element to make sure the page has loaded before reducing the implicit wait
+                // to find the notifications popup and disable it only if it exists
+                _driver.FindElement(By.XPath("//div[@class='powerbar-profile fadeable']"));
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
                 if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
-                _driver.FindElement(By.Id("idSIButton9")).Click();
+
+                var maximumWaitDateTime = DateTime.UtcNow.Add(meetingDuration);
+
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+
+                bool clickedJoinButton = false;
+                do
+                {
+                    try
+                    {
+                        if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                        _driver.FindElement(By.XPath("//button[contains(@data-tid, 'join-btn')]")).Click();
+                        clickedJoinButton = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogTrace(ex, "Couldn't find join button. Waiting...");
+                    }
+                } while (DateTime.UtcNow < maximumWaitDateTime);
+
+                // TODO: Check for multiple multiple Join buttons and click the latest one (rare)
+
+                if (clickedJoinButton == false) return (false, "The meeting didn't start in time");
             }
 
-            // Get this element to make sure the page has loaded before reducing the implicit wait
-            // to find the notifications popup and disable it only if it exists
-            _driver.FindElement(By.XPath("//div[@class='powerbar-profile fadeable']"));
+            _driver.Manage().Timeouts().ImplicitWait = _previousImplicitWait;
+
+            // Continue without audio or video
+            var iframeDiv =
+                _driver.FindElement(By.ClassName("experience-container-root"));
+            var iframe = iframeDiv.FindElement(By.TagName("iframe"));
+            _driver.SwitchTo().Frame(iframe);
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-            // Store the implicit wait time to revert to it after changing it
-            // in order to wait for the popup to appear (if it appears)
-            _previousImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
+            _driver.FindElement(By.Id("prejoin-join-button")).Click();
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
+            _driver.SwitchTo().DefaultContent();
+
             try
             {
                 _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -230,41 +310,6 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             {
                 _logger.LogWarning(ex, "Failed to click the Dismiss popup button");
             }
-
-            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
-
-            var maximumWaitDateTime = DateTime.UtcNow.Add(meetingDuration);
-
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-
-            bool clickedJoinButton = false;
-            do
-            {
-                try
-                {
-                    if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
-                    _driver.FindElement(By.XPath("//button[contains(@data-tid, 'join-btn')]")).Click();
-                    clickedJoinButton = true;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogTrace(ex, "Couldn't find join button. Waiting...");
-                }
-            } while (DateTime.UtcNow < maximumWaitDateTime);
-
-            // TODO: Check for multiple multiple Join buttons and click the latest one (rare)
-
-            if (clickedJoinButton == false) return (false, "The meeting didn't start in time");
-
-            _driver.Manage().Timeouts().ImplicitWait = _previousImplicitWait;
-
-            _driver.FindElement(By.XPath("//button[contains(@track-summary, 'Continue in call/meetup without device access')]"))
-                .Click();
-
-            _driver.FindElement(By.XPath("//button[contains(@data-tid, 'prejoin-join-button')]"))
-                .Click();
-
-            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
             const string successMessage = "Successfully joined meeting";
             _logger.LogInformation(successMessage);

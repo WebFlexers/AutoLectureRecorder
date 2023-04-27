@@ -64,7 +64,7 @@
                         Orientation="Horizontal">
 
                 <!-- Light - Dark mode Toggler -->
-                <mainmenu:ThemeToggler Margin="0, 6, 20, 0"
+                <mainmenu:ThemeToggler Margin="0, 2, 20, 0"
                                        WindowChrome.IsHitTestVisibleInChrome="True" />
 
                 <Button x:Name="MinimizeWindowButton"

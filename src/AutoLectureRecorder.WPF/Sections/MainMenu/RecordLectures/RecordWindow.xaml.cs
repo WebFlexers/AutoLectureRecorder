@@ -64,13 +64,26 @@ public partial class RecordWindow : ReactiveWindow<RecordWindowViewModel>
             this.BindCommand(ViewModel, vm => vm.MinimizeWindowCommand, v => v.MinimizeWindowButton)
                 .DisposeWith(disposables);
 
+            // Close window after finishing
+            this.WhenAnyValue(v => v.ViewModel!.IsRecordingFinished)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(isRecordingFinished =>
+                {
+                    if (_resourcesCleaned && isRecordingFinished)
+                    {
+                        this.Close();
+                    }
+                }).DisposeWith(disposables);
         });
     }
 
+    private bool _resourcesCleaned = false;
     private async void RecordWindow_OnClosing(object? sender, CancelEventArgs e)
     {
+        if (_resourcesCleaned) return;
+
         e.Cancel = true;
         await ViewModel!.CleanupResourcesCommand.Execute();
-        e.Cancel = false;
+        _resourcesCleaned = true;
     }
 }

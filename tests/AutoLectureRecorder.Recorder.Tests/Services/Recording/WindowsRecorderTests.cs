@@ -19,7 +19,7 @@ public class WindowsRecorderTests
     [Fact]
     public async Task StartRecording_ShouldRecordScreenFor3Seconds()
     {
-        await TestSuccessfulRecording("RecordScreenTest", TimeSpan.FromSeconds(3));
+        await TestSuccessfulRecording("SimpleRecordScreenTest", TimeSpan.FromSeconds(3));
     }
 
     [Fact]

@@ -86,13 +86,13 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
             // TODO: Modify this test method
             var recordWindow = windowFactory.CreateRecordWindow(new ReactiveScheduledLecture
             {
-                Id = 1,
-                SubjectName = "My test lecture",
-                Semester = 2,
-                MeetingLink = "https://teams.microsoft.com/l/team/19%3a4f80471db6464f18a64f47be0dcd660d%40thread.tacv2/conversations?groupId=29a0e98c-f210-4df8-afe9-a9f9f6d02264&tenantId=d9c8dee3-558b-483d-b502-d31fa0cb24de",
-                Day = DayOfWeek.Wednesday,
-                StartTime = DateTime.UtcNow,
-                EndTime = DateTime.UtcNow.AddMinutes(1),
+                Id = 5000,
+                SubjectName = "Αλγόριθμοι",
+                Semester = 5,
+                MeetingLink = @"https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjFmMWM0ZjctNTFiNC00MTc0LWFjYTQtMzlhMGRkNTM0NjFi%40thread.v2/0?context=%7b%22Tid%22%3a%22d9c8dee3-558b-483d-b502-d31fa0cb24de%22%2c%22Oid%22%3a%2220dcfee8-a2d9-4250-aa03-bde3530991d8%22%7d",
+                Day = DayOfWeek.Thursday,
+                StartTime = DateTime.MinValue.AddHours(16),
+                EndTime = DateTime.MinValue.AddHours(22).AddMinutes(15),
                 IsScheduled = true,
                 WillAutoUpload = false
             });

@@ -2,7 +2,7 @@
 
 namespace AutoLectureRecorder.Services.Recording;
 
-public interface IRecorder
+public interface IRecorder : IDisposable
 {
     bool IsRecording { get; set; }
     string? RecordingDirectoryPath { get; set; }

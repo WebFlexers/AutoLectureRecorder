@@ -16,18 +16,18 @@
     <StackPanel Orientation="Horizontal"
                 HorizontalAlignment="Center">
 
-        <Image Width="24"
-               Height="24"
+        <Image Width="21"
+               Height="21"
                Margin="10, 0"
                Source="../../Icons/Menu/moon_blue_32x32.png"/>
-        <ToggleButton Width="40"
+        <ToggleButton Width="35"
                       IsChecked="True"
                       Background="{DynamicResource SunYellowBrush}"
                       Style="{StaticResource MaterialDesignSwitchToggleButton}"
                       Checked="ToggleButton_Checked"
                       Unchecked="ToggleButton_OnUnchecked"/>
-        <Image Width="24"
-               Height="24"
+        <Image Width="23"
+               Height="23"
                Margin="10, 0"
                Source="../../Icons/Menu/sun_yellow_32x32.png" />
     </StackPanel>

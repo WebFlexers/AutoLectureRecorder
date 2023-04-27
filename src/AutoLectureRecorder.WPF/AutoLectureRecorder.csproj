@@ -56,7 +56,6 @@
 		<PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
 		<PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.8" />
 		<PackageReference Include="Splat.Serilog" Version="14.6.8" />
-		<PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.18" />
 		<PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
 	</ItemGroup>
 
@@ -106,7 +105,7 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	  <None Update="AutoLectureRecorderDB.db">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 
