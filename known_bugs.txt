@@ -1,4 +1,0 @@
-* When first installing AutoLectureRecorder it fails if Microsoft Edge is not updated to the latest version
-* Sometimes an AccessDenied is thrown when trying to delete the old Microsoft Edge Driver (maybe put it on temp instead?)
-* When logging in and then clicking join lecture the menu where the account must be selected sometimes appears
-followed by the university login page. This stops the login process
