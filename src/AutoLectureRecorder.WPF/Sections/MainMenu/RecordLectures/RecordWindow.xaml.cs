@@ -24,6 +24,13 @@ public partial class RecordWindow : ReactiveWindow<RecordWindowViewModel>
 
             DataContext = ViewModel;
 
+            // Title Bar
+            this.WhenAnyValue(v => v._currentlyCleaningResources)
+                .Subscribe(cleaningResources =>
+                {
+                    CloseWindowButton.IsEnabled = cleaningResources == false;
+                }).DisposeWith(disposables);
+
             // Window State
             this.OneWayBind(ViewModel, vm => vm.RecordWindowState, v => v.RecordMainWindow.WindowState)
                 .DisposeWith(disposables);

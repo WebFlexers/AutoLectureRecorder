@@ -11,7 +11,6 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.IO;
 using System.Reactive;
-using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
@@ -25,16 +24,16 @@ namespace AutoLectureRecorder.Sections.MainMenu.RecordLectures;
 
 public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
 {
+    private readonly CompositeDisposable _disposables = new();
+    public ViewModelActivator Activator { get; } = new();
+
     private readonly ILogger<RecordWindowViewModel> _logger;
     private readonly IWebDriverFactory _webDriverFactory;
     private readonly IStudentAccountRepository _accountRepository;
+    private IAlrWebDriver? _webDriver;
+
     [Reactive]
     public IRecorder Recorder { get; set; }
-
-    public ViewModelActivator Activator { get; } = new();
-
-    [Reactive]
-    public bool IsRecordingFinished { get; set; }
     [Reactive]
     public ReactiveScheduledLecture? LectureToRecord { get; set; }
     [Reactive]
@@ -42,9 +41,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
     [Reactive]
     public WindowState RecordWindowState { get; set; }
 
-    private IAlrWebDriver? _webDriver;
     private Task<(bool result, string resultMessage)>? _joinMeetingTask;
-    private CompositeDisposable _disposables = new();
 
     public ReactiveCommand<Window, Unit> CloseWindowCommand { get; }
     public ReactiveCommand<Unit, Unit> ToggleWindowStateCommand { get; }
@@ -229,7 +226,6 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
         Recorder.StartRecording(windowHandle, false)
             .OnRecordingComplete(() =>
             {
-                IsRecordingFinished = true;
                 if (LectureToRecord.WillAutoUpload)
                 {
                     // TODO: Upload to the cloud
@@ -237,7 +233,6 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
             })
             .OnRecordingFailed(() =>
             {
-                IsRecordingFinished = true;
                 // TODO: Return to Dashboard, update the statistics and display an error message
             });
     }

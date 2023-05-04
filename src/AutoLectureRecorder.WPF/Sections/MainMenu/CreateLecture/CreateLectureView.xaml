@@ -42,6 +42,7 @@
                                 Foreground="{DynamicResource ErrorDarkerBrush}"
                                 Opacity="0.6"
                                 FontSize="16"
+                                IsCancel="True"
                                 Content="CANCEL"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
                         <Button x:Name="AddAnywayButton"  
