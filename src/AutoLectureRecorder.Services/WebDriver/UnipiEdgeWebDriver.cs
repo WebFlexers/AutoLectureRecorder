@@ -132,7 +132,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
     private const string CancelJoinMeetingErrorMessage = 
         "The proccess of joinning the Microsoft Teams meeting was cancelled by the user";
 
-    private TimeSpan _previousImplicitWait;
+    private TimeSpan _initialImplicitWait;
 
     /// <summary>
     /// Join the specified microsoft teams meeting after logging in if the user is not already logged in
@@ -147,7 +147,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
         }
 
         // Store the implicit wait time to revert to it after changing it
-        _previousImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
+        _initialImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
 
         try
         {
@@ -167,7 +167,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             // data-tid: joinOnWeb -> Exists when the link is a direct meeting link
             var nextElement = _driver.FindElement(
                 By.XPath("//button[@data-tid='joinOnWeb' or @id='openTeamsClientInBrowser']"));
-            
+
             if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
             bool isDirectMeetingLink = nextElement.GetAttribute("data-tid") == "joinOnWeb";
@@ -186,10 +186,22 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                     EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
                 }
 
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
                 _driver.FindElement(
                     By.XPath("//button[@translate-once='getUserMedia_continue_button']")).Click();
 
                 if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+
+                var dismissNotificationsButtons = _driver.FindElements(By.XPath("//button[@title='Don’t ask again']"));
+                if (dismissNotificationsButtons.Count > 0)
+                {
+                    dismissNotificationsButtons.First().Click();
+                }
+
+                _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait;
 
                 // Here we will have to check whether we are signed in or not
                 // class: anonymous-pre-join-footer -> Exists when the user is NOT logged in
@@ -197,6 +209,8 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                 //        Refers to the iframe containing the meeting. Exists when the user is logged in
                 nextElement = _driver.FindElement(
                     By.XPath("//div[@class='anonymous-pre-join-footer' or @class='experience-container-root']"));
+
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
                 bool userIsNotLoggedIn = nextElement.GetAttribute("class") == "anonymous-pre-join-footer";
 
@@ -300,7 +314,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                 if (clickedJoinButton == false) return (false, "The meeting didn't start in time");
             }
 
-            _driver.Manage().Timeouts().ImplicitWait = _previousImplicitWait;
+            _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait;
 
             // Continue without audio or video
             var iframeDiv =
@@ -348,7 +362,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
         {
             if (_driver != null)
             {
-                _driver.Manage().Timeouts().ImplicitWait = _previousImplicitWait;
+                _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait;
             }
         }
     }
