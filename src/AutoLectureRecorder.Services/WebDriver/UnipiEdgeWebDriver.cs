@@ -178,9 +178,17 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                 nextElement.Click();
                 if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-                var continueWithoutAudioButton = _driver.FindElement(
-                    By.XPath("//button[@translate-once='getUserMedia_continue_button']"));
-                continueWithoutAudioButton.Click();
+                nextElement = _driver.FindElement(
+                    By.XPath("//button[@translate-once='getUserMedia_continue_button' or @id='loginButton']"));
+
+                if (nextElement.GetAttribute("id").Trim() == "loginButton")
+                {
+                    EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+                }
+
+                _driver.FindElement(
+                    By.XPath("//button[@translate-once='getUserMedia_continue_button']")).Click();
+
                 if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
                 // Here we will have to check whether we are signed in or not
@@ -199,8 +207,21 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
                     if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
-                    (bool loginResult, string loginResultMessage) = Login(academicEmailAddress, password, cancellationToken, false);
-                    if (loginResult == false) return (false, loginResultMessage);
+                    nextElement = _driver.FindElement(
+                        By.XPath($"//div[@id='username' or @data-test-id='{academicEmailAddress}']"));
+
+                    if (nextElement.GetAttribute("id").Trim() == "username")
+                    {
+                        (bool loginResult, string loginResultMessage) = Login(academicEmailAddress, password, cancellationToken, false);
+                        if (loginResult == false) return (false, loginResultMessage);
+                    }
+                    else if (nextElement.GetAttribute("data-test-id").Trim() == academicEmailAddress)
+                    {
+                        nextElement.Click();
+                        if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+                        EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
+                    }
+
                     if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
                     _driver.FindElement(By.Id("idSIButton9")).Click();
 
@@ -238,7 +259,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                     if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
                     _driver.FindElement(By.Id("idSIButton9")).Click();
                 }
-                else if (dataTestId != null && dataTestId.Trim().Equals(academicEmailAddress))
+                else if (dataTestId != null && dataTestId.Trim() == academicEmailAddress)
                 {
                     nextElement.Click();
                     if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
@@ -295,21 +316,23 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
             try
             {
-                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
                 _driver.FindElement(By.XPath("//button[@title='Dismiss']")).Click();
             }
             catch (NoSuchElementException ex)
             {
-                _logger.LogWarning(ex, "Dismiss button popup not found. Moving on...");
+                _logger.LogWarning("Dismiss button popup not found. Moving on...");
             }
             catch (ElementClickInterceptedException ex)
             {
-                _logger.LogWarning(ex, "Dismiss button popup was intercepted. Ignoring it...");
+                _logger.LogWarning("Dismiss button popup was intercepted. Ignoring it...");
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "Failed to click the Dismiss popup button");
             }
+
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
             const string successMessage = "Successfully joined meeting";
             _logger.LogInformation(successMessage);
