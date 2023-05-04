@@ -1,10 +1,12 @@
-﻿using ScreenRecorderLib;
+﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using ScreenRecorderLib;
 
 namespace AutoLectureRecorder.Services.Recording;
 
-public interface IRecorder : IDisposable
+public interface IRecorder : IReactiveObject
 {
-    bool IsRecording { get; set; }
+    public bool IsRecording { get; set; }
     string? RecordingDirectoryPath { get; set; }
     string? RecordingFileName { get; set; }
     string? RecordingFilePath { get; }

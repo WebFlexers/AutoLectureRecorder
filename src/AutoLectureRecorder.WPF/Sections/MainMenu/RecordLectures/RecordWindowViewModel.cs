@@ -11,8 +11,10 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.IO;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,7 +28,8 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
     private readonly ILogger<RecordWindowViewModel> _logger;
     private readonly IWebDriverFactory _webDriverFactory;
     private readonly IStudentAccountRepository _accountRepository;
-    private readonly IRecorder _recorder;
+    [Reactive]
+    public IRecorder Recorder { get; set; }
 
     public ViewModelActivator Activator { get; } = new();
 
@@ -41,8 +44,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
 
     private IAlrWebDriver? _webDriver;
     private Task<(bool result, string resultMessage)>? _joinMeetingTask;
-
-    private readonly CompositeDisposable _disposables = new();
+    private CompositeDisposable _disposables = new();
 
     public ReactiveCommand<Window, Unit> CloseWindowCommand { get; }
     public ReactiveCommand<Unit, Unit> ToggleWindowStateCommand { get; }
@@ -71,8 +73,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
         _logger = logger;
         _webDriverFactory = webDriverFactory;
         _accountRepository = accountRepository;
-        _recorder = recorder;
-        _recorder.DisposeWith(_disposables);
+        Recorder = recorder;
 
         CloseWindowCommand = ReactiveCommand.Create<Window>(window =>
         {
@@ -99,7 +100,6 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
                 : CoreWebView2PreferredColorScheme.Light;
 
             _joinMeetingTask = Task.Run(JoinAndRecordMeeting);
-            await _joinMeetingTask.DisposeWith(_disposables);
             (bool joinedMeeting, string resultMessage) = await _joinMeetingTask;
 
             if (joinedMeeting == false)
@@ -108,10 +108,13 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
                 return;
             }
 
-            var recordingStarted = StartRecording();
-
-            if (recordingStarted == false)
+            try
             {
+                StartRecording();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while trying to start recording");
                 // TODO: Return to Dashboard, update the statistics and display an error message
                 return;
             }
@@ -130,7 +133,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
                 _logger.LogWarning("The recording was cancelled manually");
             }
 
-            _recorder.StopRecording();
+            Recorder.StopRecording();
         });
 
         CleanupResourcesCommand = ReactiveCommand.CreateFromTask(async () =>
@@ -144,9 +147,18 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
             if (_joinMeetingTask != null)
             {
                 var result = await _joinMeetingTask;
+                _joinMeetingTask.Dispose();
             }
 
             _recordCancellationTokenSource?.Cancel();
+            
+            // TODO: Make sure that the Action invoked when finishing the recording is done, before disposing the recorder
+            // Wait until recorder finishes
+            await this.WhenAnyValue(vm => vm.Recorder.IsRecording)
+                .Do(isRecording => _logger.LogInformation("IsRecording: {val}", isRecording))
+                .SkipWhile(isRecording => isRecording)
+                .Take(1)
+                .ToTask();
         });
 
         this.WhenActivated(disposables =>
@@ -191,7 +203,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
         return (true, "success");
     }
 
-    private bool StartRecording()
+    private void StartRecording()
     {
         // TODO: Get directory path from the database instead of hardcoded documents
         var recordingDirectory = Path.Combine(
@@ -206,38 +218,27 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
         }
 
         _recordingStartTime = DateTime.Now;
-        _recorder.RecordingDirectoryPath = recordingDirectory;
-        _recorder.RecordingFileName = _recordingStartTime.ToString("yyyy-MM-d hh-mm");
+        Recorder.RecordingDirectoryPath = recordingDirectory;
+        Recorder.RecordingFileName = _recordingStartTime.ToString("yyyy-MM-d hh-mm");
 
-        try
-        {
-            _recordCancellationTokenSource = new CancellationTokenSource();
-            _recordCancellationToken = _recordCancellationTokenSource.Token;
+        _recordCancellationTokenSource = new CancellationTokenSource();
+        _recordCancellationToken = _recordCancellationTokenSource.Token;
 
-            IntPtr windowHandle = 
-                new WindowInteropHelper(Window.GetWindow(_webView2!)!).Handle;
+        IntPtr windowHandle = new WindowInteropHelper(Window.GetWindow(_webView2!)!).Handle;
 
-            _recorder.StartRecording(windowHandle, false)
-                .OnRecordingComplete(async () =>
+        Recorder.StartRecording(windowHandle, false)
+            .OnRecordingComplete(() =>
+            {
+                IsRecordingFinished = true;
+                if (LectureToRecord.WillAutoUpload)
                 {
-                    IsRecordingFinished = true;
-                    if (LectureToRecord.WillAutoUpload)
-                    {
-                        // TODO: Upload to the cloud
-                    }
-                })
-                .OnRecordingFailed(() =>
-                {
-                    IsRecordingFinished = true;
-                    // TODO: Return to Dashboard, update the statistics and display an error message
-                });
-
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "An error occurred while trying to start recording");
-            return false;
-        }
+                    // TODO: Upload to the cloud
+                }
+            })
+            .OnRecordingFailed(() =>
+            {
+                IsRecordingFinished = true;
+                // TODO: Return to Dashboard, update the statistics and display an error message
+            });
     }
 }

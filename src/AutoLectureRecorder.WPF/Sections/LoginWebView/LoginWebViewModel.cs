@@ -107,7 +107,7 @@ public class LoginWebViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
         _loginTask = Task.Run(() =>
         {
-            _webDriver = _webDriverFactory.CreateUnipiEdgeWebDriver(true, TimeSpan.FromSeconds(17));
+            _webDriver = _webDriverFactory.CreateUnipiEdgeWebDriver(true, TimeSpan.FromSeconds(40));
             return _webDriver.Login(_academicEmailAddress, _password, _loginCancellationToken);
         }, _loginCancellationToken);
 

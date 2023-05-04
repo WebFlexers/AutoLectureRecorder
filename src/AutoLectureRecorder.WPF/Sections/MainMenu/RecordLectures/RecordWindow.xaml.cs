@@ -1,16 +1,19 @@
 ﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
-using System.ComponentModel;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Windows;
 
 namespace AutoLectureRecorder.Sections.MainMenu.RecordLectures;
 
 public partial class RecordWindow : ReactiveWindow<RecordWindowViewModel>
 {
+    private bool _currentlyCleaningResources = false;
+    private bool _resourcesCleaned = false;
+
     public RecordWindow()
     {
         InitializeComponent();
@@ -64,26 +67,27 @@ public partial class RecordWindow : ReactiveWindow<RecordWindowViewModel>
             this.BindCommand(ViewModel, vm => vm.MinimizeWindowCommand, v => v.MinimizeWindowButton)
                 .DisposeWith(disposables);
 
-            // Close window after finishing
-            this.WhenAnyValue(v => v.ViewModel!.IsRecordingFinished)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(isRecordingFinished =>
+            // On Closing
+            this.Events().Closing
+                .Subscribe(async e =>
                 {
-                    if (_resourcesCleaned && isRecordingFinished)
+                    if (_currentlyCleaningResources || _resourcesCleaned) return;
+
+                    _currentlyCleaningResources = true;
+                    e.Cancel = true;
+
+                    await ViewModel!.CleanupResourcesCommand.Execute()
+                        .Take(1)
+                        .ToTask();
+
+                    e.Cancel = false;
+                    _resourcesCleaned = true;
+                    _currentlyCleaningResources = false;
+                    if (this.IsActive)
                     {
                         this.Close();
                     }
                 }).DisposeWith(disposables);
         });
-    }
-
-    private bool _resourcesCleaned = false;
-    private async void RecordWindow_OnClosing(object? sender, CancelEventArgs e)
-    {
-        if (_resourcesCleaned) return;
-
-        e.Cancel = true;
-        await ViewModel!.CleanupResourcesCommand.Execute();
-        _resourcesCleaned = true;
     }
 }

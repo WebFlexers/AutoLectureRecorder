@@ -1,10 +1,11 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using ReactiveUI;
 using ScreenRecorderLib;
+using System.Text.RegularExpressions;
 
 namespace AutoLectureRecorder.Services.Recording;
 
-public class WindowsRecorder : IRecorder, IDisposable
+public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
 {
     private readonly ILogger<WindowsRecorder> _logger;
 
@@ -14,7 +15,12 @@ public class WindowsRecorder : IRecorder, IDisposable
     private Action? _onRecordingFailed;
     private Func<Task>? _onRecordingFailedAsync;
 
-    public bool IsRecording { get; set; } = false;
+    private bool _isRecording = false;
+    public bool IsRecording
+    {
+        get => _isRecording;
+        set => this.RaiseAndSetIfChanged(ref _isRecording, value);
+    }
 
     public string? RecordingDirectoryPath { get; set; }
     public string? RecordingFileName { get; set; }
@@ -179,7 +185,7 @@ public class WindowsRecorder : IRecorder, IDisposable
         _logger.LogInformation("Recording completed successfully!");
         _onRecordingComplete?.Invoke();
         _onRecordingCompleteAsync?.Invoke();
-        _recorder?.Dispose();
+        Dispose();
     }
 
     private void RecorderOnRecordingFailed(object? sender, RecordingFailedEventArgs e)
@@ -188,7 +194,7 @@ public class WindowsRecorder : IRecorder, IDisposable
         _logger.LogError("Recording failed to complete with error: {error}", e.Error);
         _onRecordingFailed?.Invoke();
         _onRecordingFailedAsync?.Invoke();
-        _recorder?.Dispose();
+        Dispose();
     }
 
     public void Dispose()
