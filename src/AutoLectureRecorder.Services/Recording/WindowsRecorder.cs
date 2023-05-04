@@ -36,7 +36,7 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
         {
             RecorderMode = RecorderMode.Video,
             OutputFrameSize = new ScreenSize(1280, 720),
-            Stretch = StretchMode.UniformToFill,
+            Stretch = StretchMode.Uniform,
         },
         AudioOptions = new AudioOptions
         {
