@@ -14,9 +14,12 @@
             TextElement.FontWeight="Medium"
             TextElement.FontSize="14"
             mc:Ignorable="d"
+            xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             d:DesignWidth="1360"
             d:DesignHeight="768">
-    <Grid>
+
+    <Grid x:Name="MainGrid"
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
         <!-- Design time grid that represents the titlebar buttons -->
         <d:Grid d:Grid.Column="2"
                 d:Width="135"
@@ -25,6 +28,78 @@
                 d:HorizontalAlignment="Right"
                 d:VerticalAlignment="Top" />
 
-        <TextBlock Text="Library" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <CollectionViewSource x:Key="GroupedLecturesCVS"
+                                  Source="{Binding Path=LecturesBySemester}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="Semester" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+
+            <DataTemplate x:Key="LectureTemplate">
+                <Border HorizontalAlignment="Center"
+                        CornerRadius="15"
+                        Height="80"
+                        Width="160"
+                        Background="{DynamicResource MaterialDesignPaper}"
+                        Margin="0, 6, 16, 8"
+                        Padding="7">
+                    <TextBlock Text="{Binding Path=SubjectName}"
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               TextAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+            </DataTemplate>
+
+            <Style x:Key="SemesterContainerStyle" TargetType="{x:Type GroupItem}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Margin="10, 10, 10, 10"
+                                    CornerRadius="20"
+                                    Padding="20"
+                                    Background="{DynamicResource SecondaryBackgroundBrush}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" 
+                                               Text="{Binding Path=Name, StringFormat=Semester {0}}"
+                                               TextElement.FontWeight="Medium"
+                                               FontSize="22"
+                                               Margin="0, 0, 0, 10"/>
+                                    <ItemsPresenter Grid.Row="1"/>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl x:Name="LecturesBySemesterItemsControl" 
+                          ItemsSource="{Binding Source={StaticResource GroupedLecturesCVS}}"
+                          ItemTemplate="{StaticResource LectureTemplate}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"
+                                   HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+           
+                <ItemsControl.GroupStyle>
+                    <GroupStyle ContainerStyle="{StaticResource SemesterContainerStyle}"/>
+                </ItemsControl.GroupStyle>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </rxui:ReactiveUserControl>

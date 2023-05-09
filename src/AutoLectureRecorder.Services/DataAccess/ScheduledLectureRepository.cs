@@ -177,6 +177,24 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
+    /// Gets the scheduled lectures grouped by semester
+    /// </summary>
+    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemesterAsync()
+    {
+        try
+        {
+            string sql = "select * from ScheduledLectures order by Semester";
+            var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { }).ConfigureAwait(false);
+            return result.Select(CreateReactiveScheduledLecture).ToList();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while trying to get scheduled lecture grouped by semester");
+            return null;
+        }
+    } 
+
+    /// <summary>
     /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture asynchronously
     /// </summary>
     public async Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(ReactiveScheduledLecture reactiveLecture)
