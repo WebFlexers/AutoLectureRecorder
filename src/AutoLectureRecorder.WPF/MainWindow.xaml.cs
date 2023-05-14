@@ -1,7 +1,13 @@
 ﻿using ReactiveUI;
 using System;
+using System.Diagnostics;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Windows;
+using System.Windows.Input;
+using AutoLectureRecorder.ReactiveUiUtilities;
+using ReactiveMarbles.ObservableEvents;
+using Serilog;
 
 namespace AutoLectureRecorder;
 
@@ -37,6 +43,14 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                         );
                 })
                 .DisposeWith(disposables);
+
+            // Event
+            this.Events().SizeChanged
+                .Throttle(TimeSpan.FromMilliseconds(50))
+                .Subscribe(e =>
+                {
+                    MessageBus.Current.SendMessage(e, PubSubMessages.ScreenDimensionChanged);
+                }).DisposeWith(disposables);
         });
     }
 }

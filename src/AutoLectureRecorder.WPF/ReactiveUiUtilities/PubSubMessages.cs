@@ -8,4 +8,5 @@ public static class PubSubMessages
     public static string SetUpdateModeToScheduledLecture = nameof(SetUpdateModeToScheduledLecture);
     public static string UpdateVideoFullScreen = nameof(UpdateVideoFullScreen);
     public static string UpdateTheme = nameof(UpdateTheme);
+    public static string ScreenDimensionChanged = nameof(ScreenDimensionChanged);
 }

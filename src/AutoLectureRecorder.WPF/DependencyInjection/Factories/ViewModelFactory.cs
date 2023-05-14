@@ -2,6 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using System;
+using System.Threading.Tasks;
+using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.Sections.MainMenu.Library;
 
 namespace AutoLectureRecorder.DependencyInjection.Factories;
 
@@ -25,5 +28,16 @@ public class ViewModelFactory : IViewModelFactory
         }
 
         return (IRoutableViewModel)_services.GetRequiredService(viewModelType);
+    }
+
+    /// <summary>
+    /// Creates the view model that corresponds to the Recorded Lectures View from
+    /// the provided ReactiveScheduledLecture
+    /// </summary>
+    public async Task<RecordedLecturesViewModel> CreateRecordedLecturesViewModel(int scheduledLectureId)
+    {
+        var viewModel = _services.GetRequiredService<RecordedLecturesViewModel>();
+        await viewModel.Initialize(scheduledLectureId);
+        return viewModel;
     }
 }

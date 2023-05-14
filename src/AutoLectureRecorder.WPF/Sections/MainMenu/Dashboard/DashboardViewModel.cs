@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
@@ -22,6 +23,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
 {
     private readonly ILogger<DashboardViewModel> _logger;
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
+    private readonly IWindowFactory _windowFactory;
 
     public string UrlPathSegment => nameof(DashboardViewModel);
     public IScreen HostScreen { get; }
@@ -44,11 +46,12 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, 
-        IScheduledLectureRepository scheduledLectureRepository)
+        IScheduledLectureRepository scheduledLectureRepository, IWindowFactory windowFactory)
     {
         HostScreen = screenFactory.GetMainMenuViewModel();
         _logger = logger;
         _scheduledLectureRepository = scheduledLectureRepository;
+        _windowFactory = windowFactory;
         Activator = new ViewModelActivator();
 
         FindClosestScheduledLectureToNowCommand = ReactiveCommand.CreateFromTask(async () =>
@@ -129,6 +132,9 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             _nextLectureCalculatorTimer!.Stop();
 
             await Task.Delay(TimeSpan.FromSeconds(1));
+
+            var recordWindow = _windowFactory.CreateRecordWindow((ReactiveScheduledLecture)NextScheduledLecture!.Clone());
+            recordWindow.Show();
 
             FindClosestScheduledLectureToNowCommand.Execute()
             .Subscribe(_ =>

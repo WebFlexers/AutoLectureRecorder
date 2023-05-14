@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -29,6 +30,23 @@ public static class ThemeManager
     //        SwitchToLightTheme();
     //    }
     //}
+
+    /// <summary>
+    /// Reapplies the current theme in case it was not applied to specific elements
+    /// </summary>
+    public static void RefreshTheme()
+    {
+        var windows = Application.Current.Windows.Cast<Window>().ToArray();
+        switch (CurrentColorTheme)
+        {
+            case ColorTheme.Light:
+                SwitchToLightTheme(windows);
+                break;
+            case ColorTheme.Dark:
+                SwitchToDarkTheme(windows);
+                break;
+        }
+    }
 
     public static void SwitchToLightTheme(ICollection<DependencyObject> windows)
     {

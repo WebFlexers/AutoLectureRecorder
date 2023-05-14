@@ -65,13 +65,13 @@
                         Orientation="Horizontal">
 
                 <Button x:Name="MinimizeWindowButton"
-                        Style="{StaticResource TitlebarMinimizeButton}"
+                        Style="{DynamicResource TitlebarMinimizeButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" />
                 <Button x:Name="ToggleWindowStateButton"
-                        Style="{StaticResource TitlebarMaximizeButton}"
+                        Style="{DynamicResource TitlebarMaximizeButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" />
                 <Button x:Name="CloseWindowButton"
-                        Style="{StaticResource TitlebarCloseButton}"
+                        Style="{DynamicResource TitlebarCloseButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" />
             </StackPanel>
         </Grid>

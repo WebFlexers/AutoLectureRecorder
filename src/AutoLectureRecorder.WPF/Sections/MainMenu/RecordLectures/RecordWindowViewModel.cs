@@ -67,6 +67,8 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
     public RecordWindowViewModel(ILogger<RecordWindowViewModel> logger, IWebDriverFactory webDriverFactory,
         IStudentAccountRepository accountRepository, IRecorder recorder)
     {
+        ThemeManager.RefreshTheme();
+
         _logger = logger;
         _webDriverFactory = webDriverFactory;
         _accountRepository = accountRepository;
@@ -131,6 +133,8 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
             }
 
             Recorder.StopRecording();
+
+            Window.GetWindow(_webView2!)!.Close();
         });
 
         CleanupResourcesCommand = ReactiveCommand.CreateFromTask(async () =>

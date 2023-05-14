@@ -22,6 +22,11 @@ internal class ScheduledLectureDataMock : IScheduledLectureRepository
         throw new NotImplementedException();
     }
 
+    public Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemesterAsync()
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(ReactiveScheduledLecture lecture)
     {
         throw new NotImplementedException();

@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System.Reactive.Disposables;
+using ReactiveUI;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Library;
 

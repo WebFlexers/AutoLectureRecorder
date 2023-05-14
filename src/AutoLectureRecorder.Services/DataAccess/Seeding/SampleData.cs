@@ -100,7 +100,7 @@ public class SampleData
                 var startTime = DateTime.MinValue.AddHours(10).AddMinutes(15);
                 var endTime = DateTime.MinValue.AddHours(12).AddMinutes(14);
 
-                for (int lectureNum = 0; lectureNum < 3; lectureNum++)
+                for (int lectureNum = 0; lectureNum < _random.Next(1,4); lectureNum++)
                 {
                     // Pick random name and add indexes at the end of the names according to how many times
                     // a name is used. This is done to simulate different lectures. For example Short Course 1

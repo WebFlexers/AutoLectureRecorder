@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Resources.Themes;
 using MaterialDesignThemes.Wpf;
+using Serilog;
 
 namespace AutoLectureRecorder.Sections.MainMenu;
 

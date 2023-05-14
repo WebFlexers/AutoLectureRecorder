@@ -83,17 +83,15 @@ public partial class RecordWindow : ReactiveWindow<RecordWindowViewModel>
                     _currentlyCleaningResources = true;
                     e.Cancel = true;
 
-                    await ViewModel!.CleanupResourcesCommand.Execute()
+                    var cleanupTask = ViewModel!.CleanupResourcesCommand.Execute()
                         .Take(1)
                         .ToTask();
 
                     e.Cancel = false;
                     _resourcesCleaned = true;
                     _currentlyCleaningResources = false;
-                    if (this.IsActive)
-                    {
-                        this.Close();
-                    }
+
+                    await cleanupTask;
                 }).DisposeWith(disposables);
         });
     }

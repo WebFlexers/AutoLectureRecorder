@@ -3,7 +3,7 @@ using ReactiveUI.Fody.Helpers;
 
 namespace AutoLectureRecorder.Data.ReactiveModels;
 
-public class ReactiveScheduledLecture : ReactiveObject
+public class ReactiveScheduledLecture : ReactiveObject, ICloneable
 {
     [Reactive]
     public int Id { get; set; }
@@ -37,5 +37,21 @@ public class ReactiveScheduledLecture : ReactiveObject
     public static bool AreLecturesOverlapping(ReactiveScheduledLecture lecture1, ReactiveScheduledLecture lecture2)
     {
         return lecture1.StartTime <= lecture2.EndTime && lecture2.StartTime <= lecture1.EndTime;
+    }
+
+    public object Clone()
+    {
+        return new ReactiveScheduledLecture()
+        {
+            Id = this.Id,
+            SubjectName = this.SubjectName,
+            Semester = this.Semester,
+            MeetingLink = this.MeetingLink,
+            Day = this.Day,
+            StartTime = this.StartTime,
+            EndTime = this.EndTime,
+            IsScheduled = this.IsScheduled,
+            WillAutoUpload = this.WillAutoUpload
+        };
     }
 }

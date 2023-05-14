@@ -18,8 +18,17 @@
             d:DesignWidth="1360"
             d:DesignHeight="768">
 
+<Border>
+    <Border.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../Resources/Library/RecordedLectureLibraryDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Border.Resources>
+
     <Grid x:Name="MainGrid"
-          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
+      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
         <!-- Design time grid that represents the titlebar buttons -->
         <d:Grid d:Grid.Column="2"
                 d:Width="135"
@@ -42,26 +51,20 @@
             </CollectionViewSource>
 
             <DataTemplate x:Key="LectureTemplate">
-                <Border HorizontalAlignment="Center"
-                        CornerRadius="15"
+                <Button Content="{Binding Path=SubjectName}"
                         Height="80"
-                        Width="160"
-                        Background="{DynamicResource MaterialDesignPaper}"
-                        Margin="0, 6, 16, 8"
-                        Padding="7">
-                    <TextBlock Text="{Binding Path=SubjectName}"
-                               TextWrapping="Wrap"
-                               TextTrimming="CharacterEllipsis"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"/>
-                </Border>
+                        Width="auto"
+                        Margin="8"
+                        Style="{StaticResource RecordedLectureLibraryButton}"
+                        Command="{Binding DataContext.NavigateToRecordedLecturesCommand, ElementName=LecturesBySemesterItemsControl}"
+                        CommandParameter="{Binding Path=Id}"/>
             </DataTemplate>
 
             <Style x:Key="SemesterContainerStyle" TargetType="{x:Type GroupItem}">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
-                            <Border Margin="10, 10, 10, 10"
+                            <Border Margin="21, 10, 21, 10"
                                     CornerRadius="20"
                                     Padding="20"
                                     Background="{DynamicResource SecondaryBackgroundBrush}">
@@ -74,7 +77,7 @@
                                                Text="{Binding Path=Name, StringFormat=Semester {0}}"
                                                TextElement.FontWeight="Medium"
                                                FontSize="22"
-                                               Margin="0, 0, 0, 10"/>
+                                               Margin="4, 0, 0, 10"/>
                                     <ItemsPresenter Grid.Row="1"/>
                                 </Grid>
                             </Border>
@@ -91,8 +94,11 @@
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"
-                                   HorizontalAlignment="Center"/>
+                        <UniformGrid HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch"
+                                     Columns="5">
+
+                        </UniformGrid>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
            
@@ -101,5 +107,12 @@
                 </ItemsControl.GroupStyle>
             </ItemsControl>
         </ScrollViewer>
+
+        <!--<StackPanel Grid.Row="1" 
+                    Background="{DynamicResource SecondaryBackgroundBrush}">
+
+        </StackPanel>-->
+
     </Grid>
+</Border>
 </rxui:ReactiveUserControl>

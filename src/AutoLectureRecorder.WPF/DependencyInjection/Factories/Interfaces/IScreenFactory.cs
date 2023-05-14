@@ -1,9 +1,9 @@
-﻿using ReactiveUI;
+﻿using AutoLectureRecorder.Sections.MainMenu;
 
 namespace AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 
 public interface IScreenFactory
 {
-    IScreen GetMainMenuViewModel();
-    IScreen GetMainWindowViewModel();
+    MainWindowViewModel GetMainWindowViewModel();
+    MainMenuViewModel GetMainMenuViewModel();
 }

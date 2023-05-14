@@ -22,6 +22,7 @@ internal static class MvvmServicesExtensions
         services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
         services.AddTransient<IViewFor<DashboardViewModel>, DashboardView>();
         services.AddTransient<IViewFor<LibraryViewModel>, LibraryView>();
+        services.AddTransient<IViewFor<RecordedLecturesViewModel>, RecordedLecturesView>();
         services.AddTransient<IViewFor<ScheduleViewModel>, ScheduleView>();
         services.AddTransient<IViewFor<SettingsViewModel>, SettingsView>();
         services.AddTransient<IViewFor<UploadViewModel>, UploadView>();
@@ -37,6 +38,7 @@ internal static class MvvmServicesExtensions
         services.AddTransient<CreateLectureViewModel>();
         services.AddSingleton<DashboardViewModel>();
         services.AddTransient<LibraryViewModel>();
+        services.AddTransient<RecordedLecturesViewModel>();
         services.AddTransient<ScheduleViewModel>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<UploadViewModel>();

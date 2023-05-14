@@ -83,16 +83,17 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
 
         NavigateToRecordWindowCommand = ReactiveCommand.Create(() =>
         {
+            // Algorithmoi: https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjFmMWM0ZjctNTFiNC00MTc0LWFjYTQtMzlhMGRkNTM0NjFi%40thread.v2/0?context=%7b%22Tid%22%3a%22d9c8dee3-558b-483d-b502-d31fa0cb24de%22%2c%22Oid%22%3a%2220dcfee8-a2d9-4250-aa03-bde3530991d8%22%7d
             // TODO: Modify this test method
             var recordWindow = windowFactory.CreateRecordWindow(new ReactiveScheduledLecture
             {
                 Id = 5000,
-                SubjectName = "Αλγόριθμοι",
-                Semester = 5,
-                MeetingLink = @"https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjFmMWM0ZjctNTFiNC00MTc0LWFjYTQtMzlhMGRkNTM0NjFi%40thread.v2/0?context=%7b%22Tid%22%3a%22d9c8dee3-558b-483d-b502-d31fa0cb24de%22%2c%22Oid%22%3a%2220dcfee8-a2d9-4250-aa03-bde3530991d8%22%7d",
-                Day = DayOfWeek.Thursday,
-                StartTime = DateTime.MinValue.AddHours(16),
-                EndTime = DateTime.MinValue.AddHours(22).AddMinutes(15),
+                SubjectName = "Εκπαιδευτικό Λογισμικό",
+                Semester = 8,
+                MeetingLink = @"https://teams.microsoft.com/l/meetup-join/19%3Ameeting_OGE0OWFiNmUtYzM4YS00Y2IwLWI1NjgtMGI4NjQ4ZWVjMTM0%40thread.v2/0?context=%7B%22Tid%22%3A%225f3b4a0c-0b1e-4776-9e95-6933e4408e97%22%2C%22Oid%22%3A%22a0248d49-c7e0-48f7-94c2-d5f02c150d78%22%7D",
+                Day = DayOfWeek.Friday,
+                StartTime = DateTime.MinValue.AddHours(8),
+                EndTime = DateTime.MinValue.AddHours(10).AddMinutes(15),
                 IsScheduled = true,
                 WillAutoUpload = false
             });
@@ -130,16 +131,17 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         MenuVisibility = isFullScreen ? Visibility.Collapsed : Visibility.Visible;
     }
 
-    private void SetRoutedViewHostContent(Type type)
+    private void SetRoutedViewHostContent(IRoutableViewModel viewModel)
     {
-        if (Router.NavigationStack.LastOrDefault()?.GetType() == type) return;
+        var vmType = viewModel.GetType();
+        if (Router.NavigationStack.LastOrDefault()?.GetType() == vmType) return;
 
         // Navigate and reset to avoid memory leaks with ViewModels being retained in memory
-        Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(type));
-        _logger.LogInformation("Navigated to {viewModel}", type.Name);
+        Router.NavigateAndReset.Execute(viewModel);
+        _logger.LogInformation("Navigated to {viewModel}", vmType.Name);
     }
 
-    public void Navigate(Type type)
+    public void Navigate(IRoutableViewModel viewModel)
     {
         if (_currentNavigationIndex < _navigationStack.Count - 1)
         {
@@ -149,10 +151,18 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
             }
         }
 
-        _navigationStack.Add(type);
+        var vmType = viewModel.GetType();
+
+        _navigationStack.Add(vmType);
         _currentNavigationIndex = _navigationStack.Count - 1;
 
-        SetRoutedViewHostContent(type);
+        SetRoutedViewHostContent(viewModel);
+    }
+
+    public void Navigate(Type type)
+    {
+        var viewModel = _viewModelFactory.CreateRoutableViewModel(type);
+        Navigate(viewModel);
     }
 
     public void NavigateBack()
@@ -164,7 +174,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         {
             _currentNavigationIndex = backIndex;
             var viewModelType = _navigationStack.ElementAt(backIndex);
-            SetRoutedViewHostContent(viewModelType);
+            SetRoutedViewHostContent(_viewModelFactory.CreateRoutableViewModel(viewModelType));
         }
         else
         {
@@ -181,7 +191,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel, IScreen, IA
         {
             _currentNavigationIndex = forwardIndex;
             var viewModelType = _navigationStack.ElementAt(forwardIndex);
-            SetRoutedViewHostContent(viewModelType);
+            SetRoutedViewHostContent(_viewModelFactory.CreateRoutableViewModel(viewModelType));
         }
         else
         {
