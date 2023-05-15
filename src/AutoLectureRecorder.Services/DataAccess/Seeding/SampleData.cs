@@ -1,5 +1,4 @@
 ﻿using AutoLectureRecorder.Data.Models;
-using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.Services.DataAccess.Interfaces;
 
 namespace AutoLectureRecorder.Services.DataAccess.Seeding;

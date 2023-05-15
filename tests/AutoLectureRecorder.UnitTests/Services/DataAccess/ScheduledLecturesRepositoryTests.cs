@@ -144,6 +144,8 @@ public class ScheduledLecturesRepositoryTests
         var insertedScheduledLecture = await scheduledLectureRepository
             .InsertScheduledLecture(sampleReactiveScheduledLecture);
 
+        _fixture.DataAccess.RollbackPendingTransaction();
+
         Assert.Equal(sampleReactiveScheduledLecture.SubjectName, insertedScheduledLecture?.SubjectName);
         Assert.Equal(sampleReactiveScheduledLecture.Semester, insertedScheduledLecture?.Semester);
         Assert.Equal(sampleReactiveScheduledLecture.MeetingLink, insertedScheduledLecture?.MeetingLink);
@@ -152,8 +154,6 @@ public class ScheduledLecturesRepositoryTests
         Assert.Equal(sampleReactiveScheduledLecture.EndTime, insertedScheduledLecture?.EndTime);
         Assert.Equal(sampleReactiveScheduledLecture.IsScheduled, insertedScheduledLecture?.IsScheduled);
         Assert.Equal(sampleReactiveScheduledLecture.WillAutoUpload, insertedScheduledLecture?.WillAutoUpload);
-
-        _fixture.DataAccess.RollbackPendingTransaction();
     }
 
     [Fact]
@@ -172,13 +172,13 @@ public class ScheduledLecturesRepositoryTests
         string sql = "select * from ScheduledLectures where Id=@Id";
         var result = await _fixture.DataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Id = lectureToUpdate.Id });
 
+        _fixture.DataAccess.RollbackPendingTransaction();
+
         Assert.True(isSuccessful);
         var updatedLectureInDb = result.First();
         Assert.NotNull(updatedLectureInDb);
         Assert.Equal("Updated name", updatedLectureInDb.SubjectName);
         Assert.Equal("It's a new link", updatedLectureInDb.MeetingLink);
-
-        _fixture.DataAccess.RollbackPendingTransaction();
     }
 
     private static ReactiveScheduledLecture ConvertScheduledLectureToReactive(ScheduledLecture scheduledLecture)

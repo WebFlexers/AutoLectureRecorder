@@ -33,11 +33,11 @@ public class StudentAccountRepositoryTests
 
         var studentAccount = await studentData.GetStudentAccountAsync();
 
+        _fixture.DataAccess.RollbackPendingTransaction();
+
         Assert.Equal("p19000", studentAccount?.RegistrationNumber);
         Assert.Equal("p19000@unipi.gr", studentAccount?.EmailAddress);
         Assert.Equal("a_completely_fake_password", studentAccount?.Password);
-
-        _fixture.DataAccess.RollbackPendingTransaction();
     }
 
     [Fact]
@@ -49,11 +49,9 @@ public class StudentAccountRepositoryTests
         var result = await studentData.InsertStudentAccountAsync("p19165", 
             "p19165@unipi.gr", "a_random_not_real_password");
 
-        Assert.True(result);
-
         _fixture.DataAccess.RollbackPendingTransaction();
-        
 
+        Assert.True(result);
     }
 
     [Fact]
