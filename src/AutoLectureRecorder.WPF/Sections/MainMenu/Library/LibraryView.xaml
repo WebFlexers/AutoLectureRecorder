@@ -108,11 +108,6 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!--<StackPanel Grid.Row="1" 
-                    Background="{DynamicResource SecondaryBackgroundBrush}">
-
-        </StackPanel>-->
-
     </Grid>
 </Border>
 </rxui:ReactiveUserControl>

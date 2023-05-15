@@ -20,6 +20,8 @@
     <None Remove="Icons\Dashboard\pending.png" />
     <None Remove="Icons\Dashboard\pending_64px.png" />
     <None Remove="Icons\Dashboard\video_camera.png" />
+    <None Remove="Icons\Library\global.png" />
+    <None Remove="Icons\Library\pc.png" />
     <None Remove="Icons\Login\app_icon_filled256x256.png" />
     <None Remove="Icons\Menu\moon_blue_32x32.png" />
     <None Remove="Icons\Menu\sun_yellow_32x32.png" />
@@ -83,6 +85,12 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="Icons\Dashboard\video_camera.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Icons\Library\global.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Icons\Library\pc.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="Icons\Login\app_icon_filled256x256.png">

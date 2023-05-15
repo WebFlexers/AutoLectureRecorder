@@ -23,7 +23,7 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
     public ViewModelActivator Activator { get; } = new();
 
     private readonly ILogger<LibraryViewModel> _logger;
-    private readonly IScheduledLectureRepository _scheduledLectureRepository;
+    private readonly IScheduledLecturesRepository _scheduledLecturesRepository;
 
     public string UrlPathSegment => nameof(LibraryViewModel);
     public IScreen HostScreen { get; }
@@ -34,12 +34,12 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
     public ReactiveCommand<int, Unit> NavigateToRecordedLecturesCommand { get; set; }
 
     public LibraryViewModel(ILogger<LibraryViewModel> logger, IScreenFactory screenFactory, 
-        IViewModelFactory viewModelFactory, IScheduledLectureRepository scheduledLectureRepository)
+        IViewModelFactory viewModelFactory, IScheduledLecturesRepository scheduledLecturesRepository)
     {
         var mainMenuViewModel = screenFactory.GetMainMenuViewModel();
 
         _logger = logger;
-        _scheduledLectureRepository = scheduledLectureRepository;
+        _scheduledLecturesRepository = scheduledLecturesRepository;
         HostScreen = mainMenuViewModel;
 
         NavigateToRecordedLecturesCommand = ReactiveCommand.CreateFromTask<int>(async lectureId =>
@@ -47,14 +47,6 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
             var recordedLecturesViewModel = await viewModelFactory.CreateRecordedLecturesViewModel(lectureId);
             mainMenuViewModel.Navigate(recordedLecturesViewModel);
         });
-
-        //MessageBus.Current.Listen<SizeChangedEventArgs>(PubSubMessages.ScreenDimensionChanged)
-        //    .Subscribe(e =>
-        //    {
-        //        LectureContainerWidth = e.NewSize.Width * LectureContainerToScreenWidthAspectRatio;
-        //        double leftRightMargin = e.NewSize.Width * LectureMarginToScreenWidthAspectRation;
-        //        LectureContainerMargin = new Thickness(leftRightMargin, 6, leftRightMargin, 8);
-        //    }).DisposeWith(_disposables);
 
         Observable.FromAsync(FetchScheduledLecturesBySemester)
             .Subscribe().DisposeWith(_disposables);
@@ -67,7 +59,7 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
 
     private async Task FetchScheduledLecturesBySemester()
     {
-        var lecturesBySemester = await _scheduledLectureRepository.GetScheduledLecturesOrderedBySemesterAsync();
+        var lecturesBySemester = await _scheduledLecturesRepository.GetScheduledLecturesOrderedBySemesterAsync();
         if (lecturesBySemester == null || lecturesBySemester.Any() == false) return;
 
         LecturesBySemester = new ObservableCollection<ReactiveScheduledLecture>(lecturesBySemester);

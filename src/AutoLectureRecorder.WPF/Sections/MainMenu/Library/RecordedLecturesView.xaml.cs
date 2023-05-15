@@ -7,5 +7,10 @@ public partial class RecordedLecturesView : ReactiveUserControl<RecordedLectures
     public RecordedLecturesView()
     {
         InitializeComponent();
+
+        this.WhenActivated(disposables =>
+        {
+            DataContext = ViewModel;
+        });
     }
 }
