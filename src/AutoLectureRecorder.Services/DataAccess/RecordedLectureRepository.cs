@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Data.DTOs;
+using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -37,6 +38,32 @@ public class RecordedLectureRepository : IRecordedLectureRepository
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred while trying to fetch recorded lectures from id");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Inserts the given recorded lecture to the database
+    /// </summary>
+    public async Task<RecordedLecture?> InsertRecordedLecture(RecordedLecture recordedLecture)
+    {
+        try
+        {
+            string sql = "insert into RecordedLectures (Id, StudentRegistrationNumber, CloudLink, StartedAt, EndedAt, ScheduledLectureId) " +
+                         "values (@Id, @StudentRegistrationNumber, @CloudLink, @StartedAt, @EndedAt, @ScheduledLectureId)";
+
+            await _dataAccess.SaveData(sql, recordedLecture).ConfigureAwait(false);
+
+            sql = "select * from RecordedLectures where Id = (select last_insert_rowid())";
+            var results = await _dataAccess.LoadData<RecordedLecture, dynamic>(sql, new { }).ConfigureAwait(false);
+
+            _logger.LogInformation("Successfully inserted Recorded Lecture to the database");
+
+            return results.First();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while trying to insert recorded lecture");
             return null;
         }
     }
