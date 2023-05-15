@@ -49,9 +49,14 @@
                                 TextElement.FontWeight="Medium">
                         <TextBlock Text="Welcome Back, "
                                    FontSize="30" />
-                        <TextBlock x:Name="RegistrationNumTextBlock"
-                                   Text="P19165"
-                                   FontSize="30" />
+                        <TextBox x:Name="RegistrationNumTextBox" 
+                                 d:Text="P19165"
+                                 FontSize="30" 
+                                 Foreground="{DynamicResource MaterialDesignBody}"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 IsReadOnly="True"
+                                 Style="{DynamicResource ReadonlyTextBox}" />
                         <TextBlock Text="!"
                                    FontSize="30" />
                     </StackPanel>
@@ -102,7 +107,7 @@
                                               Opacity="0.3"
                                               Direction="-75" />
                         </Border.Effect>
-                        <TextBlock x:Name="NextLectureSubjectNameTextBlock" 
+                        <TextBox x:Name="NextLectureSubjectNameTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{DynamicResource PrimaryTextBrush}"
@@ -111,8 +116,11 @@
                                    TextWrapping="WrapWithOverflow"
                                    MaxHeight="55"
                                    Margin="20,0,20,0"
-                                   TextTrimming="CharacterEllipsis"
-                                   Text="Σύγχρονα Θέματα Τεχνολογίας Λογισμικού - Λογισμικό για κινητές συσκευές" />
+                                   Background="Transparent"
+                                   BorderThickness="0"
+                                   IsReadOnly="True"
+                                   Style="{DynamicResource ReadonlyTextBox}"
+                                   d:Text="Σύγχρονα Θέματα Τεχνολογίας Λογισμικού - Λογισμικό για κινητές συσκευές" />
                     </Border>
 
                     <!-- Starting in -->
@@ -137,7 +145,7 @@
                                               Opacity="0.3"
                                               Direction="-75" />
                         </Border.Effect>
-                        <TextBlock x:Name="NextLectureTimeTextBlock" 
+                        <TextBox x:Name="NextLectureTimeTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{DynamicResource PrimaryTextBrush}"
@@ -145,8 +153,11 @@
                                    MaxWidth="650"
                                    TextWrapping="WrapWithOverflow"
                                    MaxHeight="55"
-                                   TextTrimming="CharacterEllipsis"
-                                   Text="5 Days, 4 hours, 3 Minutes, 35 Seconds" />
+                                   Background="Transparent"
+                                   BorderThickness="0"
+                                   IsReadOnly="True"
+                                   Style="{DynamicResource ReadonlyTextBox}"
+                                   d:Text="5 Days, 4 hours, 3 Minutes, 35 Seconds" />
                     </Border>
                 </StackPanel>
                 

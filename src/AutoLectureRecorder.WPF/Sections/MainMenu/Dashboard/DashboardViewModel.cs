@@ -1,5 +1,4 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
@@ -24,6 +23,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     private readonly ILogger<DashboardViewModel> _logger;
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
     private readonly IWindowFactory _windowFactory;
+    private readonly IStudentAccountRepository _studentAccountRepository;
 
     public string UrlPathSegment => nameof(DashboardViewModel);
     public IScreen HostScreen { get; }
@@ -41,17 +41,21 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     private readonly DispatcherTimer? _nextLectureCalculatorTimer;
 
     [Reactive]
+    public string? RegistrationNumber { get; private set; }
+    [Reactive]
     public ReactiveScheduledLecture? NextScheduledLecture { get; private set; }
     [Reactive]
     public TimeSpan? NextScheduledLectureTimeDiff { get; set; }
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, IScreenFactory screenFactory, 
-        IScheduledLectureRepository scheduledLectureRepository, IWindowFactory windowFactory)
+        IScheduledLectureRepository scheduledLectureRepository, IWindowFactory windowFactory,
+        IStudentAccountRepository studentAccountRepository)
     {
         HostScreen = screenFactory.GetMainMenuViewModel();
         _logger = logger;
         _scheduledLectureRepository = scheduledLectureRepository;
         _windowFactory = windowFactory;
+        _studentAccountRepository = studentAccountRepository;
         Activator = new ViewModelActivator();
 
         FindClosestScheduledLectureToNowCommand = ReactiveCommand.CreateFromTask(async () =>
@@ -99,7 +103,12 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
 
         this.WhenActivated(disposables =>
         {
-            Observable.FromAsync(FetchTodaysLectures)
+            Observable.FromAsync(async () =>
+                {
+                    await FetchTodaysLectures();
+                    var studentAccount = await _studentAccountRepository.GetStudentAccountAsync();
+                    RegistrationNumber = studentAccount?.RegistrationNumber;
+                })
                 .Catch((Exception e) =>
                 {
                     _logger.LogError(e, "An error occurred while fetching todays lectures");

@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System;
+using System.Globalization;
 using System.Reactive.Disposables;
 using System.Text;
 using System.Windows;
@@ -23,6 +24,11 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel>
 
             this.WhenAnyValue(v => v.ViewModel!.NextScheduledLectureTimeDiff)
                 .Subscribe(UpdateNextLecture)
+                .DisposeWith(disposables);
+
+            // Text bindings
+            this.OneWayBind(ViewModel, vm => vm.RegistrationNumber, v => v.RegistrationNumTextBox.Text,
+                    rn => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(rn))
                 .DisposeWith(disposables);
 
             // Visibilities
