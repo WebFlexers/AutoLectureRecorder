@@ -19,4 +19,6 @@ public class ReactiveRecordedLecture : ReactiveObject
     public DateTime? StartedAt { get; set; }
     [Reactive]
     public DateTime? EndedAt { get; set; }
+    [Reactive]
+    public int ScheduledLectureId { get; set; }
 }

@@ -46,6 +46,11 @@ public class SampleData
 
         var insertTasks = new List<Task>();
 
+        foreach (var scheduledLecture in ScheduledLectures)
+        {
+            insertTasks.Add(InsertScheduledLectureToDb(scheduledLecture));
+        }
+
         foreach (var recordedLecture in RecordedLectures)
         {
             insertTasks.Add(InsertRecordedLectureToDb(recordedLecture));
@@ -54,11 +59,6 @@ public class SampleData
         if (RecordingSettings != null)
         {
             insertTasks.Add(InsertRecordingSettingsToDb(RecordingSettings));
-        }
-
-        foreach (var scheduledLecture in ScheduledLectures)
-        {
-            insertTasks.Add(InsertScheduledLectureToDb(scheduledLecture));
         }
 
         if (Statistics != null)
@@ -163,13 +163,12 @@ public class SampleData
                 {
                     Id = id++,
                     StudentRegistrationNumber = "p19165",
-                    SubjectName = scheduledLecture.SubjectName,
-                    Semester = scheduledLecture.Semester,
                     CloudLink = shouldHaveCloudLink 
                         ? "https://link.storjshare.io/s/jwwlss3g44lwvp5etxkxcn6oo6ya/newdemo/Big%20Buck%20Bunny%20Demo.mp4?wrap=0" 
                         : null,
                     StartedAt = startDateTime.ToString("G"),
                     EndedAt = endDateTime.ToString("G"),
+                    ScheduledLectureId = scheduledLecture.Id
                 };
                 RecordedLectures.Add(recordedLecture);
                 startDateTime = startDateTime.Add(TimeSpan.FromHours(1));
@@ -199,8 +198,8 @@ public class SampleData
 
     private async Task InsertRecordedLectureToDb(RecordedLecture recordedLecture)
     {
-        string sql = "insert into RecordedLectures (StudentRegistrationNumber, SubjectName, Semester, CloudLink, StartedAt, EndedAt) " +
-                     "values (@StudentRegistrationNumber, @SubjectName, @Semester, @CloudLink, @StartedAt, @EndedAt)";
+        string sql = "insert into RecordedLectures (Id, StudentRegistrationNumber, CloudLink, StartedAt, EndedAt, ScheduledLectureId) " +
+                     "values (@Id, @StudentRegistrationNumber, @CloudLink, @StartedAt, @EndedAt, @ScheduledLectureId)";
 
         await _dataAccess.SaveData(sql, recordedLecture).ConfigureAwait(false);
     }
