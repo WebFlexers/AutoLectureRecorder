@@ -29,7 +29,7 @@ public class RecordedLecturesViewModel : ReactiveObject, IRoutableViewModel
     /// </summary>
     public async Task Initialize(int lectureId)
     {
-        ScheduledLecture = await _scheduledLectureRepository.GetScheduledLectureByIdAsync(lectureId);
+        ScheduledLecture = await _scheduledLectureRepository.GetScheduledLectureById(lectureId);
         var recordedLectures = await _recordedLectureRepository.GetRecordedLecturesFromIdAsync(lectureId);
         if (recordedLectures != null && recordedLectures.Any())
         {

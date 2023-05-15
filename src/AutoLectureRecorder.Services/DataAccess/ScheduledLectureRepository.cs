@@ -17,9 +17,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
-    /// Gets all the scheduled lectures from the database asynchronously
+    /// Gets all the scheduled lectures from the database
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetAllScheduledLecturesAsync()
+    public async Task<List<ReactiveScheduledLecture>?> GetAllScheduledLectures()
     {
         try
         {
@@ -45,9 +45,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
-    /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database asynchronously
+    /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetAllScheduledLecturesSortedAsync()
+    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedByDayAndStartTime()
     {
         try
         {
@@ -72,9 +72,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
-    /// Gets all the scheduled lectures of the given day from the database asynchronously
+    /// Gets all the scheduled lectures of the given day from the database
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesByDayAsync(DayOfWeek? day)
+    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesByDay(DayOfWeek? day)
     {
         if (day == null) return null;
 
@@ -101,9 +101,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
-    /// Gets the scheduled lecture with the given id from the database asynchronously
+    /// Gets the scheduled lecture with the given id from the database
     /// </summary>
-    public async Task<ReactiveScheduledLecture?> GetScheduledLectureByIdAsync(int id)
+    public async Task<ReactiveScheduledLecture?> GetScheduledLectureById(int id)
     {
         try
         {
@@ -121,9 +121,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
-    /// Gets the first Scheduled Lecture with the given Subject Name from the database asynchronously
+    /// Gets the first Scheduled Lecture with the given Subject Name from the database
     /// </summary>
-    public async Task<ReactiveScheduledLecture?> GetScheduledLectureBySubjectNameAsync(string subjectName)
+    public async Task<ReactiveScheduledLecture?> GetScheduledLectureBySubjectName(string subjectName)
     {
         try
         {
@@ -141,9 +141,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
-    /// Gets the distinct subject names from the database asynchronously
+    /// Gets the distinct subject names from the database
     /// </summary>
-    public async Task<List<string>?> GetDistinctSubjectNamesAsync()
+    public async Task<List<string>?> GetDistinctSubjectNames()
     {
         try
         {
@@ -160,7 +160,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets the scheduled lectures with distinct subject names
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByNameAsync()
+    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName()
     {
         try
         {
@@ -179,7 +179,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets the scheduled lectures grouped by semester
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemesterAsync()
+    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemester()
     {
         try
         {
@@ -195,9 +195,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     } 
 
     /// <summary>
-    /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture asynchronously
+    /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture
     /// </summary>
-    public async Task<ReactiveScheduledLecture?> InsertScheduledLectureAsync(ReactiveScheduledLecture reactiveLecture)
+    public async Task<ReactiveScheduledLecture?> InsertScheduledLecture(ReactiveScheduledLecture reactiveLecture)
     {
         if (reactiveLecture.Day.HasValue == false) return null;
 
@@ -233,7 +233,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Updates the scheduled lecture using the Id
     /// </summary>
-    public async Task<bool> UpdateScheduledLectureAsync(ReactiveScheduledLecture reactiveLecture)
+    public async Task<bool> UpdateScheduledLecture(ReactiveScheduledLecture reactiveLecture)
     {
         if (reactiveLecture.Day.HasValue == false) return false;
 
@@ -267,7 +267,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Deletes the lecture with the given id if it exists
     /// </summary>
-    public async Task<bool> DeleteScheduledLectureByIdAsync(int id)
+    public async Task<bool> DeleteScheduledLectureById(int id)
     {
         try
         {

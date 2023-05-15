@@ -216,7 +216,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     private async Task<bool> CreateScheduledLecture()
     {
-        var newLecture = await _scheduledLectureRepository.InsertScheduledLectureAsync(ScheduledLecture);
+        var newLecture = await _scheduledLectureRepository.InsertScheduledLecture(ScheduledLecture);
 
         if (newLecture == null)
         {
@@ -245,7 +245,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     private async Task UpdateScheduledLecture()
     {
-        var result = await _scheduledLectureRepository.UpdateScheduledLectureAsync(ScheduledLecture);
+        var result = await _scheduledLectureRepository.UpdateScheduledLecture(ScheduledLecture);
 
         if (result == false)
         {
@@ -262,7 +262,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     {
         if (ScheduledLecture.IsScheduled == false) return true;
 
-        var dayLectures = await _scheduledLectureRepository.GetScheduledLecturesByDayAsync(ScheduledLecture.Day);
+        var dayLectures = await _scheduledLectureRepository.GetScheduledLecturesByDay(ScheduledLecture.Day);
 
         if (dayLectures == null || dayLectures.Any() == false) return false;
 
@@ -272,7 +272,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
             if (ReactiveScheduledLecture.AreLecturesOverlapping(ScheduledLecture, lecture))
             {
                 lecture.IsScheduled = false;
-                updateLecturesTasks.Add(_scheduledLectureRepository.UpdateScheduledLectureAsync(lecture));
+                updateLecturesTasks.Add(_scheduledLectureRepository.UpdateScheduledLecture(lecture));
             }
         }
 
@@ -308,7 +308,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
 
     private async Task PopulateLecturesWithDistinctSubjectNames()
     {
-        var lecturesWithDistinctNames = await _scheduledLectureRepository.GetScheduledLecturesGroupedByNameAsync();
+        var lecturesWithDistinctNames = await _scheduledLectureRepository.GetScheduledLecturesGroupedByName();
 
         Dispatcher.CurrentDispatcher.Invoke(() =>
         {
@@ -330,7 +330,7 @@ public class CreateLectureViewModel : ReactiveObject, IRoutableViewModel, IActiv
     /// <returns>True if the validation was successful and false otherwise</returns>
     private async Task<bool> ValidateLectureAndUpdateUI(bool ignoreWarnings, bool showSnackbarOnError)
     {
-        var existingLectures = await _scheduledLectureRepository.GetScheduledLecturesByDayAsync(ScheduledLecture.Day);
+        var existingLectures = await _scheduledLectureRepository.GetScheduledLecturesByDay(ScheduledLecture.Day);
 
         if (existingLectures != null && IsUpdateModeSelected)
         {

@@ -59,7 +59,7 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
 
     private async Task FetchScheduledLecturesBySemester()
     {
-        var lecturesBySemester = await _scheduledLectureRepository.GetScheduledLecturesOrderedBySemesterAsync();
+        var lecturesBySemester = await _scheduledLectureRepository.GetScheduledLecturesOrderedBySemester();
         if (lecturesBySemester == null || lecturesBySemester.Any() == false) return;
 
         LecturesBySemester = new ObservableCollection<ReactiveScheduledLecture>(lecturesBySemester);

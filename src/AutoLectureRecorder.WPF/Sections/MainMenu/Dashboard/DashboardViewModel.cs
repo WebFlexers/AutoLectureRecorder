@@ -56,7 +56,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
 
         FindClosestScheduledLectureToNowCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var lecturesSorted = await _scheduledLectureRepository.GetAllScheduledLecturesSortedAsync();
+            var lecturesSorted = await _scheduledLectureRepository.GetScheduledLecturesOrderedByDayAndStartTime();
             NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
             NextScheduledLectureTimeDiff = CalculateNextScheduledLectureTimeDiff();
         });
@@ -75,7 +75,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
             {
                 if (shouldCheck == false) return;
 
-                var lecturesSorted = await _scheduledLectureRepository.GetAllScheduledLecturesSortedAsync();
+                var lecturesSorted = await _scheduledLectureRepository.GetScheduledLecturesOrderedByDayAndStartTime();
                 if (lecturesSorted == null || lecturesSorted.Any() == false) return;
 
                 NextScheduledLecture = FindClosestScheduledLectureToNow(lecturesSorted);
@@ -112,7 +112,7 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel, IActivatab
     private async Task FetchTodaysLectures()
     {
         var todaysLecturesUnsorted = await _scheduledLectureRepository
-            .GetScheduledLecturesByDayAsync(DateTime.Now.DayOfWeek);
+            .GetScheduledLecturesByDay(DateTime.Now.DayOfWeek);
 
         if (todaysLecturesUnsorted == null || todaysLecturesUnsorted.Any() == false) return;
 

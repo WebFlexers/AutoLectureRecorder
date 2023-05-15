@@ -101,7 +101,7 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
             {
                 if (await DisableConflictingLectures(lecture) == false) return;
 
-                var lectureUpdated = await _lectureRepository.UpdateScheduledLectureAsync(lecture);
+                var lectureUpdated = await _lectureRepository.UpdateScheduledLecture(lecture);
                 if (lectureUpdated == false) return;
 
                 // Send message to recalculate the closest scheduled lecture to now,
@@ -118,7 +118,7 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
 
     public async Task PopulateAllScheduledLectures()
     {
-        var allLectures = await _lectureRepository.GetAllScheduledLecturesAsync();
+        var allLectures = await _lectureRepository.GetAllScheduledLectures();
 
         if (allLectures == null || allLectures.Any() == false) return;
 
@@ -213,7 +213,7 @@ public class ScheduleViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
                         };
                 }
 
-                updateLecturesTasks.Add(_lectureRepository.UpdateScheduledLectureAsync(existingLecture));
+                updateLecturesTasks.Add(_lectureRepository.UpdateScheduledLecture(existingLecture));
             }
         }
 

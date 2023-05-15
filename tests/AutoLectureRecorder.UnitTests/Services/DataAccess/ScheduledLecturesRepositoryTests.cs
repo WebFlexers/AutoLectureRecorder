@@ -22,11 +22,11 @@ public class ScheduledLecturesRepositoryTests
     }
 
     [Fact]
-    public async Task GetScheduledLectureById_ShouldFetchTheScheduledLectureWithTheId()
+    public async Task GetScheduledLectureById_ShouldFetchSuccessfully()
     {
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
-        var fetchedScheduleLecture = await scheduledLectureData.GetScheduledLectureByIdAsync(5);
+        var fetchedScheduleLecture = await scheduledLectureData.GetScheduledLectureById(5);
 
         Assert.Equal(_fixture.SampleData.ScheduledLectures[4].SubjectName, fetchedScheduleLecture?.SubjectName);
         Assert.Equal(_fixture.SampleData.ScheduledLectures[4].Semester, fetchedScheduleLecture?.Semester);
@@ -39,11 +39,11 @@ public class ScheduledLecturesRepositoryTests
     }
 
     [Fact]
-    public async Task GetAllScheduledLecturesSortedAsync_ShouldReturnAListOfSortedLecturesByDayAndStartTime()
+    public async Task GetScheduledLecturesOrderedByDayAndStartTime_ShouldFetchSuccessfully()
     {
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
-        var results = await scheduledLectureData.GetAllScheduledLecturesSortedAsync();
+        var results = await scheduledLectureData.GetScheduledLecturesOrderedByDayAndStartTime();
 
         var actualScheduledLecturesSorted = _fixture.SampleData.ScheduledLectures
             .OrderBy(lecture => lecture.Day)
@@ -60,34 +60,34 @@ public class ScheduledLecturesRepositoryTests
     }
 
     [Fact]
-    public async Task GetAllScheduledLectures_ShouldReturnAListOfTheScheduledLectures()
+    public async Task GetAllScheduledLectures_ShouldFetchSuccessfully()
     {
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
-        var allScheduledLectures = await scheduledLectureData.GetAllScheduledLecturesAsync();
+        var allScheduledLectures = await scheduledLectureData.GetAllScheduledLectures();
 
         Assert.NotNull(allScheduledLectures);
         Assert.True(allScheduledLectures.Count == _fixture.SampleData.ScheduledLectures.Count);
     }
 
     [Fact]
-    public async Task GetScheduledLecturesByDay_ShouldReturnAListOfTheScheduledLecturesInTheDay()
+    public async Task GetScheduledLecturesByDay_ShouldFetchSuccessfully()
     {
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
-        var scheduledLectures = await scheduledLectureData.GetScheduledLecturesByDayAsync(DayOfWeek.Tuesday);
+        var scheduledLectures = await scheduledLectureData.GetScheduledLecturesByDay(DayOfWeek.Tuesday);
         Assert.NotNull(scheduledLectures);
         Assert.True(scheduledLectures.Count == _fixture.SampleData.ScheduledLectures
             .Where(lecture => lecture.Day == (int)DayOfWeek.Tuesday).ToList().Count);
 
-        scheduledLectures = await scheduledLectureData.GetScheduledLecturesByDayAsync(DayOfWeek.Monday);
+        scheduledLectures = await scheduledLectureData.GetScheduledLecturesByDay(DayOfWeek.Monday);
         Assert.NotNull(scheduledLectures);
         Assert.True(scheduledLectures.Count == _fixture.SampleData.ScheduledLectures
             .Where(lecture => lecture.Day == (int)DayOfWeek.Monday).ToList().Count);
     }
 
     [Fact]
-    public async Task GetDistinctScheduledLectureSubjectNames_ShouldFetchDistinctSubjectNames()
+    public async Task GetDistinctScheduledLectureSubjectNames_ShouldFetchSuccessfully()
     {
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
@@ -95,14 +95,14 @@ public class ScheduledLecturesRepositoryTests
             .DistinctBy(lecture => lecture.SubjectName)
             .ToList();
 
-        var results = await scheduledLectureData.GetDistinctSubjectNamesAsync();
+        var results = await scheduledLectureData.GetDistinctSubjectNames();
 
         Assert.NotNull(results);
         Assert.Equal(sampleLecturesDistinctBySubjectName.Count, results.Count);
     }
 
     [Fact]
-    public async Task GetDistinctScheduledLecturesByName_ShouldFetchAllScheduledLecturesWithDistinctNames()
+    public async Task GetScheduledLecturesGroupedByName_ShouldFetchSuccessfully()
     {
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
@@ -110,14 +110,29 @@ public class ScheduledLecturesRepositoryTests
             .DistinctBy(lecture => lecture.SubjectName)
             .ToList();
 
-        var results = await scheduledLectureData.GetScheduledLecturesGroupedByNameAsync();
+        var results = await scheduledLectureData.GetScheduledLecturesGroupedByName();
 
         Assert.NotNull(results);
         Assert.Equal(sampleLecturesDistinctBySubjectName.Count, results.Count);
     }
 
     [Fact]
-    public async Task InsertScheduledLecture_ShouldInsertAScheduledLecture()
+    public async Task GetScheduledLecturesOrderedBySemester_ShouldFetchSuccessfully()
+    {
+        var scheduledLectureRepository = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
+
+        var sortedLectures = await scheduledLectureRepository.GetScheduledLecturesOrderedBySemester();
+
+        Assert.NotNull(sortedLectures);
+
+        for (int i = 1; i < sortedLectures.Count; i++)
+        {
+            Assert.True(sortedLectures[i].Semester >= sortedLectures[i-1].Semester);
+        }
+    }
+
+    [Fact]
+    public async Task InsertScheduledLecture_ShouldInsertSuccessfully()
     {
         await _fixture.DataAccess.BeginTransaction();
 
@@ -127,7 +142,7 @@ public class ScheduledLecturesRepositoryTests
             ConvertScheduledLectureToReactive(_fixture.SampleData.ScheduledLectures.First());
 
         var insertedScheduledLecture = await scheduledLectureRepository
-            .InsertScheduledLectureAsync(sampleReactiveScheduledLecture);
+            .InsertScheduledLecture(sampleReactiveScheduledLecture);
 
         Assert.Equal(sampleReactiveScheduledLecture.SubjectName, insertedScheduledLecture?.SubjectName);
         Assert.Equal(sampleReactiveScheduledLecture.Semester, insertedScheduledLecture?.Semester);
@@ -142,7 +157,7 @@ public class ScheduledLecturesRepositoryTests
     }
 
     [Fact]
-    public async Task UpdateScheduledLecture_ShouldUpdateTheScheduledLecture()
+    public async Task UpdateScheduledLecture_ShouldUpdateSuccessfully()
     {
         var lectureToUpdate = ConvertScheduledLectureToReactive(_fixture.SampleData.ScheduledLectures.First());
 
@@ -152,7 +167,7 @@ public class ScheduledLecturesRepositoryTests
         lectureToUpdate.SubjectName = "Updated name";
         lectureToUpdate.MeetingLink = "It's a new link";
 
-        var isSuccessful = await scheduledLectureRepository.UpdateScheduledLectureAsync(lectureToUpdate);
+        var isSuccessful = await scheduledLectureRepository.UpdateScheduledLecture(lectureToUpdate);
 
         string sql = "select * from ScheduledLectures where Id=@Id";
         var result = await _fixture.DataAccess.LoadData<ScheduledLecture, dynamic>(sql, new { Id = lectureToUpdate.Id });
