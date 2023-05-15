@@ -77,7 +77,7 @@ public class AppBootstrapper
         services.AddTransient<IWebDriverDownloader, EdgeWebDriverDownloader>();
         services.AddTransient<IRecorder, WindowsRecorder>();
         services.AddTransient<IStudentAccountRepository, StudentAccountRepository>();
-        services.AddTransient<IRecordedLecturesRepository, RecordedLecturesRepository>();
-        services.AddTransient<IScheduledLecturesRepository, ScheduledLecturesRepository>();
+        services.AddTransient<IRecordedLectureRepository, RecordedLectureRepository>();
+        services.AddTransient<IScheduledLectureRepository, ScheduledLectureRepository>();
     }
 }

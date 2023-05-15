@@ -14,8 +14,8 @@ namespace AutoLectureRecorder.Sections.MainMenu.Library;
 public class RecordedLecturesViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly ILogger<RecordedLecturesViewModel> _logger;
-    private readonly IScheduledLecturesRepository _scheduledLecturesRepository;
-    private readonly IRecordedLecturesRepository _recordedLectureRepository;
+    private readonly IScheduledLectureRepository _scheduledLectureRepository;
+    private readonly IRecordedLectureRepository _recordedLectureRepository;
     public string UrlPathSegment => nameof(RecordedLecturesViewModel);
     public IScreen HostScreen { get; }
 
@@ -29,7 +29,7 @@ public class RecordedLecturesViewModel : ReactiveObject, IRoutableViewModel
     /// </summary>
     public async Task Initialize(int lectureId)
     {
-        ScheduledLecture = await _scheduledLecturesRepository.GetScheduledLectureByIdAsync(lectureId);
+        ScheduledLecture = await _scheduledLectureRepository.GetScheduledLectureByIdAsync(lectureId);
         var recordedLectures = await _recordedLectureRepository.GetRecordedLecturesFromIdAsync(lectureId);
         if (recordedLectures != null && recordedLectures.Any())
         {
@@ -38,10 +38,10 @@ public class RecordedLecturesViewModel : ReactiveObject, IRoutableViewModel
     }
 
     public RecordedLecturesViewModel(ILogger<RecordedLecturesViewModel> logger, IScreenFactory screenFactory,
-        IScheduledLecturesRepository scheduledLecturesRepository, IRecordedLecturesRepository recordedLectureRepository)
+        IScheduledLectureRepository scheduledLectureRepository, IRecordedLectureRepository recordedLectureRepository)
     {
         _logger = logger;
-        _scheduledLecturesRepository = scheduledLecturesRepository;
+        _scheduledLectureRepository = scheduledLectureRepository;
         _recordedLectureRepository = recordedLectureRepository;
         HostScreen = screenFactory.GetMainMenuViewModel();
     }

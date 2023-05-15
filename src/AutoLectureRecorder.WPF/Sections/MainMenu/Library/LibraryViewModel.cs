@@ -23,7 +23,7 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
     public ViewModelActivator Activator { get; } = new();
 
     private readonly ILogger<LibraryViewModel> _logger;
-    private readonly IScheduledLecturesRepository _scheduledLecturesRepository;
+    private readonly IScheduledLectureRepository _scheduledLectureRepository;
 
     public string UrlPathSegment => nameof(LibraryViewModel);
     public IScreen HostScreen { get; }
@@ -34,12 +34,12 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
     public ReactiveCommand<int, Unit> NavigateToRecordedLecturesCommand { get; set; }
 
     public LibraryViewModel(ILogger<LibraryViewModel> logger, IScreenFactory screenFactory, 
-        IViewModelFactory viewModelFactory, IScheduledLecturesRepository scheduledLecturesRepository)
+        IViewModelFactory viewModelFactory, IScheduledLectureRepository scheduledLectureRepository)
     {
         var mainMenuViewModel = screenFactory.GetMainMenuViewModel();
 
         _logger = logger;
-        _scheduledLecturesRepository = scheduledLecturesRepository;
+        _scheduledLectureRepository = scheduledLectureRepository;
         HostScreen = mainMenuViewModel;
 
         NavigateToRecordedLecturesCommand = ReactiveCommand.CreateFromTask<int>(async lectureId =>
@@ -59,7 +59,7 @@ public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatable
 
     private async Task FetchScheduledLecturesBySemester()
     {
-        var lecturesBySemester = await _scheduledLecturesRepository.GetScheduledLecturesOrderedBySemesterAsync();
+        var lecturesBySemester = await _scheduledLectureRepository.GetScheduledLecturesOrderedBySemesterAsync();
         if (lecturesBySemester == null || lecturesBySemester.Any() == false) return;
 
         LecturesBySemester = new ObservableCollection<ReactiveScheduledLecture>(lecturesBySemester);

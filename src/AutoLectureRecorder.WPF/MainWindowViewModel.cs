@@ -15,7 +15,7 @@ namespace AutoLectureRecorder;
 public class MainWindowViewModel : ReactiveObject, IScreen
 {
     private readonly IViewModelFactory _viewModelFactory;
-    private readonly IScheduledLectureRepository _lectureData;
+    private readonly IScheduledLectureRepository _scheduledLectureRepository;
     private readonly ILogger<MainWindowViewModel> _logger;
 
     public RoutingState Router { get; } = new();
@@ -35,10 +35,10 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     [Reactive]
     public Style MaximizeButtonStyle { get; set; }
 
-    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, IScheduledLectureRepository lectureData)
+    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, IScheduledLectureRepository scheduledLectureRepository)
     {
         _viewModelFactory = viewModelFactory;
-        _lectureData = lectureData;
+        _scheduledLectureRepository = scheduledLectureRepository;
         _logger = logger;
 
         // Navigation

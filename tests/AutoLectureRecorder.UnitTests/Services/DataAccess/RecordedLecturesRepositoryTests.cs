@@ -10,19 +10,19 @@ public class RecordedLecturesRepositoryTests
 {
     private readonly ITestOutputHelper _output;
     private readonly DbInitializerFixture _fixture;
-    private readonly ILogger<RecordedLecturesRepository> _logger;
+    private readonly ILogger<RecordedLectureRepository> _logger;
 
     public RecordedLecturesRepositoryTests(ITestOutputHelper output, DbInitializerFixture fixture)
     {
         _output = output;
         _fixture = fixture;
-        _logger = XUnitLogger.CreateLogger<RecordedLecturesRepository>(output);
+        _logger = XUnitLogger.CreateLogger<RecordedLectureRepository>(output);
     }
 
     [Fact]
     public async Task GetRecordedLecturesFromIdAsync_ShouldFetch()
     {
-        var recordedLecturesRepository = new RecordedLecturesRepository(_fixture.DataAccess, _logger);
+        var recordedLecturesRepository = new RecordedLectureRepository(_fixture.DataAccess, _logger);
 
         var recordedLectures = await recordedLecturesRepository.GetRecordedLecturesFromIdAsync(1);
         

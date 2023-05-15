@@ -2,7 +2,7 @@
 
 namespace AutoLectureRecorder.Services.DataAccess.Interfaces;
 
-public interface IRecordedLecturesRepository
+public interface IRecordedLectureRepository
 {
     /// <summary>
     /// Fetch the recorded lectures of the scheduled lecture with the

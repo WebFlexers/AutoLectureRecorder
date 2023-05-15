@@ -7,13 +7,13 @@ using Xunit.Abstractions;
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess;
 
 [Collection("DatabaseCollection")]
-public class StudentAccountDataTests
+public class StudentAccountRepositoryTests
 {
     private readonly ITestOutputHelper _output;
     private readonly DbInitializerFixture _fixture;
     private readonly ILogger<StudentAccountRepository> _logger;
 
-    public StudentAccountDataTests(ITestOutputHelper output, DbInitializerFixture fixture)
+    public StudentAccountRepositoryTests(ITestOutputHelper output, DbInitializerFixture fixture)
     {
         _output = output;
         _fixture = fixture;

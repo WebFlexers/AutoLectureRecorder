@@ -8,13 +8,13 @@ using Xunit.Abstractions;
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess;
 
 [Collection("DatabaseCollection")]
-public class ScheduledLectureDataTests
+public class ScheduledLecturesRepositoryTests
 {
     private readonly ITestOutputHelper _output;
     private readonly DbInitializerFixture _fixture;
     private readonly ILogger<ScheduledLectureRepository> _logger;
 
-    public ScheduledLectureDataTests(ITestOutputHelper output, DbInitializerFixture fixture)
+    public ScheduledLecturesRepositoryTests(ITestOutputHelper output, DbInitializerFixture fixture)
     {
         _output = output;
         _fixture = fixture;
@@ -28,14 +28,14 @@ public class ScheduledLectureDataTests
 
         var fetchedScheduleLecture = await scheduledLectureData.GetScheduledLectureByIdAsync(5);
 
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].SubjectName, fetchedScheduleLecture?.SubjectName);
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].Semester, fetchedScheduleLecture?.Semester);
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].MeetingLink, fetchedScheduleLecture?.MeetingLink);
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].Day, Convert.ToInt32(fetchedScheduleLecture?.Day));
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].StartTime, fetchedScheduleLecture?.StartTime?.ToString("HH:mm"));
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].EndTime, fetchedScheduleLecture?.EndTime?.ToString("HH:mm"));
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].IsScheduled, Convert.ToInt32(fetchedScheduleLecture?.IsScheduled));
-        Assert.Equal(_fixture.SampleData.ScheduledLectures[5].WillAutoUpload, Convert.ToInt32(fetchedScheduleLecture?.WillAutoUpload));
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].SubjectName, fetchedScheduleLecture?.SubjectName);
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].Semester, fetchedScheduleLecture?.Semester);
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].MeetingLink, fetchedScheduleLecture?.MeetingLink);
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].Day, Convert.ToInt32(fetchedScheduleLecture?.Day));
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].StartTime, fetchedScheduleLecture?.StartTime?.ToString("HH:mm"));
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].EndTime, fetchedScheduleLecture?.EndTime?.ToString("HH:mm"));
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].IsScheduled, Convert.ToInt32(fetchedScheduleLecture?.IsScheduled));
+        Assert.Equal(_fixture.SampleData.ScheduledLectures[4].WillAutoUpload, Convert.ToInt32(fetchedScheduleLecture?.WillAutoUpload));
     }
 
     [Fact]
