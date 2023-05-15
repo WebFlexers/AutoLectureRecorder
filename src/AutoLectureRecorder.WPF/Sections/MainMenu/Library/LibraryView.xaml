@@ -28,14 +28,7 @@
     </Border.Resources>
 
     <Grid x:Name="MainGrid"
-      xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
-        <!-- Design time grid that represents the titlebar buttons -->
-        <d:Grid d:Grid.Column="2"
-                d:Width="135"
-                d:Height="30"
-                d:Background="Black"
-                d:HorizontalAlignment="Right"
-                d:VerticalAlignment="Top" />
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -87,7 +80,8 @@
             </Style>
         </Grid.Resources>
 
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="LecturesBySemesterItemsControl" 
                           ItemsSource="{Binding Source={StaticResource GroupedLecturesCVS}}"
                           ItemTemplate="{StaticResource LectureTemplate}">

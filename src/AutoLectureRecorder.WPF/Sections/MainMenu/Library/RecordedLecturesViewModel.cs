@@ -6,13 +6,17 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Library;
 
-public class RecordedLecturesViewModel : ReactiveObject, IRoutableViewModel
+public class RecordedLecturesViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
+    public ViewModelActivator Activator { get; } = new();
+    private CompositeDisposable _disposables = new();
+    
     private readonly ILogger<RecordedLecturesViewModel> _logger;
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
     private readonly IRecordedLectureRepository _recordedLectureRepository;
@@ -44,5 +48,10 @@ public class RecordedLecturesViewModel : ReactiveObject, IRoutableViewModel
         _scheduledLectureRepository = scheduledLectureRepository;
         _recordedLectureRepository = recordedLectureRepository;
         HostScreen = screenFactory.GetMainMenuViewModel();
+
+        this.WhenActivated(disposables =>
+        {
+            _disposables.DisposeWith(disposables);
+        });
     }
 }

@@ -24,6 +24,8 @@ public class ReactiveScheduledLecture : ReactiveObject, ICloneable
     [Reactive]
     public bool WillAutoUpload { get; set; }
 
+    public TimeSpan LectureDuration => CalculateLectureDuration();
+
     /// <summary>
     /// Calculates the timespan between StartTime and EndTime
     /// </summary>

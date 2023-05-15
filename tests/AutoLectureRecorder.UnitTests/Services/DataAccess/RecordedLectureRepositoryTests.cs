@@ -2,7 +2,6 @@
 using AutoLectureRecorder.Services.DataAccess;
 using AutoLectureRecorder.UnitTests.Fixture;
 using Microsoft.Extensions.Logging;
-using ReactiveUI;
 using Xunit.Abstractions;
 
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess;

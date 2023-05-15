@@ -21,4 +21,16 @@ public class ReactiveRecordedLecture : ReactiveObject
     public DateTime? EndedAt { get; set; }
     [Reactive]
     public int ScheduledLectureId { get; set; }
+
+    public TimeSpan LectureDuration => CalculateLectureDuration();
+
+    /// <summary>
+    /// Calculates the timespan between StartTime and EndTime
+    /// </summary>
+    public TimeSpan CalculateLectureDuration()
+    {
+        if (StartedAt == null || EndedAt == null) return TimeSpan.Zero;
+
+        return EndedAt.Value.Subtract(StartedAt.Value);
+    }
 }

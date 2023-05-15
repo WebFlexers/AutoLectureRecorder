@@ -6,20 +6,18 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using AutoLectureRecorder.ReactiveUiUtilities;
-using System.Windows;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Library;
 
+// TODO: Create a screen to handle 0 recorded lectures
 public class LibraryViewModel : ReactiveObject, IRoutableViewModel, IActivatableViewModel
 {
-    private CompositeDisposable _disposables = new();
+    private readonly CompositeDisposable _disposables = new();
     public ViewModelActivator Activator { get; } = new();
 
     private readonly ILogger<LibraryViewModel> _logger;

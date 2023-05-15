@@ -125,7 +125,7 @@ public class SampleData
                     ScheduledLectures.Add(scheduledLecture);
 
                     startTime = startTime.AddHours(2);
-                    endTime = endTime.AddHours(2);
+                    endTime = endTime.AddHours(2).AddMinutes(_random.Next(1, 30));
                 }
             }
         }
@@ -170,8 +170,9 @@ public class SampleData
                     ScheduledLectureId = scheduledLecture.Id
                 };
                 RecordedLectures.Add(recordedLecture);
-                startDateTime = startDateTime.Add(TimeSpan.FromHours(1));
-                endDateTime = endDateTime.Add(TimeSpan.FromHours(1));
+                var nextRandom = _random.Next(1, 7);
+                startDateTime = startDateTime.Add(TimeSpan.FromDays(nextRandom));
+                endDateTime = endDateTime.AddDays(nextRandom);
             }
 
             lastDateTimeByDay[scheduledLectureDay] = lastDateTimeByDay[scheduledLectureDay]!
