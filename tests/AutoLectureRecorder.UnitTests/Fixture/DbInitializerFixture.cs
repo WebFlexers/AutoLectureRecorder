@@ -1,4 +1,4 @@
-﻿using AutoLectureRecorder.Services.DataAccess;
+﻿using AutoLectureRecorder.Services.DataAccess.Repositories;
 using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using AutoLectureRecorder.Services.DataAccess.Seeding;
 using AutoLectureRecorder.UnitTests.Services.DataAccess;

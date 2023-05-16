@@ -39,5 +39,5 @@ public interface ISettingsRepository
     /// <summary>
     /// Resets all the settings to their default values
     /// </summary>
-    Task<bool> ResetAllSettings();
+    Task<bool> ResetAllSettings(int primaryScreenWidth, int primaryScreenHeight);
 }

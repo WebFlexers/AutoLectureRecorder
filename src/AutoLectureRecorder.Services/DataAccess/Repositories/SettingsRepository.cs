@@ -73,9 +73,9 @@ public class SettingsRepository : ISettingsRepository
             string sql = @"delete from RecordingSettings";
             await _dataAccess.SaveData<dynamic>(sql, new { });
 
-            sql = @"insert into RecordingSettings (RecordingsLocalPath, OutputDeviceName, OutputDeviceFriendlyName, InputDeviceName, InputDeviceFriendlyName
+            sql = @"insert into RecordingSettings (RecordingsLocalPath, OutputDeviceName, OutputDeviceFriendlyName, InputDeviceName, InputDeviceFriendlyName, 
                                 IsInputDeviceEnabled, Quality, Fps, OutputFrameWidth, OutputFrameHeight)
-                    values (@RecordingsLocalPath, @OutputDeviceName, @OutputDeviceFriendlyName, @InputDeviceName, @InputDeviceFriendlyName
+                    values (@RecordingsLocalPath, @OutputDeviceName, @OutputDeviceFriendlyName, @InputDeviceName, @InputDeviceFriendlyName, 
                                 @IsInputDeviceEnabled, @Quality, @Fps, @OutputFrameWidth, @OutputFrameHeight)";
             await _dataAccess.SaveData(sql, ConvertReactiveRecordingSettingsToNormal(recordingSettings));
 
@@ -100,7 +100,7 @@ public class SettingsRepository : ISettingsRepository
             await _dataAccess.SaveData<dynamic>(sql, new { });
 
             sql = @"insert into GeneralSettings (LaunchAtStartup, OnCloseKeepAlive, ShowSplashScreen)
-                    values (@LaunchAtStartup, @OnCloseKeepAlive, @ShowSplashScreen";
+                    values (@LaunchAtStartup, @OnCloseKeepAlive, @ShowSplashScreen)";
             await _dataAccess.SaveData(sql, ConvertReactiveGeneralSettingsToNormal(generalSettings));
 
             return true;
@@ -117,7 +117,7 @@ public class SettingsRepository : ISettingsRepository
     /// </summary>
     public async Task<bool> ResetRecordingSettings(int primaryScreenWidth, int primaryScreenHeight)
     {
-        ReactiveRecordingSettings defaultSettings = WindowsRecorder.GetDefaultOptions(primaryScreenWidth, primaryScreenHeight);
+        ReactiveRecordingSettings defaultSettings = WindowsRecorder.GetDefaultSettings(primaryScreenWidth, primaryScreenHeight);
         return await SetRecordingSettings(defaultSettings);
     }
 
@@ -126,7 +126,13 @@ public class SettingsRepository : ISettingsRepository
     /// </summary>
     public async Task<bool> ResetGeneralSettings()
     {
-        ReactiveGeneralSettings defaultSettings = _config.GetSection("DefaultGeneralSettings").Get<ReactiveGeneralSettings>()!;
+        var generalSettingsSection = _config.GetSection("DefaultGeneralSettings");
+        var defaultSettings = new ReactiveGeneralSettings
+        {
+            LaunchAtStartup = generalSettingsSection.GetValue<bool>("LaunchAtStartup"),
+            OnCloseKeepAlive = generalSettingsSection.GetValue<bool>("OnCloseKeepAlive"),
+            ShowSplashScreen = generalSettingsSection.GetValue<bool>("ShowSplashScreen")
+        };
         return await SetGeneralSettings(defaultSettings);
     }
 
@@ -147,7 +153,7 @@ public class SettingsRepository : ISettingsRepository
         return allTasksSucceeded;
     }
 
-    private RecordingSettings ConvertReactiveRecordingSettingsToNormal(ReactiveRecordingSettings reactiveRecordingSettings)
+    public static RecordingSettings ConvertReactiveRecordingSettingsToNormal(ReactiveRecordingSettings reactiveRecordingSettings)
     {
         return new RecordingSettings
         {
@@ -164,7 +170,7 @@ public class SettingsRepository : ISettingsRepository
         };
     }
 
-    private ReactiveRecordingSettings ConvertRecordingSettingsToReactive(RecordingSettings recordingSettings)
+    public static ReactiveRecordingSettings ConvertRecordingSettingsToReactive(RecordingSettings recordingSettings)
     {
         return new ReactiveRecordingSettings
         {
@@ -181,23 +187,23 @@ public class SettingsRepository : ISettingsRepository
         };
     }
 
-    private GeneralSettings ConvertReactiveGeneralSettingsToNormal(ReactiveGeneralSettings reactiveGeneralSettings)
+    public static GeneralSettings ConvertReactiveGeneralSettingsToNormal(ReactiveGeneralSettings reactiveGeneralSettings)
     {
         return new GeneralSettings
         {
-            LaunchAtStartup = reactiveGeneralSettings.LaunchAtStartup,
-            OnCloseKeepAlive = reactiveGeneralSettings.OnCloseKeepAlive,
-            ShowSplashScreen = reactiveGeneralSettings.ShowSplashScreen
+            LaunchAtStartup = reactiveGeneralSettings.LaunchAtStartup ? 1 : 0,
+            OnCloseKeepAlive = reactiveGeneralSettings.OnCloseKeepAlive ? 1 : 0,
+            ShowSplashScreen = reactiveGeneralSettings.ShowSplashScreen ? 1 : 0
         };
     }
 
-    private ReactiveGeneralSettings ConvertGeneralSettingsToReactive(GeneralSettings generalSettings)
+    public static ReactiveGeneralSettings ConvertGeneralSettingsToReactive(GeneralSettings generalSettings)
     {
         return new ReactiveGeneralSettings
         {
-            LaunchAtStartup = generalSettings.LaunchAtStartup,
-            OnCloseKeepAlive = generalSettings.OnCloseKeepAlive,
-            ShowSplashScreen = generalSettings.ShowSplashScreen
+            LaunchAtStartup = generalSettings.LaunchAtStartup == 1,
+            OnCloseKeepAlive = generalSettings.OnCloseKeepAlive == 1,
+            ShowSplashScreen = generalSettings.ShowSplashScreen == 1
         };
     }
 }

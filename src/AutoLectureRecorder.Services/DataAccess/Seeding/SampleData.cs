@@ -1,5 +1,6 @@
 ﻿using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
+using AutoLectureRecorder.Services.Recording;
 
 namespace AutoLectureRecorder.Services.DataAccess.Seeding;
 
@@ -13,6 +14,7 @@ public class SampleData
     public List<ScheduledLecture> ScheduledLectures { get; set; } = new();
     public List<RecordedLecture> RecordedLectures { get; set; } = new();
     public RecordingSettings? RecordingSettings { get; set; }
+    public GeneralSettings? GeneralSettings { get; set; }
     public Statistics? Statistics { get; set; }
 
     public SampleData(ISqliteDataAccess dataAccess)
@@ -23,6 +25,7 @@ public class SampleData
         CreateScheduledLectures();
         CreateRecordedLectures();
         CreateRecordingSettings();
+        CreateGeneralSettings();
         CreateStatistics();
     }
 
@@ -37,6 +40,7 @@ public class SampleData
         {
             DeleteEverythingFrom("RecordedLectures"),
             DeleteEverythingFrom("RecordingSettings"),
+            DeleteEverythingFrom("GeneralSettings"),
             DeleteEverythingFrom("ScheduledLectures"),
             DeleteEverythingFrom("Statistics")
         };
@@ -58,6 +62,11 @@ public class SampleData
         if (RecordingSettings != null)
         {
             insertTasks.Add(InsertRecordingSettingsToDb(RecordingSettings));
+        }
+
+        if (GeneralSettings != null)
+        {
+            insertTasks.Add(InsertGeneralSettingsToDb(GeneralSettings));
         }
 
         if (Statistics != null)
@@ -182,7 +191,30 @@ public class SampleData
 
     private void CreateRecordingSettings()
     {
+        var defaultSettings = WindowsRecorder.GetDefaultSettings(1920, 1080);
+        RecordingSettings = new RecordingSettings
+        {
+            RecordingsLocalPath = defaultSettings.RecordingsLocalPath,
+            OutputDeviceName = defaultSettings.OutputDeviceName,
+            OutputDeviceFriendlyName = defaultSettings.OutputDeviceFriendlyName,
+            InputDeviceName = defaultSettings.InputDeviceName,
+            InputDeviceFriendlyName = defaultSettings.InputDeviceFriendlyName,
+            IsInputDeviceEnabled = defaultSettings.IsInputDeviceEnabled ? 1 : 0,
+            Quality = defaultSettings.Quality,
+            Fps = defaultSettings.Fps,
+            OutputFrameWidth = defaultSettings.OutputFrameWidth,
+            OutputFrameHeight = defaultSettings.OutputFrameHeight
+        };
+    }
 
+    private void CreateGeneralSettings()
+    {
+        GeneralSettings = new GeneralSettings
+        {
+            LaunchAtStartup = 1,
+            OnCloseKeepAlive = 1,
+            ShowSplashScreen = 1
+        };
     }
 
     private void CreateStatistics()
@@ -206,12 +238,19 @@ public class SampleData
 
     private async Task InsertRecordingSettingsToDb(RecordingSettings recordingSettings)
     {
-        string sql = @"insert into RecordingSettings (RecordingsLocalPath, OutputDeviceName, OutputDeviceFriendlyName, InputDeviceName, InputDeviceFriendlyName
-                                IsInputDeviceEnabled, Quality, Fps, OutputFrameWidth, OutputFrameHeight)
-                       values (@RecordingsLocalPath, @OutputDeviceName, @OutputDeviceFriendlyName, @InputDeviceName, @InputDeviceFriendlyName
-                                @IsInputDeviceEnabled, @Quality, @Fps, @OutputFrameWidth, @OutputFrameHeight)";
+        string sql = @"insert into RecordingSettings (RecordingsLocalPath, OutputDeviceName, OutputDeviceFriendlyName, InputDeviceName, InputDeviceFriendlyName, 
+                                IsInputDeviceEnabled, Quality, Fps, OutputFrameWidth, OutputFrameHeight) 
+                       values (@RecordingsLocalPath, @OutputDeviceName, @OutputDeviceFriendlyName, @InputDeviceName, @InputDeviceFriendlyName, 
+                               @IsInputDeviceEnabled, @Quality, @Fps, @OutputFrameWidth, @OutputFrameHeight)";
 
         await _dataAccess.SaveData(sql, recordingSettings).ConfigureAwait(false);
+    }
+
+    private async Task InsertGeneralSettingsToDb(GeneralSettings generalSettings)
+    {
+        string sql = @"insert into GeneralSettings (LaunchAtStartup, OnCloseKeepAlive, ShowSplashScreen)
+                    values (@LaunchAtStartup, @OnCloseKeepAlive, @ShowSplashScreen)";
+        await _dataAccess.SaveData(sql, generalSettings);
     }
 
     private async Task InsertScheduledLectureToDb(ScheduledLecture scheduledLecture)

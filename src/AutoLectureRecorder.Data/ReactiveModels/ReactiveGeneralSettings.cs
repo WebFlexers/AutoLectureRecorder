@@ -6,9 +6,9 @@ namespace AutoLectureRecorder.Data.ReactiveModels;
 public class ReactiveGeneralSettings : ReactiveObject
 {
     [Reactive]
-    public int LaunchAtStartup { get; set; }
+    public bool LaunchAtStartup { get; set; }
     [Reactive]
-    public int OnCloseKeepAlive { get; set; }
+    public bool OnCloseKeepAlive { get; set; }
     [Reactive]
-    public int ShowSplashScreen { get; set; }
+    public bool ShowSplashScreen { get; set; }
 }

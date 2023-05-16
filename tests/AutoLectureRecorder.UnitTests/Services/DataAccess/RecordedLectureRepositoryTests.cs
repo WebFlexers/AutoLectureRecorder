@@ -27,7 +27,7 @@ public class RecordedLectureRepositoryTests
 
         var recordedLectures = await recordedLecturesRepository.GetRecordedLecturesFromIdAsync(1);
         
-        Assert.Equal(4, recordedLectures?.Count);
+        Assert.Equal(10, recordedLectures?.Count);
     }
 
     [Fact]

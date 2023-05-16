@@ -96,7 +96,7 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
         };
     }
 
-    public static ReactiveRecordingSettings GetDefaultOptions(int primaryScreenWidth, int primaryScreenHeight)
+    public static ReactiveRecordingSettings GetDefaultSettings(int primaryScreenWidth, int primaryScreenHeight)
     {
         int outputFrameWidth;
         int outputFrameHeight;
@@ -116,7 +116,9 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
         {
             RecordingsLocalPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             OutputDeviceName = "Default",
+            OutputDeviceFriendlyName = "Default",
             InputDeviceName = "Default",
+            InputDeviceFriendlyName = "Default",
             IsInputDeviceEnabled = false,
             Quality = 70,
             Fps = 30,

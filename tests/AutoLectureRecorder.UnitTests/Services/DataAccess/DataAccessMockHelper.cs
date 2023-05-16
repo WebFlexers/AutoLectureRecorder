@@ -8,8 +8,11 @@ public static class DataAccessMockHelper
     {
         Dictionary<string, string?>? inMemorySettings = new()
         {
-            {"Main", "Dictionary Main Value"},
-            {"ConnectionStrings:Default", "Data Source=.\\AutoLectureRecorderDB.db;"},
+            { "Main", "Dictionary Main Value" },
+            { "ConnectionStrings:Default", "Data Source=.\\AutoLectureRecorderDB.db;" },
+            { "DefaultGeneralSettings:LaunchAtStartup", "true" },
+            { "DefaultGeneralSettings:OnCloseKeepAlive", "true" },
+            { "DefaultGeneralSettings:ShowSplashScreen", "true" },
         };
 
         return new ConfigurationBuilder()
