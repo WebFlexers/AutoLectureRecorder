@@ -1,9 +1,9 @@
 ﻿using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace AutoLectureRecorder.Services.DataAccess;
+namespace AutoLectureRecorder.Services.DataAccess.Repositories;
 
 public class StudentAccountRepository : IStudentAccountRepository
 {
@@ -68,7 +68,7 @@ public class StudentAccountRepository : IStudentAccountRepository
                 _logger.LogInformation("Successfully inserted student account");
                 return true;
             }
-        
+
             _logger.LogWarning("Failed to insert student account with registration number {rn}", registrationNumber);
             return false;
         }

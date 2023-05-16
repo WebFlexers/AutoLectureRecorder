@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
 using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Resources.Themes;
 using ReactiveMarbles.ObservableEvents;
 using Serilog;
 
@@ -37,7 +38,7 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             this.WhenAnyValue(v => v.MainAppWindow.WindowState)
                 .Subscribe(ws =>
                 {
-                    this.ToggleWindowStateButton.Style = App.GetStyleFromResourceDictionary(
+                    this.ToggleWindowStateButton.Style = ThemeManager.GetStyleFromResourceDictionary(
                             styleName: ws == WindowState.Maximized ? "TitlebarRestoreDownButton" : "TitlebarMaximizeButton",
                             resourceDictionaryName: "TitleBar.xaml"
                         );

@@ -8,7 +8,7 @@ using AutoLectureRecorder.Sections.MainMenu.Library;
 using AutoLectureRecorder.Sections.MainMenu.Schedule;
 using AutoLectureRecorder.Sections.MainMenu.Settings;
 using AutoLectureRecorder.Sections.MainMenu.Upload;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

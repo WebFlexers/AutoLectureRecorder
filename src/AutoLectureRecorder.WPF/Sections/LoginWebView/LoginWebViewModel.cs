@@ -2,7 +2,6 @@
 using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Sections.Login;
 using AutoLectureRecorder.Sections.MainMenu;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,7 @@ using System.Windows;
 using AutoLectureRecorder.Resources.Themes;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 
 namespace AutoLectureRecorder.Sections.LoginWebView;
 

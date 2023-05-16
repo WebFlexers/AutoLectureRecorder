@@ -1,9 +1,9 @@
 ﻿using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace AutoLectureRecorder.Services.DataAccess;
+namespace AutoLectureRecorder.Services.DataAccess.Repositories;
 
 public class ScheduledLectureRepository : IScheduledLectureRepository
 {
@@ -32,7 +32,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             {
                 var reactiveLecture = CreateReactiveScheduledLecture(scheduledLecture);
                 reactiveScheduledLectures.Add(reactiveLecture);
-            
+
             }
 
             return reactiveScheduledLectures;
@@ -192,7 +192,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             _logger.LogError(e, "An error occurred while trying to get scheduled lecture grouped by semester");
             return null;
         }
-    } 
+    }
 
     /// <summary>
     /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture
@@ -253,7 +253,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
                 _logger.LogWarning("Failed to update lecture with id {id}, because it doesn't exist", reactiveLecture.Id);
                 return false;
             }
-            
+
             _logger.LogInformation("Successfully updated lecture with Id {id}", reactiveLecture.Id);
             return true;
         }
@@ -279,7 +279,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
                 _logger.LogWarning("Failed to delete lecture with the given id, because it doesn't exist");
                 return false;
             }
-            
+
             _logger.LogInformation("Successfully deleted lecture with Id {id}", id);
             return true;
         }
@@ -310,7 +310,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     {
         if (reactiveScheduledLecture.Day.HasValue == false)
         {
-            throw new ArgumentNullException(nameof(reactiveScheduledLecture.Day), 
+            throw new ArgumentNullException(nameof(reactiveScheduledLecture.Day),
                 "Day was null while trying to convert from ReactiveScheduledLecture to ScheduledLecture");
         }
 

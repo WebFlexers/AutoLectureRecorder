@@ -1,7 +1,7 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Resources.Themes;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using AutoLectureRecorder.Services.Recording;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using Microsoft.Extensions.Logging;

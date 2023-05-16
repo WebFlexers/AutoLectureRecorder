@@ -6,6 +6,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Windows;
+using AutoLectureRecorder.Resources.Themes;
 
 namespace AutoLectureRecorder.Sections.MainMenu.RecordLectures;
 
@@ -38,7 +39,7 @@ public partial class RecordWindow : ReactiveWindow<RecordWindowViewModel>
             this.WhenAnyValue(v => v.RecordMainWindow.WindowState)
                 .Subscribe(ws =>
                 {
-                    this.ToggleWindowStateButton.Style = App.GetStyleFromResourceDictionary(
+                    this.ToggleWindowStateButton.Style = ThemeManager.GetStyleFromResourceDictionary(
                         styleName: ws == WindowState.Maximized ? "TitlebarRestoreDownButton" : "TitlebarMaximizeButton",
                         resourceDictionaryName: "TitleBar.xaml"
                     );

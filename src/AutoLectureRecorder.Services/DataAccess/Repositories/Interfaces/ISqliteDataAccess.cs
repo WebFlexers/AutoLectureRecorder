@@ -1,4 +1,4 @@
-﻿namespace AutoLectureRecorder.Services.DataAccess.Interfaces;
+﻿namespace AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 
 public interface ISqliteDataAccess
 {

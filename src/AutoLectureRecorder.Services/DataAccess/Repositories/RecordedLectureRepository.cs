@@ -1,10 +1,10 @@
 ﻿using AutoLectureRecorder.Data.DTOs;
 using AutoLectureRecorder.Data.Models;
 using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace AutoLectureRecorder.Services.DataAccess;
+namespace AutoLectureRecorder.Services.DataAccess.Repositories;
 
 public class RecordedLectureRepository : IRecordedLectureRepository
 {

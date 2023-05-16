@@ -1,6 +1,5 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -9,6 +8,8 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
+using AutoLectureRecorder.Resources.Themes;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 
 namespace AutoLectureRecorder;
 
@@ -45,7 +46,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         Navigate = ReactiveCommand.Create<Type>(SetRoutedViewHostContent);
 
         // Titlebar
-        MaximizeButtonStyle = App.GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
+        MaximizeButtonStyle = ThemeManager.GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
 
         ExitAppCommand = ReactiveCommand.Create(Application.Current.Shutdown);
         ToggleWindowStateCommand = ReactiveCommand.Create(() =>

@@ -1,8 +1,8 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Sections.MainMenu.RecordLectures;
-using AutoLectureRecorder.Services.DataAccess;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using AutoLectureRecorder.Services.Recording;
 using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;

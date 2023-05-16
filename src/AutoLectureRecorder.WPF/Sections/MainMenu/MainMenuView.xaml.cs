@@ -80,7 +80,7 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
 
     public void UpdateMenuButtonsStyle()
     {
-        var colors = App.GetCurrentThemeDictionary();
+        var colors = ThemeManager.GetCurrentThemeDictionary();
         var navigatedViewModel = ViewModel!.Router.GetCurrentViewModel();
 
         switch (navigatedViewModel)

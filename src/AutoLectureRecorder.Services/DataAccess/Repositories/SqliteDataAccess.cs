@@ -1,10 +1,10 @@
-﻿using AutoLectureRecorder.Services.DataAccess.Interfaces;
+﻿using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
-namespace AutoLectureRecorder.Services.DataAccess;
+namespace AutoLectureRecorder.Services.DataAccess.Repositories;
 
 public class SqliteDataAccess : ISqliteDataAccess
 {

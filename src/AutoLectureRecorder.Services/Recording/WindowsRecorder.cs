@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoLectureRecorder.Data.ReactiveModels;
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ScreenRecorderLib;
 using System.Text.RegularExpressions;
@@ -53,6 +54,77 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
     public WindowsRecorder(ILogger<WindowsRecorder> logger)
     {
         _logger = logger;
+    }
+
+    public void ApplyRecordingSettings(ReactiveRecordingSettings settings)
+    {
+        RecordingDirectoryPath = settings.RecordingsLocalPath;
+
+        List<AudioDevice> inputDevices = Recorder.GetSystemAudioDevices(AudioDeviceSource.InputDevices);
+        List<AudioDevice> outputDevices = Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices);
+
+        // If null or empty string is supplied to the recorder the default device will be used
+        AudioDevice? selectedOutputDevice = outputDevices.FirstOrDefault(device => device.DeviceName == settings.OutputDeviceName);
+        AudioDevice? selectedInputDevice = inputDevices.FirstOrDefault(device => device.DeviceName == settings.InputDeviceName);
+
+        Options = new RecorderOptions
+        {
+            OutputOptions = new OutputOptions
+            {
+                RecorderMode = RecorderMode.Video,
+                OutputFrameSize = new ScreenSize(settings.OutputFrameWidth, settings.OutputFrameHeight),
+                Stretch = StretchMode.Uniform,
+            },
+            VideoEncoderOptions = new VideoEncoderOptions
+            {
+                Quality = settings.Quality,
+                Framerate = settings.Fps
+            },
+            AudioOptions = new AudioOptions
+            {
+                Bitrate = AudioBitrate.bitrate_128kbps,
+                Channels = AudioChannels.Stereo,
+                IsAudioEnabled = true,
+                IsInputDeviceEnabled = settings.IsInputDeviceEnabled,
+                AudioOutputDevice = selectedOutputDevice?.DeviceName,
+                AudioInputDevice = selectedInputDevice?.DeviceName
+            },
+            MouseOptions = new MouseOptions
+            {
+                IsMousePointerEnabled = false
+            }
+        };
+    }
+
+    public static ReactiveRecordingSettings GetDefaultOptions(int primaryScreenWidth, int primaryScreenHeight)
+    {
+        int outputFrameWidth;
+        int outputFrameHeight;
+
+        if (primaryScreenWidth > 1920 && primaryScreenHeight > 1080)
+        {
+            outputFrameWidth = 1920;
+            outputFrameHeight = 1080;
+        }
+        else
+        {
+            outputFrameWidth = primaryScreenWidth;
+            outputFrameHeight = primaryScreenHeight;
+        }
+
+        var settings = new ReactiveRecordingSettings
+        {
+            RecordingsLocalPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            OutputDeviceName = "Default",
+            InputDeviceName = "Default",
+            IsInputDeviceEnabled = false,
+            Quality = 70,
+            Fps = 30,
+            OutputFrameWidth = outputFrameWidth,
+            OutputFrameHeight = outputFrameHeight,
+        };
+
+        return settings;
     }
 
     /// <summary>

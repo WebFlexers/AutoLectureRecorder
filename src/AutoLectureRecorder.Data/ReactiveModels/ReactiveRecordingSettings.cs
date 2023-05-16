@@ -6,19 +6,21 @@ namespace AutoLectureRecorder.Data.ReactiveModels;
 public class ReactiveRecordingSettings : ReactiveObject
 {
     [Reactive]
-    public int Id { get; set; }
-    [Reactive]
     public string RecordingsLocalPath { get; set; }
     [Reactive]
-    public string OutputDevice { get; set; }
+    public string OutputDeviceName { get; set; }
     [Reactive]
-    public string InputDevice { get; set; }
+    public string OutputDeviceFriendlyName { get; set; }
+    [Reactive]
+    public string InputDeviceName { get; set; }
+    [Reactive]
+    public string InputDeviceFriendlyName { get; set; }
     [Reactive]
     public bool IsInputDeviceEnabled { get; set; }
     [Reactive]
     public int Quality { get; set; }
     [Reactive]
-    public double Fps { get; set; }
+    public int Fps { get; set; }
     [Reactive]
     public int OutputFrameWidth { get; set; }
     [Reactive]

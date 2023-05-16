@@ -77,7 +77,7 @@ public static class ThemeManager
     private static void SetMaterialDesignTheme()
     {
         var palette = new PaletteHelper();
-        var colors = App.GetCurrentThemeDictionary();
+        var colors = GetCurrentThemeDictionary();
         var primaryColor = (Color)colors["PrimaryColor"];
         var secondaryColor = (Color)colors["SecondaryTextColor"];
 
@@ -93,5 +93,52 @@ public static class ThemeManager
         }
 
         palette.SetTheme(theme);
+    }
+
+    public static Style? GetStyleFromResourceDictionary(string styleName, string resourceDictionaryName)
+    {
+        var resourceDictionary = new ResourceDictionary
+        {
+            Source = new Uri($"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/{resourceDictionaryName}",
+                UriKind.RelativeOrAbsolute)
+        };
+        return resourceDictionary[styleName] as Style;
+    }
+
+    private static ResourceDictionary? _resourceDictionary;
+    private static ColorTheme? _currentDictionaryTheme;
+
+    public static ResourceDictionary GetCurrentThemeDictionary()
+    {
+        if (_currentDictionaryTheme != null && _currentDictionaryTheme == CurrentColorTheme)
+        {
+            return _resourceDictionary!;
+        }
+
+        if (_currentDictionaryTheme == null)
+        {
+            _currentDictionaryTheme = CurrentColorTheme;
+        }
+
+        if (CurrentColorTheme == ColorTheme.Light)
+        {
+            _resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(
+                    $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/LightTheme.xaml",
+                    UriKind.RelativeOrAbsolute)
+            };
+        }
+        else
+        {
+            _resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(
+                    $"/{Assembly.GetEntryAssembly()!.GetName().Name};component/Resources/Themes/DarkTheme.xaml",
+                    UriKind.RelativeOrAbsolute)
+            };
+        }
+
+        return _resourceDictionary;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
 using DynamicData;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
@@ -15,6 +14,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 using ReactiveUI.Fody.Helpers;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 

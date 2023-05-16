@@ -7,6 +7,7 @@ using AutoLectureRecorder.ReactiveUiUtilities;
 using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
+using AutoLectureRecorder.Resources.Themes;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Schedule;
 
@@ -47,7 +48,7 @@ public partial class ScheduledLectureComponent
             return;
         }
 
-        _colors = App.GetCurrentThemeDictionary();
+        _colors = ThemeManager.GetCurrentThemeDictionary();
         if (lecture.IsScheduled)
         {
             LeftSidebarBorder.Background = _colors["SuccessBrush"] as SolidColorBrush;
@@ -110,7 +111,7 @@ public partial class ScheduledLectureComponent
     private const double OutlineBorderThickness = 2.5;
     private void OnHover()
     {
-        _colors = App.GetCurrentThemeDictionary();
+        _colors = ThemeManager.GetCurrentThemeDictionary();
         MainBorder.BorderBrush = _colors["PrimaryBrush"] as SolidColorBrush;
         MainBorder.BorderThickness = new Thickness(OutlineBorderThickness);
 
@@ -123,7 +124,7 @@ public partial class ScheduledLectureComponent
 
     private void OnHoverLeave(bool restoreWidth = true)
     {
-        _colors = App.GetCurrentThemeDictionary();
+        _colors = ThemeManager.GetCurrentThemeDictionary();
         MainBorder.BorderThickness = new Thickness(0);
         MainBorder.Background = _colors["SecondaryBackgroundBrush"] as SolidColorBrush;
 

@@ -1,5 +1,5 @@
 ﻿using AutoLectureRecorder.Data.Models;
-using AutoLectureRecorder.Services.DataAccess;
+using AutoLectureRecorder.Services.DataAccess.Repositories;
 using AutoLectureRecorder.UnitTests.Fixture;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;

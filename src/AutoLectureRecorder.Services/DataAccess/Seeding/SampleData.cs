@@ -1,5 +1,5 @@
 ﻿using AutoLectureRecorder.Data.Models;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 
 namespace AutoLectureRecorder.Services.DataAccess.Seeding;
 
@@ -206,8 +206,10 @@ public class SampleData
 
     private async Task InsertRecordingSettingsToDb(RecordingSettings recordingSettings)
     {
-        string sql = "insert into RecordingSettings (RecordingsLocalPath, OutputDevice, InputDevice, IsInputDeviceEnabled, Quality, Fps, OutputFrameWidth, OutputFrameHeight) " +
-                     "values (@RecordingsLocalPath, @OutputDevice, @InputDevice, @IsInputDeviceEnabled, @Quality, @Fps, @OutputFrameWidth, @OutputFrameHeight)";
+        string sql = @"insert into RecordingSettings (RecordingsLocalPath, OutputDeviceName, OutputDeviceFriendlyName, InputDeviceName, InputDeviceFriendlyName
+                                IsInputDeviceEnabled, Quality, Fps, OutputFrameWidth, OutputFrameHeight)
+                       values (@RecordingsLocalPath, @OutputDeviceName, @OutputDeviceFriendlyName, @InputDeviceName, @InputDeviceFriendlyName
+                                @IsInputDeviceEnabled, @Quality, @Fps, @OutputFrameWidth, @OutputFrameHeight)";
 
         await _dataAccess.SaveData(sql, recordingSettings).ConfigureAwait(false);
     }

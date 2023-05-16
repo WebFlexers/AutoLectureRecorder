@@ -1,5 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
-using AutoLectureRecorder.Services.DataAccess.Interfaces;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 
 namespace AutoLectureRecorder.UnitTests.Services.DataAccess.Validation.DataAccessMocks;
 
