@@ -20,6 +20,8 @@ public partial class App : Application
     public AppBootstrapper? Bootstrapper { get; private set; }
     private AppMutex _appMutex = new();
 
+    private const string ConnectionString = "Data Source=.\\AutoLectureRecorderDB.db;";
+
     public App()
     {
         _appMutex.InitializeMutex();
@@ -31,14 +33,14 @@ public partial class App : Application
 
         _appMutex.HandleDuplicateAppInstance();
 
-        bool showStartupWindow = true;
+        bool showStartupWindow = await ShouldShowStartupWindow();
 
         // If we are in development populate the database with sample data
         if (Debugger.IsAttached)
         {
             showStartupWindow = false;
             await new SampleData(
-                    new SqliteDataAccess("Data Source=.\\AutoLectureRecorderDB.db;"))
+                    new SqliteDataAccess(ConnectionString))
                         .Seed();
         }
 
@@ -110,10 +112,18 @@ public partial class App : Application
         
     }
 
-    // TODO: Implement this
-    private bool ShouldShowStartupWindow()
+    private async Task<bool> ShouldShowStartupWindow()
     {
-        throw new NotImplementedException();
+        var sqliteDataAccess = new SqliteDataAccess(ConnectionString);
+        var settingsRepository = new SettingsRepository(sqliteDataAccess);
+        var generalSettings = await settingsRepository.GetGeneralSettings();
+
+        if (generalSettings != null && generalSettings.ShowSplashScreen == false)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -132,8 +142,8 @@ public partial class App : Application
 
         await Log.CloseAndFlushAsync();
 
-        base.OnExit(e);
-        
         _appMutex.ReleaseMutex();
+
+        base.OnExit(e);
     }
 }

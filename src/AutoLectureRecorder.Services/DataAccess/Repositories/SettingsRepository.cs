@@ -10,8 +10,13 @@ namespace AutoLectureRecorder.Services.DataAccess.Repositories;
 public class SettingsRepository : ISettingsRepository
 {
     private readonly ISqliteDataAccess _dataAccess;
-    private readonly ILogger<SettingsRepository> _logger;
-    private readonly IConfiguration _config;
+    private readonly ILogger<SettingsRepository>? _logger;
+    private readonly IConfiguration? _config;
+
+    public SettingsRepository(ISqliteDataAccess dataAccess)
+    {
+        _dataAccess = dataAccess;
+    }
 
     public SettingsRepository(ISqliteDataAccess dataAccess, ILogger<SettingsRepository> logger, IConfiguration config)
     {
@@ -36,7 +41,7 @@ public class SettingsRepository : ISettingsRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while trying to fetch recording settings");
+            _logger?.LogError(ex, "An error occurred while trying to fetch recording settings");
             return null;
         }
     }
@@ -57,7 +62,7 @@ public class SettingsRepository : ISettingsRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while trying to fetch general settings");
+            _logger?.LogError(ex, "An error occurred while trying to fetch general settings");
             return null;
         }
     }
@@ -83,7 +88,7 @@ public class SettingsRepository : ISettingsRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while trying to set recording settings");
+            _logger?.LogError(ex, "An error occurred while trying to set recording settings");
             return false;
         }
     }
@@ -107,7 +112,7 @@ public class SettingsRepository : ISettingsRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while trying to set recording settings");
+            _logger?.LogError(ex, "An error occurred while trying to set recording settings");
             return false;
         }
     }
@@ -126,6 +131,8 @@ public class SettingsRepository : ISettingsRepository
     /// </summary>
     public async Task<bool> ResetGeneralSettings()
     {
+        if (_config == null) return false;
+
         var generalSettingsSection = _config.GetSection("DefaultGeneralSettings");
         var defaultSettings = new ReactiveGeneralSettings
         {

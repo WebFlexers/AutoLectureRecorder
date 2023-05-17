@@ -8,7 +8,6 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.Schedule"
-            xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"

@@ -7,6 +7,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:local="clr-namespace:AutoLectureRecorder.Sections.MainMenu.Settings"
+            xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
@@ -16,14 +17,89 @@
             mc:Ignorable="d"
             d:DesignWidth="1360" 
             d:DesignHeight="768">
-    <Grid>
-        <!-- Design time grid that represents the titlebar buttons -->
-        <d:Grid d:Width="135"
-                d:Height="30"
-                d:Background="Black"
-                d:HorizontalAlignment="Right"
-                d:VerticalAlignment="Top" />
 
-        <TextBlock Text="Settings" />
+    <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="1"
+                    Margin="15, 10, 15, 0">
+
+            <!-- General Settings -->
+            <TabItem Header="General">
+                <StackPanel Margin="25, 30, 25, 0">
+                    <!-- On Startup -->
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="OnStartupToggleButton"
+                                      Height="20"/>
+                        <TextBlock Text="Launch on Startup"
+                                   FontSize="18"
+                                   Margin="10, 0, 0, 0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="When this is checked Auto Lecture Recorded will automatically start when windows boots"
+                               TextWrapping="Wrap"
+                               MaxWidth="350"
+                               HorizontalAlignment="Left"
+                               Margin="0, 15"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <Grid Height="0.5"
+                          Margin="0, 0, 0, 15"
+                          Background="{DynamicResource SectionLineBrush}">
+                    </Grid>
+
+                    <!-- On Close Minimize --> 
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="OnCloseMinimizeToggleButton"
+                                      Height="20"/>
+                        <TextBlock Text="Minimize on Close"
+                                   FontSize="18"
+                                   Margin="10, 0, 0, 0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="When this is checked the app will minimize to tray instead of closing when clicking the close button"
+                               TextWrapping="Wrap"
+                               MaxWidth="350"
+                               HorizontalAlignment="Left"
+                               Margin="0, 15"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <Grid Height="0.5"
+                          Margin="0, 0, 0, 15"
+                          Background="{DynamicResource SectionLineBrush}">
+                    </Grid>
+
+                    <!-- Show Splash Screen -->
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="ShowSplashScreenToggleButton"
+                                      Height="20"/>
+                        <TextBlock Text="Show Splash Screen"
+                                   FontSize="18"
+                                   Margin="10, 0, 0, 0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="When this is checked a splash screen will appear when the app starts, to indicate it is loading"
+                               TextWrapping="Wrap"
+                               MaxWidth="350"
+                               HorizontalAlignment="Left"
+                               Margin="0, 15"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/> 
+                </StackPanel>
+            </TabItem>
+
+            <!-- Recording Settings -->
+            <TabItem Header="Recording">
+                <StackPanel Margin="25, 30, 25, 0">
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Uploading">
+                <TextBlock Text="Uploading"/>
+            </TabItem>
+        </TabControl>
     </Grid>
+
 </rxui:ReactiveUserControl>

@@ -79,5 +79,6 @@ public class AppBootstrapper
         services.AddTransient<IStudentAccountRepository, StudentAccountRepository>();
         services.AddTransient<IRecordedLectureRepository, RecordedLectureRepository>();
         services.AddTransient<IScheduledLectureRepository, ScheduledLectureRepository>();
+        services.AddTransient<ISettingsRepository, SettingsRepository>();
     }
 }
