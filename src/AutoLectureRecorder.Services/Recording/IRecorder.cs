@@ -10,7 +10,7 @@ public interface IRecorder : IReactiveObject
     string? RecordingDirectoryPath { get; set; }
     string? RecordingFileName { get; set; }
     string? RecordingFilePath { get; }
-    RecorderOptions Options { get; set; }
+    RecorderOptions? Options { get; set; }
 
     /// <summary>
     /// Starts a new recording. If no windowHandle is specified the main screen is recorded.

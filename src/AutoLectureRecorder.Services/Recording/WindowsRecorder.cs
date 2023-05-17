@@ -31,25 +31,7 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
         : $"{Path.Combine(RecordingDirectoryPath, RecordingFileName)}.mp4";
 
     // These options must be set before starting the recording, and cannot be modified while recording.
-    public RecorderOptions Options { get; set; } = new()
-    {
-        OutputOptions = new OutputOptions
-        {
-            RecorderMode = RecorderMode.Video,
-            OutputFrameSize = new ScreenSize(1280, 720),
-            Stretch = StretchMode.Uniform,
-        },
-        AudioOptions = new AudioOptions
-        {
-            Bitrate = AudioBitrate.bitrate_128kbps,
-            Channels = AudioChannels.Stereo,
-            IsAudioEnabled = true,
-        },
-        MouseOptions = new MouseOptions
-        {
-            IsMousePointerEnabled = false
-        }
-    };
+    public RecorderOptions? Options { get; set; }
 
     public WindowsRecorder(ILogger<WindowsRecorder> logger)
     {
@@ -114,7 +96,7 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
 
         var settings = new ReactiveRecordingSettings
         {
-            RecordingsLocalPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            RecordingsLocalPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AutoLectureRecorder"),
             OutputDeviceName = "Default",
             OutputDeviceFriendlyName = "Default",
             InputDeviceName = "Default",
@@ -148,6 +130,11 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
 
         TryToDeleteIdenticalFile(autoDeleteIdenticalFile);
 
+        if (Options == null)
+        {
+            ApplyRecordingSettings(GetDefaultSettings(1280, 720));
+        }
+
         if (windowHandle != null)
         {
             var sources = new List<RecordingSourceBase>
@@ -155,7 +142,7 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
                 new WindowRecordingSource(windowHandle.Value)
             };
 
-            Options.SourceOptions ??= new SourceOptions();
+            Options!.SourceOptions ??= new SourceOptions();
             Options.SourceOptions.RecordingSources = sources;
         }
 

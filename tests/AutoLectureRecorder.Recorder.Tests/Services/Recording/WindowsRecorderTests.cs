@@ -32,7 +32,7 @@ public class WindowsRecorderTests
     [Fact]
     public async Task StartRecording_ShouldDetectIdenticalNameAndCreateNewFile()
     {
-        var recorder = await TestSuccessfulRecording("RecordScreenTest", TimeSpan.FromSeconds(1));
+        var recorder = await TestSuccessfulRecording("IdenticalVideo", TimeSpan.FromSeconds(1));
         recorder.StartRecording(autoDeleteIdenticalFile: false);
 
         await Task.Delay(TimeSpan.FromSeconds(2));
@@ -61,9 +61,11 @@ public class WindowsRecorderTests
         var logger = XUnitLogger.CreateLogger<WindowsRecorder>(_output);
         var recorder = new WindowsRecorder(logger)
         {
-            RecordingDirectoryPath = Directory.GetCurrentDirectory(),
             RecordingFileName = videoFileName
         };
+        var settings = WindowsRecorder.GetDefaultSettings(1920, 1080);
+        settings.RecordingsLocalPath = Directory.GetCurrentDirectory();
+        recorder.ApplyRecordingSettings(settings);
 
         recorder.StartRecording(windowHandle);
 
