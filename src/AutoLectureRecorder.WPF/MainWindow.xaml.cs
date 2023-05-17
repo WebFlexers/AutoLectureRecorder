@@ -1,14 +1,11 @@
-﻿using ReactiveUI;
+﻿using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Resources.Themes;
+using ReactiveMarbles.ObservableEvents;
+using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
-using System.Windows.Input;
-using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Resources.Themes;
-using ReactiveMarbles.ObservableEvents;
-using Serilog;
 
 namespace AutoLectureRecorder;
 
@@ -25,8 +22,19 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             this.OneWayBind(ViewModel, vm => vm.IsWindowTopMost, v => v.MainAppWindow.Topmost)
                 .DisposeWith(disposables);
 
+            // TaskBar
+            this.BindCommand(ViewModel, vm => vm.ShowAppCommand, v => v.MainTaskbarIcon,
+                    Observable.Return(this), nameof(MainTaskbarIcon.TrayMouseDoubleClick))
+                .DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.ShowAppCommand, v => v.OpenAppMenuItem,
+                    Observable.Return(this))
+                .DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.ExitAppCommand, v => v.ExitAppMenuItem)
+                .DisposeWith(disposables);
+
             // TitleBar
-            this.BindCommand(ViewModel, vm => vm.ExitAppCommand, v => v.ExitAppButton)
+            this.BindCommand(ViewModel, vm => vm.AttemptExitAppCommand, v => v.ExitAppButton, 
+                    Observable.Return(this))
                 .DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.ToggleWindowStateCommand, v => v.ToggleWindowStateButton)
                 .DisposeWith(disposables);

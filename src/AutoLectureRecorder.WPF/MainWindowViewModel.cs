@@ -1,28 +1,37 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Resources.Themes;
+using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
-using AutoLectureRecorder.Resources.Themes;
-using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
+using System.Windows.Interop;
 
 namespace AutoLectureRecorder;
 
-public class MainWindowViewModel : ReactiveObject, IScreen
+public class MainWindowViewModel : ReactiveObject, IScreen, IActivatableViewModel
 {
+    public ViewModelActivator Activator { get; } = new();
+    private CompositeDisposable _disposables = new();
+
     private readonly IViewModelFactory _viewModelFactory;
-    private readonly IScheduledLectureRepository _scheduledLectureRepository;
+    private readonly ISettingsRepository _settingsRepository;
     private readonly ILogger<MainWindowViewModel> _logger;
 
     public RoutingState Router { get; } = new();
 
     // Titlebar commands
+    public ReactiveCommand<Window, Unit> AttemptExitAppCommand { get; }
     public ReactiveCommand<Unit, Unit> ExitAppCommand { get; }
+    public ReactiveCommand<Window, Unit> ShowAppCommand { get; }
     public ReactiveCommand<Unit, Unit> ToggleWindowStateCommand { get; }
     public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; }
 
@@ -36,10 +45,19 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     [Reactive]
     public Style MaximizeButtonStyle { get; set; }
 
-    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, IScheduledLectureRepository scheduledLectureRepository)
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    [DllImport("user32.dll")]
+    [System.Security.SuppressUnmanagedCodeSecurity]
+    public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, 
+        ISettingsRepository settingsRepository)
     {
         _viewModelFactory = viewModelFactory;
-        _scheduledLectureRepository = scheduledLectureRepository;
+        _settingsRepository = settingsRepository;
         _logger = logger;
 
         // Navigation
@@ -48,7 +66,31 @@ public class MainWindowViewModel : ReactiveObject, IScreen
         // Titlebar
         MaximizeButtonStyle = ThemeManager.GetStyleFromResourceDictionary("TitlebarMaximizeButton", "TitleBar.xaml")!;
 
+        ShowAppCommand = ReactiveCommand.Create<Window, Unit>(window =>
+        {
+            window.Show();
+            window.WindowState = WindowState.Normal;
+            IntPtr windowHandle = new WindowInteropHelper(window).Handle;
+            ShowWindow(windowHandle, 5);
+            SetForegroundWindow(windowHandle);
+            return Unit.Default;
+        });
+
+        AttemptExitAppCommand = ReactiveCommand.CreateFromTask<Window, Unit>(async window =>
+        {
+            var generalSettings = await settingsRepository.GetGeneralSettings();
+            if (generalSettings != null && generalSettings.OnCloseKeepAlive)
+            {
+                window.Hide();
+                return Unit.Default;
+            }
+
+            Application.Current.Shutdown();
+            return Unit.Default;
+        });
+
         ExitAppCommand = ReactiveCommand.Create(Application.Current.Shutdown);
+
         ToggleWindowStateCommand = ReactiveCommand.Create(() =>
         {
             if (MainWindowState == WindowState.Maximized)
@@ -60,23 +102,13 @@ public class MainWindowViewModel : ReactiveObject, IScreen
                 MainWindowState = WindowState.Maximized;
             }
         });
+
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
 
-        //MessageBus.Current.Listen<bool>(PubSubMessages.UpdateWindowTopMost)
-        //    .Subscribe(tm => IsWindowTopMost = tm);
-
-        MessageBus.Current.Listen<bool>(PubSubMessages.UpdateVideoFullScreen)
-            .Subscribe(makeVideoFullScreen =>
-            {
-                _isFullScreenVideoPlaying = makeVideoFullScreen;
-                ToggleFullscreenVideoMode();
-            });
-    }
-
-    private void ToggleFullscreenVideoMode()
-    {
-        IsWindowTopMost = _isFullScreenVideoPlaying;
-        MainWindowState = _isFullScreenVideoPlaying ? WindowState.Maximized : WindowState.Normal;
+        this.WhenActivated(disposables =>
+        {
+            _disposables.DisposeWith(disposables);
+        });
     }
 
     public void SetRoutedViewHostContent(Type type)

@@ -7,6 +7,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:AutoLectureRecorder"
+                     xmlns:tb="http://www.hardcodet.net/taskbar"
                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                      xmlns:mainmenu="clr-namespace:AutoLectureRecorder.Resources.MainMenu"
                      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -54,6 +55,20 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
+        <!-- Tray Icon -->
+        <tb:TaskbarIcon x:Name="MainTaskbarIcon" 
+                        Grid.Row="1"
+                        IconSource="Icons/app_icon_filled_64x64.ico">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="OpenAppMenuItem" 
+                              Header="Open"/>
+                    <MenuItem x:Name="ExitAppMenuItem" 
+                              Header="Exit"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+
         <!-- TitleBar -->
         <Grid x:Name="TitlebarGrid"
               Grid.Row="0"

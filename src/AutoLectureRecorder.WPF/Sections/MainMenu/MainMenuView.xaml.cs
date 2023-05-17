@@ -1,4 +1,6 @@
-﻿using AutoLectureRecorder.Sections.MainMenu.Dashboard;
+﻿using AutoLectureRecorder.ReactiveUiUtilities;
+using AutoLectureRecorder.Resources.Themes;
+using AutoLectureRecorder.Sections.MainMenu.Dashboard;
 using AutoLectureRecorder.Sections.MainMenu.Library;
 using AutoLectureRecorder.Sections.MainMenu.Schedule;
 using AutoLectureRecorder.Sections.MainMenu.Settings;
@@ -11,11 +13,6 @@ using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Navigation;
-using AutoLectureRecorder.ReactiveUiUtilities;
-using AutoLectureRecorder.Resources.Themes;
-using MaterialDesignThemes.Wpf;
-using Serilog;
 
 namespace AutoLectureRecorder.Sections.MainMenu;
 
