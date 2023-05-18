@@ -92,9 +92,138 @@
 
             <!-- Recording Settings -->
             <TabItem Header="Recording">
-                <StackPanel Margin="25, 30, 25, 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" 
+                                Margin="25, 30, 25, 0">
+                        <!-- Video Options -->
+                        <TextBlock Text="Video Options"
+                                   TextAlignment="Center"
+                                   FontSize="22"
+                                   Margin="0, 20"/>
 
-                </StackPanel>
+                        <!-- Recording Directory -->
+                        <TextBlock Text="Recording Directory"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"/>
+
+                        <TextBox Text="C:\Users\StyleM\Downloads\NotifyIcon_MDProblem-master"
+                                 Margin="0, 15, 0, 0"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                        <Button Content="Browse"
+                                Margin="0, 15, 0, 15"
+                                Foreground="{DynamicResource PrimaryTextBrush}"/>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   HorizontalAlignment="Left"
+                                   Margin="0, 0, 0, 15"
+                                   Foreground="{DynamicResource SecondaryTextBrush}">
+                            Above is the path of the base directory where future recordings will be 
+                            saved. During recording more folders will be created for the semester 
+                            and the subject name for each lecture
+                        </TextBlock>
+
+                        <Grid Height="0.5"
+                              Margin="0, 0, 0, 15"
+                              Background="{DynamicResource SectionLineBrush}">
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/> 
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Quality -->
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           Text="Quality"
+                                           VerticalAlignment="Center"
+                                           FontSize="18"/>
+
+                                <TextBox x:Name="QualityTextBox"  
+                                         Grid.Column="1"
+                                         Text="70"
+                                         Margin="15, 0"
+                                         materialDesign:HintAssist.Hint="10-100"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            </Grid>
+
+                            <TextBlock Grid.Row="1" 
+                                       Grid.Column="0"
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Left"
+                                       Margin="0, 15, 0, 0"
+                                       Padding="5, 0"
+                                       Foreground="{DynamicResource SecondaryTextBrush}">
+                                The quality of the recording from 10 to 100. 
+                                Higher values mean better quality, but more storage space
+                            </TextBlock>
+
+                            <!-- FPS -->
+                            <Grid Grid.Row="0" 
+                                  Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" 
+                                           Text="FPS"
+                                           VerticalAlignment="Center"
+                                           FontSize="18"/>
+
+                                <TextBox x:Name="FpsTextBox"  
+                                         Grid.Column="1" 
+                                         Text="30"
+                                         Width="{Binding ElementName=QualityTextBox, Path=ActualWidth}"
+                                         HorizontalAlignment="Right"
+                                         Margin="15, 0"
+                                         materialDesign:HintAssist.Hint="30-60"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            </Grid>
+
+                            <TextBlock Grid.Row="1" 
+                                       Grid.Column="1"
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Left"
+                                       Margin="0, 15, 0, 0"
+                                       Padding="5, 0"
+                                       Foreground="{DynamicResource SecondaryTextBrush}">
+                                The frame rate of the recording from 30 to 60. 
+                                Higher values mean smoother video, but more storage space
+                            </TextBlock>
+                        </Grid>
+
+                        <Grid Height="0.5"
+                              Margin="0, 15, 0, 15"
+                              Background="{DynamicResource SectionLineBrush}">
+                        </Grid>
+ 
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" 
+                                Margin="25, 30, 25, 0">
+                        <TextBlock Text="Audio Options"
+                                   TextAlignment="Center"
+                                   FontSize="22"
+                                   Margin="0, 20"/>
+
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Uploading">
                 <TextBlock Text="Uploading"/>
