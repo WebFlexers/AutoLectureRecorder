@@ -213,6 +213,35 @@
                               Margin="0, 15, 0, 15"
                               Background="{DynamicResource SectionLineBrush}">
                         </Grid>
+
+                        <!-- Output resolution -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                       Text="Output Resolution"
+                                       VerticalAlignment="Center"
+                                       FontSize="18"/>
+                            
+                            <ComboBox x:Name="OutputResolutionCombobox"
+                                      Grid.Column="1"
+                                      Margin="15, 0, 0, 0"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                        </Grid>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   HorizontalAlignment="Left"
+                                   Margin="0, 15, 0, 0"
+                                   Padding="5, 0"
+                                   Foreground="{DynamicResource SecondaryTextBrush}">
+                            The output scaled resolution of the final video. 
+                            Higher values mean crisper video, but significantly 
+                            more storage space. Do NOT select a higher resolution 
+                            that the screen you are recording on supports.
+                        </TextBlock>
  
                     </StackPanel>
                     <StackPanel Grid.Column="1" 
@@ -222,6 +251,62 @@
                                    FontSize="22"
                                    Margin="0, 20"/>
 
+                        <StackPanel Orientation="Horizontal">
+                            <ToggleButton x:Name="RecordAudioToggleButton"
+                                          Height="20"/>
+                            <TextBlock Text="Enable Input Recording"
+                                       FontSize="18"
+                                       Margin="10, 0, 0, 0"/>
+                        </StackPanel>
+
+                        <TextBlock Text="When this is checked your microphone will be recorded"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="350"
+                                   HorizontalAlignment="Left"
+                                   Margin="0, 15"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                        <Grid Height="0.5"
+                              Margin="0, 0, 0, 15"
+                              Background="{DynamicResource SectionLineBrush}">
+                        </Grid>
+
+                        <!-- Selected input device -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                       Text="Input Device"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       FontSize="18"/>
+                            
+                            <ComboBox x:Name="InputDeviceCombobox"
+                                      Grid.Column="1"
+                                      Margin="15, 0, 0, 0"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                        </Grid>
+
+                        <!-- Selected output device -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                       Text="Output Device"
+                                       VerticalAlignment="Center"
+                                       FontSize="18"/>
+                            
+                            <ComboBox x:Name="OutputDeviceCombobox"
+                                      Grid.Column="1"
+                                      Margin="15, 15, 0, 0"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                        </Grid>
                     </StackPanel>
                 </Grid>
             </TabItem>
