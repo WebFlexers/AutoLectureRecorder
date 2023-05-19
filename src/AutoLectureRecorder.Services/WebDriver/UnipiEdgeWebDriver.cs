@@ -23,7 +23,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
     /// <param name="useWebView">Whether to use the integrated microsoft EdgeWebView2 or not</param>
     /// <param name="implicitWaitTime">The time to wait when searching for elements before throwing exception</param>
     /// <param name="debuggerAddress">The debugger address that will host the WebView2</param>
-    public void StartDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
+    public bool StartDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
     {
         try
         {
@@ -42,11 +42,13 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
             _driver = new EdgeDriver(driverService, edgeOptions);
             _driver.Manage().Timeouts().ImplicitWait = implicitWaitTime;
+
+            return true;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred while trying to start the Web Driver");
-            throw;
+            return false;
         }
     }
 
@@ -132,7 +134,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
     private const string CancelJoinMeetingErrorMessage = 
         "The proccess of joinning the Microsoft Teams meeting was cancelled by the user";
 
-    private TimeSpan _initialImplicitWait;
+    private TimeSpan? _initialImplicitWait;
 
     /// <summary>
     /// Join the specified microsoft teams meeting after logging in if the user is not already logged in
@@ -146,9 +148,11 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             throw new NullReferenceException("Attempted to login to microsoft teams with a null web driver");
         }
 
-        // Store the implicit wait time to revert to it after changing it
-        _initialImplicitWait = _driver.Manage().Timeouts().ImplicitWait;
+        if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
+        // Store the implicit wait time to revert to it after changing it
+        _initialImplicitWait ??= _driver.Manage().Timeouts().ImplicitWait;
+        
         try
         {
             _driver.Url = meetingLink;
@@ -160,7 +164,12 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             // navigate to a very lightweight website, like onepixelwebsite.com and then to the new url
             WaitUntilLoaded();
             var urlWithoutOpenAppPrompt = _driver.Url;
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
             _driver.Url = "http://www.onepixelwebsite.com/";
+
+            if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
+
             _driver.Url = urlWithoutOpenAppPrompt;
 
             // id: openTeamsClientInBrowser -> Exists when the link is a meeting link
@@ -180,6 +189,8 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
                 nextElement = _driver.FindElement(
                     By.XPath("//button[@translate-once='getUserMedia_continue_button' or @id='loginButton']"));
+
+                if (cancellationToken is { IsCancellationRequested: true }) return (false, CancelJoinMeetingErrorMessage);
 
                 if (nextElement.GetAttribute("id").Trim() == "loginButton")
                 {
@@ -201,7 +212,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                     dismissNotificationsButtons.First().Click();
                 }
 
-                _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait;
+                _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait.Value;
 
                 // Here we will have to check whether we are signed in or not
                 // class: anonymous-pre-join-footer -> Exists when the user is NOT logged in
@@ -314,7 +325,7 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
                 if (clickedJoinButton == false) return (false, "The meeting didn't start in time");
             }
 
-            _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait;
+            _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait.Value;
 
             // Continue without audio or video
             var iframeDiv =
@@ -357,13 +368,6 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _logger.LogError(ex, "Join meeting failed with exception");
             return (false, "Failed to join the meeting. Check your internet connection. Also if you have changed your" +
                            "academic password logout and login again");
-        }
-        finally
-        {
-            if (_driver != null)
-            {
-                _driver.Manage().Timeouts().ImplicitWait = _initialImplicitWait;
-            }
         }
     }
 

@@ -15,7 +15,7 @@ public class WebDriverFactory : IWebDriverFactory
         _webDrivers = webDrivers;
     }
 
-    public IAlrWebDriver CreateUnipiEdgeWebDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
+    public IAlrWebDriver? CreateUnipiEdgeWebDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222")
     {
         UnipiEdgeWebDriver? edgeWebDriver = null;
         foreach (var webDriver in _webDrivers)
@@ -31,8 +31,8 @@ public class WebDriverFactory : IWebDriverFactory
             throw new NullReferenceException("No UnipiEdgeWebDriver was found");
         }
 
-        edgeWebDriver.StartDriver(useWebView, implicitWaitTime, debuggerAddress);
+        var driverStarted = edgeWebDriver.StartDriver(useWebView, implicitWaitTime, debuggerAddress);
 
-        return edgeWebDriver;
+        return driverStarted ? edgeWebDriver : null;
     }
 }

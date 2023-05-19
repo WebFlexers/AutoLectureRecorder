@@ -8,7 +8,7 @@ public interface IAlrWebDriver : IDisposable
     /// <param name="useWebView">Whether to use the integrated microsoft EdgeWebView2 or not</param>
     /// <param name="implicitWaitTime">The time to wait when searching for elements before throwing exception</param>
     /// <param name="debuggerAddress">The debugger address that will host the WebView2</param>
-    void StartDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222");
+    bool StartDriver(bool useWebView, TimeSpan implicitWaitTime, string debuggerAddress = "localhost:9222");
 
     /// <summary>
     /// Login to Microsoft Teams through the web driver using the provided credentials

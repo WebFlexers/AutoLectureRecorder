@@ -28,10 +28,11 @@ public class UnipiEdgeWebDriverTests
         string[] account = File.ReadAllLines("academic_account.txt");
 
         using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
-        unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
+        var driverStarted = unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
         (bool, string) actual = unipiWebDriver.Login(account[0], account[1]);
 
+        Assert.True(driverStarted);
         Assert.Equal(expected, actual);
     }
 
@@ -43,10 +44,11 @@ public class UnipiEdgeWebDriverTests
         string[] account = File.ReadAllLines("academic_account.txt");
 
         using var unipiWebDriver = new UnipiEdgeWebDriver(logger);
-        unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
+        var driverStarted = unipiWebDriver.StartDriver(false, TimeSpan.FromSeconds(10));
 
         (bool, string) actual = unipiWebDriver.Login(account[0], "random_password_that_is_wrong_hopefully");
 
+        Assert.True(driverStarted);
         Assert.False(actual.Item1);
     }
 

@@ -152,6 +152,11 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
             }
 
             _recordCancellationTokenSource?.Cancel();
+
+            await JoinAndRecordMeetingCommand.IsExecuting
+                .SkipWhile(isExecuting => isExecuting)
+                .Take(1)
+                .ToTask();
             
             // TODO: Make sure that the Action invoked when finishing the recording is done, before disposing the recorder
             // Wait until recorder finishes
@@ -160,6 +165,8 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
                 .SkipWhile(isRecording => isRecording)
                 .Take(1)
                 .ToTask();
+
+            _webDriver?.Dispose();
         });
 
         this.WhenActivated(disposables =>
@@ -190,7 +197,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
         }
 
         _webDriver = _webDriverFactory.CreateUnipiEdgeWebDriver(true, TimeSpan.FromSeconds(90));
-        _webDriver.DisposeWith(_disposables);
+        if (_webDriver == null) return (false, "The web driver failed to be created");
 
         (bool joinedMeeting, string resultMessage) = _webDriver.JoinMeeting(studentAccount.EmailAddress, studentAccount.Password, 
             LectureToRecord.MeetingLink, LectureToRecord.CalculateLectureDuration(), _joinMeetingCancellationToken);
