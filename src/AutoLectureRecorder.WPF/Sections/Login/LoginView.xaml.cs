@@ -1,10 +1,8 @@
 ﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Windows;
-using System.Windows.Data;
 
 namespace AutoLectureRecorder.Sections.Login;
 

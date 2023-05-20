@@ -1,5 +1,4 @@
-﻿using System.Reactive;
-using ReactiveMarbles.ObservableEvents;
+﻿using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;

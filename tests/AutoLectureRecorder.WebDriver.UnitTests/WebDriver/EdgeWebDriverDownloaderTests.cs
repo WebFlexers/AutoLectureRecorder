@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using AutoLectureRecorder.Services.WebDriver;
+﻿using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;
 using AutoLectureRecorder.WebDriver.UnitTests.WebDriver.Mocks;
 using Xunit.Abstractions;

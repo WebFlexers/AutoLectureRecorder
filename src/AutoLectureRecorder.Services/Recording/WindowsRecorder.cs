@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace AutoLectureRecorder.Services.Recording;
 
-public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
+public class WindowsRecorder : ReactiveObject, IDisposable, IRecorder
 {
     private readonly ILogger<WindowsRecorder> _logger;
 
@@ -109,6 +109,26 @@ public class WindowsRecorder : ReactiveObject, IRecorder, IDisposable
         };
 
         return settings;
+    }
+
+    public IEnumerable<ReactiveAudioDevice> GetInputAudioDevices()
+    {
+        return Recorder.GetSystemAudioDevices(AudioDeviceSource.InputDevices)
+            .Select(audioDevice => new ReactiveAudioDevice()
+            {
+                DeviceName = audioDevice.DeviceName,
+                FriendlyName = audioDevice.FriendlyName,
+            });
+    }
+
+    public IEnumerable<ReactiveAudioDevice> GetOutputAudioDevices()
+    {
+        return Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices)
+            .Select(audioDevice => new ReactiveAudioDevice()
+            {
+                DeviceName = audioDevice.DeviceName,
+                FriendlyName = audioDevice.FriendlyName,
+            });
     }
 
     /// <summary>

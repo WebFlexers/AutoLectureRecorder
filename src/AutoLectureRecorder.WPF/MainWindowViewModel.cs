@@ -1,16 +1,13 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
-using AutoLectureRecorder.ReactiveUiUtilities;
 using AutoLectureRecorder.Resources.Themes;
 using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
-using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;

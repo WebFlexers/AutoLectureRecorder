@@ -110,11 +110,13 @@
                                    VerticalAlignment="Center"
                                    FontSize="18"/>
 
-                        <TextBox Text="C:\Users\StyleM\Downloads\NotifyIcon_MDProblem-master"
+                        <TextBox x:Name="RecordingPathTextBox"  
+                                 Text="C:\Users\StyleM\Downloads\NotifyIcon_MDProblem-master"
                                  Margin="0, 15, 0, 0"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
-                        <Button Content="Browse"
+                        <Button x:Name="BrowseRecordingDirectoryButton" 
+                                Content="Browse"
                                 Margin="0, 15, 0, 15"
                                 Foreground="{DynamicResource PrimaryTextBrush}"/>
 
@@ -228,6 +230,7 @@
                             
                             <ComboBox x:Name="OutputResolutionCombobox"
                                       Grid.Column="1"
+                                      DisplayMemberPath="StringValue"
                                       Margin="15, 0, 0, 0"
                                       Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
                         </Grid>
@@ -286,6 +289,7 @@
                             
                             <ComboBox x:Name="InputDeviceCombobox"
                                       Grid.Column="1"
+                                      DisplayMemberPath="FriendlyName"
                                       Margin="15, 0, 0, 0"
                                       Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
                         </Grid>
@@ -304,6 +308,7 @@
                             
                             <ComboBox x:Name="OutputDeviceCombobox"
                                       Grid.Column="1"
+                                      DisplayMemberPath="FriendlyName"
                                       Margin="15, 15, 0, 0"
                                       Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
                         </Grid>

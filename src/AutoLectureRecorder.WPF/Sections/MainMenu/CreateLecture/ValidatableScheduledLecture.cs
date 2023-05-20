@@ -4,7 +4,6 @@ using FluentValidation;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Threading.Tasks;
-using AutoLectureRecorder.Services.DataAccess.Validation;
 
 namespace AutoLectureRecorder.Sections.MainMenu.CreateLecture;
 

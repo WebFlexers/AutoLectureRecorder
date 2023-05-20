@@ -1,16 +1,19 @@
-﻿using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+﻿using AutoLectureRecorder.Data.ReactiveModels;
+using ReactiveUI;
 using ScreenRecorderLib;
 
 namespace AutoLectureRecorder.Services.Recording;
 
-public interface IRecorder : IReactiveObject
+public interface IRecorder : IDisposable, IReactiveObject
 {
-    public bool IsRecording { get; set; }
+    bool IsRecording { get; set; }
     string? RecordingDirectoryPath { get; set; }
     string? RecordingFileName { get; set; }
     string? RecordingFilePath { get; }
     RecorderOptions? Options { get; set; }
+    void ApplyRecordingSettings(ReactiveRecordingSettings settings);
+    IEnumerable<ReactiveAudioDevice> GetInputAudioDevices();
+    IEnumerable<ReactiveAudioDevice> GetOutputAudioDevices();
 
     /// <summary>
     /// Starts a new recording. If no windowHandle is specified the main screen is recorded.

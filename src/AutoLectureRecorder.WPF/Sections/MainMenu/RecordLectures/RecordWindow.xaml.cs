@@ -75,6 +75,7 @@ public partial class RecordWindow : ReactiveWindow<RecordWindowViewModel>
             this.BindCommand(ViewModel, vm => vm.MinimizeWindowCommand, v => v.MinimizeWindowButton)
                 .DisposeWith(disposables);
 
+            // TODO: Closing event is used twice (once here and once above). Investigate
             // On Closing
             this.Events().Closing
                 .Subscribe(async e =>

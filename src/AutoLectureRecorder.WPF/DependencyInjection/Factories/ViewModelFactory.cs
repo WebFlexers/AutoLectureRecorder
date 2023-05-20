@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using System;
 using System.Threading.Tasks;
-using AutoLectureRecorder.Data.ReactiveModels;
 using AutoLectureRecorder.Sections.MainMenu.Library;
 
 namespace AutoLectureRecorder.DependencyInjection.Factories;
