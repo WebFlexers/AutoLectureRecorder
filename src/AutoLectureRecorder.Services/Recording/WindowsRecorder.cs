@@ -40,8 +40,6 @@ public class WindowsRecorder : ReactiveObject, IDisposable, IRecorder
 
     public void ApplyRecordingSettings(ReactiveRecordingSettings settings)
     {
-        RecordingDirectoryPath = settings.RecordingsLocalPath;
-
         List<AudioDevice> inputDevices = Recorder.GetSystemAudioDevices(AudioDeviceSource.InputDevices);
         List<AudioDevice> outputDevices = Recorder.GetSystemAudioDevices(AudioDeviceSource.OutputDevices);
 

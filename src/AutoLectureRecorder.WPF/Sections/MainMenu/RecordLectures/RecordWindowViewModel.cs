@@ -30,6 +30,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
     private readonly ILogger<RecordWindowViewModel> _logger;
     private readonly IWebDriverFactory _webDriverFactory;
     private readonly IStudentAccountRepository _accountRepository;
+    private readonly ISettingsRepository _settingsRepository;
     private IAlrWebDriver? _webDriver;
 
     [Reactive]
@@ -65,13 +66,14 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
     private CancellationToken _joinMeetingCancellationToken;
 
     public RecordWindowViewModel(ILogger<RecordWindowViewModel> logger, IWebDriverFactory webDriverFactory,
-        IStudentAccountRepository accountRepository, IRecorder recorder)
+        IStudentAccountRepository accountRepository, IRecorder recorder, ISettingsRepository settingsRepository)
     {
         ThemeManager.RefreshTheme();
 
         _logger = logger;
         _webDriverFactory = webDriverFactory;
         _accountRepository = accountRepository;
+        _settingsRepository = settingsRepository;
         Recorder = recorder;
 
         CloseWindowCommand = ReactiveCommand.Create<Window>(window =>
@@ -109,7 +111,7 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
 
             try
             {
-                StartRecording();
+                await StartRecording();
             }
             catch (Exception ex)
             {
@@ -137,8 +139,11 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
             Window.GetWindow(_webView2!)!.Close();
         });
 
+        bool resourcesCleaned = false;
         CleanupResourcesCommand = ReactiveCommand.CreateFromTask(async () =>
         {
+            if (resourcesCleaned) return;
+
             if (_webView2 != null)
             {
                 _webView2.CoreWebView2.PermissionRequested -= CoreWebView2OnPermissionRequested;
@@ -167,6 +172,8 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
                 .ToTask();
 
             _webDriver?.Dispose();
+
+            resourcesCleaned = true;
         });
 
         this.WhenActivated(disposables =>
@@ -211,23 +218,28 @@ public class RecordWindowViewModel : ReactiveObject, IActivatableViewModel
         return (true, "success");
     }
 
-    private void StartRecording()
+    private async Task StartRecording()
     {
-        // TODO: Get directory path from the database instead of hardcoded documents
-        var recordingDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            "AutoLectureRecorder",
-            $"Semester {LectureToRecord!.Semester}",
+        var recordingSettings = await _settingsRepository.GetRecordingSettings();
+
+        if (recordingSettings == null)
+        {
+            recordingSettings = WindowsRecorder.GetDefaultSettings(1366, 768);
+        }
+
+        Recorder.RecordingDirectoryPath = Path.Combine(recordingSettings.RecordingsLocalPath, 
+            $"Semester {LectureToRecord!.Semester}", 
             LectureToRecord.SubjectName);
 
-        if (Directory.Exists(recordingDirectory) == false)
+        if (Directory.Exists(Recorder.RecordingDirectoryPath) == false)
         {
-            Directory.CreateDirectory(recordingDirectory);
+            Directory.CreateDirectory(recordingSettings.RecordingsLocalPath);
         }
 
         _recordingStartTime = DateTime.Now;
-        Recorder.RecordingDirectoryPath = recordingDirectory;
         Recorder.RecordingFileName = _recordingStartTime.ToString("yyyy-MM-d hh-mm");
+
+        Recorder.ApplyRecordingSettings(recordingSettings);
 
         _recordCancellationTokenSource = new CancellationTokenSource();
         _recordCancellationToken = _recordCancellationTokenSource.Token;
