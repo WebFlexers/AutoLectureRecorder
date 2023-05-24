@@ -30,7 +30,7 @@ public class StudentAccountRepositoryTests
 
         var studentData = new StudentAccountRepository(_fixture.DataAccess, _logger);
 
-        var studentAccount = await studentData.GetStudentAccountAsync();
+        var studentAccount = await studentData.GetStudentAccount();
 
         _fixture.DataAccess.RollbackPendingTransaction();
 
@@ -45,7 +45,7 @@ public class StudentAccountRepositoryTests
         await _fixture.DataAccess.BeginTransaction();
         var studentData = new StudentAccountRepository(_fixture.DataAccess, _logger);
 
-        var result = await studentData.InsertStudentAccountAsync("p19165", 
+        var result = await studentData.InsertStudentAccount("p19165", 
             "p19165@unipi.gr", "a_random_not_real_password");
 
         _fixture.DataAccess.RollbackPendingTransaction();
@@ -62,7 +62,7 @@ public class StudentAccountRepositoryTests
 
         var studentData = new StudentAccountRepository(_fixture.DataAccess, _logger);
 
-        var result = await studentData.DeleteStudentAccountAsync();
+        var result = await studentData.DeleteStudentAccount();
 
         Assert.True(result);
     }

@@ -29,7 +29,8 @@ public class SettingsRepositoryTests
         var settingsRepository =
             new SettingsRepository(_fixture.DataAccess, _logger, DataAccessMockHelper.CreateConfiguration());
 
-        var expectedRecordingSettings = WindowsRecorder.GetDefaultSettings(1920, 1080);
+        var windowsRecorder = new WindowsRecorder(null);
+        var expectedRecordingSettings = windowsRecorder.GetDefaultSettings(1920, 1080);
 
         var actualRecordingSettings = await settingsRepository.GetRecordingSettings();
 
@@ -46,7 +47,6 @@ public class SettingsRepositoryTests
 
         var expectedGeneralSettings = new ReactiveGeneralSettings
         {
-            LaunchAtStartup = true,
             OnCloseKeepAlive = true,
             ShowSplashScreen = true
         };
@@ -104,7 +104,6 @@ public class SettingsRepositoryTests
 
         var expectedNewSettings = new ReactiveGeneralSettings
         {
-            LaunchAtStartup = false,
             OnCloseKeepAlive = false,
             ShowSplashScreen = true
         };
@@ -131,9 +130,10 @@ public class SettingsRepositoryTests
         var settingsRepository =
             new SettingsRepository(_fixture.DataAccess, _logger, config);
 
-        var expectedNewSettings = WindowsRecorder.GetDefaultSettings(1920, 1080);
+        var windowsRecorder = new WindowsRecorder(null);
+        var expectedNewSettings = windowsRecorder.GetDefaultSettings(1920, 1080);
 
-        bool result = await settingsRepository.ResetRecordingSettings(1920, 1080);
+        bool result = await settingsRepository.ResetRecordingSettings(1920, 1080, windowsRecorder);
 
         string fetchSql = "select * from RecordingSettings";
         var actualNewSettings = SettingsRepository.ConvertRecordingSettingsToReactive(
@@ -157,7 +157,6 @@ public class SettingsRepositoryTests
 
         var expectedNewSettings = new GeneralSettings
         {
-            LaunchAtStartup = 1,
             OnCloseKeepAlive = 1,
             ShowSplashScreen = 1
         };
@@ -183,15 +182,15 @@ public class SettingsRepositoryTests
         var settingsRepository =
             new SettingsRepository(_fixture.DataAccess, _logger, config);
 
-        var expectedRecordingSettings = WindowsRecorder.GetDefaultSettings(1920, 1080);
+        var windowsRecorder = new WindowsRecorder(null);
+        var expectedRecordingSettings = windowsRecorder.GetDefaultSettings(1920, 1080);
         var expectedGeneralSettings = new GeneralSettings
         {
-            LaunchAtStartup = 1,
             OnCloseKeepAlive = 1,
             ShowSplashScreen = 1
         };
 
-        bool result = await settingsRepository.ResetAllSettings(1920, 1080);
+        bool result = await settingsRepository.ResetAllSettings(1920, 1080, windowsRecorder);
 
         string fetchRecordingSettingsSql = "select * from RecordingSettings";
         var actualRecordingSettings = SettingsRepository.ConvertRecordingSettingsToReactive(

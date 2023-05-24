@@ -6,6 +6,8 @@ namespace AutoLectureRecorder.Recorder.Tests.Services.Recording;
 
 public class WindowsRecorderTests
 {
+    private readonly string TestVideosDirectory = Path.Combine(Directory.GetCurrentDirectory(), "TestVideos");
+
     [DllImport("user32.dll")]
     static extern IntPtr GetForegroundWindow();
 
@@ -51,20 +53,21 @@ public class WindowsRecorderTests
             await Task.Delay(200);
         }
 
-        var currentDirectory = Directory.GetCurrentDirectory();
-        Assert.True(File.Exists(Path.Combine(currentDirectory, "RecordScreenTest (1).mp4")));
-        Assert.True(File.Exists(Path.Combine(currentDirectory, "RecordScreenTest (2).mp4")));
+        Assert.True(File.Exists(Path.Combine(TestVideosDirectory, "IdenticalVideo (1).mp4")));
+        Assert.True(File.Exists(Path.Combine(TestVideosDirectory, "IdenticalVideo (2).mp4")));
     }
 
     private async Task<IRecorder> TestSuccessfulRecording(string videoFileName, TimeSpan recordingTime, IntPtr? windowHandle = null)
     {
         var logger = XUnitLogger.CreateLogger<WindowsRecorder>(_output);
+
         var recorder = new WindowsRecorder(logger)
         {
+            RecordingDirectoryPath = TestVideosDirectory,
             RecordingFileName = videoFileName
         };
-        var settings = WindowsRecorder.GetDefaultSettings(1920, 1080);
-        settings.RecordingsLocalPath = Directory.GetCurrentDirectory();
+
+        var settings = recorder.GetDefaultSettings(1920, 1080);
         recorder.ApplyRecordingSettings(settings);
 
         recorder.StartRecording(windowHandle);
@@ -91,8 +94,7 @@ public class WindowsRecorderTests
             await Task.Delay(200);
         }
 
-        var currentDirectory = Directory.GetCurrentDirectory();
-        Assert.True(File.Exists(Path.Combine(currentDirectory, $"{videoFileName}.mp4")));
+        Assert.True(File.Exists(Path.Combine(TestVideosDirectory, $"{videoFileName}.mp4")));
         Assert.True(finishedSuccessfully);
         Assert.False(recorder.IsRecording);
         Assert.False(recordingFailed);
