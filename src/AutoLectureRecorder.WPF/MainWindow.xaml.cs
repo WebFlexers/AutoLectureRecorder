@@ -2,6 +2,7 @@
 using AutoLectureRecorder.Resources.Themes;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
+using Splat;
 using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -15,21 +16,28 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         InitializeComponent();
 
+        // Taskbar Icon
+        // This is done outside of WhenActivated in order to work when
+        // the app is started as a background service, since
+        // Show() is not called on main window immediately, thus
+        // not executing the code inside this.WhenActivated()
+        ViewModel ??= Locator.Current.GetService<MainWindowViewModel>();
+
+        this.BindCommand(ViewModel, vm => vm.ShowAppCommand, v => v.MainTaskbarIcon,
+                Observable.Return(this), nameof(MainTaskbarIcon.TrayMouseDoubleClick));
+        this.BindCommand(ViewModel, vm => vm.ShowAppCommand, v => v.OpenAppMenuItem,
+                Observable.Return(this));
+        this.BindCommand(ViewModel, vm => vm.ExitAppCommand, v => v.ExitAppMenuItem);
+
+        MainTaskbarIcon.LeftClickCommand = ViewModel!.ShowAppCommand;
+        MainTaskbarIcon.LeftClickCommandParameter = this;
+        MainTaskbarIcon.NoLeftClickDelay = true;
+
         this.WhenActivated(disposables =>
         {
             this.OneWayBind(ViewModel, vm => vm.Router, v => v.RoutedViewHost.Router)
                 .DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.IsWindowTopMost, v => v.MainAppWindow.Topmost)
-                .DisposeWith(disposables);
-
-            // TaskBar
-            this.BindCommand(ViewModel, vm => vm.ShowAppCommand, v => v.MainTaskbarIcon,
-                    Observable.Return(this), nameof(MainTaskbarIcon.TrayMouseDoubleClick))
-                .DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.ShowAppCommand, v => v.OpenAppMenuItem,
-                    Observable.Return(this))
-                .DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.ExitAppCommand, v => v.ExitAppMenuItem)
                 .DisposeWith(disposables);
 
             // TitleBar

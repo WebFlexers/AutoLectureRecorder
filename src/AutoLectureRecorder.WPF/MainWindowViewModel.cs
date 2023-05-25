@@ -1,6 +1,7 @@
 ﻿using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Resources.Themes;
 using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
+using AutoLectureRecorder.WindowsServices;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -34,21 +35,12 @@ public class MainWindowViewModel : ReactiveObject, IScreen, IActivatableViewMode
 
     public ReactiveCommand<Type, Unit> Navigate { get; }
 
-    private bool _isFullScreenVideoPlaying;
     [Reactive]
     public bool IsWindowTopMost { get; set; }
     [Reactive]
     public WindowState MainWindowState { get; set; }
     [Reactive]
     public Style MaximizeButtonStyle { get; set; }
-
-    [DllImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-    [DllImport("user32.dll")]
-    [System.Security.SuppressUnmanagedCodeSecurity]
-    public static extern bool SetForegroundWindow(IntPtr hWnd);
 
     public MainWindowViewModel(ILogger<MainWindowViewModel> logger, IViewModelFactory viewModelFactory, 
         ISettingsRepository settingsRepository)
@@ -65,11 +57,12 @@ public class MainWindowViewModel : ReactiveObject, IScreen, IActivatableViewMode
 
         ShowAppCommand = ReactiveCommand.Create<Window, Unit>(window =>
         {
-            window.Show();
+            window.WindowStyle = WindowStyle.SingleBorderWindow;
             window.WindowState = WindowState.Normal;
+            window.Show();
             IntPtr windowHandle = new WindowInteropHelper(window).Handle;
-            ShowWindow(windowHandle, 5);
-            SetForegroundWindow(windowHandle);
+            Win32Api.ShowWindow(windowHandle, 5);
+            Win32Api.SetForegroundWindow(windowHandle);
             return Unit.Default;
         });
 

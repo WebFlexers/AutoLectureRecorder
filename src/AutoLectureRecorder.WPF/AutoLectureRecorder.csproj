@@ -10,6 +10,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64;x86</Platforms>
     <Configurations>Debug;Release</Configurations>
+    <UserSecretsId>1abfe197-f975-4045-83e5-5998ddaad8c0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

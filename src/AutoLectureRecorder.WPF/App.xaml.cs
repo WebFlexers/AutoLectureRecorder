@@ -4,13 +4,20 @@ using AutoLectureRecorder.Sections.MainMenu;
 using AutoLectureRecorder.Services.DataAccess.Repositories;
 using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using AutoLectureRecorder.Services.DataAccess.Seeding;
+using AutoLectureRecorder.Services.Recording;
+using AutoLectureRecorder.WindowsServices;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
 using System.Diagnostics;
+using System.IO.Pipes;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Interop;
 using Application = System.Windows.Application;
 
 namespace AutoLectureRecorder;
@@ -31,17 +38,22 @@ public partial class App : Application
     {
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
-        _appMutex.HandleDuplicateAppInstance();
+        if (_appMutex.IsAppRunning()) return;
 
-        bool showStartupWindow = await ShouldShowStartupWindow();
+        bool isBackgroundRunEnabled = false;
+        if (e.Args.Length > 0 && e.Args[0] == "-background")
+        {
+            isBackgroundRunEnabled = true;
+        }
+
+        var sqliteDataAccess = new SqliteDataAccess(ConnectionString);
+        bool showStartupWindow = await ShouldShowStartupWindow(sqliteDataAccess);
 
         // If we are in development populate the database with sample data
         if (Debugger.IsAttached)
         {
             showStartupWindow = false;
-            await new SampleData(
-                    new SqliteDataAccess(ConnectionString))
-                        .Seed();
+            await new SampleData(sqliteDataAccess).Seed();
         }
 
         // This is required for the WebView2 to work inside the app
@@ -50,7 +62,7 @@ public partial class App : Application
         // Show a startup window as a splash screen while the app loads
         StartupWindow? startupWindow = null;
         long startTime = -1;
-        if (showStartupWindow)
+        if (showStartupWindow && isBackgroundRunEnabled == false)
         {
             startupWindow = new StartupWindow();
             startupWindow.Show();
@@ -61,14 +73,17 @@ public partial class App : Application
         // Load the dependency injection system
         Bootstrapper = new AppBootstrapper();
         var services = Bootstrapper.AppHost.Services;
+        await InitializeSettings(services.GetRequiredService<ISettingsRepository>(),
+                                 services.GetRequiredService<IRecorder>());
+
         var mainWindow = services.GetRequiredService<MainWindow>();
 
         // Get database access to see if the user is logged in
         var studentAccountData = services.GetRequiredService<IStudentAccountRepository>();
-        var studentAccount = await studentAccountData.GetStudentAccountAsync()!;
+        var studentAccount = await studentAccountData.GetStudentAccount();
         var isLoggedIn = studentAccount != null;
 
-        if (showStartupWindow)
+        if (showStartupWindow && isBackgroundRunEnabled == false)
         {
             var endTime = Stopwatch.GetTimestamp();
             var diff = Stopwatch.GetElapsedTime(startTime, endTime);
@@ -80,15 +95,13 @@ public partial class App : Application
             {
                 await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
             }
-
-            startupWindow!.Close();
         }
 
         // Set the main window, to fix a bug that caused the
         // Application.Current.MainWindow to work on debug, but fail in production
         this.MainWindow = mainWindow;
 
-        mainWindow.Show();
+        startupWindow?.Close();
 
         // Make the window fullscreen if it's dimensions exceed the screen dimensions
         var screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
@@ -109,12 +122,47 @@ public partial class App : Application
         {
             router.NavigateAndReset.Execute(services.GetRequiredService<LoginViewModel>());
         }
-        
+
+        if (isBackgroundRunEnabled == false)
+        {
+            mainWindow.Show();
+        }
+
+        await Task.Run(ObserveShowWindowPipe);
     }
 
-    private async Task<bool> ShouldShowStartupWindow()
+    private async Task InitializeSettings(ISettingsRepository settingsRepository, IRecorder recorder)
     {
-        var sqliteDataAccess = new SqliteDataAccess(ConnectionString);
+        var getGeneralSettingsTask = settingsRepository.GetRecordingSettings();
+        var getRecordingSettingsTask = settingsRepository.GetRecordingSettings();
+
+        await Task.WhenAll(getGeneralSettingsTask, getRecordingSettingsTask);
+
+        var generalSettings = getGeneralSettingsTask.Result;
+        var recordingSettings = getRecordingSettingsTask.Result;
+
+        if (generalSettings == null && recordingSettings == null)
+        {
+            await settingsRepository.ResetAllSettings(Screen.PrimaryScreen!.Bounds.Width, 
+                                                      Screen.PrimaryScreen.Bounds.Height, 
+                                                      recorder);
+            return;
+        }
+
+        if (recordingSettings == null)
+        {
+            var screen = Screen.PrimaryScreen;
+            await settingsRepository.ResetRecordingSettings(screen!.Bounds.Width, screen.Bounds.Height, recorder);
+        }
+
+        if (generalSettings == null)
+        {
+            await settingsRepository.ResetGeneralSettings();
+        }
+    }
+
+    private async Task<bool> ShouldShowStartupWindow(SqliteDataAccess sqliteDataAccess)
+    {
         var settingsRepository = new SettingsRepository(sqliteDataAccess);
         var generalSettings = await settingsRepository.GetGeneralSettings();
 
@@ -145,5 +193,27 @@ public partial class App : Application
         _appMutex.ReleaseMutex();
 
         base.OnExit(e);
+    }
+
+    private Task ObserveShowWindowPipe()
+    {
+        while (true)
+        {
+            using NamedPipeServerStream pipeServer = new NamedPipeServerStream(Pipes.ShowWindowPipe, PipeDirection.In);
+            
+            pipeServer.WaitForConnection();
+
+            using StreamReader reader = new StreamReader(pipeServer); 
+            string message = reader.ReadLine();
+
+            if (message == Pipes.ShowWindowPipe)
+            {
+                Current.Dispatcher.Invoke(() =>
+                {
+                    var mainWindow = (MainWindow)this.MainWindow;
+                    mainWindow?.ViewModel.ShowAppCommand.Execute(mainWindow).Subscribe();
+                });
+            }
+        }
     }
 }

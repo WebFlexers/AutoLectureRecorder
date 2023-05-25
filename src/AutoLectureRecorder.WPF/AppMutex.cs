@@ -1,7 +1,10 @@
-﻿using System;
+﻿using AutoLectureRecorder.WindowsServices;
+using Serilog;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Pipes;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Threading;
@@ -30,15 +33,7 @@ public class AppMutex
         _mutex.SetAccessControl(securitySettings);
     }
 
-    [DllImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    [System.Security.SuppressUnmanagedCodeSecurity]
-    public static extern bool SetForegroundWindow(IntPtr hWnd);
-
-    public void HandleDuplicateAppInstance()
+    public bool IsAppRunning()
     {
         if (_mutexCreated == false)
         {
@@ -49,13 +44,33 @@ public class AppMutex
 
             if (runningInstance != null)
             {
-                ShowWindow(runningInstance.MainWindowHandle, 5);
-                SetForegroundWindow(runningInstance.MainWindowHandle);
+                using (NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", Pipes.ShowWindowPipe, PipeDirection.Out))
+                {
+                    try
+                    {
+                        // Connect to the existing instance.
+                        pipeClient.Connect(500); // Timeout in milliseconds
+                        using (StreamWriter writer = new StreamWriter(pipeClient))
+                        {
+                            // Send a message to the existing instance.
+                            writer.WriteLine(Pipes.ShowWindowPipe);
+                            writer.Flush();
+                        }
+                    }
+                    catch (TimeoutException ex)
+                    {
+                        Log.Logger.Error(ex, "An error occurred while trying to connect to the {pipe} pipe", Pipes.ShowWindowPipe);
+                    }
+                }
             }
 
             // Shutdown the new instance
             Application.Current.Shutdown();
+
+            return true;
         }
+
+        return false;
     }
 
     public void ReleaseMutex()

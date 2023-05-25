@@ -4,8 +4,11 @@ using AutoLectureRecorder.Sections.MainMenu.RecordLectures;
 using AutoLectureRecorder.Services.DataAccess.Repositories;
 using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using AutoLectureRecorder.Services.Recording;
+using AutoLectureRecorder.Services.ShortcutManager;
+using AutoLectureRecorder.Services.StartupManager;
 using AutoLectureRecorder.Services.WebDriver;
 using AutoLectureRecorder.Services.WebDriver.Interfaces;
+using AutoLectureRecorder.WindowsServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -80,5 +83,7 @@ public class AppBootstrapper
         services.AddTransient<IRecordedLectureRepository, RecordedLectureRepository>();
         services.AddTransient<IScheduledLectureRepository, ScheduledLectureRepository>();
         services.AddTransient<ISettingsRepository, SettingsRepository>();
+        services.AddTransient<IShortcutManager, WindowsShortcutManager>();
+        services.AddTransient<IStartupManager, WindowsStartupManager>();
     }
 }
