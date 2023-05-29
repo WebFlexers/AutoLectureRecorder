@@ -10,14 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
 using System.Diagnostics;
-using System.IO.Pipes;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
+using System.IO.Pipes;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Interop;
 using Application = System.Windows.Application;
 
 namespace AutoLectureRecorder;
@@ -40,6 +37,8 @@ public partial class App : Application
 
         if (_appMutex.IsAppRunning()) return;
 
+        Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
         bool isBackgroundRunEnabled = false;
         if (e.Args.Length > 0 && e.Args[0] == "-background")
         {
@@ -52,7 +51,7 @@ public partial class App : Application
         // If we are in development populate the database with sample data
         if (Debugger.IsAttached)
         {
-            showStartupWindow = false;
+            //showStartupWindow = false;
             await new SampleData(sqliteDataAccess).Seed();
         }
 
@@ -70,18 +69,7 @@ public partial class App : Application
             startTime = Stopwatch.GetTimestamp();
         }
 
-        // Load the dependency injection system
-        Bootstrapper = new AppBootstrapper();
-        var services = Bootstrapper.AppHost.Services;
-        await InitializeSettings(services.GetRequiredService<ISettingsRepository>(),
-                                 services.GetRequiredService<IRecorder>());
-
-        var mainWindow = services.GetRequiredService<MainWindow>();
-
-        // Get database access to see if the user is logged in
-        var studentAccountData = services.GetRequiredService<IStudentAccountRepository>();
-        var studentAccount = await studentAccountData.GetStudentAccount();
-        var isLoggedIn = studentAccount != null;
+        (IServiceProvider services, bool isLoggedIn) = await Task.Run(InitializeBootstrapper);
 
         if (showStartupWindow && isBackgroundRunEnabled == false)
         {
@@ -96,6 +84,8 @@ public partial class App : Application
                 await Task.Delay(TimeSpan.FromSeconds(2.5).Subtract(diff));
             }
         }
+
+        var mainWindow = services.GetRequiredService<MainWindow>();
 
         // Set the main window, to fix a bug that caused the
         // Application.Current.MainWindow to work on debug, but fail in production
@@ -128,7 +118,24 @@ public partial class App : Application
             mainWindow.Show();
         }
 
-        await Task.Run(ObserveShowWindowPipe);
+        Task.Run(ObserveShowWindowPipe);
+    }
+
+    private async Task<(IServiceProvider services, bool isUserLoggedIn)> 
+        InitializeBootstrapper()
+    {
+        // Load the dependency injection system
+        Bootstrapper = new AppBootstrapper();
+        var services = Bootstrapper.AppHost.Services;
+        await InitializeSettings(services.GetRequiredService<ISettingsRepository>(),
+                                 services.GetRequiredService<IRecorder>());
+
+        // Get database access to see if the user is logged in
+        var studentAccountData = services.GetRequiredService<IStudentAccountRepository>();
+        var studentAccount = await studentAccountData.GetStudentAccount();
+        var isLoggedIn = studentAccount != null;
+
+        return (services, isLoggedIn);
     }
 
     private async Task InitializeSettings(ISettingsRepository settingsRepository, IRecorder recorder)
