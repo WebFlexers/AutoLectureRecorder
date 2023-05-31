@@ -1,100 +1,158 @@
-﻿using AutoLectureRecorder.Services.ShortcutManager;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.Reactive.Linq;
 
 namespace AutoLectureRecorder.Services.StartupManager;
 
+#pragma warning disable CA1416 // Validate platform compatibility
 public class WindowsStartupManager : IStartupManager
 {
-    private readonly ILogger<WindowsStartupManager> _logger;
-    private readonly IShortcutManager _shortcutManager;
+    private readonly byte[] StartupEnabledValue = new byte[] { 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    private string StartupEnabledValueString => BitConverter.ToString(StartupEnabledValue).Replace("-", "");
+    private readonly byte[] StartupDisabledValue = new byte[] { 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    private string StartupDisabledValueString => BitConverter.ToString(StartupDisabledValue).Replace("-", "");
+    private const string MainStartupRegistryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+    private const string ApprovedStartupRegistryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
 
-    public WindowsStartupManager(ILogger<WindowsStartupManager> logger, IShortcutManager shortcutManager)
+    private readonly string _appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nameof(AutoLectureRecorder));
+    private readonly string _appName;
+
+    private readonly ILogger<WindowsStartupManager> _logger;
+
+    public WindowsStartupManager(ILogger<WindowsStartupManager> logger)
     {
         _logger = logger;
-        _shortcutManager = shortcutManager;
+
+        _appName = Path.GetFileNameWithoutExtension(_appPath);
     }
 
+    public IObservable<bool> IsStartupEnabledObservable =>
+        Observable.Interval(TimeSpan.FromMilliseconds(500))
+            .Select(_ => IsStartupEnabled())
+            .DistinctUntilChanged();
+    
     /// <summary>
-    /// Determines whether the app is configured to run on windows startup. Only pass
-    /// the app name and not the extension.
+    /// Determines whether the app is configured to run on windows startup
     /// </summary>
-    public bool IsStartupLaunchEnabled(string appName)
+    public bool IsStartupEnabled()
     {
-        var startupDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-        var shortcutPath = Path.Combine(startupDirectory, $"{appName}.lnk");
+        bool mainStartupRegistryIsSet = false;
+        bool isStartupApproved = false;
 
-        var shorcutExists = File.Exists(shortcutPath);
-        if (shorcutExists == false) return false;
+        // Determine whether the startup has been configured
+        using (RegistryKey? key = Registry.CurrentUser.OpenSubKey(MainStartupRegistryPath))
+        {
+            if (key != null)
+            {
+                string[] startupAppNames = key.GetValueNames();
+                foreach (string startupAppName in startupAppNames)
+                {
+                    if (startupAppName.Equals(_appName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        mainStartupRegistryIsSet = true;
+                        break;
+                    }
+                }
+            }
+        }
 
-        FileAttributes attributes = File.GetAttributes(shortcutPath);
+        // Determine whether startup is enabled or disabled (except for in app changes this
+        // also detects changes from other places, like the task manager or windows settings)
+        using (RegistryKey? key = Registry.CurrentUser.OpenSubKey(ApprovedStartupRegistryPath))
+        {
+            if (key == null)
+            {
+                return mainStartupRegistryIsSet;
+            }
 
-        return attributes.HasFlag(FileAttributes.Hidden) == false;
+            string[] startupAppNames = key.GetValueNames();
+            foreach (string startupAppName in startupAppNames)
+            {
+                if (startupAppName.Equals(_appName, StringComparison.OrdinalIgnoreCase) == false) continue;
+                
+                var value = (byte[])key.GetValue(startupAppName)!;
+                if (value.First() == StartupEnabledValue.First())
+                {
+                    isStartupApproved = true;
+                }
+
+                break;
+            }
+        }
+
+        return mainStartupRegistryIsSet && isStartupApproved;
     }
 
     /// <summary>
-    /// Creates a shortcut of the app in the startup folder. As file name
-    /// provide only the name of the app and not the extension
+    /// Creates a shortcut of the app in the startup folder
     /// </summary>
-    public bool ModifyLaunchOnStartup(string appDirectory, string appName, bool shouldLaunchOnStartup)
+    /// <returns>Whether the operation was completed successfuly</returns>
+    public bool ModifyLaunchOnStartup(bool shouldLaunchOnStartup)
     {
         try
         {
-            var isStartupLaunchEnabled = IsStartupLaunchEnabled(appName);
-            if (isStartupLaunchEnabled && shouldLaunchOnStartup) return true;
-            if (isStartupLaunchEnabled == false && shouldLaunchOnStartup == false) return true;
-
-            var targetPath = Path.Combine(appDirectory, $"{appName}.exe");
-            var shortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup),
-                $"{appName}.lnk");
-
             if (shouldLaunchOnStartup)
             {
-                _shortcutManager.CreateShortcut(targetPath, shortcutPath);
-                RemoveHiddenFlag(shortcutPath);
-                return true;
+                // Set the main startup registry key
+                // TODO: Execute this on startup the first time the app is launched
+                using RegistryKey mainStartupKey = Registry.CurrentUser.OpenSubKey(MainStartupRegistryPath, true)!;
+                mainStartupKey.SetValue(_appName, $"{_appPath} -background");
+                mainStartupKey.Close();
+
+                // Set the approved registry key to true
+                using RegistryKey approvedStartupKey = Registry.CurrentUser.OpenSubKey(ApprovedStartupRegistryPath)!;
+                var valueNames = approvedStartupKey.GetValueNames();
+
+                if (valueNames.Any(name => name.Equals(_appName, StringComparison.OrdinalIgnoreCase))) 
+                {
+                    return SetRegistryValue(ApprovedStartupRegistryPath, _appName, StartupEnabledValueString);
+                }
             }
             else
             {
-                if (isStartupLaunchEnabled == false) return true;
+                var fileName = Path.GetFileNameWithoutExtension(_appPath);
 
-                AddHiddenFlag(shortcutPath);
-                return true;
+                using RegistryKey mainStartupKey = Registry.CurrentUser.OpenSubKey(MainStartupRegistryPath, true)!;
+                var mainValueNames = mainStartupKey.GetValueNames();
+
+                // If the main startup key doesn't even exist we don't need to do anything else
+                if (mainValueNames.Any(name => name.Equals(fileName, StringComparison.OrdinalIgnoreCase)) == false)
+                {
+                    return true;
+                }
+
+                // Set the approved registry key to false
+                return SetRegistryValue(ApprovedStartupRegistryPath, fileName, StartupDisabledValueString);
             }
+            return true;
         }
         catch (Exception ex)
         {
             var modificationType = shouldLaunchOnStartup ? "enable" : "disable";
-            _logger.LogError(ex, @"An error occurred while trying to {modificationType} Launch On Startup 
-                for file directory: {directory} and file name {fileName}", modificationType, appDirectory, appName);
+            _logger.LogError(ex, @"An error occurred while trying to {modificationType} booting on startup", modificationType);
             return false;
         }
     }
 
-    /// <summary>
-    /// Removes the hidden flag to enable startup
-    /// </summary>
-    private void RemoveHiddenFlag(string filePath)
+    private bool SetRegistryValue(string keyPath, string valueName, string hexValueData)
     {
-        FileAttributes attributes = File.GetAttributes(filePath);
-        
-        if (attributes.HasFlag(FileAttributes.Hidden))
+        ProcessStartInfo startInfo = new ProcessStartInfo
         {
-            attributes &= ~FileAttributes.Hidden;
-            File.SetAttributes(filePath, attributes);
+            FileName = "reg.exe",
+            Arguments = $"add HKCU\\{keyPath} /v {valueName} /t REG_BINARY /d {hexValueData} /f",
+            CreateNoWindow = true
+        };
+
+        try
+        {
+            Process.Start(startInfo)?.WaitForExit();
+            return true;
         }
-    }
-
-    /// <summary>
-    /// Adds the hidden flag to disable startup
-    /// </summary>
-    private void AddHiddenFlag(string filePath)
-    {
-        FileAttributes attributes = File.GetAttributes(filePath);
-
-        if (attributes.HasFlag(FileAttributes.Hidden) == false)
+        catch (System.ComponentModel.Win32Exception)
         {
-            attributes |= FileAttributes.Hidden;
-            File.SetAttributes(filePath, attributes);
+            return false;
         }
     }
 }
+#pragma warning restore CA1416 // Validate platform compatibility

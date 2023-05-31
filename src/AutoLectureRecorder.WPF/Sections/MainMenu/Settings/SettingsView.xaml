@@ -111,7 +111,7 @@
                                    FontSize="18"/>
 
                         <TextBox x:Name="RecordingPathTextBox"  
-                                 Text="C:\Users\StyleM\Downloads\NotifyIcon_MDProblem-master"
+                                 d:Text="C:\Users\StyleM\Downloads\NotifyIcon_MDProblem-master"
                                  Margin="0, 15, 0, 0"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
@@ -315,9 +315,9 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Uploading">
+            <!--<TabItem Header="Uploading">
                 <TextBlock Text="Uploading"/>
-            </TabItem>
+            </TabItem>-->
         </TabControl>
     </Grid>
 

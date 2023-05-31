@@ -3,12 +3,19 @@
 public interface IStartupManager
 {
     /// <summary>
+    /// Observes changes in startup behaviour
+    /// </summary>
+    /// <returns></returns>
+    IObservable<bool> IsStartupEnabledObservable { get; }
+
+    /// <summary>
     /// Determines whether the app is configured to run on windows startup
     /// </summary>
-    bool IsStartupLaunchEnabled(string appName);
+    bool IsStartupEnabled();
+
     /// <summary>
-    /// Creates a shortcut of the app in the startup folder. As file name
-    /// provide only the name of the app and not the extension
+    /// Creates a shortcut of the app in the startup folder
     /// </summary>
-    bool ModifyLaunchOnStartup(string fileDirectory, string fileName, bool shouldLaunchOnStartup);
+    /// <returns>Whether the operation was completed successfuly</returns>
+    bool ModifyLaunchOnStartup(bool shouldLaunchOnStartup);
 }

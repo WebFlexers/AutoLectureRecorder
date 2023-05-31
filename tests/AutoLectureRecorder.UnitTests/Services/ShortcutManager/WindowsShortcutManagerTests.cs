@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.WindowsServices;
+﻿using AutoLectureRecorder.Services.StartupManager;
+using AutoLectureRecorder.WindowsServices;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
@@ -32,5 +33,13 @@ public class WindowsShortcutManagerTests
         shortcutManager.CreateShortcut(targetFilePath, shortcutFilePath, "TestDescription");
 
         Assert.True(File.Exists(shortcutFilePath));
+    }
+
+    [Fact]
+    public void TempTest()
+    {
+        var startup = new WindowsStartupManager(null);
+        startup.ModifyLaunchOnStartup("C:\\Users\\StyleM\\Documents\\GitHub\\AutoLectureRecorder\\src\\AutoLectureRecorder.WPF\\bin\\x64\\Debug\\net7.0-windows10.0.17763.0\\AutoLectureRecorder.exe", 
+            true);
     }
 }

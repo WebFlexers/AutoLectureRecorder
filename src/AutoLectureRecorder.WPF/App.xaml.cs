@@ -51,7 +51,7 @@ public partial class App : Application
         // If we are in development populate the database with sample data
         if (Debugger.IsAttached)
         {
-            //showStartupWindow = false;
+            showStartupWindow = false;
             await new SampleData(sqliteDataAccess).Seed();
         }
 

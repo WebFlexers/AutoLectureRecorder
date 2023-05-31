@@ -2,12 +2,15 @@
 using AutoLectureRecorder.DependencyInjection.Factories.Interfaces;
 using AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 using AutoLectureRecorder.Services.Recording;
+using AutoLectureRecorder.Services.StartupManager;
+using DynamicData;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
@@ -15,8 +18,6 @@ using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DynamicData;
-using OpenQA.Selenium.DevTools.V111.WebAudio;
 
 namespace AutoLectureRecorder.Sections.MainMenu.Settings;
 
@@ -28,6 +29,8 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     private readonly ILogger<SettingsViewModel> _logger;
     private readonly ISettingsRepository _settingsRepository;
     private readonly IRecorder _recorder;
+    private readonly IStartupManager _startupManager;
+
     public string UrlPathSegment => nameof(SettingsViewModel);
     public IScreen HostScreen { get; }
 
@@ -45,20 +48,19 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
     public ReactiveGeneralSettings GeneralSettings { get; set; }
     [Reactive] 
     public ReactiveRecordingSettings RecordingSettings { get; set; }
+    [Reactive]
+    public bool LaunchAtStartup { get; set; }
 
     public ReactiveCommand<Unit, Unit> BrowseDirectoryCommand { get; private set; }
     
-
     public SettingsViewModel(ILogger<SettingsViewModel> logger, IScreenFactory screenFactory, ISettingsRepository settingsRepository,
-        IRecorder recorder)
+        IRecorder recorder, IStartupManager startupManager)
     {
         _logger = logger;
         _settingsRepository = settingsRepository;
         _recorder = recorder;
+        _startupManager = startupManager;
         HostScreen = screenFactory.GetMainMenuViewModel();
-
-        Observable.FromAsync(InitializeSettings)
-            .Subscribe().DisposeWith(_disposables);
 
         BrowseDirectoryCommand = ReactiveCommand.Create(() =>
         {
@@ -74,19 +76,44 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         this.WhenActivated(disposables =>
         {
             // General Settings Update Observers
-            this.WhenAnyValue(vm => vm.GeneralSettings.LaunchAtStartup, vm => vm.GeneralSettings.OnCloseKeepAlive,
-                vm => vm.GeneralSettings.ShowSplashScreen)
-                .InvokeCommand(ReactiveCommand.CreateFromTask<(bool, bool, bool), bool>(_ => UpdateGeneralSettings(GeneralSettings!)))
+            this.WhenAnyValue(vm => vm.LaunchAtStartup)
+                .Skip(1)
+                .InvokeCommand(ReactiveCommand.Create<bool>(launchAtStartup =>
+                {
+                    if (_shouldUpdateRegistryValue == false)
+                    {
+                        _shouldUpdateRegistryValue = true;
+                        return;
+                    }
+
+                    SetStartupPolicy(launchAtStartup);
+                }))
+                .DisposeWith(disposables);
+
+            this._startupManager.IsStartupEnabledObservable
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(isStartupEnabled =>
+                {
+                    _shouldUpdateRegistryValue = false;
+                    LaunchAtStartup = isStartupEnabled;
+                })
+                .DisposeWith(disposables);
+
+            this.WhenAnyValue(vm => vm.GeneralSettings.OnCloseKeepAlive, vm => vm.GeneralSettings.ShowSplashScreen)
+                .Skip(1)
+                .InvokeCommand(ReactiveCommand.CreateFromTask<(bool, bool), bool>(_ => UpdateGeneralSettings(GeneralSettings!)))
                 .DisposeWith(disposables);
 
             // Recording Settings Update Observers
             this.WhenAnyValue(vm => vm.RecordingSettings.RecordingsLocalPath, vm => vm.RecordingSettings.Fps, 
                     vm => vm.RecordingSettings.Quality, vm => vm.RecordingSettings.IsInputDeviceEnabled)
+                .Skip(1)
                 .InvokeCommand(ReactiveCommand.CreateFromTask<(string, int, int, bool), bool>(_ => UpdateRecordingSettings(RecordingSettings!)))
                 .DisposeWith(disposables);
 
             this.WhenAnyValue(vm => vm.SelectedInputDevice.FriendlyName,
                     vm => vm.SelectedOutputDevice.FriendlyName)
+                .Skip(1)
                 .InvokeCommand(ReactiveCommand.CreateFromTask<(string, string)>(async audioDevicesFriendlyNames =>
                 {
                     var selectedInputDevice = InputAudioDevices!
@@ -107,6 +134,7 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
                 .DisposeWith(disposables);
 
             this.WhenAnyValue(vm => vm.SelectedResolution)
+                .Skip(1)
                 .InvokeCommand(ReactiveCommand.CreateFromTask<ReactiveResolution>(async resolution =>
                 {
                     if (RecordingSettings == null) return;
@@ -118,8 +146,20 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
                 }))
                 .DisposeWith(disposables);
 
+            Observable.FromAsync(InitializeSettings)
+                .Subscribe()
+                .DisposeWith(disposables);
+
             _disposables.DisposeWith(disposables);
         });
+    }
+
+    private bool _shouldUpdateRegistryValue = true;
+    public void SetStartupPolicy(bool startWithWindows)
+    {
+        // If the process fails we don't want to try again automatically
+        _shouldUpdateRegistryValue = _startupManager.ModifyLaunchOnStartup(startWithWindows);
+        LaunchAtStartup = _startupManager.IsStartupEnabled();
     }
 
     public async Task InitializeSettings()
@@ -135,6 +175,10 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
             RecordingSettings = fetchRecordingSettingsTask.Result;
         }
 
+        // General Settings
+        LaunchAtStartup = _startupManager.IsStartupEnabled();
+
+        // Recording Settings
         SupportedScreenResolutions =
             new ObservableCollection<ReactiveResolution>(GetSupportedResolutions());
 
@@ -190,7 +234,7 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         return await _settingsRepository.SetRecordingSettings(newSettings);
     }
 
-    #region Get Supported Resolutions
+    #region Get Supported Screen Resolutions
 
     [DllImport("user32.dll")]
     public static extern int EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);

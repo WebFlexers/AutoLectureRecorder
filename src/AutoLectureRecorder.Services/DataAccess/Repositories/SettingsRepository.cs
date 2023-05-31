@@ -104,8 +104,8 @@ public class SettingsRepository : ISettingsRepository
             string sql = @"delete from GeneralSettings";
             await _dataAccess.SaveData<dynamic>(sql, new { });
 
-            sql = @"insert into GeneralSettings (LaunchAtStartup, OnCloseKeepAlive, ShowSplashScreen)
-                    values (@LaunchAtStartup, @OnCloseKeepAlive, @ShowSplashScreen)";
+            sql = @"insert into GeneralSettings (OnCloseKeepAlive, ShowSplashScreen)
+                    values (@OnCloseKeepAlive, @ShowSplashScreen)";
             await _dataAccess.SaveData(sql, ConvertReactiveGeneralSettingsToNormal(generalSettings));
 
             return true;
@@ -120,9 +120,9 @@ public class SettingsRepository : ISettingsRepository
     /// <summary>
     /// Resets the current recording settings with the default values
     /// </summary>
-    public async Task<bool> ResetRecordingSettings(int primaryScreenWidth, int primaryScreenHeight)
+    public async Task<bool> ResetRecordingSettings(int primaryScreenWidth, int primaryScreenHeight, IRecorder recorder)
     {
-        ReactiveRecordingSettings defaultSettings = WindowsRecorder.GetDefaultSettings(primaryScreenWidth, primaryScreenHeight);
+        ReactiveRecordingSettings defaultSettings = recorder.GetDefaultSettings(primaryScreenWidth, primaryScreenHeight);
         return await SetRecordingSettings(defaultSettings);
     }
 
@@ -136,7 +136,6 @@ public class SettingsRepository : ISettingsRepository
         var generalSettingsSection = _config.GetSection("DefaultGeneralSettings");
         var defaultSettings = new ReactiveGeneralSettings
         {
-            LaunchAtStartup = generalSettingsSection.GetValue<bool>("LaunchAtStartup"),
             OnCloseKeepAlive = generalSettingsSection.GetValue<bool>("OnCloseKeepAlive"),
             ShowSplashScreen = generalSettingsSection.GetValue<bool>("ShowSplashScreen")
         };
@@ -146,11 +145,11 @@ public class SettingsRepository : ISettingsRepository
     /// <summary>
     /// Resets all the settings to their default values
     /// </summary>
-    public async Task<bool> ResetAllSettings(int primaryScreenWidth, int primaryScreenHeight)
+    public async Task<bool> ResetAllSettings(int primaryScreenWidth, int primaryScreenHeight, IRecorder recorder)
     {
         var resetTasks = new List<Task<bool>>
         {
-            ResetRecordingSettings(primaryScreenWidth, primaryScreenHeight),
+            ResetRecordingSettings(primaryScreenWidth, primaryScreenHeight, recorder),
             ResetGeneralSettings()
         };
 
@@ -198,7 +197,6 @@ public class SettingsRepository : ISettingsRepository
     {
         return new GeneralSettings
         {
-            LaunchAtStartup = reactiveGeneralSettings.LaunchAtStartup ? 1 : 0,
             OnCloseKeepAlive = reactiveGeneralSettings.OnCloseKeepAlive ? 1 : 0,
             ShowSplashScreen = reactiveGeneralSettings.ShowSplashScreen ? 1 : 0
         };
@@ -208,7 +206,6 @@ public class SettingsRepository : ISettingsRepository
     {
         return new ReactiveGeneralSettings
         {
-            LaunchAtStartup = generalSettings.LaunchAtStartup == 1,
             OnCloseKeepAlive = generalSettings.OnCloseKeepAlive == 1,
             ShowSplashScreen = generalSettings.ShowSplashScreen == 1
         };

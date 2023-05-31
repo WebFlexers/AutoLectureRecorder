@@ -16,9 +16,7 @@ public partial class SettingsView : ReactiveUserControl<SettingsViewModel>
             DataContext = ViewModel;
 
             // General Settings
-            this.OneWayBind(ViewModel, vm => vm.SupportedScreenResolutions, v => v.OutputResolutionCombobox.ItemsSource)
-                .DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.GeneralSettings.LaunchAtStartup, v => v.OnStartupToggleButton.IsChecked)
+            this.Bind(ViewModel, vm => vm.LaunchAtStartup, v => v.OnStartupToggleButton.IsChecked)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.GeneralSettings.OnCloseKeepAlive, v => v.OnCloseMinimizeToggleButton.IsChecked)
                 .DisposeWith(disposables);
@@ -27,6 +25,9 @@ public partial class SettingsView : ReactiveUserControl<SettingsViewModel>
 
             // Recording Settings
             // Video
+            this.OneWayBind(ViewModel, vm => vm.SupportedScreenResolutions, v => v.OutputResolutionCombobox.ItemsSource)
+                .DisposeWith(disposables);
+
             this.Bind(ViewModel, vm => vm.RecordingSettings.RecordingsLocalPath, v => v.RecordingPathTextBox.Text)
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.RecordingSettings.Quality, v => v.QualityTextBox.Text)

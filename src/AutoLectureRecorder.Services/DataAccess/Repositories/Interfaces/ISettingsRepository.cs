@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Data.ReactiveModels;
+using AutoLectureRecorder.Services.Recording;
 
 namespace AutoLectureRecorder.Services.DataAccess.Repositories.Interfaces;
 
@@ -29,7 +30,7 @@ public interface ISettingsRepository
     /// <summary>
     /// Resets the current recording settings with the default values
     /// </summary>
-    Task<bool> ResetRecordingSettings(int primaryScreenWidth, int primaryScreenHeight);
+    Task<bool> ResetRecordingSettings(int primaryScreenWidth, int primaryScreenHeight, IRecorder recorder);
 
     /// <summary>
     /// Resets the current general settings with the default values
@@ -39,5 +40,5 @@ public interface ISettingsRepository
     /// <summary>
     /// Resets all the settings to their default values
     /// </summary>
-    Task<bool> ResetAllSettings(int primaryScreenWidth, int primaryScreenHeight);
+    Task<bool> ResetAllSettings(int primaryScreenWidth, int primaryScreenHeight, IRecorder recorder);
 }
