@@ -80,12 +80,6 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
                 .Skip(1)
                 .InvokeCommand(ReactiveCommand.Create<bool>(launchAtStartup =>
                 {
-                    if (_shouldUpdateRegistryValue == false)
-                    {
-                        _shouldUpdateRegistryValue = true;
-                        return;
-                    }
-
                     SetStartupPolicy(launchAtStartup);
                 }))
                 .DisposeWith(disposables);
@@ -94,7 +88,6 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(isStartupEnabled =>
                 {
-                    _shouldUpdateRegistryValue = false;
                     LaunchAtStartup = isStartupEnabled;
                 })
                 .DisposeWith(disposables);
@@ -154,11 +147,13 @@ public class SettingsViewModel : ReactiveObject, IRoutableViewModel, IActivatabl
         });
     }
 
-    private bool _shouldUpdateRegistryValue = true;
     public void SetStartupPolicy(bool startWithWindows)
     {
         // If the process fails we don't want to try again automatically
-        _shouldUpdateRegistryValue = _startupManager.ModifyLaunchOnStartup(startWithWindows);
+        var modifiedSuccessfully = _startupManager.ModifyLaunchOnStartup(startWithWindows);
+
+        if (modifiedSuccessfully == false) return;
+
         LaunchAtStartup = _startupManager.IsStartupEnabled();
     }
 

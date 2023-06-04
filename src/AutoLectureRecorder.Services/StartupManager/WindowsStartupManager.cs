@@ -15,7 +15,7 @@ public class WindowsStartupManager : IStartupManager
     private const string MainStartupRegistryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
     private const string ApprovedStartupRegistryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
 
-    private readonly string _appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nameof(AutoLectureRecorder));
+    private readonly string _appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{nameof(AutoLectureRecorder)}.exe");
     private readonly string _appName;
 
     private readonly ILogger<WindowsStartupManager> _logger;
@@ -92,6 +92,8 @@ public class WindowsStartupManager : IStartupManager
     {
         try
         {
+            if (shouldLaunchOnStartup == IsStartupEnabled()) return false;
+
             if (shouldLaunchOnStartup)
             {
                 // Set the main startup registry key
@@ -111,19 +113,17 @@ public class WindowsStartupManager : IStartupManager
             }
             else
             {
-                var fileName = Path.GetFileNameWithoutExtension(_appPath);
-
                 using RegistryKey mainStartupKey = Registry.CurrentUser.OpenSubKey(MainStartupRegistryPath, true)!;
                 var mainValueNames = mainStartupKey.GetValueNames();
 
                 // If the main startup key doesn't even exist we don't need to do anything else
-                if (mainValueNames.Any(name => name.Equals(fileName, StringComparison.OrdinalIgnoreCase)) == false)
+                if (mainValueNames.Any(name => name.Equals(_appName, StringComparison.OrdinalIgnoreCase)) == false)
                 {
                     return true;
                 }
 
                 // Set the approved registry key to false
-                return SetRegistryValue(ApprovedStartupRegistryPath, fileName, StartupDisabledValueString);
+                return SetRegistryValue(ApprovedStartupRegistryPath, _appName, StartupDisabledValueString);
             }
             return true;
         }
@@ -147,10 +147,19 @@ public class WindowsStartupManager : IStartupManager
         try
         {
             Process.Start(startInfo)?.WaitForExit();
+            if (hexValueData.StartsWith("02"))
+            {
+                _logger.LogInformation("Successfully enabled startup");
+            }
+            else
+            {
+                _logger.LogInformation("Successfully disabled startup");
+            }
             return true;
         }
-        catch (System.ComponentModel.Win32Exception)
+        catch (System.ComponentModel.Win32Exception ex)
         {
+            _logger.LogError(ex, "An exception occurred while trying to change registry value");
             return false;
         }
     }
