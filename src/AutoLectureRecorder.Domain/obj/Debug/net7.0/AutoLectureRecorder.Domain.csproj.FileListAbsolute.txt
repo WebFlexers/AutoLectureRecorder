@@ -1,0 +1,12 @@
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\bin\Debug\net7.0\AutoLectureRecorder.Domain.deps.json
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\bin\Debug\net7.0\AutoLectureRecorder.Domain.dll
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\bin\Debug\net7.0\AutoLectureRecorder.Domain.pdb
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\AutoLectureRecorder.Domain.csproj.AssemblyReference.cache
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\AutoLectureRecorder.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\AutoLectureRecorder.Domain.AssemblyInfoInputs.cache
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\AutoLectureRecorder.Domain.AssemblyInfo.cs
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\AutoLectureRecorder.Domain.csproj.CoreCompileInputs.cache
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\AutoLectureRecorder.Domain.dll
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\refint\AutoLectureRecorder.Domain.dll
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\AutoLectureRecorder.Domain.pdb
+C:\Users\StyleM\Documents\GitHub\AutoLectureRecorder\src\AutoLectureRecorder.Domain\obj\Debug\net7.0\ref\AutoLectureRecorder.Domain.dll

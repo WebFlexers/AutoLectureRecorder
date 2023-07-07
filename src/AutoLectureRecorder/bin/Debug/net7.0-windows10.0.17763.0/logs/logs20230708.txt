@@ -1,0 +1,126 @@
+2023-07-08 00:23:35.701 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ShowAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.747 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.833 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property Router is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.835 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.837 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property AttemptExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.838 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ToggleWindowStateCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.839 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MinimizeWindowCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.856 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MainWindowState is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:23:35.862 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.061 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ShowAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.111 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.189 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property Router is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.191 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.194 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property AttemptExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.195 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ToggleWindowStateCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.196 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MinimizeWindowCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.211 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MainWindowState is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:24:44.215 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.067 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ShowAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.118 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.260 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property Router is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.263 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.265 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property AttemptExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.268 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ToggleWindowStateCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.271 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MinimizeWindowCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.306 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MainWindowState is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:26:06.337 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.268 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ShowAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.310 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.407 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property Router is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.410 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.413 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property AttemptExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.415 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ToggleWindowStateCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.417 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MinimizeWindowCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.428 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MainWindowState is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:27:21.432 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.502 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ShowAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.541 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.650 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property Router is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.655 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.658 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property AttemptExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.661 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ToggleWindowStateCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.666 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MinimizeWindowCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.680 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MainWindowState is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:28:25.685 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.271 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ShowAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.317 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.392 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property Router is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.394 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.396 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property AttemptExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.397 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ToggleWindowStateCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.400 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MinimizeWindowCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.415 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MainWindowState is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:30:24.420 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.672 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ShowAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.717 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.795 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property Router is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.797 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.799 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property AttemptExitAppCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.800 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property ToggleWindowStateCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.801 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MinimizeWindowCommand is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.817 +03:00 [WRN] The class AutoLectureRecorder.MainWindowViewModel property MainWindowState is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:33:21.821 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:39:11.212 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 00:39:11.260 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:22:18.571 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:22:18.618 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:34.596 +03:00 [INF] Navigated to LoginViewModel
+2023-07-08 02:31:34.694 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:34.718 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.053 +03:00 [WRN] Error: 'FileDoesNotExist occurred: The file C:\Users\StyleM\Documents\AutoLectureRecorder\WebDriver\current_edge_driver_version.txt does not exist'
+2023-07-08 02:31:35.056 +03:00 [INF] Starting automated edge web driver download...
+2023-07-08 02:31:35.056 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property EmailTextbox is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.067 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressBar is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.071 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.083 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressGrid is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.086 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressHelperTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.086 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ErrorTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.091 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer1TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.092 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer2TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:31:35.093 +03:00 [INF] Start processing HTTP request GET https://msedgedriver.azureedge.net/114.0.1823.67/edgedriver_win64.zip
+2023-07-08 02:31:35.097 +03:00 [INF] Sending HTTP request GET https://msedgedriver.azureedge.net/114.0.1823.67/edgedriver_win64.zip
+2023-07-08 02:31:37.032 +03:00 [INF] Received HTTP response headers after 1932.831ms - 200
+2023-07-08 02:31:37.034 +03:00 [INF] End processing HTTP request after 1947.5573ms - 200
+2023-07-08 02:31:37.797 +03:00 [INF] Successfully downloaded driver from link https://msedgedriver.azureedge.net/114.0.1823.67/edgedriver_win64.zip to temp folder
+2023-07-08 02:31:37.875 +03:00 [INF] Successfully extracted zipped file to current directory
+2023-07-08 02:31:37.878 +03:00 [INF] Edge web driver downloaded successfully!
+2023-07-08 02:33:36.426 +03:00 [INF] Navigated to LoginViewModel
+2023-07-08 02:33:36.518 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.543 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.867 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property EmailTextbox is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.868 +03:00 [INF] Retrieved current edge version: 114.0.1823.67
+2023-07-08 02:33:36.869 +03:00 [INF] The latest version of the edge web driver is already installed
+2023-07-08 02:33:36.877 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressBar is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.880 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.888 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressGrid is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.891 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressHelperTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.891 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ErrorTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.896 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer1TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:33:36.896 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer2TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.141 +03:00 [INF] Navigated to LoginViewModel
+2023-07-08 02:36:41.234 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.267 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.675 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property EmailTextbox is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.676 +03:00 [INF] Retrieved current edge version: 114.0.1823.67
+2023-07-08 02:36:41.678 +03:00 [INF] The latest version of the edge web driver is already installed
+2023-07-08 02:36:41.688 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressBar is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.691 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.701 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressGrid is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.704 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressHelperTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.705 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ErrorTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.711 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer1TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:36:41.711 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer2TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.017 +03:00 [INF] Navigated to LoginViewModel
+2023-07-08 02:37:06.108 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property RoutedViewHost is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.132 +03:00 [WRN] The class AutoLectureRecorder.MainWindow property MainAppWindow is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.466 +03:00 [INF] Retrieved current edge version: 114.0.1823.67
+2023-07-08 02:37:06.466 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property EmailTextbox is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.467 +03:00 [INF] The latest version of the edge web driver is already installed
+2023-07-08 02:37:06.476 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressBar is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.479 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property DownloadProgressTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.487 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressGrid is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.490 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ProgressHelperTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.490 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property ErrorTextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.496 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer1TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2023-07-08 02:37:06.496 +03:00 [WRN] The class AutoLectureRecorder.Pages.Login.LoginView property Disclaimer2TextBlock is a POCO type and won't send change notifications, WhenAny will only return a single value!

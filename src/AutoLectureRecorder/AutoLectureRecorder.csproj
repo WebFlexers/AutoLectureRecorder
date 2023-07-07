@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>Resources\Icons\app_icon_filled_64x64.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+      <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+      <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.2.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="ReactiveUI" Version="19.2.1" />
+      <PackageReference Include="ReactiveUI.WPF" Version="19.2.1" />
+      <PackageReference Include="Serilog" Version="3.0.1" />
+      <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+      <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+      <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
+      <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+      <PackageReference Include="Splat" Version="14.6.37" />
+      <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.37" />
+      <PackageReference Include="Splat.Serilog" Version="14.6.37" />
+      <PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AutoLectureRecorder.Application\AutoLectureRecorder.Application.csproj" />
+      <ProjectReference Include="..\AutoLectureRecorder.Infrastructure\AutoLectureRecorder.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\Navigation\Parameters\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Icons\app_icon_filled_64x64.ico" />
+      <Resource Include="Resources\Icons\app_icon_filled_64x64.ico" />
+      <None Remove="Resources\Icons\ThemeToggler\moon_blue_32x32.png" />
+      <Resource Include="Resources\Icons\ThemeToggler\moon_blue_32x32.png" />
+      <None Remove="Resources\Icons\ThemeToggler\sun_yellow_32x32.png" />
+      <Resource Include="Resources\Icons\ThemeToggler\sun_yellow_32x32.png" />
+      <None Remove="Resources\Images\Login\online_learning.png" />
+      <Resource Include="Resources\Images\Login\online_learning.png" />
+    </ItemGroup>
+
+</Project>

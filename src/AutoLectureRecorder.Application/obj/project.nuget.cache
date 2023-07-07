@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "YRCEGTRNS9yaUyAT5x5fanZeIWD553r9LePsFuijApqYSkFg5ua2N3K+baAxffUn6y36kiaMor17qIxOLUjDBw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\StyleM\\Documents\\GitHub\\AutoLectureRecorder\\src\\AutoLectureRecorder.Application\\AutoLectureRecorder.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\StyleM\\.nuget\\packages\\dynamicdata\\7.14.2\\dynamicdata.7.14.2.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\erroror\\1.2.1\\erroror.1.2.1.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\mediatr\\12.1.0\\mediatr.12.1.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\reactiveui\\19.2.1\\reactiveui.19.2.1.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\splat\\14.6.37\\splat.14.6.37.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\system.reactive\\6.0.0\\system.reactive.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

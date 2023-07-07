@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "iReZX7kCeV8YNNEOIBIsZTd1TttsTz/JXs9USYTbNFTc6+0hq7fTaiv0SOH6VZgYW7zJVRUMwG5Tx21EEgPp7w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\StyleM\\Documents\\GitHub\\AutoLectureRecorder\\src\\AutoLectureRecorder.Infrastructure\\AutoLectureRecorder.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\StyleM\\.nuget\\packages\\dynamicdata\\7.14.2\\dynamicdata.7.14.2.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\erroror\\1.2.1\\erroror.1.2.1.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\mediatr\\12.1.0\\mediatr.12.1.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.http\\7.0.0\\microsoft.extensions.http.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\reactiveui\\19.2.1\\reactiveui.19.2.1.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\splat\\14.6.37\\splat.14.6.37.nupkg.sha512",
+    "C:\\Users\\StyleM\\.nuget\\packages\\system.reactive\\6.0.0\\system.reactive.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
