@@ -60,7 +60,7 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
         set => this.RaiseAndSetIfChanged(ref _downloadProgressValueString, value);
     }
 
-    private bool _isWebDriverDownloading;
+    private bool _isWebDriverDownloading = false;
     public bool IsWebDriverDownloading
     {
         get => _isWebDriverDownloading;
@@ -102,7 +102,17 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
             _downloadWebDriverTask = Task.Run(async () =>
             {
                 IsWebDriverDownloading = true;
-                return await webDriverDownloader.Download(webDriverDownloadProgress);
+                
+                var errorOrDriverDownloader = await webDriverDownloader.Download(webDriverDownloadProgress);
+                if (errorOrDriverDownloader.IsError)
+                {
+                    ErrorMessage = "An error occurred while trying to download the necessary WebDriver";
+                    DownloadProgressValueString = "Failed";
+                }
+
+                IsWebDriverDownloading = false;
+                
+                return errorOrDriverDownloader;
             }).DisposeWith(disposables);
         });
     }

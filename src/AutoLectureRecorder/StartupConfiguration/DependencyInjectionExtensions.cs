@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using Serilog;
 using Splat;
-using Splat.Serilog;
+
 
 namespace AutoLectureRecorder.StartupConfiguration;
 
@@ -70,7 +70,6 @@ public static class DependencyInjectionExtensions
 
         builder.ClearProviders();
         builder.AddSerilog();
-        Locator.CurrentMutable.UseSerilogFullLogger();
 
         return builder;
     }

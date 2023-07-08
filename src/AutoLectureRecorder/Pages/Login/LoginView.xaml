@@ -105,7 +105,7 @@
                            Margin="0, 15, 0, 3"/>
                 <Grid x:Name="ProgressGrid">
                     <ProgressBar x:Name="DownloadProgressBar" 
-                                 Height="20"
+                                 Height="30"
                                  Foreground="{DynamicResource PrimaryBrush}"
                                  Background="{DynamicResource PrimaryDarkerBrush}"
                                  d:Value="0"
@@ -115,6 +115,7 @@
                     <TextBlock x:Name="DownloadProgressTextBlock"
                                Text="0%"
                                HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
                                Foreground="{DynamicResource PrimaryTextBrush}"/>
                 </Grid>
 
@@ -152,7 +153,9 @@
             <Border Grid.Column="1"
                     xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200, Delay=200}"
                     CornerRadius="100" 
-                    Margin="100">
+                    Margin="100"
+                    BorderBrush="{DynamicResource PrimaryBrush}"
+                    BorderThickness="2">
                 <Border.Background>
                     <ImageBrush Stretch="UniformToFill"
                                 RenderOptions.BitmapScalingMode="HighQuality"

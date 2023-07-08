@@ -28,6 +28,4 @@ public static partial class NavigationLogs
     [LoggerMessage(EventId = 6, Level = LogLevel.Error,
         Message = "{description}")]
     public static partial void EfficientlyLogError(this ILogger logger, string description);
-    
-    
 }

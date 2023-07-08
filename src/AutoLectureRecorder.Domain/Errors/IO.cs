@@ -7,10 +7,9 @@ public static partial class Errors
 {
     public static class IO
     {
-        public static Error FileDoesNotExist(string fileName)
-        {
-            return Error.NotFound(code: nameof(FileDoesNotExist), description: $"The file {fileName} does not exist");
-        }
+        public static Error FileDoesNotExist(string fileName) => Error.NotFound(
+            code: nameof(FileDoesNotExist), 
+            description: $"The file {fileName} does not exist");
 
         public static Error FailedToDownloadError(string fileName) => Error.Failure(
             code: nameof(FailedToDownloadError),
