@@ -1,4 +1,4 @@
-﻿namespace AutoLectureRecorder.Common.Options.Login;
+﻿namespace AutoLectureRecorder.Application.Options;
 
 public static class University
 {

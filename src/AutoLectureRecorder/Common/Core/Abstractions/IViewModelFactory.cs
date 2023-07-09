@@ -1,6 +1,6 @@
 using System;
 
-namespace AutoLectureRecorder.Common.Core;
+namespace AutoLectureRecorder.Common.Core.Abstractions;
 
 public interface IViewModelFactory
 {

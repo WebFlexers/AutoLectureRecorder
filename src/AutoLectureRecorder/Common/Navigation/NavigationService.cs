@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoLectureRecorder.Common.Core;
+using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Logging;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
@@ -20,14 +21,14 @@ public class NavigationService : INavigationService
     /// The reason we are categorizing parameters by type and not deleting them between subsequent navigation
     /// is because when navigating back in the navigation stack we need a way to pass the parameters again if needed.
     /// </summary>
-    public Dictionary<Type, Dictionary<string, object>> Parameters { get; }
+    private Dictionary<Type, Dictionary<string, object>> _parameters { get; }
 
     public NavigationService(ILogger<NavigationService> logger, IViewModelFactory viewModelFactory)
     {
         _logger = logger;
         _viewModelFactory = viewModelFactory;
         _routers = new Dictionary<string, RoutingState>();
-        Parameters = new Dictionary<Type, Dictionary<string, object>>();
+        _parameters = new Dictionary<Type, Dictionary<string, object>>();
     }
 
     public void AddNavigationHost(string hostName, RoutingState router)
@@ -42,8 +43,18 @@ public class NavigationService : INavigationService
     // For that reason NavigateAndReset must always be used instead of Navigate
     // in order for the NavigationStack of the Router to only contain the current ViewModel
     private int _currentNavigationIndex = 0;
-    private readonly List<Type> _navigationStack = new();
-    
+    private List<Type> _navigationStack = new();
+
+    public Dictionary<string, object>? GetNavigationParameters(Type vmType)
+    {
+        if (_parameters.ContainsKey(vmType))
+        {
+            return _parameters[vmType];
+        }
+
+        return null;
+    }
+
     private void SetRoutedViewHostContent(RoutableViewModel viewModel, string routerHostName)
     {
         var vmType = viewModel.GetType();
@@ -73,10 +84,35 @@ public class NavigationService : INavigationService
 
     public void Navigate(Type vmType, string routerHostName, Dictionary<string, object> parameters)
     {
-        Parameters[vmType] = parameters;
+        _parameters[vmType] = parameters;
         Navigate(vmType, routerHostName);
     }
 
+    public void NavigateAndReset(Type vmType, string routerHostName)
+    {
+       ResetNavigation();
+       Navigate(vmType, routerHostName);
+    }
+    
+    public void NavigateAndReset(Type vmType, string routerHostName, Dictionary<string, object> parameters)
+    {
+        ResetNavigation();
+        Navigate(vmType, routerHostName, parameters);
+    }
+
+    private void ResetNavigation()
+    {
+        foreach (var innerDictionary in _parameters.Values)
+        {
+            innerDictionary.Clear();
+        }
+        _parameters.Clear();
+        
+        _navigationStack.Clear();
+        _navigationStack = new();
+
+        _currentNavigationIndex = 0;
+    }
     public void NavigateBack(string routerHostName)
     {
         var backIndex = _currentNavigationIndex - 1;

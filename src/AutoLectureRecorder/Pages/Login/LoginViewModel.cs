@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reactive;
@@ -8,9 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+using AutoLectureRecorder.Application.Options;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;
-using AutoLectureRecorder.Common.Options.Login;
+using AutoLectureRecorder.Common.Navigation.Parameters;
 using ErrorOr;
 using ReactiveUI;
 
@@ -74,6 +76,12 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
     public LoginViewModel(INavigationService navigationService, IWebDriverDownloader webDriverDownloader) 
         : base(navigationService)
     {
+        var parameters = NavigationService.GetNavigationParameters(typeof(LoginViewModel));
+        if (parameters is not null)
+        {
+            ErrorMessage = (string)parameters[NavigationParameters.LoginViewModel.ErrorMessage];
+        }
+
         Activator = new ViewModelActivator();
         IProgress<float> webDriverDownloadProgress = new Progress<float>(value =>
         {
@@ -126,6 +134,12 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
             ErrorMessage = "Fill in your academic email address";
             return;
         }
+
+        if (Password is null)
+        {
+            ErrorMessage = "Fill in your password";
+            return;
+        }
         
         var supportedUniversityDomains = University.GetSupportedUniversityDomains;
         
@@ -153,8 +167,11 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
             return;
         }
 
-        /*HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginWebViewModel)));
-        MessageBus.Current.SendMessage<(string academicEmailAddress, string password)>((AcademicEmailAddress, Password), 
-            PubSubMessages.FillLoginCredentials);*/
+        var parameters = new Dictionary<string, object>()
+        {
+            { NavigationParameters.LoginWebViewModel.AcademicEmailAddress, AcademicEmailAddress },
+            { NavigationParameters.LoginWebViewModel.Password, Password }
+        };
+        NavigationService.NavigateAndReset(typeof(LoginWebViewModel), HostNames.MainWindowHost, parameters);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AutoLectureRecorder.Common.Core;
+using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
+using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,21 +34,26 @@ public static class DependencyInjectionExtensions
     {
         services.AddSingleton(sp => new MainWindow 
             { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
+
+        services.AddTransient<IWindowFactory, WindowFactory>();
+        
         return services;
     }
     
     private static IServiceCollection AddViews(this IServiceCollection services)
     {
         services.AddTransient<IViewFor<LoginViewModel>, LoginView>();
+        services.AddTransient<IViewFor<LoginWebViewModel>, LoginWebView>();
         return services;
     }
     
     private static IServiceCollection AddViewModels(this IServiceCollection services)
     {
-        services.AddSingleton<IViewModelFactory, ViewModelFactory>();
         services.AddSingleton<MainWindowViewModel>();
+        services.AddTransient<IViewModelFactory, ViewModelFactory>();
 
         services.AddTransient<LoginViewModel>();
+        services.AddTransient<LoginWebViewModel>();
         return services;
     }
 
@@ -62,7 +69,6 @@ public static class DependencyInjectionExtensions
             .Enrich.FromLogContext()
             .Enrich.WithThreadId()
             .Enrich.WithMachineName()
-            .WriteTo.Debug()
             .WriteTo.File(Common.Options.Serilog.Serilog.Sinks.FileLocation, 
                 rollingInterval: RollingInterval.Day,
                 retainedFileCountLimit: 7)
@@ -70,6 +76,7 @@ public static class DependencyInjectionExtensions
 
         builder.ClearProviders();
         builder.AddSerilog();
+        builder.AddDebug();
 
         return builder;
     }

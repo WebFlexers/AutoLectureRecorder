@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoLectureRecorder.Common.Core.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoLectureRecorder.Common.Core;

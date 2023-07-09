@@ -14,6 +14,7 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1823.32" />
       <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.2.3">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -35,10 +36,6 @@
     <ItemGroup>
       <ProjectReference Include="..\AutoLectureRecorder.Application\AutoLectureRecorder.Application.csproj" />
       <ProjectReference Include="..\AutoLectureRecorder.Infrastructure\AutoLectureRecorder.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Common\Navigation\Parameters\" />
     </ItemGroup>
 
     <ItemGroup>

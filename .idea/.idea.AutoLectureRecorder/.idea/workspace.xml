@@ -8,146 +8,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/07cd97b7-2b4c-4c54-b0ce-d041c829bb4a.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/748af3c7-c444-44f8-bf59-2d6724bd9bcc.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/7c91dd1c-b49c-4ac0-8673-5a0accef47ae.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/c8cbca22-74f4-4912-bfcc-d1401fdef115.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/App.baml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.designer.deps.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.designer.runtimeconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_0bu4fwgs_wpftmp.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_0bu4fwgs_wpftmp.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_0bu4fwgs_wpftmp.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_0bu4fwgs_wpftmp.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_0bu4fwgs_wpftmp.sourcelink.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_2231rylb_wpftmp.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_2231rylb_wpftmp.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_2231rylb_wpftmp.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_2231rylb_wpftmp.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_2231rylb_wpftmp.csproj.BuildWithSkipAnalyzers" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_2231rylb_wpftmp.sourcelink.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_bd2gqsn5_wpftmp.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_bd2gqsn5_wpftmp.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_bd2gqsn5_wpftmp.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_bd2gqsn5_wpftmp.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_bd2gqsn5_wpftmp.sourcelink.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_v1okfhz4_wpftmp.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_v1okfhz4_wpftmp.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_v1okfhz4_wpftmp.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_v1okfhz4_wpftmp.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_v1okfhz4_wpftmp.csproj.BuildWithSkipAnalyzers" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_v1okfhz4_wpftmp.sourcelink.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/MainWindow.baml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/Pages/Login/LoginView.baml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/WebAutomation/IAlrWebDriver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/WebAutomation/IWebDriverFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Behaviors/ErrorLoggingBehavior.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Login/LoginToMicrosoftTeamsHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Login/LoginToMicrosoftTeamsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Options/WebView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/ExtraErrorTypes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/Login.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/Meeting.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/WebDriver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/UnipiEdgeWebDriver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/WebDriverFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/Abstractions/IWindowFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/WindowFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/Parameters/Login.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginWebView.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginWebView.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginWebViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/TransparentLoadingWindow.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/TransparentLoadingWindow.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/5c4a5996-d071-4236-8e09-8094ac984a28.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/85d0514e-1f0f-417c-bf75-b8f09f45ebf4.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/96c56cdd-1e6b-4eb8-8dc6-4626820ea073.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/AutoLectureRecorder/FileContentIndex/c814cece-eb71-4042-a6ed-7979ab77c13e.vsidx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/AutoLectureRecorder/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/AutoLectureRecorder/v17/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Logging/LogError.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Logging/GeneralLogs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Application.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Application.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Domain.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/bin/Debug/net7.0/AutoLectureRecorder.Domain.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/obj/Debug/net7.0/AutoLectureRecorder.Application.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/IO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/IO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/bin/Debug/net7.0/AutoLectureRecorder.Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/bin/Debug/net7.0/AutoLectureRecorder.Domain.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/bin/Debug/net7.0/AutoLectureRecorder.Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/bin/Debug/net7.0/AutoLectureRecorder.Domain.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/obj/Debug/net7.0/AutoLectureRecorder.Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/obj/Debug/net7.0/AutoLectureRecorder.Domain.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/obj/Debug/net7.0/AutoLectureRecorder.Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/obj/Debug/net7.0/AutoLectureRecorder.Domain.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Application.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Application.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Domain.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/bin/Debug/net7.0/AutoLectureRecorder.Domain.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/obj/Debug/net7.0/AutoLectureRecorder.Infrastructure.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/obj/Debug/net7.0/AutoLectureRecorder.Infrastructure.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginView.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/DependencyInjectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/IViewModelFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/Abstractions/IViewModelFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/ViewModelFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/ViewModelFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/INavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/INavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Options/Login/University.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Options/University.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Options/WebView/WebView.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Application.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Application.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Domain.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Domain.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Infrastructure.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Infrastructure.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Wpf.deps.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Wpf.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.Wpf.runtimeconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.deps.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/AutoLectureRecorder.runtimeconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/DynamicData.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/MaterialDesignColors.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/MaterialDesignThemes.Wpf.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.Binder.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.CommandLine.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.EnvironmentVariables.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.FileExtensions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.Json.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.UserSecrets.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Configuration.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.DependencyInjection.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.DependencyInjection.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.FileProviders.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.FileProviders.Physical.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.FileSystemGlobbing.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Hosting.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Hosting.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Http.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Logging.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Logging.Configuration.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Logging.Console.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Logging.Debug.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Logging.EventLog.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Logging.EventSource.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Logging.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Options.ConfigurationExtensions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Options.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Extensions.Primitives.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Microsoft.Xaml.Behaviors.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/ReactiveUI.Wpf.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/ReactiveUI.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Serilog.Enrichers.Environment.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Serilog.Enrichers.Thread.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Serilog.Extensions.Logging.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Serilog.Sinks.Debug.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Serilog.Sinks.File.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Serilog.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Splat.Microsoft.Extensions.DependencyInjection.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Splat.Serilog.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/Splat.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows/System.Reactive.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Application.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Application.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Application.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Application.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Domain.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Domain.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Domain.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.Domain.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.exe" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/logs/logs20230708.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/logs/logs20230708.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/App.g.i.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/App.g.i.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.g.resources" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.g.resources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_MarkupCompile.cache" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_MarkupCompile.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_MarkupCompile.lref" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder_MarkupCompile.lref" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/Common/CustomControls/ThemeToggler.g.i.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/Common/CustomControls/ThemeToggler.g.i.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/MainWindow.g.i.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/MainWindow.g.i.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/Pages/Login/LoginView.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/Pages/Login/LoginView.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/Pages/Login/LoginView.g.i.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/Pages/Login/LoginView.g.i.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/ref/AutoLectureRecorder.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/ref/AutoLectureRecorder.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/refint/AutoLectureRecorder.dll" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/obj/Debug/net7.0-windows10.0.17763.0/refint/AutoLectureRecorder.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,15 +52,24 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e215ed07f1d8427898bbe2234a4833cb14c10/ae/25a600df/ReactiveUserControl`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e39cf327f1774f31ba2b79a02a7766484400/0d/482b70e3/IErrorOr.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e39cf327f1774f31ba2b79a02a7766484400/3e/c1cdccbd/ErrorOr`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e39cf327f1774f31ba2b79a02a7766484400/6b/5b5b3244/ErrorType.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e39cf327f1774f31ba2b79a02a7766484400/8d/adca8b58/Error.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2770b586d6d9a7878e5f46c5b443c282339347fd573ead79eb7778436691/LoggerEnrichmentConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2981692906aab88d7452aa7dbee95ca93274ea4403754db959cbde3de67b15c/ReactiveCommandMixins.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/816dbaba8a29ece3dd3dc326642858d27d2d19142f9a2109bb04617985ec9/ExecutionContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bfe93a7fff2744552764ba348b957f9b886c68291167816af688fdf0da5c56/RxApp.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d0604566c4c8ed15eb6ee51714882324fedaede41e1498cf38c6bab6aaa92a/SplatMicrosoftExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Options/University.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Options/WebView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/MainWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/Options/Serilog/Sinks.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppBootstrapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppMutex.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/WindowsServices/Pipes.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2SFK2mwtBW80ge78f5AlPXJ3T9n" />
   <component name="ProjectLevelVcsManager">
@@ -176,29 +79,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "CompleteRevamp",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;CompleteRevamp&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\StyleM\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\StyleM\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="AutoLectureRecorder.Wpf" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/src/AutoLectureRecorder/bin/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.exe" />
@@ -229,6 +132,9 @@
       <option name="presentableId" value="Default" />
       <updated>1688736683228</updated>
       <workItem from="1688736684741" duration="28139000" />
+      <workItem from="1688776117338" duration="30000" />
+      <workItem from="1688809733775" duration="8216000" />
+      <workItem from="1688899260840" duration="6297000" />
     </task>
     <servers />
   </component>
