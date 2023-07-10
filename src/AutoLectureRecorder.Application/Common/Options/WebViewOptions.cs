@@ -1,6 +1,6 @@
-﻿namespace AutoLectureRecorder.Application.Options;
+﻿namespace AutoLectureRecorder.Application.Common.Options;
 
-public static class WebView
+public static class WebViewOptions
 {
     public static class BrowserArguments
     {

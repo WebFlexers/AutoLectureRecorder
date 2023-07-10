@@ -47,6 +47,8 @@
       <Resource Include="Resources\Icons\ThemeToggler\sun_yellow_32x32.png" />
       <None Remove="Resources\Images\Login\online_learning.png" />
       <Resource Include="Resources\Images\Login\online_learning.png" />
+      <None Remove="Resources\Icons\app_icon_filled256x256.png" />
+      <Resource Include="Resources\Icons\app_icon_filled256x256.png" />
     </ItemGroup>
 
 </Project>

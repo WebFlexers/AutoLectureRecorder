@@ -5,10 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using AutoLectureRecorder.Application.Login;
+using AutoLectureRecorder.Application.Login.Queries;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.Navigation.Parameters;
+using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.Resources.Themes;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using MediatR;
@@ -57,12 +59,13 @@ public class LoginWebViewModel : RoutableViewModel
                 : CoreWebView2PreferredColorScheme.Light;
 
             await webview2.CoreWebView2.Profile.ClearBrowsingDataAsync();
+            
             var loginQuery = new LoginToMicrosoftTeamsQuery(academicEmailAddress, password);
             var errorOrLoggedIn = await mediatorSender.Send(loginQuery, loginCancellationToken);
 
             errorOrLoggedIn.Match(_ =>
             {
-                // TODO: Navigate to main menu
+                navigationService.NavigateAndReset(typeof(MainMenuViewModel), HostNames.MainWindowHost);
                 return Unit.Default;
             }, errors =>
             {

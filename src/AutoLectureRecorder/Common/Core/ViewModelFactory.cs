@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using ReactiveUI;
 
 namespace AutoLectureRecorder.Common.Core;
 
@@ -16,13 +17,13 @@ public class ViewModelFactory : IViewModelFactory
     /// <summary>
     /// Creates a new routable ViewModel using the DI system
     /// </summary>
-    public RoutableViewModel CreateRoutableViewModel(Type viewModelType)
+    public IRoutableViewModel CreateRoutableViewModel(Type viewModelType)
     {
-        if (typeof(RoutableViewModel).IsAssignableFrom(viewModelType) == false)
+        if (typeof(IRoutableViewModel).IsAssignableFrom(viewModelType) == false)
         {
             throw new ArgumentException("The provided ViewModel doesn't implement the IRoutableViewModel interface");
         }
 
-        return (RoutableViewModel)_services.GetRequiredService(viewModelType);
+        return (IRoutableViewModel)_services.GetRequiredService(viewModelType);
     }
 }

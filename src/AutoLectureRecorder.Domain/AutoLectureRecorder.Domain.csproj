@@ -9,10 +9,7 @@
     <ItemGroup>
       <PackageReference Include="ErrorOr" Version="1.2.1" />
       <PackageReference Include="MediatR" Version="12.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Entities\" />
+      <PackageReference Include="ReactiveUI" Version="19.2.1" />
     </ItemGroup>
 
 </Project>

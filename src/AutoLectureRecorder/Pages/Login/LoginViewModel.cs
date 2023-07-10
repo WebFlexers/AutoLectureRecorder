@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
-using AutoLectureRecorder.Application.Options;
+using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.Navigation.Parameters;
@@ -141,7 +141,7 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
             return;
         }
         
-        var supportedUniversityDomains = University.GetSupportedUniversityDomains;
+        var supportedUniversityDomains = LoginOptions.GetSupportedUniversityDomains;
         
         var isGivenDomainSupported = supportedUniversityDomains
             .Any(domain => AcademicEmailAddress.Contains(domain));

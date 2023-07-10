@@ -1,5 +1,5 @@
 ﻿using System.Reactive;
-using AutoLectureRecorder.Application.Options;
+using AutoLectureRecorder.Application.Common.Options;
 using ErrorOr;
 
 namespace AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
@@ -13,7 +13,7 @@ public interface IAlrWebDriver
     /// <param name="implicitWaitTime">The time to wait when searching for elements before throwing exception</param>
     /// <param name="debuggerAddress">The debugger address that will host the WebView2</param>
     ErrorOr<Unit> StartDriver(bool useWebView, TimeSpan implicitWaitTime, 
-        string debuggerAddress = $"localhost:{WebView.BrowserArguments.DebugPort}");
+        string debuggerAddress = $"localhost:{WebViewOptions.BrowserArguments.DebugPort}");
 
     /// <summary>
     /// Login to Microsoft Teams through the web driver using the provided credentials

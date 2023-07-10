@@ -2,7 +2,6 @@
 using ErrorOr;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Splat;
 
 namespace AutoLectureRecorder.Application.Common.Behaviors;
 

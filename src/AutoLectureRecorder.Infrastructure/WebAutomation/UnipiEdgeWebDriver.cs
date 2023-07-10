@@ -1,6 +1,5 @@
 ﻿using System.Reactive;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
-using AutoLectureRecorder.Application.Options;
 using AutoLectureRecorder.Domain.Errors;
 using ErrorOr;
 using Microsoft.Extensions.Logging;
@@ -121,8 +120,6 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             _logger.LogInformation("Successful login of {email}", academicEmailAddress);
             return Unit.Default;
         }
-
-        _logger.LogWarning("Authentication failed. Error message: {message}", resultMessage);
 
         return Errors.Login.WrongCredentials(resultMessage);
     }

@@ -2,10 +2,9 @@
 using AutoLectureRecorder.Domain.Errors;
 using ErrorOr;
 using MediatR;
-
 using Unit = System.Reactive.Unit;
 
-namespace AutoLectureRecorder.Application.Login;
+namespace AutoLectureRecorder.Application.Login.Queries;
 
 public class LoginToMicrosoftTeamsHandler : IRequestHandler<LoginToMicrosoftTeamsQuery, ErrorOr<Unit>>
 {

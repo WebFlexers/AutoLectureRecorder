@@ -3,6 +3,7 @@ using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Pages.Login;
+using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -44,6 +45,7 @@ public static class DependencyInjectionExtensions
     {
         services.AddTransient<IViewFor<LoginViewModel>, LoginView>();
         services.AddTransient<IViewFor<LoginWebViewModel>, LoginWebView>();
+        services.AddTransient<IViewFor<MainMenuViewModel>, MainMenuView>();
         return services;
     }
     
@@ -54,6 +56,7 @@ public static class DependencyInjectionExtensions
 
         services.AddTransient<LoginViewModel>();
         services.AddTransient<LoginWebViewModel>();
+        services.AddTransient<MainMenuViewModel>();
         return services;
     }
 

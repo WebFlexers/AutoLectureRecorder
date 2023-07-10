@@ -3,10 +3,11 @@ using System.IO;
 using System.IO.Pipes;
 using System.Threading.Tasks;
 using System.Windows;
-using AutoLectureRecorder.Application.Options;
+using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.WindowsServices;
 using AutoLectureRecorder.Pages.Login;
+using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.StartupConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -34,7 +35,7 @@ namespace AutoLectureRecorder
 
             // This is required for the WebView2 to work inside the app
             Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", 
-                WebView.BrowserArguments.RemoteDebuggingPortArgument);
+                WebViewOptions.BrowserArguments.RemoteDebuggingPortArgument);
 
             _appBootstrapper = new AppBootstrapper();
             var services = _appBootstrapper.AppHost.Services;
@@ -43,7 +44,7 @@ namespace AutoLectureRecorder
             this.MainWindow = mainWindow;
 
             var mainWindowViewModel = services.GetRequiredService<MainWindowViewModel>();
-            mainWindowViewModel.NavigationService.Navigate(typeof(LoginViewModel), HostNames.MainWindowHost);
+            mainWindowViewModel.NavigationService.Navigate(typeof(MainMenuViewModel), HostNames.MainWindowHost);
             
             mainWindow.Show();
 
