@@ -9,7 +9,7 @@ using ReactiveUI;
 
 namespace AutoLectureRecorder;
 
-public class MainWindowViewModel : NavigationHostViewModel
+public class MainWindowViewModel : RoutableViewModelHost
 {
     public ReactiveCommand<Window, Unit> AttemptExitAppCommand { get; }
     public ReactiveCommand<Unit, Unit> ExitAppCommand { get; }

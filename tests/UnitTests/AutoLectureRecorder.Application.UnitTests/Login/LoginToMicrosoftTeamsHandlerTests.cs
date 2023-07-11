@@ -52,7 +52,7 @@ public class LoginToMicrosoftTeamsHandlerTests
         var result = await handler.Handle(loginToMicrosoftTeamsQuery, default);
 
         // Assert
-        // TODO: Student account is not added to repository  
+        // TODO: Student account is not added to repository 
         result.IsError.Should().BeTrue();
     }
 }

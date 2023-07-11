@@ -4,6 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Platforms>x64;x86</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +13,7 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
       <PackageReference Include="ReactiveUI" Version="19.2.1" />
+      <PackageReference Include="ScreenRecorderLib" Version="5.3.0" />
     </ItemGroup>
 
     <ItemGroup>

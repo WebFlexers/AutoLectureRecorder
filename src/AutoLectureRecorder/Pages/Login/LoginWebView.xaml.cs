@@ -17,7 +17,8 @@ public partial class LoginWebView : ReactiveUserControl<LoginWebViewModel>
 
             this.OneWayBind(ViewModel,
                 vm => vm.WebViewSource,
-                v => v.MainWebView.Source);
+                v => v.MainWebView.Source)
+                .DisposeWith(disposables);
             
             MainWebView
                 .Events().CoreWebView2InitializationCompleted

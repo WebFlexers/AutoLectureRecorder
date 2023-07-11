@@ -31,6 +31,7 @@ namespace AutoLectureRecorder
 
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
+            // TODO: Make alr actually background on startup
             bool isBackgroundRunEnabled = e.Args.Length > 0 && e.Args[0] == "-background";
 
             // This is required for the WebView2 to work inside the app
@@ -81,8 +82,7 @@ namespace AutoLectureRecorder
                     System.Windows.Application.Current.Dispatcher.Invoke(() =>
                     {
                         var mainWindow = (MainWindow)this.MainWindow!;
-
-                        // mainWindow?.ViewModel.ShowAppCommand.Execute(mainWindow).Subscribe();
+                        mainWindow?.ViewModel.ShowAppCommand.Execute(mainWindow).Subscribe();
                     });
                 }
             }

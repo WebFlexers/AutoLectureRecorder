@@ -1,4 +1,6 @@
-﻿using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+﻿using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+using AutoLectureRecorder.Infrastructure.Persistence;
 using AutoLectureRecorder.Infrastructure.WebAutomation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +13,8 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IWebDriverDownloader, EdgeWebDriverDownloader>();
         services.AddTransient<IAlrWebDriver, UnipiEdgeWebDriver>();
         services.AddTransient<IWebDriverFactory, WebDriverFactory>();
+
+        services.AddScoped<ISqliteDataAccess, SqliteDataAccess>();
         
         return services;
     }

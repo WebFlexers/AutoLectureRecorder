@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +19,9 @@ using MediatR;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using ReactiveUI;
+using ReactiveUI.Validation.Extensions;
+using ReactiveUI.Validation.Helpers;
+using ReactiveUI.Validation.States;
 using Unit = System.Reactive.Unit;
 
 namespace AutoLectureRecorder.Pages.Login;
@@ -29,6 +34,7 @@ public class LoginWebViewModel : RoutableViewModel
         get => _webViewSource;
         set => this.RaiseAndSetIfChanged(ref _webViewSource, value);
     }
+
     public ReactiveCommand<WebView2, Unit> LoginToMicrosoftTeamsCommand { get; }
 
     public LoginWebViewModel(INavigationService navigationService, IWindowFactory windowFactory, 
@@ -51,7 +57,7 @@ public class LoginWebViewModel : RoutableViewModel
             return Task.CompletedTask;
         });
         overlayWindow.Show();
-        
+
         LoginToMicrosoftTeamsCommand = ReactiveCommand.CreateFromTask<WebView2>(async webview2 =>
         {
             webview2.CoreWebView2.Profile.PreferredColorScheme = themeManager.CurrentColorTheme == ColorTheme.Dark

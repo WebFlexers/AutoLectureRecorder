@@ -3,7 +3,7 @@ using ReactiveUI;
 
 namespace AutoLectureRecorder.Common.Core;
 
-public class NavigationHostViewModel : ReactiveObject, IRoutableViewModel, IScreen
+public class RoutableViewModelHost : ReactiveObject, IRoutableViewModel, IScreen
 {
     public INavigationService NavigationService { get; }
     
@@ -11,8 +11,8 @@ public class NavigationHostViewModel : ReactiveObject, IRoutableViewModel, IScre
     public string UrlPathSegment => this.GetType().Name;
     // ReSharper disable once UnassignedGetOnlyAutoProperty
     public IScreen HostScreen { get; } = null!;
-    
-    public NavigationHostViewModel(INavigationService navigationService)
+
+    protected RoutableViewModelHost(INavigationService navigationService)
     {
         NavigationService = navigationService;
         

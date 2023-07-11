@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>Resources\Icons\app_icon_filled_64x64.ico</ApplicationIcon>
+        <Platforms>x64;x86</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +21,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="ReactiveUI" Version="19.2.1" />
+      <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
       <PackageReference Include="ReactiveUI.WPF" Version="19.2.1" />
       <PackageReference Include="Serilog" Version="3.0.1" />
       <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />

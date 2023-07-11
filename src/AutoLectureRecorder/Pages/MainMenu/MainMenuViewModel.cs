@@ -9,7 +9,7 @@ using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu;
 
-public class MainMenuViewModel : NavigationHostViewModel, IActivatableViewModel
+public class MainMenuViewModel : RoutableViewModelHost, IActivatableViewModel
 {
     public ViewModelActivator Activator { get; } = new();
 
