@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+﻿using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Domain.Errors;
 using ErrorOr;
 using MediatR;
@@ -9,10 +10,13 @@ namespace AutoLectureRecorder.Application.Login.Queries;
 public class LoginToMicrosoftTeamsHandler : IRequestHandler<LoginToMicrosoftTeamsQuery, ErrorOr<Unit>>
 {
     private readonly IWebDriverFactory _webDriverFactory;
+    private readonly IStudentAccountRepository _studentAccountRepository;
 
-    public LoginToMicrosoftTeamsHandler(IWebDriverFactory webDriverFactory)
+    public LoginToMicrosoftTeamsHandler(IWebDriverFactory webDriverFactory, 
+        IStudentAccountRepository studentAccountRepository)
     {
         _webDriverFactory = webDriverFactory;
+        _studentAccountRepository = studentAccountRepository;
     }
     
     public async Task<ErrorOr<Unit>> Handle(LoginToMicrosoftTeamsQuery request, CancellationToken cancellationToken)
@@ -40,16 +44,13 @@ public class LoginToMicrosoftTeamsHandler : IRequestHandler<LoginToMicrosoftTeam
         {
             return errorOrLoggedIn.Errors;
         }
-
-        // TODO: Do these when the repository is ready
-        /*if (isSuccessful)
-        {
-            await _studentAccountData.DeleteStudentAccount();
-            await _studentAccountData.InsertStudentAccount(_academicEmailAddress.Split("@")[0], _academicEmailAddress, _password);
-            HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(MainMenuViewModel)));
-        }*/
-
-        // TODO: Replace with result message
+        
+        await _studentAccountRepository.DeleteStudentAccount();
+        await _studentAccountRepository.InsertStudentAccount(
+            request.AcademicEmailAddress.Split("@")[0], 
+            request.AcademicEmailAddress, 
+            request.Password);
+        
         return Unit.Default;
     }
 }

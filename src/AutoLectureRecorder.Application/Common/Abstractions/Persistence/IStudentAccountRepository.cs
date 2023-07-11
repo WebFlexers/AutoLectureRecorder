@@ -1,6 +1,6 @@
 ﻿using AutoLectureRecorder.Domain.ReactiveModels;
 
-namespace AutoLectureRecorder.Infrastructure.Persistence;
+namespace AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 
 public interface IStudentAccountRepository
 {

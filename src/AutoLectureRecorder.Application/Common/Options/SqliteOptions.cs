@@ -2,5 +2,5 @@
 
 public static class SqliteOptions
 {
-    public const string ConnectionString = "Data Source=.\\AutoLectureRecorderDB.db;";
+    public const string ConnectionString = @"Data Source=.\Persistence\AutoLectureRecorderDB.db;";
 }

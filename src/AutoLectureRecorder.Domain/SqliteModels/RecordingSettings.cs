@@ -12,4 +12,10 @@ public record RecordingSettings
     int Fps,
     int OutputFrameWidth,
     int OutputFrameHeight
-);
+)
+{
+    public RecordingSettings() : this(default!, default!, 
+        default!, default!, default!,
+        default!, default!, default!, default!, default!)
+    {}
+};

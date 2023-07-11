@@ -11,4 +11,9 @@ public record ScheduledLecture
     string EndTime,
     int IsScheduled,
     int WillAutoUpload
-);
+)
+{
+    public ScheduledLecture() : this(default!, default!, default!, default!, 
+        default!, default!, default!, default!, default!)
+    { }
+};
