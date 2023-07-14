@@ -8,6 +8,7 @@ public static class ScheduledLectureMapping
     public static ReactiveScheduledLecture MapToReactive(this ScheduledLecture input)
     {
         return new ReactiveScheduledLecture(
+            input.Id,
             input.SubjectName,
             input.Semester,
             input.MeetingLink,
@@ -15,7 +16,6 @@ public static class ScheduledLectureMapping
             TimeOnly.Parse(input.StartTime),
             TimeOnly.Parse(input.EndTime),
             Convert.ToBoolean(input.IsScheduled),
-            Convert.ToBoolean(input.WillAutoUpload),
-            input.Id);
+            Convert.ToBoolean(input.WillAutoUpload));
     }
 }

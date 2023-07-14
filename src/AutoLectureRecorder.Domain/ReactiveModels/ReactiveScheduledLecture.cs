@@ -4,9 +4,12 @@ namespace AutoLectureRecorder.Domain.ReactiveModels;
 
 public class ReactiveScheduledLecture : ReactiveObject
 {
-    public ReactiveScheduledLecture(string subjectName, int semester, string meetingLink, DayOfWeek day, 
-        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload, int id)
+    public ReactiveScheduledLecture() { }
+    
+    public ReactiveScheduledLecture(int id, string subjectName, int semester, string meetingLink, DayOfWeek? day, 
+        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload)
     {
+        Id = id;
         _subjectName = subjectName;
         _semester = semester;
         _meetingLink = meetingLink;
@@ -15,13 +18,12 @@ public class ReactiveScheduledLecture : ReactiveObject
         _endTime = endTime;
         _isScheduled = isScheduled;
         _willAutoUpload = willAutoUpload;
-        Id = id;
     }
 
     public int Id { get; init; }
 
-    private string _subjectName;
-    public string SubjectName 
+    private string? _subjectName;
+    public string? SubjectName
     {
         get => _subjectName;
         set => this.RaiseAndSetIfChanged(ref _subjectName, value);
@@ -34,15 +36,15 @@ public class ReactiveScheduledLecture : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _semester, value);
     }
 
-    private string _meetingLink;
-    public string MeetingLink 
+    private string? _meetingLink;
+    public string? MeetingLink 
     {
         get => _meetingLink;
         set => this.RaiseAndSetIfChanged(ref _meetingLink, value);
     }
 
-    private DayOfWeek _day;
-    public DayOfWeek Day 
+    private DayOfWeek? _day;
+    public DayOfWeek? Day 
     {
         get => _day;
         set => this.RaiseAndSetIfChanged(ref _day, value);

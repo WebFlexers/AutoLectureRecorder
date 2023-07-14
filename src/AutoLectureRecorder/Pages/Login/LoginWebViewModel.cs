@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using AutoLectureRecorder.Application.Login;
 using AutoLectureRecorder.Application.Login.Queries;
+using AutoLectureRecorder.Application.Login.Queries.LoginToMicrosoftTeams;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;

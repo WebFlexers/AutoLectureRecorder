@@ -4,7 +4,9 @@ using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
+using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
@@ -24,6 +26,8 @@ public static class DependencyInjectionExtensions
             .AddWindows()
             .AddNavigation();
 
+        services.AddValidatorsFromAssembly(typeof(DependencyInjectionExtensions).Assembly);
+        
         services.AddSingleton<IThemeManager, ThemeManager>();
         
         services.AddHttpClient();
@@ -46,6 +50,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IViewFor<LoginViewModel>, LoginView>();
         services.AddTransient<IViewFor<LoginWebViewModel>, LoginWebView>();
         services.AddTransient<IViewFor<MainMenuViewModel>, MainMenuView>();
+        services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
         return services;
     }
     
@@ -57,6 +62,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<LoginViewModel>();
         services.AddTransient<LoginWebViewModel>();
         services.AddTransient<MainMenuViewModel>();
+        services.AddTransient<CreateLectureViewModel>();
         return services;
     }
 

@@ -1,0 +1,13 @@
+﻿using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.ScheduledLectures.Common;
+using FluentValidation;
+
+namespace AutoLectureRecorder.Pages.MainMenu.CreateLecture;
+
+public class ValidatableScheduledLectureValidator : AbstractValidator<ValidatableScheduledLecture>
+{
+    public ValidatableScheduledLectureValidator(IScheduledLectureRepository scheduledLectureRepository)
+    {
+        Include(new ScheduledLectureValidator(scheduledLectureRepository, false));
+    }
+}

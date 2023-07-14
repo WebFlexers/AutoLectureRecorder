@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Options;
 using Dapper;
 using Microsoft.Data.Sqlite;
 
@@ -12,6 +13,11 @@ public class SqliteDataAccess : ISqliteDataAccess
     private SqliteConnection? _connectionWithTransaction;
     private SqliteTransaction? _transaction;
     private bool _useTransactions = false;
+
+    public SqliteDataAccess()
+    {
+        _connectionString = SqliteOptions.ConnectionString;
+    }
 
     public SqliteDataAccess(string connectionString)
     {

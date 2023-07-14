@@ -2,10 +2,12 @@
 using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using AutoLectureRecorder.Common.Messages;
+using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
@@ -32,6 +34,11 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
 
             // Navigation commands
             // TODO: Add the navigation commands
+            this.BindCommand(ViewModel,
+                vm => vm.NavigateCommand,
+                v => v.HelpButton,
+                Observable.Return(typeof(CreateLectureViewModel)))
+                .DisposeWith(disposables);
 
             // Navigate back and forward using the 2 arrow-like mouse buttons (if the user's mouse has them)
             this.Events().MouseDown

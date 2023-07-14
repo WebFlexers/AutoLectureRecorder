@@ -51,6 +51,8 @@
       <Resource Include="Resources\Images\Login\online_learning.png" />
       <None Remove="Resources\Icons\app_icon_filled256x256.png" />
       <Resource Include="Resources\Icons\app_icon_filled256x256.png" />
+      <None Remove="Resources\Icons\CreateLecture\question_mark.png" />
+      <Resource Include="Resources\Icons\CreateLecture\question_mark.png" />
     </ItemGroup>
 
 </Project>

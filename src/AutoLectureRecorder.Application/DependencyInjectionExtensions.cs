@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using AutoLectureRecorder.Application.Common.Behaviors;
+﻿using AutoLectureRecorder.Application.Common.Behaviors;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,9 +14,13 @@ public static class DependencyInjectionExtensions
 
         services.AddScoped(
             typeof(IPipelineBehavior<,>),
+            typeof(ValidationBehavior<,>));
+        
+        services.AddScoped(
+            typeof(IPipelineBehavior<,>),
             typeof(ErrorLoggingBehavior<,>));
-
-        // services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        
+        services.AddValidatorsFromAssembly(typeof(DependencyInjectionExtensions).Assembly);
         return services;
     }
 }
