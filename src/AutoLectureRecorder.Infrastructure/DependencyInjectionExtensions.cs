@@ -29,10 +29,10 @@ public static class DependencyInjectionExtensions
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<ISqliteDataAccess, SqliteDataAccess>();
-        services.AddScoped<IScheduledLectureRepository, ScheduledLectureRepository>();
-        services.AddScoped<ISettingsRepository, SettingsRepository>();
-        services.AddScoped<IStudentAccountRepository, StudentAccountRepository>();
+        services.AddSingleton<ISqliteDataAccess, SqliteDataAccess>();
+        services.AddSingleton<IScheduledLectureRepository, ScheduledLectureRepository>();
+        services.AddSingleton<ISettingsRepository, SettingsRepository>();
+        services.AddSingleton<IStudentAccountRepository, StudentAccountRepository>();
 
         return services;
     }

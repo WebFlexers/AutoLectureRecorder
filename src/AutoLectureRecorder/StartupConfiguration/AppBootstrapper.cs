@@ -7,6 +7,7 @@ using AutoLectureRecorder.Application;
 using AutoLectureRecorder.Infrastructure;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Splat.ModeDetection;
 using Splat.Serilog;
 
 namespace AutoLectureRecorder.StartupConfiguration;
@@ -17,6 +18,8 @@ public class AppBootstrapper
 
     public AppBootstrapper()
     {
+        Splat.ModeDetector.OverrideModeDetector(Mode.Run);
+        
         AppHost = Host
             .CreateDefaultBuilder()
             .ConfigureServices(services =>

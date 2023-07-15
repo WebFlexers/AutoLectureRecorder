@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reactive.Disposables;
+using System.Threading.Tasks;
 using AutoLectureRecorder.Application.ScheduledLectures.Common;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using FluentValidation;
@@ -60,56 +62,74 @@ public class ValidatableScheduledLecture : ReactiveScheduledLecture, IValidatabl
     {
         _disposables = new CompositeDisposable();
         _validator = validator;
+        var validate = 
+            ReactiveCommand.CreateFromTask<Expression<Func<ValidatableScheduledLecture, object>>[], Unit>(
+            async parameters =>
+            {
+                await Validate(parameters);
+                return Unit.Default;
+            });
+        var validateTime = ReactiveCommand.CreateFromTask(
+        async () =>
+        {
+            await ValidateTime();
+            return Unit.Default;
+        });
 
         this.WhenAnyValue(x => x.SubjectName)
             .Do(_ => ClearPropertyErrors(nameof(this.SubjectName)))
             .Where(subjectName => subjectName?.Length >= 3)
-            .Subscribe(_ => Validate(x => x.SubjectName!))
+            .Select(_ => CreateValidatableExpression(x => x.SubjectName!))
+            .InvokeCommand(validate)
             .DisposeWith(_disposables);
 
         this.WhenAnyValue(x => x.Semester)
             .Do(_ => ClearPropertyErrors(nameof(this.Semester)))
             .Where(semester => semester != default)
-            .Subscribe(_ => Validate(x => x.Semester))
+            .Select(_ => CreateValidatableExpression(x => x.Semester))
+            .InvokeCommand(validate)
             .DisposeWith(_disposables);
 
         this.WhenAnyValue(x => x.MeetingLink)
             .Do(_ => ClearPropertyErrors(nameof(this.MeetingLink)))
             .Where(meetingLink => meetingLink?.Length >= 3)
-            .Subscribe(_ => Validate(x => x.MeetingLink!))
+            .Select(_ => CreateValidatableExpression(x => x.MeetingLink!))
+            .InvokeCommand(validate)
             .DisposeWith(_disposables);
         
         this.WhenAnyValue(x => x.Day)
             .Subscribe(_ => ClearPropertyErrors(nameof(this.Day)))
             .DisposeWith(_disposables);
 
-        this.WhenAnyValue(x => x.StartTimeForView)
+        this.WhenAnyValue(x => x.StartTime)
             .Do(_ =>
             {
                 ClearPropertyErrors(nameof(StartTimeForView));
                 ClearPropertyErrors(nameof(EndTimeForView));
                 TimeError = string.Empty;
             })
-            .Where(startTime => startTime is not null && EndTimeForView is not null)
-            .Subscribe(_ => ValidateTime())
+            .Where(_ => StartTimeForView is not null && EndTimeForView is not null)
+            .Select(_ => Unit.Default) 
+            .InvokeCommand(validateTime)
             .DisposeWith(_disposables);
         
-        this.WhenAnyValue(x => x.EndTimeForView)
+        this.WhenAnyValue(x => x.EndTime)
             .Do(_ =>
             {
-                ClearPropertyErrors(nameof(EndTimeForView));
+                ClearPropertyErrors(nameof(StartTimeForView));
                 ClearPropertyErrors(nameof(EndTimeForView));
                 TimeError = string.Empty;
             })
-            .Where(endTime => endTime is not null && StartTimeForView is not null)
-            .Subscribe(_ => ValidateTime())
+            .Where(_ => StartTimeForView is not null && EndTimeForView is not null)
+            .Select(_ => Unit.Default)
+            .InvokeCommand(validateTime)
             .DisposeWith(_disposables);
     }
 
-    private void Validate(params Expression<Func<ValidatableScheduledLecture, object>>[] 
+    private async Task Validate(params Expression<Func<ValidatableScheduledLecture, object>>[] 
         propertyExpressions)
     {
-        var result = _validator.Validate(this, options =>
+        var result = await _validator.ValidateAsync(this, options =>
             options.IncludeProperties(propertyExpressions));
 
         if (result.IsValid) return;
@@ -123,9 +143,10 @@ public class ValidatableScheduledLecture : ReactiveScheduledLecture, IValidatabl
     /// <summary>
     /// For time we always validate both fields at once 
     /// </summary>
-    private void ValidateTime()
+    private async Task ValidateTime()
     {
-        var result = _validator.Validate(this, options =>
+        
+        var result = await _validator.ValidateAsync(this, options =>
         {
             options.IncludeProperties(lecture => lecture.StartTime, lecture => lecture.EndTime);
         });
@@ -133,8 +154,20 @@ public class ValidatableScheduledLecture : ReactiveScheduledLecture, IValidatabl
         if (result.IsValid) return;
 
         var error = result.Errors.First();
-        TimeError = error.ErrorMessage;
 
+        if (error.ErrorCode == "OverlappingLecture")
+        {
+            IsTimeErrorLecturesOverlap = true;
+            TimeError = error.ErrorMessage;
+            return;
+        }
+        else
+        {
+            IsTimeErrorLecturesOverlap = false;
+        }
+        
+        TimeError = error.ErrorMessage;
+        
         // In the live validation we don't want the field to become errored when it is empty,
         // since the user might not have filled it in yet. We will check for emptiness
         // at the command submission.
@@ -147,6 +180,12 @@ public class ValidatableScheduledLecture : ReactiveScheduledLecture, IValidatabl
         {
             AddError(nameof(EndTimeForView), string.Empty);
         }
+    }
+
+    private Expression<Func<ValidatableScheduledLecture, object>>[] CreateValidatableExpression(
+        params Expression<Func<ValidatableScheduledLecture, object>>[] propertyExpressions)
+    {
+        return propertyExpressions;
     }
 
     private readonly Dictionary<string, List<string>> _propertyErrors = new();

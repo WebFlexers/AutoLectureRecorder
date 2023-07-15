@@ -10,17 +10,6 @@ public class UpdateScheduledLectureValidator : AbstractValidator<UpdateScheduled
     public UpdateScheduledLectureValidator(IScheduledLectureRepository scheduledLectureRepository, 
         IPersistentValidationContext persistentValidationContext)
     {
-        bool ignoreOverlappingLectures = false;
-        
-        var ignoreOverlappingLecturesObject = persistentValidationContext.GetValidationParameter(
-            typeof(UpdateScheduledLectureCommand),
-            ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures);
-
-        if (ignoreOverlappingLecturesObject is not null)
-        {
-            ignoreOverlappingLectures = (bool)ignoreOverlappingLecturesObject;
-        }
-        
-        Include(new ScheduledLectureValidator(scheduledLectureRepository, ignoreOverlappingLectures));
+        Include(new ScheduledLectureValidator(scheduledLectureRepository, persistentValidationContext));
     }
 }

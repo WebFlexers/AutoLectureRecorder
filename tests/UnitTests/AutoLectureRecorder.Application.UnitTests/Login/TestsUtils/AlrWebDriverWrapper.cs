@@ -40,6 +40,6 @@ public class AlrWebDriverWrapper : IAlrWebDriver
 
     public void Dispose()
     {
-        throw new NotImplementedException();
+        _inner.Dispose();
     }
 }

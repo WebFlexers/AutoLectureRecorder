@@ -1,5 +1,7 @@
 ﻿using AutoLectureRecorder.Application.Common;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Abstractions.Validation;
+using AutoLectureRecorder.Application.ScheduledLectures.Commands.CreateScheduledLecture;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using FluentValidation;
 
@@ -7,9 +9,13 @@ namespace AutoLectureRecorder.Application.ScheduledLectures.Common;
 
 public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduledLecture>
 {
+    private readonly IPersistentValidationContext _persistentValidationContext;
+
     public ScheduledLectureValidator(IScheduledLectureRepository scheduledLectureRepository, 
-        bool ignoreOverlappingLectures)
+        IPersistentValidationContext persistentValidationContext)
     {
+        _persistentValidationContext = persistentValidationContext;
+        
         RuleLevelCascadeMode = CascadeMode.Stop;
         
         RuleFor(p => p.SubjectName)
@@ -31,7 +37,7 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
         RuleFor(p => p.MeetingLink)
             .NotEmpty()
                 .WithMessage("The meeting link can't be empty")
-            .Must(x => x.Contains("teams.microsoft.com"))
+            .Must(x => x!.Contains("teams.microsoft.com"))
                 .WithMessage("The provided value couldn't be determined to be a valid Microsoft Teams meeting or team link");
 
         RuleFor(p => p.Day)
@@ -46,9 +52,9 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
                 .WithMessage("Both start time and end time must be filled")
             .LessThan(p => p.EndTime)
                 .WithMessage("The start time of a lecture can't be greater than the end time")
-            .MustAsync(async (lecture, _, context, cancellationToken) =>
+            .MustAsync(async (lecture, _, context, _) =>
             {
-                if (ignoreOverlappingLectures) return true;
+                if (ShouldIgnoreOverlappingLectures()) return true;
 
                 var existingLectures = await
                     scheduledLectureRepository.GetScheduledLecturesByDay(lecture.Day);
@@ -89,5 +95,21 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
         }
 
         return true;
+    }
+
+    private bool ShouldIgnoreOverlappingLectures()
+    {
+        bool ignoreOverlappingLectures = false;
+        
+        var ignoreOverlappingLecturesObject = _persistentValidationContext.GetValidationParameter(
+            typeof(CreateScheduledLectureCommand),
+            ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures);
+
+        if (ignoreOverlappingLecturesObject is not null)
+        {
+            ignoreOverlappingLectures = (bool)ignoreOverlappingLecturesObject;
+        }
+
+        return ignoreOverlappingLectures;
     }
 }

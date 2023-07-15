@@ -96,7 +96,6 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
         : base(navigationService)
     {
         // TODO: Get parameters that indicate if we are on update mode or create mode
-        var mediatorSender1 = mediatorSender;
         Activator = new ViewModelActivator();
 
         ValidatableScheduledLecture = new ValidatableScheduledLecture(validator)
@@ -111,22 +110,15 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
             persistentValidationContext.AddValidationParameter(command.GetType(), 
                 ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures,
                 IgnoreOverlappingLectures);
-            var result = await mediatorSender1.Send(command);
-
+            var result = await mediatorSender.Send(command);
+            
             if (result.IsError)
             {
                 AddErrors(result.Errors);
-                ShowFailedCreationSnackbar();
-                return;
-            }
-            
-            var errorsCount = result.Errors.Count;
-            if (ValidatableScheduledLecture.IsTimeErrorLecturesOverlap && IgnoreOverlappingLectures == false &&
-                errorsCount == 1)
-            {
-                IsConfirmationDialogActive = true;
-                ConfirmationDialogContent = $"{ValidatableScheduledLecture.TimeError}. " +
-                                            "If you add this lecture the conflicting lectures will be deactivated.";
+                if (IsConfirmationDialogActive == false)
+                {
+                    ShowFailedCreationSnackbar();
+                }
                 return;
             }
 
@@ -135,28 +127,22 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
             IgnoreOverlappingLectures = false;
         });
         
+        // TODO: Prefill the fields when updating a record 
         UpdateScheduleLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             var command = ValidatableScheduledLecture.MapToUpdateCommand(IgnoreOverlappingLectures);
             persistentValidationContext.AddValidationParameter(command.GetType(), 
                 ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures,
                 IgnoreOverlappingLectures);
-            var result = await mediatorSender1.Send(command);
+            var result = await mediatorSender.Send(command);
             
             if (result.IsError)
             {
                 AddErrors(result.Errors);
-                ShowFailedUpdateSnackbar();
-                return;
-            }
-
-            var errorsCount = result.Errors.Count;
-            if (ValidatableScheduledLecture.IsTimeErrorLecturesOverlap && IgnoreOverlappingLectures == false &&
-                errorsCount == 1)
-            {
-                IsConfirmationDialogActive = true;
-                ConfirmationDialogContent = $"{ValidatableScheduledLecture.TimeError}. " +
-                                            "If you add this lecture the conflicting lectures will be deactivated.";
+                if (IsConfirmationDialogActive == false)
+                {
+                    ShowFailedUpdateSnackbar();
+                }
                 return;
             }
 
@@ -167,6 +153,7 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
         ProceedAnywayCommand = ReactiveCommand.Create(() =>
         {
             IgnoreOverlappingLectures = true;
+            
             if (IsOnUpdateMode)
             {
                 UpdateScheduleLectureCommand.Execute().Subscribe();
@@ -175,10 +162,13 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
             {
                 CreateScheduleLectureCommand.Execute().Subscribe();
             }
+
+            IsConfirmationDialogActive = false;
         });
 
+        // TODO: Make it so the semester and meeting link are filled when the user selects or types an existing lecture
         Observable.FromAsync(async () => 
-            DistinctScheduledLectures = await mediatorSender1.Send(new DistinctScheduledLecturesQuery()));
+            DistinctScheduledLectures = await mediatorSender.Send(new DistinctScheduledLecturesQuery()));
         
         this.WhenActivated(disposables =>
         {
@@ -243,34 +233,39 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
         foreach (var error in errors)
         {
             // For time fields we use a different message in the view instead of the standard
-            // one that is below each respective field
+            // one that is below each respective field. In particular we have exactly one text block
+            // below the start and end time fields that displays errors for both of them
             if (error.Code is 
                 nameof(CreateScheduledLectureCommand.StartTime) or 
                 nameof(CreateScheduledLectureCommand.EndTime) or 
                 nameof(UpdateScheduledLectureCommand.StartTime) or 
                 nameof(UpdateScheduledLectureCommand.EndTime))
             {
-                // The error.Code is either a specific code like the one below, or a property name
-                if (error.Code == "OverlappingLecture")
-                {
-                    const string startTimePropertyName = nameof(ValidatableScheduledLecture.StartTimeForView);
-                    const string endTimePropertyName = nameof(ValidatableScheduledLecture.EndTimeForView);
-                    ValidatableScheduledLecture.ClearPropertyErrors(startTimePropertyName);
-                    ValidatableScheduledLecture.ClearPropertyErrors(endTimePropertyName);
-                    
-                    ValidatableScheduledLecture.AddError(startTimePropertyName, string.Empty);
-                    ValidatableScheduledLecture.AddError(endTimePropertyName, string.Empty);
-                    
-                    ValidatableScheduledLecture.TimeError = error.Description;
-                    ValidatableScheduledLecture.IsTimeErrorLecturesOverlap = true;
-                    continue;
-                }
-
                 ValidatableScheduledLecture.ClearPropertyErrors(error.Code);
                 ValidatableScheduledLecture.IsTimeErrorLecturesOverlap = false;
                 ValidatableScheduledLecture.TimeError = error.Description;
                 ValidatableScheduledLecture.AddError($"{error.Code}ForView", string.Empty);
                 
+                continue;
+            }
+            
+            // The error.Code is either a specific code like the one below, or a property name
+            if (error.Code == "OverlappingLecture")
+            {
+                ValidatableScheduledLecture.ClearPropertyErrors(nameof(ValidatableScheduledLecture.StartTimeForView));
+                ValidatableScheduledLecture.ClearPropertyErrors(nameof(ValidatableScheduledLecture.EndTimeForView));
+                    
+                ValidatableScheduledLecture.IsTimeErrorLecturesOverlap = true;
+                ValidatableScheduledLecture.TimeError = error.Description;
+
+                // We only want to show the confirmation dialog if no error exists other than this one
+                if (errors.Count == 1)
+                {
+                    ConfirmationDialogContent = $"{error.Description}. " +
+                                                $"If you add this lecture the conflicting lectures will be deactivated.";
+                    IsConfirmationDialogActive = true;
+                }
+
                 continue;
             }
             
@@ -282,7 +277,6 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
     private void ErrorsViewModelOnErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
     {
         ErrorsChanged?.Invoke(this, e);
-        // this.RaisePropertyChanged(nameof(CreateLectureViewModel));
     }
     
     private void ShowSuccessfulCreationSnackbar()

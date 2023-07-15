@@ -31,7 +31,7 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(_ =>
                 {
-                    if (ViewModel!.DistinctScheduledLectures?.Any() == false)
+                    if (ViewModel!.DistinctScheduledLectures is null || ViewModel!.DistinctScheduledLectures.Any() == false)
                     {
                         SubjectNameComboBox.IsDropDownOpen = false;
                         return;
