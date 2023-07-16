@@ -21,7 +21,6 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="ReactiveUI" Version="19.2.1" />
-      <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
       <PackageReference Include="ReactiveUI.WPF" Version="19.2.1" />
       <PackageReference Include="Serilog" Version="3.0.1" />
       <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
@@ -53,6 +52,10 @@
       <Resource Include="Resources\Icons\app_icon_filled256x256.png" />
       <None Remove="Resources\Icons\CreateLecture\question_mark.png" />
       <Resource Include="Resources\Icons\CreateLecture\question_mark.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\MainMenu\Settings\" />
     </ItemGroup>
 
 </Project>

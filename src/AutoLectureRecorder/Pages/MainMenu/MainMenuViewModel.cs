@@ -2,15 +2,18 @@
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
-using System.Windows;
+using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;
+using AutoLectureRecorder.Pages.Login;
+using AutoLectureRecorder.Pages.MainMenu.Dashboard;
 using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu;
 
 public class MainMenuViewModel : RoutableViewModelHost, IActivatableViewModel
 {
+    private readonly IStudentAccountRepository _studentAccountRepository;
     public ViewModelActivator Activator { get; } = new();
 
     public ReactiveCommand<Type, Unit> NavigateCommand { get; }
@@ -19,8 +22,10 @@ public class MainMenuViewModel : RoutableViewModelHost, IActivatableViewModel
 
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; }
 
-    public MainMenuViewModel(INavigationService navigationService) : base(navigationService)
+    public MainMenuViewModel(INavigationService navigationService, IStudentAccountRepository studentAccountRepository) 
+        : base(navigationService)
     {
+        _studentAccountRepository = studentAccountRepository;
         /*NavigateToRecordWindowCommand = ReactiveCommand.Create(() =>
         {
             // Algorithmoi: https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjFmMWM0ZjctNTFiNC00MTc0LWFjYTQtMzlhMGRkNTM0NjFi%40thread.v2/0?context=%7b%22Tid%22%3a%22d9c8dee3-558b-483d-b502-d31fa0cb24de%22%2c%22Oid%22%3a%2220dcfee8-a2d9-4250-aa03-bde3530991d8%22%7d
@@ -51,17 +56,17 @@ public class MainMenuViewModel : RoutableViewModelHost, IActivatableViewModel
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
 
         // Navigate to the Dashboard at startup
-        /*this.WhenActivated(disposables =>
+        this.WhenActivated(disposables =>
         {
-            NavigateCommand.Execute(typeof())
+            NavigateCommand.Execute(typeof(DashboardViewModel))
                 .Subscribe()
                 .DisposeWith(disposables);
-        });*/
+        });
     }
 
     private async Task Logout()
     {
-        /*await _studentAccountData.DeleteStudentAccount();
-        HostScreen.Router.NavigateAndReset.Execute(_viewModelFactory.CreateRoutableViewModel(typeof(LoginViewModel)));*/
+        await _studentAccountRepository.DeleteStudentAccount();
+        NavigationService.NavigateAndReset(typeof(LoginViewModel), HostNames.MainWindowHost);
     }
 }

@@ -8,7 +8,7 @@ namespace AutoLectureRecorder.Application.ScheduledLectures.Commands.CreateSched
 public class CreateScheduledLectureCommand : IRequest<ErrorOr<ReactiveScheduledLecture>>, IValidatableScheduledLecture
 {
     public CreateScheduledLectureCommand(string? subjectName, int semester, string? meetingLink, DayOfWeek? day, 
-        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload, bool ignoreValidationWarnings)
+        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload, bool ignoreOverlappingLecturesWarning)
     {
         SubjectName = subjectName;
         Semester = semester;
@@ -18,7 +18,7 @@ public class CreateScheduledLectureCommand : IRequest<ErrorOr<ReactiveScheduledL
         EndTime = endTime;
         IsScheduled = isScheduled;
         WillAutoUpload = willAutoUpload;
-        IgnoreValidationWarnings = ignoreValidationWarnings;
+        IgnoreOverlappingLecturesWarning = ignoreOverlappingLecturesWarning;
     }
 
     public string? SubjectName { get; set; }
@@ -30,6 +30,6 @@ public class CreateScheduledLectureCommand : IRequest<ErrorOr<ReactiveScheduledL
     public bool IsScheduled { get; set; }
     public bool WillAutoUpload { get; set; }
     
-    public bool IgnoreValidationWarnings { get; set; }
+    public bool IgnoreOverlappingLecturesWarning { get; set; }
 }
     

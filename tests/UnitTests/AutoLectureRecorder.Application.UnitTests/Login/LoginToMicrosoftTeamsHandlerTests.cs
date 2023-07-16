@@ -1,6 +1,5 @@
 using System.Reactive;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
-using AutoLectureRecorder.Application.Login.Queries;
 using AutoLectureRecorder.Application.Login.Queries.LoginToMicrosoftTeams;
 using AutoLectureRecorder.Application.UnitTests.Login.TestsUtils;
 using FluentAssertions;

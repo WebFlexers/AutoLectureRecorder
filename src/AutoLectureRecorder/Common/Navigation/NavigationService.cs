@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Logging;
 using Microsoft.Extensions.Logging;

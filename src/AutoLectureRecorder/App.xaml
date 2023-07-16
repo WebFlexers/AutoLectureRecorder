@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml" />
-                <!--<ResourceDictionary Source="Resources/Animations/CustomAnimations.xaml"/>-->
+                <ResourceDictionary Source="Resources/Animations/CustomAnimations.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,6 +1,5 @@
 ﻿using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using ErrorOr;
-using Microsoft.Extensions.Logging;
 
 namespace AutoLectureRecorder.Infrastructure.WebAutomation;
 

@@ -9,16 +9,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/LecturesSchedule/ILecturesScheduler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Events/NextScheduledLectureEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Events/NextScheduledLectureHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/LecturesSchedule/LecturesScheduler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Dashboard/DashboardView.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Dashboard/DashboardView.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Dashboard/DashboardViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Animations/CustomAnimations.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/UpdateScheduledLectureValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/UpdateScheduledLectureValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Common/ScheduledLectureValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Common/ScheduledLectureValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureView.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/ValidatableScheduledLecture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/ValidatableScheduledLecture.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/ValidatableScheduledLectureValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/ValidatableScheduledLectureValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/WebDriverFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/WebDriverFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginWebViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginWebViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureErrorsViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureErrorsViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppBootstrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppBootstrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppMutex.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppMutex.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/LoginToMicrosoftTeamsHandlerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/LoginToMicrosoftTeamsHandlerTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/TestsUtils/LoginToMicrosoftTeamsQueryUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/TestsUtils/LoginToMicrosoftTeamsQueryUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +61,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/459b5cba13fc65ba87d9a46ab276a2a9b3c1125ef6bac57b7ca4b7ac70c0ad4c/TargetInvocationException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53fde159ba8211bfa732c66683f6d3cd7af7b9ff56a3a1dc1dbe1cee597fe/CallSiteRuntimeResolver.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/621526284d3e4868b98948aff942206525763e57e194a27623b66c384466/ServiceProviderServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6774abc8e3d362df99d31591dbaa9ebdfed38c48342125e6cafd3e933de563e/DependencyResolverMixins.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/74d1dea0891bd9f3515fc4d4fd5570c65da55efb64d7e992e68fd5821ebc24c0/AnonymousSafeObserver.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/778fb16d982e8f1447d36cce5157b19ae4ba92b61823531074207b0ca47ee22/ValidationStrategy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/788580bfc2287e3d4712a83a3f12f57dc51cee84f3e35ecc72eaaff1207060/MemberNameValidatorSelector.cs" root0="SKIP_HIGHLIGHTING" />
@@ -53,7 +69,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ce68fa4a218e3b2dda76e661b308656c42dd97fd43ef798e2887a29aab4a891/PropertyBinderImplementation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/816dbaba8a29ece3dd3dc326642858d27d2d19142f9a2109bb04617985ec9/ExecutionContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8aca45508683a6169bab9e8bd96b7cda607d638cacfaa31173c8c278c45/ISender.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/929a03632986a9152e57c7e7a9d6fa1e1447149d041918b95ce7568c56f5d57/XamlReader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9624d81e98d464a83f5d4acd2db32d5b53c93a2872c63ee81b3eee3799d8/ModeDetector.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9ac32f819d6853e0a6eda168c52b7f38eef9ae75936fb85d96a15c39d115245/Dispatcher.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9b282b4fe8c3da0e0e16c9951a932d911f7ba42d46571d9d31ec9ac21268d2d/AbstractValidator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9fdd6521b95aa876c94c4c02ab5a8afc2a367b1813bdc935a352c5465a9abcc/ExpressionRewriter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a43a68105ed2a06264725270cdc23dd641324e86ec717537c5978aff4be9ee/IReactiveNotifyPropertyChanged.cs" root0="SKIP_HIGHLIGHTING" />
@@ -71,6 +89,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e23a97b49978623cd03cb9ecd2cce63337b4e5145d705d76abee164ca0fe1579/Extensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e72723ae89bfa14a11bd326a2b2c8ae9ba8669da225cb5b2cb1d81a695ff3c/LambdaExpression.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ee38174fc3ee51642de584534277748c6f479e4e87ccc9cd28a551e5c3e7c82/XunitTestCollectionRunner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ee456ec7f2e479b4eaa66183eaa0d1365ef16c4615282c4e7dccacdcc14dda/ArgumentNullException.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/eea3fdf979c660cda9b859c3e59ad59fb78c23d7a3d1ea0423cef2d8de0bf/MutableDependencyResolverExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/LoginOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/WebViewOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" root0="FORCE_HIGHLIGHTING" />
@@ -155,7 +175,8 @@
       <workItem from="1689095703722" duration="3701000" />
       <workItem from="1689193397869" duration="14115000" />
       <workItem from="1689244712483" duration="24325000" />
-      <workItem from="1689431675601" duration="7494000" />
+      <workItem from="1689431675601" duration="11790000" />
+      <workItem from="1689503444256" duration="11040000" />
     </task>
     <servers />
   </component>

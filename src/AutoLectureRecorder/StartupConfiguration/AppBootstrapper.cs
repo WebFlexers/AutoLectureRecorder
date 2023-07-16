@@ -1,14 +1,10 @@
-﻿using System.ComponentModel;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using ReactiveUI;
 using Splat;
 using Splat.Microsoft.Extensions.DependencyInjection;
 using AutoLectureRecorder.Application;
 using AutoLectureRecorder.Infrastructure;
-using Microsoft.Extensions.Logging;
-using Serilog;
 using Splat.ModeDetection;
-using Splat.Serilog;
 
 namespace AutoLectureRecorder.StartupConfiguration;
 

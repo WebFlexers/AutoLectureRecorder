@@ -1,5 +1,4 @@
-﻿using AutoLectureRecorder.Application.Login.Queries;
-using AutoLectureRecorder.Application.Login.Queries.LoginToMicrosoftTeams;
+﻿using AutoLectureRecorder.Application.Login.Queries.LoginToMicrosoftTeams;
 using AutoLectureRecorder.Application.UnitTests.TestUtils.Constants;
 
 namespace AutoLectureRecorder.Application.UnitTests.Login.TestsUtils;

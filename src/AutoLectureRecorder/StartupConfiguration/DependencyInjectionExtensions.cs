@@ -1,17 +1,20 @@
 ﻿using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
-using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
+using AutoLectureRecorder.Pages.MainMenu.Dashboard;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using Serilog;
+using Serilog.Events;
+using Serilog.Filters;
 using Splat;
+using Splat.Serilog;
 
 
 namespace AutoLectureRecorder.StartupConfiguration;
@@ -50,6 +53,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IViewFor<LoginViewModel>, LoginView>();
         services.AddTransient<IViewFor<LoginWebViewModel>, LoginWebView>();
         services.AddTransient<IViewFor<MainMenuViewModel>, MainMenuView>();
+        services.AddTransient<IViewFor<DashboardViewModel>, DashboardView>();
         services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
         return services;
     }
@@ -62,6 +66,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<LoginViewModel>();
         services.AddTransient<LoginWebViewModel>();
         services.AddTransient<MainMenuViewModel>();
+        services.AddTransient<DashboardViewModel>();
         services.AddTransient<CreateLectureViewModel>();
         return services;
     }
@@ -80,12 +85,16 @@ public static class DependencyInjectionExtensions
             .Enrich.WithMachineName()
             .WriteTo.File(Common.Options.Serilog.Serilog.Sinks.FileLocation, 
                 rollingInterval: RollingInterval.Day,
-                retainedFileCountLimit: 7)
+                retainedFileCountLimit: 7,
+                restrictedToMinimumLevel: LogEventLevel.Information)
+            .WriteTo.Debug()
+            .Filter.ByExcluding(Matching.FromSource("ReactiveUI.POCOObservableForProperty"))
             .CreateLogger();
 
-        builder.ClearProviders();
-        builder.AddSerilog();
-        builder.AddDebug();
+        builder.ClearProviders()
+            .AddSerilog();
+
+        Locator.CurrentMutable.UseSerilogFullLogger();
 
         return builder;
     }

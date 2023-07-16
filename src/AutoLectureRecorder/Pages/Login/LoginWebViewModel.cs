@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using AutoLectureRecorder.Application.Login;
-using AutoLectureRecorder.Application.Login.Queries;
 using AutoLectureRecorder.Application.Login.Queries.LoginToMicrosoftTeams;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
@@ -20,9 +16,6 @@ using MediatR;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using ReactiveUI;
-using ReactiveUI.Validation.Extensions;
-using ReactiveUI.Validation.Helpers;
-using ReactiveUI.Validation.States;
 using Unit = System.Reactive.Unit;
 
 namespace AutoLectureRecorder.Pages.Login;
