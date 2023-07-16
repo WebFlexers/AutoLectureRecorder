@@ -4,8 +4,10 @@ using System.IO.Pipes;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Abstractions.Recording;
 using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Application.ScheduledLectures.Events;
 using AutoLectureRecorder.Common.Navigation;
@@ -32,8 +34,6 @@ namespace AutoLectureRecorder
             _appMutex.InitializeMutex();
         }
 
-        private ILecturesScheduler _lecturesScheduler;
-        
         protected override async void OnStartup(StartupEventArgs e)
         {
             if (_appMutex.IsAppRunning()) return;
@@ -55,32 +55,75 @@ namespace AutoLectureRecorder
 
             var studentRepository = services.GetRequiredService<IStudentAccountRepository>();
             bool isLoggedIn = await studentRepository.GetStudentAccount() is not null;
-            
+
             var mainWindowViewModel = services.GetRequiredService<MainWindowViewModel>();
 
             mainWindowViewModel.NavigationService.Navigate(
                 isLoggedIn ? typeof(MainMenuViewModel) 
                            : typeof(LoginViewModel), HostNames.MainWindowHost);
 
-            var mediatorPublisher = services.GetRequiredService<IPublisher>();
-            _lecturesScheduler = services.GetRequiredService<ILecturesScheduler>();
-            await SetupLecturesScheduler(mediatorPublisher, _lecturesScheduler);
+            var initializeSettingsTask = InitializeSettings();
+            var setupLecturesSchedulerTask = SetupLecturesScheduler();
 
-            mainWindow.Show();
+            await Task.WhenAll(initializeSettingsTask, setupLecturesSchedulerTask);
+            
+            if (isBackgroundRunEnabled == false)
+            {
+                mainWindow.Show();
+            }
 
             var observeShowWindowTask = Task.Run(() => ObserveShowWindowPipe());
         }
 
         private ReactiveCommand<Unit, Unit> NavigateToRecordLecture => ReactiveCommand.CreateFromTask(async () =>
         {
-            // TODO: Navigate to record lecture window
+            Log.Logger.Information("Lecture starting...");
+            var mediatorPublisher = _appBootstrapper!.AppHost.Services.GetRequiredService<IPublisher>();
+            await mediatorPublisher.Publish(new NextScheduledLectureEvent());
         });
-        
-        private async Task SetupLecturesScheduler(IPublisher mediatorPublisher, ILecturesScheduler lecturesScheduler)
+
+        private async Task InitializeSettings()
         {
+            var settingsRepository = _appBootstrapper!.AppHost.Services.GetRequiredService<ISettingsRepository>();
+            var recorder = _appBootstrapper!.AppHost.Services.GetRequiredService<IRecorder>();
+            
+            var getGeneralSettingsTask = settingsRepository.GetRecordingSettings();
+            var getRecordingSettingsTask = settingsRepository.GetRecordingSettings();
+
+            await Task.WhenAll(getGeneralSettingsTask, getRecordingSettingsTask);
+
+            var generalSettings = getGeneralSettingsTask.Result;
+            var recordingSettings = getRecordingSettingsTask.Result;
+
+            if (generalSettings == null && recordingSettings == null)
+            {
+                await settingsRepository.ResetAllSettings(Screen.PrimaryScreen!.Bounds.Width, 
+                    Screen.PrimaryScreen.Bounds.Height, 
+                    recorder);
+                return;
+            }
+
+            if (recordingSettings == null)
+            {
+                var screen = Screen.PrimaryScreen;
+                await settingsRepository.ResetRecordingSettings(screen!.Bounds.Width, screen.Bounds.Height, recorder);
+            }
+
+            if (generalSettings == null)
+            {
+                await settingsRepository.ResetGeneralSettings();
+            }
+        }
+        
+        private async Task SetupLecturesScheduler()
+        {
+            var mediatorPublisher = _appBootstrapper!.AppHost.Services.GetRequiredService<IPublisher>();
+            var lecturesScheduler = _appBootstrapper!.AppHost.Services.GetRequiredService<ILecturesScheduler>();
+            
             await mediatorPublisher.Publish(new NextScheduledLectureEvent());
             lecturesScheduler.NextScheduledLectureWillBegin
                 .Where(nextLectureWillBegin => nextLectureWillBegin)
+                .Select(_ => Unit.Default)
                 .InvokeCommand(NavigateToRecordLecture);
         }
 

@@ -5,6 +5,7 @@
         <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
         <ApplicationIcon>Resources\Icons\app_icon_filled_64x64.ico</ApplicationIcon>
         <Platforms>x64;x86</Platforms>
     </PropertyGroup>
@@ -52,10 +53,18 @@
       <Resource Include="Resources\Icons\app_icon_filled256x256.png" />
       <None Remove="Resources\Icons\CreateLecture\question_mark.png" />
       <Resource Include="Resources\Icons\CreateLecture\question_mark.png" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Pages\MainMenu\Settings\" />
+      <None Remove="Resources\Icons\Dashboard\check.png" />
+      <Resource Include="Resources\Icons\Dashboard\check.png" />
+      <None Remove="Resources\Icons\Dashboard\fail.png" />
+      <Resource Include="Resources\Icons\Dashboard\fail.png" />
+      <None Remove="Resources\Icons\Dashboard\meeting.png" />
+      <Resource Include="Resources\Icons\Dashboard\meeting.png" />
+      <None Remove="Resources\Icons\Dashboard\pending.png" />
+      <Resource Include="Resources\Icons\Dashboard\pending.png" />
+      <None Remove="Resources\Icons\Dashboard\pending_64px.png" />
+      <Resource Include="Resources\Icons\Dashboard\pending_64px.png" />
+      <None Remove="Resources\Icons\Dashboard\video_camera.png" />
+      <Resource Include="Resources\Icons\Dashboard\video_camera.png" />
     </ItemGroup>
 
 </Project>

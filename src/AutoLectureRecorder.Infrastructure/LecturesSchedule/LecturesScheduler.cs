@@ -24,15 +24,22 @@ public class LecturesScheduler : ReactiveObject, ILecturesScheduler
 
     private readonly ReactiveCommand<Unit, bool> _nextScheduledLectureWillBeginCommand;
 
+    private bool _isLectureAboutToStart = false;
     public LecturesScheduler()
     {
         _nextScheduledLectureWillBeginCommand = ReactiveCommand.CreateFromTask<Unit, bool>(async _ =>
         {
             NextScheduledLectureTimeDistance = CalculateNextScheduledLectureTimeDiff();
 
-            if (NextScheduledLectureTimeDistance < TimeSpan.FromSeconds(1))
+            // If the time of the scheduled lecture comes we return true.
+            // To avoid returning true twice due to the timer ticking every 500 milliseconds
+            // we use the _isLectureAboutToStart bool
+            if (NextScheduledLectureTimeDistance < TimeSpan.FromSeconds(1) && _isLectureAboutToStart == false)
             {
+                _isLectureAboutToStart = true;
                 await Task.Delay(TimeSpan.FromSeconds(1));
+                _isLectureAboutToStart = false;
+                
                 return true;
             }
 
@@ -40,11 +47,10 @@ public class LecturesScheduler : ReactiveObject, ILecturesScheduler
         });
     }
 
-    public IObservable<bool> NextScheduledLectureWillBegin =>
-        Observable.Interval(TimeSpan.FromMilliseconds(500))
-            .ObserveOn(RxApp.MainThreadScheduler)
-            .SelectMany(_ => _nextScheduledLectureWillBeginCommand.Execute().AsObservable())
-            .DistinctUntilChanged();
+    public IObservable<bool> NextScheduledLectureWillBegin => Observable
+        .Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(500))
+        .ObserveOn(RxApp.MainThreadScheduler)
+        .SelectMany(_ => _nextScheduledLectureWillBeginCommand.Execute().AsObservable());
 
     private TimeSpan? CalculateNextScheduledLectureTimeDiff()
     {

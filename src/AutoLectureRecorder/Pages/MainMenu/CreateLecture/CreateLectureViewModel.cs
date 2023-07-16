@@ -27,6 +27,7 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
 {
     public bool IgnoreOverlappingLectures { get; set; } = false;
     public ViewModelActivator Activator { get; }
+    private CompositeDisposable _disposables = new();
 
     private bool _isOnUpdateMode = false;
     public bool IsOnUpdateMode
@@ -168,63 +169,66 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
 
         // TODO: Make it so the semester and meeting link are filled when the user selects or types an existing lecture
         Observable.FromAsync(async () => 
-            DistinctScheduledLectures = await mediatorSender.Send(new DistinctScheduledLecturesQuery()));
+            DistinctScheduledLectures = await mediatorSender.Send(new DistinctScheduledLecturesQuery()))
+            .Subscribe()
+            .DisposeWith(_disposables);
+        
+        ValidatableScheduledLecture.ErrorsChanged += ErrorsViewModelOnErrorsChanged;
+        ValidatableScheduledLecture.DisposeWith(_disposables);
+
+        // Hide the snackbars after a set amount of time
+        TimeSpan snackBarVisibilityTime = TimeSpan.FromSeconds(4);
+        this.WhenAnyValue(vm => vm.IsFailedInsertionSnackbarActive)
+            .Throttle(snackBarVisibilityTime)
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Subscribe((isActive) =>
+            {
+                if (isActive)
+                {
+                    IsFailedInsertionSnackbarActive = false;
+                }
+            })
+            .DisposeWith(_disposables);
+
+        this.WhenAnyValue(vm => vm.IsSuccessfulInsertionSnackbarActive)
+            .Throttle(snackBarVisibilityTime)
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Subscribe((isActive) =>
+            {
+                if (isActive)
+                {
+                    IsSuccessfulInsertionSnackbarActive = false;
+                }
+            })
+            .DisposeWith(_disposables);
+
+        this.WhenAnyValue(vm => vm.IsFailedUpdateSnackbarActive)
+            .Throttle(snackBarVisibilityTime)
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Subscribe((isActive) =>
+            {
+                if (isActive)
+                {
+                    IsFailedUpdateSnackbarActive = false;
+                }
+            })
+            .DisposeWith(_disposables);
+
+        this.WhenAnyValue(vm => vm.IsSuccessfulUpdateSnackbarActive)
+            .Throttle(snackBarVisibilityTime)
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Subscribe((isActive) =>
+            {
+                if (isActive)
+                {
+                    IsSuccessfulUpdateSnackbarActive = false;
+                }
+            })
+            .DisposeWith(_disposables);
         
         this.WhenActivated(disposables =>
         {
-            ValidatableScheduledLecture.ErrorsChanged += ErrorsViewModelOnErrorsChanged;
-            ValidatableScheduledLecture.DisposeWith(disposables);
-            
-            
-            // Hide the snackbars after a set amount of time
-            TimeSpan snackBarVisibilityTime = TimeSpan.FromSeconds(4);
-            this.WhenAnyValue(vm => vm.IsFailedInsertionSnackbarActive)
-                .Throttle(snackBarVisibilityTime)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe((isActive) =>
-                {
-                    if (isActive)
-                    {
-                        IsFailedInsertionSnackbarActive = false;
-                    }
-                })
-                .DisposeWith(disposables);
-
-            this.WhenAnyValue(vm => vm.IsSuccessfulInsertionSnackbarActive)
-                .Throttle(snackBarVisibilityTime)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe((isActive) =>
-                {
-                    if (isActive)
-                    {
-                        IsSuccessfulInsertionSnackbarActive = false;
-                    }
-                })
-                .DisposeWith(disposables);
-
-            this.WhenAnyValue(vm => vm.IsFailedUpdateSnackbarActive)
-                .Throttle(snackBarVisibilityTime)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe((isActive) =>
-                {
-                    if (isActive)
-                    {
-                        IsFailedUpdateSnackbarActive = false;
-                    }
-                })
-                .DisposeWith(disposables);
-
-            this.WhenAnyValue(vm => vm.IsSuccessfulUpdateSnackbarActive)
-                .Throttle(snackBarVisibilityTime)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe((isActive) =>
-                {
-                    if (isActive)
-                    {
-                        IsSuccessfulUpdateSnackbarActive = false;
-                    }
-                })
-                .DisposeWith(disposables);
+            _disposables.DisposeWith(disposables);
         });
     }
 

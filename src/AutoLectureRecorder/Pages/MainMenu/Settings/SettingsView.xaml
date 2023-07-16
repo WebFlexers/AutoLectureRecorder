@@ -1,0 +1,325 @@
+﻿<rxui:ReactiveUserControl 
+            x:Class="AutoLectureRecorder.Pages.MainMenu.Settings.SettingsView"
+            x:TypeArguments="local:SettingsViewModel"
+            xmlns:rxui="http://reactiveui.net"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:local="clr-namespace:AutoLectureRecorder.Pages.MainMenu.Settings"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{materialDesign:MaterialDesignFont}"
+            TextElement.FontWeight="Medium"
+            TextElement.FontSize="14"
+            mc:Ignorable="d"
+            d:DesignWidth="1360" 
+            d:DesignHeight="768">
+
+    <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="1"
+                    Margin="15, 10, 15, 0">
+
+            <!-- General Settings -->
+            <TabItem Header="General">
+                <StackPanel Margin="25, 30, 25, 0">
+                    <!-- On Startup -->
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="OnStartupToggleButton"
+                                      Height="20"/>
+                        <TextBlock Text="Launch on Startup"
+                                   FontSize="18"
+                                   Margin="10, 0, 0, 0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="When this is checked Auto Lecture Recorded will automatically start when windows boots"
+                               TextWrapping="Wrap"
+                               MaxWidth="350"
+                               HorizontalAlignment="Left"
+                               Margin="0, 15"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <Grid Height="0.5"
+                          Margin="0, 0, 0, 15"
+                          Background="{DynamicResource SectionLineBrush}">
+                    </Grid>
+
+                    <!-- On Close Minimize --> 
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="OnCloseMinimizeToggleButton"
+                                      Height="20"/>
+                        <TextBlock Text="Minimize on Close"
+                                   FontSize="18"
+                                   Margin="10, 0, 0, 0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="When this is checked the app will minimize to tray instead of closing when clicking the close button"
+                               TextWrapping="Wrap"
+                               MaxWidth="350"
+                               HorizontalAlignment="Left"
+                               Margin="0, 15"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                    <Grid Height="0.5"
+                          Margin="0, 0, 0, 15"
+                          Background="{DynamicResource SectionLineBrush}">
+                    </Grid>
+
+                    <!-- Show Splash Screen -->
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton x:Name="ShowSplashScreenToggleButton"
+                                      Height="20"/>
+                        <TextBlock Text="Show Splash Screen"
+                                   FontSize="18"
+                                   Margin="10, 0, 0, 0"/>
+                    </StackPanel>
+
+                    <TextBlock Text="When this is checked a splash screen will appear when the app starts, to indicate it is loading"
+                               TextWrapping="Wrap"
+                               MaxWidth="350"
+                               HorizontalAlignment="Left"
+                               Margin="0, 15"
+                               Foreground="{DynamicResource SecondaryTextBrush}"/> 
+                </StackPanel>
+            </TabItem>
+
+            <!-- Recording Settings -->
+            <TabItem Header="Recording">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" 
+                                Margin="25, 30, 25, 0">
+                        <!-- Video Options -->
+                        <TextBlock Text="Video Options"
+                                   TextAlignment="Center"
+                                   FontSize="22"
+                                   Margin="0, 20"/>
+
+                        <!-- Recording Directory -->
+                        <TextBlock Text="Recording Directory"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"/>
+
+                        <TextBox x:Name="RecordingPathTextBox"  
+                                 d:Text="C:\Users\StyleM\Downloads\NotifyIcon_MDProblem-master"
+                                 Margin="0, 15, 0, 0"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                        <Button x:Name="BrowseRecordingDirectoryButton" 
+                                Content="Browse"
+                                Margin="0, 15, 0, 15"
+                                Foreground="{DynamicResource PrimaryTextBrush}"/>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   HorizontalAlignment="Left"
+                                   Margin="0, 0, 0, 15"
+                                   Foreground="{DynamicResource SecondaryTextBrush}">
+                            Above is the path of the base directory where future recordings will be 
+                            saved. During recording more folders will be created for the semester 
+                            and the subject name for each lecture
+                        </TextBlock>
+
+                        <Grid Height="0.5"
+                              Margin="0, 0, 0, 15"
+                              Background="{DynamicResource SectionLineBrush}">
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/> 
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Quality -->
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           Text="Quality"
+                                           VerticalAlignment="Center"
+                                           FontSize="18"/>
+
+                                <TextBox x:Name="QualityTextBox"  
+                                         Grid.Column="1"
+                                         Text="70"
+                                         Margin="15, 0"
+                                         materialDesign:HintAssist.Hint="10-100"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            </Grid>
+
+                            <TextBlock Grid.Row="1" 
+                                       Grid.Column="0"
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Left"
+                                       Margin="0, 15, 0, 0"
+                                       Padding="5, 0"
+                                       Foreground="{DynamicResource SecondaryTextBrush}">
+                                The quality of the recording from 10 to 100. 
+                                Higher values mean better quality, but more storage space
+                            </TextBlock>
+
+                            <!-- FPS -->
+                            <Grid Grid.Row="0" 
+                                  Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" 
+                                           Text="FPS"
+                                           VerticalAlignment="Center"
+                                           FontSize="18"/>
+
+                                <TextBox x:Name="FpsTextBox"  
+                                         Grid.Column="1" 
+                                         Text="30"
+                                         Width="{Binding ElementName=QualityTextBox, Path=ActualWidth}"
+                                         HorizontalAlignment="Right"
+                                         Margin="15, 0"
+                                         materialDesign:HintAssist.Hint="30-60"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            </Grid>
+
+                            <TextBlock Grid.Row="1" 
+                                       Grid.Column="1"
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Left"
+                                       Margin="0, 15, 0, 0"
+                                       Padding="5, 0"
+                                       Foreground="{DynamicResource SecondaryTextBrush}">
+                                The frame rate of the recording from 30 to 60. 
+                                Higher values mean smoother video, but more storage space
+                            </TextBlock>
+                        </Grid>
+
+                        <Grid Height="0.5"
+                              Margin="0, 15, 0, 15"
+                              Background="{DynamicResource SectionLineBrush}">
+                        </Grid>
+
+                        <!-- Output resolution -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                       Text="Output Resolution"
+                                       VerticalAlignment="Center"
+                                       FontSize="18"/>
+                            
+                            <ComboBox x:Name="OutputResolutionCombobox"
+                                      Grid.Column="1"
+                                      DisplayMemberPath="StringValue"
+                                      Margin="15, 0, 0, 0"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                        </Grid>
+
+                        <TextBlock TextWrapping="Wrap"
+                                   HorizontalAlignment="Left"
+                                   Margin="0, 15, 0, 0"
+                                   Padding="5, 0"
+                                   Foreground="{DynamicResource SecondaryTextBrush}">
+                            The output scaled resolution of the final video. 
+                            Higher values mean crisper video, but significantly 
+                            more storage space. Do NOT select a higher resolution 
+                            that the screen you are recording on supports.
+                        </TextBlock>
+ 
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" 
+                                Margin="25, 30, 25, 0">
+                        <TextBlock Text="Audio Options"
+                                   TextAlignment="Center"
+                                   FontSize="22"
+                                   Margin="0, 20"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <ToggleButton x:Name="RecordAudioToggleButton"
+                                          Height="20"/>
+                            <TextBlock Text="Enable Input Recording"
+                                       FontSize="18"
+                                       Margin="10, 0, 0, 0"/>
+                        </StackPanel>
+
+                        <TextBlock Text="When this is checked your microphone will be recorded"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="350"
+                                   HorizontalAlignment="Left"
+                                   Margin="0, 15"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"/>
+
+                        <Grid Height="0.5"
+                              Margin="0, 0, 0, 15"
+                              Background="{DynamicResource SectionLineBrush}">
+                        </Grid>
+
+                        <!-- Selected input device -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                       Text="Input Device"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       FontSize="18"/>
+                            
+                            <ComboBox x:Name="InputDeviceCombobox"
+                                      Grid.Column="1"
+                                      DisplayMemberPath="FriendlyName"
+                                      Margin="15, 0, 0, 0"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                        </Grid>
+
+                        <!-- Selected output device -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                       Text="Output Device"
+                                       VerticalAlignment="Center"
+                                       FontSize="18"
+                                       Margin="0, 9, 0, 0"/>
+                            
+                            <ComboBox x:Name="OutputDeviceCombobox"
+                                      Grid.Column="1"
+                                      DisplayMemberPath="FriendlyName"
+                                      Margin="15, 15, 0, 0"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <!--<TabItem Header="Uploading">
+                <TextBlock Text="Uploading"/>
+            </TabItem>-->
+        </TabControl>
+    </Grid>
+
+</rxui:ReactiveUserControl>

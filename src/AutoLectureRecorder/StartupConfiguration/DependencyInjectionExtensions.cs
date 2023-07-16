@@ -1,10 +1,12 @@
-﻿using AutoLectureRecorder.Common.Core;
+﻿using System.Diagnostics;
+using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using AutoLectureRecorder.Pages.MainMenu.Dashboard;
+using AutoLectureRecorder.Pages.MainMenu.Settings;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,6 +57,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IViewFor<MainMenuViewModel>, MainMenuView>();
         services.AddTransient<IViewFor<DashboardViewModel>, DashboardView>();
         services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
+        services.AddTransient<IViewFor<SettingsViewModel>, SettingsView>();
         return services;
     }
     
@@ -68,6 +71,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<MainMenuViewModel>();
         services.AddTransient<DashboardViewModel>();
         services.AddTransient<CreateLectureViewModel>();
+        services.AddTransient<SettingsViewModel>();
         return services;
     }
 

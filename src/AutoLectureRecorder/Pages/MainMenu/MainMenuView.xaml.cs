@@ -8,10 +8,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using AutoLectureRecorder.Common.Messages;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
+using AutoLectureRecorder.Pages.MainMenu.Dashboard;
+using AutoLectureRecorder.Pages.MainMenu.Settings;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using Splat;
+using System;
+using System.Linq;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Windows;
+using ReactiveMarbles.ObservableEvents;
+using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu;
 
@@ -34,6 +43,18 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
 
             // Navigation commands
             // TODO: Add the navigation commands
+            this.BindCommand(ViewModel,
+                    vm => vm.NavigateCommand,
+                    v => v.DashboardButton,
+                    Observable.Return(typeof(DashboardViewModel)))
+                .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel,
+                    vm => vm.NavigateCommand,
+                    v => v.SettingsButton,
+                    Observable.Return(typeof(SettingsViewModel)))
+                .DisposeWith(disposables);
+            
             this.BindCommand(ViewModel,
                 vm => vm.NavigateCommand,
                 v => v.HelpButton,

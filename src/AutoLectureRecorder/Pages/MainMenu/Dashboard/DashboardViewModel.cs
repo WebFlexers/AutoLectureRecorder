@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
@@ -20,12 +21,16 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
 {
     public ILecturesScheduler LecturesScheduler { get; private set; }
     private readonly ILogger<DashboardViewModel> _logger;
-    private readonly IStudentAccountRepository _studentAccountRepository;
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
     public ViewModelActivator Activator { get; }
+    private readonly CompositeDisposable _disposables = new();
 
-    public ObservableCollection<ReactiveScheduledLecture> TodaysLectures { get; private set; } = new();
-    
+    private ObservableCollection<ReactiveScheduledLecture>? _todaysLectures;
+    public ObservableCollection<ReactiveScheduledLecture>? TodaysLectures 
+    { 
+        get => _todaysLectures; 
+        set => this.RaiseAndSetIfChanged(ref _todaysLectures, value); 
+    }
 
     private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
     public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;
@@ -46,7 +51,6 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
     {
         LecturesScheduler = lecturesScheduler;
         _logger = logger;
-        _studentAccountRepository = studentAccountRepository;
         _scheduledLectureRepository = scheduledLectureRepository;
         Activator = new ViewModelActivator();
 
@@ -57,39 +61,46 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
 
         _areLecturesScheduledToday =
             this.WhenAnyValue(vm => vm.TodaysLectures)
-                .Select(lectures => lectures.Any())
+                .Select(lectures => lectures is not null && lectures.Any())
                 .ToProperty(this, vm => vm.AreLecturesScheduledToday);
 
+        Observable.FromAsync(async () =>
+        {
+            var fetchLecturesTask = FetchTodaysLectures();
+            var fetchStudentTask = studentAccountRepository.GetStudentAccount();
+
+            await Task.WhenAll(fetchLecturesTask, fetchStudentTask);
+
+            if (fetchLecturesTask.Result is not null)
+            {
+                TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(fetchLecturesTask.Result);
+            }
+            RegistrationNumber = fetchStudentTask.Result?.RegistrationNumber;
+        })
+        .Catch((Exception e) =>
+        {
+            _logger.LogError(e, "An error occurred while fetching todays lectures");
+            return Observable.Empty<Unit>();
+        }).Subscribe()
+        .DisposeWith(_disposables);
+        
         this.WhenActivated(disposables =>
         {
-            Observable.FromAsync(async () =>
-            {
-                var fetchLecturesTask = FetchTodaysLectures();
-                var fetchStudentTask = _studentAccountRepository.GetStudentAccount();
-
-                await Task.WhenAll(fetchLecturesTask, fetchStudentTask);
-                RegistrationNumber = fetchStudentTask.Result?.RegistrationNumber;
-            })
-            .Catch((Exception e) =>
-            {
-                _logger.LogError(e, "An error occurred while fetching todays lectures");
-                return Observable.Empty<Unit>();
-            }).Subscribe()
-            .DisposeWith(disposables);
+            _disposables.DisposeWith(disposables);
         });
     }
 
-    private async Task FetchTodaysLectures()
+    private async Task<List<ReactiveScheduledLecture>?> FetchTodaysLectures()
     {
         var todaysLecturesUnsorted = await _scheduledLectureRepository
             .GetScheduledLecturesByDay(DateTime.Now.DayOfWeek);
 
-        if (todaysLecturesUnsorted == null || todaysLecturesUnsorted.Any() == false) return;
+        if (todaysLecturesUnsorted == null || todaysLecturesUnsorted.Any() == false) return null;
 
         var todaysLecturesSortedByStartTime =
             todaysLecturesUnsorted.OrderBy(lecture => lecture.StartTime);
 
         // TODO: Create a way to detect whether a lecture was successfully recorded and change the icon accordingly
-        TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(todaysLecturesSortedByStartTime);
+        return todaysLecturesSortedByStartTime.ToList();
     }
 }

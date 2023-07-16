@@ -7,6 +7,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Application.Common.Options;
@@ -20,6 +21,8 @@ namespace AutoLectureRecorder.Pages.Login;
 
 public class LoginViewModel : RoutableViewModel, IActivatableViewModel
 {
+    private readonly IWebDriverDownloader _webDriverDownloader;
+    private CompositeDisposable _disposables = new();
     public ViewModelActivator Activator { get; }
 
     private string? _errorMessage;
@@ -76,6 +79,8 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
     public LoginViewModel(INavigationService navigationService, IWebDriverDownloader webDriverDownloader) 
         : base(navigationService)
     {
+        _webDriverDownloader = webDriverDownloader;
+        
         var parameters = NavigationService.GetNavigationParameters(typeof(LoginViewModel));
         if (parameters is not null)
         {
@@ -83,15 +88,6 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
         }
 
         Activator = new ViewModelActivator();
-        IProgress<float> webDriverDownloadProgress = new Progress<float>(value =>
-        {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
-            {
-                var percentRoundedValue = Math.Round(value * 100);
-                DownloadProgressValue = percentRoundedValue;
-                DownloadProgressValueString = percentRoundedValue.ToString(CultureInfo.CurrentCulture) + "%";
-            });
-        });
 
         _isErrorMessageVisible = 
             this.WhenAnyValue(vm => vm.ErrorMessage)
@@ -102,33 +98,63 @@ public class LoginViewModel : RoutableViewModel, IActivatableViewModel
             this.WhenAnyValue(vm => vm.ErrorMessage)
                 .Select(error => string.IsNullOrWhiteSpace(error))
                 .ToProperty(this, vm => vm.IsErrorMessageInvisible);
-
-        LoginCommand = ReactiveCommand.CreateFromTask(Login);
         
         this.WhenActivated(disposables =>
         {
-            _downloadWebDriverTask = Task.Run(async () =>
-            {
-                IsWebDriverDownloading = true;
-                
-                var errorOrDriverDownloader = await webDriverDownloader.Download(webDriverDownloadProgress);
-                if (errorOrDriverDownloader.IsError)
-                {
-                    ErrorMessage = "An error occurred while trying to download the necessary WebDriver";
-                    DownloadProgressValueString = "Failed";
-                }
+            Observable.FromAsync(PrepareLogin)
+                .Subscribe()
+                .DisposeWith(disposables);
 
-                IsWebDriverDownloading = false;
-                
-                return errorOrDriverDownloader;
-            }).DisposeWith(disposables);
+            _disposables.DisposeWith(disposables);
+        });
+    }
+
+    private async Task PrepareLogin()
+    {
+        IsWebDriverDownloading = true;
+
+        IProgress<float> webDriverDownloadProgress = new Progress<float>(value =>
+        {
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                var percentRoundedValue = Math.Round(value * 100);
+                DownloadProgressValue = percentRoundedValue;
+                DownloadProgressValueString = percentRoundedValue.ToString(CultureInfo.CurrentCulture) + "%";
+            });
+        });
+        
+        _downloadWebDriverTask = Task.Run(async () =>
+        {
+            var errorOrDriverDownloader = await _webDriverDownloader.Download(webDriverDownloadProgress);
+            if (errorOrDriverDownloader.IsError)
+            {
+                ErrorMessage = "An error occurred while trying to download the necessary WebDriver";
+                DownloadProgressValueString = "Failed";
+            }
+
+            return errorOrDriverDownloader;
+        }).DisposeWith(_disposables);
+
+        LoginCommand = ReactiveCommand.CreateFromTask(Login);
+
+        var errorOrDriverDownloaded = await _downloadWebDriverTask;
+        errorOrDriverDownloaded.Match(_ =>
+        {
+            IsWebDriverDownloading = false;
+            return Unit.Default;
+        },
+        errors =>
+        {
+            MessageBox.Show(errors[0].Description, errors[0].Code, 
+                MessageBoxButton.OK, MessageBoxImage.Error);
+            return Unit.Default;
         });
     }
 
     private async Task Login()
     {
-        if (_downloadWebDriverTask == null) return;
-
+        if (_downloadWebDriverTask is not null && _downloadWebDriverTask.IsCompleted == false) return;
+        
         if (AcademicEmailAddress is null)
         {
             ErrorMessage = "Fill in your academic email address";

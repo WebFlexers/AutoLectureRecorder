@@ -1,11 +1,13 @@
 ﻿using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
+using AutoLectureRecorder.Application.Common.Abstractions.StartupManager;
 using AutoLectureRecorder.Application.Common.Abstractions.Validation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Infrastructure.LecturesSchedule;
 using AutoLectureRecorder.Infrastructure.Persistence;
 using AutoLectureRecorder.Infrastructure.Recording;
+using AutoLectureRecorder.Infrastructure.StartupManager;
 using AutoLectureRecorder.Infrastructure.Validation;
 using AutoLectureRecorder.Infrastructure.WebAutomation;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,8 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<IPersistentValidationContext, PersistentValidationContext>();
 
         services.AddSingleton<ILecturesScheduler, LecturesScheduler>();
+
+        services.AddTransient<IStartupManager, WindowsStartupManager>();
 
         services.AddRepositories();
 

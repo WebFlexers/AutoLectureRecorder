@@ -3,6 +3,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
+using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using Splat;
 
@@ -31,10 +32,11 @@ namespace AutoLectureRecorder
                 Observable.Return(this));
             this.BindCommand(ViewModel, 
                 vm => vm.ExitAppCommand, 
-                v => v.ExitAppTrayMenuItem);
+                v => v.ExitAppTrayMenuItem,
+                Observable.Return(((Window)MainAppWindow, true)));
 
             MainTaskbarIcon.LeftClickCommand = ViewModel!.ShowAppCommand;
-            MainTaskbarIcon.LeftClickCommandParameter = this;
+            MainTaskbarIcon.LeftClickCommandParameter = MainAppWindow;
             MainTaskbarIcon.NoLeftClickDelay = true;
 
             this.WhenActivated(disposables =>
@@ -46,9 +48,9 @@ namespace AutoLectureRecorder
                 
                 // TitleBar
                 this.BindCommand(ViewModel, 
-                        vm => vm.AttemptExitAppCommand, 
+                        vm => vm.ExitAppCommand,
                         v => v.ExitAppButton, 
-                        Observable.Return(this))
+                        Observable.Return(((Window)MainAppWindow, false)))
                     .DisposeWith(disposables);
                 
                 this.BindCommand(ViewModel, 
@@ -73,6 +75,12 @@ namespace AutoLectureRecorder
                             ? AlrResources.Styles.TitlebarRestoreDownButton
                             : AlrResources.Styles.TitlebarMaximizeButton;
                     })
+                    .DisposeWith(disposables);
+                
+                // Minimize on close behavior
+                this.MainAppWindow.Events().Closing
+                    .Select(eventArgs => ((Window)MainAppWindow, eventArgs))
+                    .InvokeCommand(ViewModel!.AttemptExitAppCommand)
                     .DisposeWith(disposables);
             });
         }

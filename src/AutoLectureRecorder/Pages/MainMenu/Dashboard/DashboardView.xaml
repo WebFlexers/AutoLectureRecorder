@@ -65,7 +65,7 @@
                                    FontSize="18"
                                    Foreground="{DynamicResource SecondaryTextBrush}"
                                    Margin="0,5,13,0" />
-                        <Image Source="../../../Icons/Dashboard/video_camera.png"
+                        <Image Source="../../../Resources/Icons/Dashboard/video_camera.png"
                                Width="25"
                                Margin="0,4.5,0,0" />
                     </StackPanel>
@@ -225,7 +225,7 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 Margin="20,0">
-                        <Image Source="../../../Icons/Dashboard/check.png"
+                        <Image Source="../../../Resources/Icons/Dashboard/check.png"
                                Width="32"
                                Margin="0,20,20,20" />
                         <TextBlock Text="Successful:"
@@ -262,7 +262,7 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 Margin="20,0">
-                        <Image Source="../../../Icons/Dashboard/fail.png"
+                        <Image Source="../../../Resources/Icons/Dashboard/fail.png"
                                Width="28"
                                Margin="2.5,24,24,24" />
 
@@ -372,7 +372,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Image Grid.Column="0" 
-                                               Source="../../../Icons/Dashboard/pending_64px.png"
+                                               Source="../../../Resources/Icons/Dashboard/pending_64px.png"
                                                Width="50px"/>
                                         <StackPanel Grid.Column="1" 
                                                     VerticalAlignment="Center"
