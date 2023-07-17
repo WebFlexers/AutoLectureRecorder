@@ -11,10 +11,10 @@
       <PackageReference Include="ErrorOr" Version="1.2.1" />
       <PackageReference Include="FluentValidation" Version="11.6.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
-      <PackageReference Include="MediatR" Version="12.1.0" />
+      <PackageReference Include="MediatR" Version="12.1.1" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-      <PackageReference Include="ReactiveUI" Version="19.2.1" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+      <PackageReference Include="ReactiveUI" Version="19.4.1" />
       <PackageReference Include="ScreenRecorderLib" Version="5.3.0" />
     </ItemGroup>
 
