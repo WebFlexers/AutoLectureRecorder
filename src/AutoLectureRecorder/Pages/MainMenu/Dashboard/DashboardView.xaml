@@ -6,7 +6,6 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:system="clr-namespace:System;assembly=mscorlib"
             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             xmlns:local="clr-namespace:AutoLectureRecorder.Pages.MainMenu.Dashboard"
@@ -124,10 +123,23 @@
                     </Border>
 
                     <!-- Starting in -->
-                    <TextBlock Text="Starting in"
-                               FontSize="18"
-                               Foreground="{DynamicResource SecondaryTextBrush}"
-                               Margin="0,15,0,10" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,15,0,10">
+                        <TextBlock Text="Starting in"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <Border Width="30" Height="30"
+                                Margin="15, 0, 0, 0">
+                            <Border.Background>
+                                <ImageBrush Stretch="UniformToFill"
+                                            RenderOptions.BitmapScalingMode="HighQuality"
+                                            RenderOptions.EdgeMode="Aliased"
+                                            ImageSource="../../../Resources/Icons/Dashboard/stand-by.png" />
+                            </Border.Background>
+                        </Border>
+                    </StackPanel>
+                    
 
                     <Border CornerRadius="12"
                             Height="85">
@@ -161,130 +173,196 @@
                     </Border>
                 </StackPanel>
                 
-                <!-- Statistics -->
-                <TextBlock Text="Statistics"
-                           TextElement.FontWeight="Medium"
-                           FontSize="22"
-                           Margin="0,20" />
+                
 
             </StackPanel>
 
-            <Grid Grid.Row="1"
-                  Margin="35,0,35,35"
-                  MaxHeight="220"
-                  MinHeight="170"
-                  VerticalAlignment="Top">
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.5*" />
-                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                
+                <!-- Statistics -->
+                <TextBlock Grid.Column="0"
+                           HorizontalAlignment="Center"
+                           Text="Statistics"
+                           TextElement.FontWeight="Medium"
+                           FontSize="22"
+                           Margin="35, 20, 10,10" />
+                
+                <StackPanel Grid.Row="0" Grid.Column="0"
+                        Margin="25,55,10,35"
+                        MaxHeight="220"
+                        MinHeight="170"
+                        VerticalAlignment="Top">
 
-                <!-- Total Lectures -->
-                <Border CornerRadius="12"
-                        Grid.Column="0"
-                        Background="{DynamicResource PrimaryBackgroundBrush}">
+                    <!-- Total Lectures -->
+                    <Border CornerRadius="12"
+                            Height="50"
+                            Margin="10,10,0,10"
+                            Background="{DynamicResource PrimaryBackgroundBrush}">
 
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="0"
-                                          BlurRadius="18"
-                                          Opacity="0.1"
-                                          Direction="-75" />
-                    </Border.Effect>
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0"
+                                              BlurRadius="18"
+                                              Opacity="0.1"
+                                              Direction="-75" />
+                        </Border.Effect>
 
-                    <Grid>
-                        <TextBlock Text="Total Lectures Recorded:"
-                                   HorizontalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Margin="0,27.7,0,0"
-                                   FontSize="18" />
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Margin="16, 0, 20,0">
+                            <Border Width="30" Height="30"
+                                    Margin="0, 0, 17, 0">
+                                <Border.Background>
+                                    <ImageBrush Stretch="UniformToFill"
+                                                RenderOptions.BitmapScalingMode="HighQuality"
+                                                RenderOptions.EdgeMode="Aliased"
+                                                ImageSource="../../../Resources/Icons/Dashboard/all.png" />
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Text="Record Attempts:"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="18" />
 
-                        <TextBlock x:Name="TotalLecturesTextBlock"
-                                   Text="134"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   TextElement.FontWeight="Bold"
-                                   FontSize="18" />
-                    </Grid>
-                </Border>
+                            <TextBlock x:Name="TotalLecturesTextBlock"
+                                       Text="134"
+                                       Margin="10,0,0,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       TextElement.FontWeight="Bold"
+                                       FontSize="18" />
+                        </StackPanel>
 
-                <!-- Successfully Recorded Lectures -->
-                <Border Grid.Column="1"
+                    </Border>
+
+                    <!-- Successfully Recorded Lectures -->
+                    <Border CornerRadius="12"
+                            Height="50"
+                            Margin="10,0,0,10"
+                            Background="{DynamicResource PrimaryBackgroundBrush}">
+
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0"
+                                              BlurRadius="18"
+                                              Opacity="0.1"
+                                              Direction="-75" />
+                        </Border.Effect>
+
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Margin="20,0">
+                            <Border Width="32" Height="32"
+                                    Margin="0, 0, 12.5, 0">
+                                <Border.Background>
+                                    <ImageBrush Stretch="UniformToFill"
+                                                RenderOptions.BitmapScalingMode="HighQuality"
+                                                RenderOptions.EdgeMode="Aliased"
+                                                ImageSource="../../../Resources/Icons/Dashboard/check.png" />
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Text="Successful:"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="18" />
+
+                            <TextBlock x:Name="TotalSuccessfulLecturesTextBlock"
+                                       Text="114"
+                                       Margin="10,0,0,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       TextElement.FontWeight="Bold"
+                                       FontSize="18" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border CornerRadius="12"
+                            Height="50"
+                            Margin="10,0,0,10"
+                            Background="{DynamicResource PrimaryBackgroundBrush}">
+
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0"
+                                              BlurRadius="18"
+                                              Opacity="0.1"
+                                              Direction="-75" />
+                        </Border.Effect>
+
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Margin="20,0">
+                            <Border Width="26" Height="26"
+                                    Margin="0, 0, 19.5, 0">
+                                <Border.Background>
+                                    <ImageBrush Stretch="UniformToFill"
+                                                RenderOptions.BitmapScalingMode="HighQuality"
+                                                RenderOptions.EdgeMode="Aliased"
+                                                ImageSource="../../../Resources/Icons/Dashboard/fail.png" />
+                                </Border.Background>
+                            </Border>
+
+                            <TextBlock Text="Failed:"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="18" />
+
+                            <TextBlock x:Name="TotalFailedLecturesTextBlock"
+                                       Text="20"
+                                       Margin="10,0,0,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       TextElement.FontWeight="Bold"
+                                       FontSize="18" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                
+                <TextBlock Grid.Column="1" 
+                           Text="Active Lecture"
+                           HorizontalAlignment="Center"
+                           TextElement.FontWeight="Medium"
+                           FontSize="22"
+                           Margin="0, 20, 35,0" />
+                
+                <Border Grid.Column="1" 
                         CornerRadius="12"
+                        Height="170.5"
                         VerticalAlignment="Top"
-                        Margin="30,0,0,0"
+                        Margin="10,65,35,10"
                         Background="{DynamicResource PrimaryBackgroundBrush}">
-
+                    
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
                                           BlurRadius="18"
                                           Opacity="0.1"
                                           Direction="-75" />
                     </Border.Effect>
-
-                    <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                Margin="20,0">
-                        <Image Source="../../../Resources/Icons/Dashboard/check.png"
-                               Width="32"
-                               Margin="0,20,20,20" />
-                        <TextBlock Text="Successful:"
+                    
+                    <Grid>
+                        <TextBlock Text="No lecture is being recorded at the moment"
+                                   Visibility="Collapsed"
+                                   MaxWidth="230"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    TextWrapping="Wrap"
                                    FontSize="18" />
-
-                        <TextBlock x:Name="TotalSuccessfulLecturesTextBlock"
-                                   Text="114"
-                                   Margin="10,0,0,0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   TextElement.FontWeight="Bold"
-                                   FontSize="18" />
-                    </StackPanel>
-
+                        
+                        <StackPanel>
+                            
+                        </StackPanel>
+                    </Grid>
+                    
                 </Border>
-
-                <Border Grid.Column="1"
-                        CornerRadius="12"
-                        VerticalAlignment="Bottom"
-                        Margin="30,20,0,0"
-                        Background="{DynamicResource PrimaryBackgroundBrush}">
-
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="0"
-                                          BlurRadius="18"
-                                          Opacity="0.1"
-                                          Direction="-75" />
-                    </Border.Effect>
-
-                    <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                Margin="20,0">
-                        <Image Source="../../../Resources/Icons/Dashboard/fail.png"
-                               Width="28"
-                               Margin="2.5,24,24,24" />
-
-                        <TextBlock Text="Failed:"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   FontSize="18" />
-
-                        <TextBlock x:Name="TotalFailedLecturesTextBlock"
-                                   Text="20"
-                                   Margin="10,0,0,0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   TextElement.FontWeight="Bold"
-                                   FontSize="18" />
-                    </StackPanel>
-
-                </Border>
+                
             </Grid>
-            
         </Grid>
 
 

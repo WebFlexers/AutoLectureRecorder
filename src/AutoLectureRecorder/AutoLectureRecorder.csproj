@@ -65,6 +65,10 @@
       <Resource Include="Resources\Icons\Dashboard\pending_64px.png" />
       <None Remove="Resources\Icons\Dashboard\video_camera.png" />
       <Resource Include="Resources\Icons\Dashboard\video_camera.png" />
+      <None Remove="Resources\Icons\Dashboard\all.png" />
+      <Resource Include="Resources\Icons\Dashboard\all.png" />
+      <None Remove="Resources\Icons\Dashboard\stand-by.png" />
+      <Resource Include="Resources\Icons\Dashboard\stand-by.png" />
     </ItemGroup>
 
 </Project>

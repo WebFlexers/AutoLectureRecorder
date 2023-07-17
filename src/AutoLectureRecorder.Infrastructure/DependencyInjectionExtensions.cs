@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
+﻿using System.Diagnostics;
+using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
 using AutoLectureRecorder.Application.Common.Abstractions.StartupManager;
@@ -6,6 +7,7 @@ using AutoLectureRecorder.Application.Common.Abstractions.Validation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Infrastructure.LecturesSchedule;
 using AutoLectureRecorder.Infrastructure.Persistence;
+using AutoLectureRecorder.Infrastructure.Persistence.Seeding;
 using AutoLectureRecorder.Infrastructure.Recording;
 using AutoLectureRecorder.Infrastructure.StartupManager;
 using AutoLectureRecorder.Infrastructure.Validation;
@@ -31,6 +33,11 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IStartupManager, WindowsStartupManager>();
 
         services.AddRepositories();
+
+        if (Debugger.IsAttached)
+        {
+            services.AddTransient<ISampleData, SampleData>();
+        }
 
         return services;
     }

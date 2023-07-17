@@ -24,13 +24,8 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
     public ViewModelActivator Activator { get; }
     private readonly CompositeDisposable _disposables = new();
-
-    private ObservableCollection<ReactiveScheduledLecture>? _todaysLectures;
-    public ObservableCollection<ReactiveScheduledLecture>? TodaysLectures 
-    { 
-        get => _todaysLectures; 
-        set => this.RaiseAndSetIfChanged(ref _todaysLectures, value); 
-    }
+    
+    public ObservableCollection<ReactiveScheduledLecture>? TodaysLectures { get; set; }
 
     private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
     public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;
@@ -62,7 +57,8 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
         _areLecturesScheduledToday =
             this.WhenAnyValue(vm => vm.TodaysLectures)
                 .Select(lectures => lectures is not null && lectures.Any())
-                .ToProperty(this, vm => vm.AreLecturesScheduledToday);
+                .ToProperty(this, vm => vm.AreLecturesScheduledToday)
+                .DisposeWith(_disposables);
 
         Observable.FromAsync(async () =>
         {
@@ -73,6 +69,7 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
 
             if (fetchLecturesTask.Result is not null)
             {
+                TodaysLectures?.Clear();
                 TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(fetchLecturesTask.Result);
             }
             RegistrationNumber = fetchStudentTask.Result?.RegistrationNumber;

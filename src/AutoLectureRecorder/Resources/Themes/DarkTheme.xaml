@@ -2,13 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Color x:Key="PrimaryColor">#647FB5</Color>
     <Color x:Key="PrimaryDarkerColor">#415899</Color>
-    <Color x:Key="PrimaryDarkerHoverColor">#4891BF</Color>
+    <Color x:Key="PrimaryDarkerHoverColor">#E2E6EF</Color>
     <Color x:Key="PrimaryBackgroundColor">#444444</Color>
     <Color x:Key="SecondaryBackgroundColor">#444444</Color>
     <Color x:Key="PrimaryTextColor">#F3F3F3</Color>
     <Color x:Key="SecondaryTextColor">#A9A9AA</Color>
     <Color x:Key="SectionLineColor">#b9b9ba</Color>
-    <Color x:Key="ButtonHoverColor">#36484C</Color>
+    <Color x:Key="ButtonHoverColor">#383C45</Color>
     <Color x:Key="SunYellowColor">#F5D44D</Color>
     <Color x:Key="WarningColor">#DF782D</Color>
     <Color x:Key="SuccessColor">#62DD53</Color>

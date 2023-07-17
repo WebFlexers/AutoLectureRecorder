@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Reactive.Linq;
@@ -12,6 +13,7 @@ using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Application.ScheduledLectures.Events;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.WindowsServices;
+using AutoLectureRecorder.Infrastructure.Persistence.Seeding;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.StartupConfiguration;
@@ -49,6 +51,12 @@ namespace AutoLectureRecorder
 
             _appBootstrapper = new AppBootstrapper();
             var services = _appBootstrapper.AppHost.Services;
+
+            if (Debugger.IsAttached)
+            {
+                var sampleData = services.GetRequiredService<ISampleData>();
+                await sampleData.Seed();
+            }
 
             var mainWindow = services.GetRequiredService<MainWindow>();
             this.MainWindow = mainWindow;

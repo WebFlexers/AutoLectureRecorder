@@ -5,7 +5,7 @@ using AutoLectureRecorder.Infrastructure.Recording;
 
 namespace AutoLectureRecorder.Infrastructure.Persistence.Seeding;
 
-public class SampleData
+public class SampleData : ISampleData
 {
     public const int RandomSeed = 323454384;
     

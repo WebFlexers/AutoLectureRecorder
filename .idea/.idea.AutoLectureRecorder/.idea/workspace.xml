@@ -9,10 +9,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/SampleData/ISampleData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Icons/Dashboard/all.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Icons/Dashboard/stand-by.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/AutoLectureRecorder.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/AutoLectureRecorder.Domain.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/CommonTestsUtils/CommonTestsUtils.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CommonTestsUtils/CommonTestsUtils.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/Seeding/SampleData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/Seeding/SampleData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Dashboard/DashboardView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Dashboard/DashboardView.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Dashboard/DashboardViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Dashboard/DashboardViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Icons/Dashboard/pending_64px.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Icons/Dashboard/pending_64px.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Themes/DarkTheme.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Themes/DarkTheme.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Themes/LightTheme.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/Themes/LightTheme.xaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +174,7 @@
       <workItem from="1689193397869" duration="14115000" />
       <workItem from="1689244712483" duration="24325000" />
       <workItem from="1689431675601" duration="11790000" />
-      <workItem from="1689503444256" duration="29709000" />
+      <workItem from="1689503444256" duration="38962000" />
     </task>
     <servers />
   </component>
