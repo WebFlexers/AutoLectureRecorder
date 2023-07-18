@@ -35,7 +35,7 @@ public class DisableConflictingLecturesHandler : MediatR.IRequestHandler<Disable
         
         foreach (var lecture in dayLectures)
         {
-            if (referenceScheduledLecture.OverlapsWithLecture(lecture))
+            if (lecture.Id != referenceScheduledLecture.Id && referenceScheduledLecture.OverlapsWithLecture(lecture))
             {
                 lecture.IsScheduled = false;
                 updateLecturesTasks.Add(_scheduledLectureRepository.UpdateScheduledLecture(lecture));
