@@ -46,11 +46,16 @@
                                 IsCancel="True"
                                 Content="CANCEL"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
-                        <Button x:Name="ProceedAnywayButton"  
+                        <Button x:Name="ProceedInsertionAnywayButton"  
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Foreground="{DynamicResource SuccessBrush}"
                                 FontSize="16"
                                 Content="ADD ANYWAY"/>
+                        <Button x:Name="ProceedUpdateAnywayButton"  
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Foreground="{DynamicResource SuccessBrush}"
+                                FontSize="16"
+                                Content="UPDATE ANYWAY"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -361,8 +366,6 @@
 
                 <Button x:Name="CreateButton"
                         Grid.Column="1"
-                        IsDefault="True"
-                        IsEnabled="True"
                         d:Height="50"
                         Height="{Binding ElementName=DayComboBox, Path=ActualHeight}"
                         VerticalAlignment="Bottom"
@@ -373,9 +376,7 @@
 
                 <Button x:Name="UpdateButton"
                         Grid.Column="1"
-                        IsDefault="True"
-                        IsEnabled="False"
-                        Visibility="Collapsed"
+                        d:Visibility="Collapsed"
                         d:Height="50"
                         Height="{Binding ElementName=DayComboBox, Path=ActualHeight}"
                         VerticalAlignment="Bottom"

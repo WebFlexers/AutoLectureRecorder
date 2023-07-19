@@ -19,6 +19,7 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
+using AutoLectureRecorder.Pages.MainMenu.Schedule;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 
@@ -47,6 +48,12 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                     vm => vm.NavigateCommand,
                     v => v.DashboardButton,
                     Observable.Return(typeof(DashboardViewModel)))
+                .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel,
+                    vm => vm.NavigateCommand,
+                    v => v.ScheduleButton,
+                    Observable.Return(typeof(ScheduleViewModel)))
                 .DisposeWith(disposables);
             
             this.BindCommand(ViewModel,

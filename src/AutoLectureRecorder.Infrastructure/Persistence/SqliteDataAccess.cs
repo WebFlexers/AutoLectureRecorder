@@ -25,7 +25,7 @@ public class SqliteDataAccess : ISqliteDataAccess
     }
 
     /// <inheritdoc/>
-    public async Task<List<T>> LoadData<T, U>(
+    public async Task<IEnumerable<T>> LoadData<T, U>(
             string sqlStatement,
             U parameters)
     {
@@ -37,14 +37,14 @@ public class SqliteDataAccess : ISqliteDataAccess
                 sqlStatement,
                 parameters).ConfigureAwait(false);
 
-            return rows.ToList();
+            return rows;
         }
 
         var rowsWithTransaction = await _connectionWithTransaction.QueryAsync<T>(
             sqlStatement,
             parameters).ConfigureAwait(false);
 
-        return rowsWithTransaction.ToList();
+        return rowsWithTransaction;
     }
 
     /// <inheritdoc/>

@@ -21,7 +21,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets all the scheduled lectures from the database
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetAllScheduledLectures()
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetAllScheduledLectures()
     {
         try
         {
@@ -30,13 +30,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
                 sql, new { }).ConfigureAwait(false);
 
-            var reactiveScheduledLectures = new List<ReactiveScheduledLecture>();
-            foreach (var scheduledLecture in results)
-            {
-                reactiveScheduledLectures.Add(scheduledLecture.MapToReactive());
-            }
-
-            return reactiveScheduledLectures;
+            return results.Select(lecture => lecture.MapToReactive());
         }
         catch (Exception e)
         {
@@ -48,7 +42,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedByDayAndStartTime()
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedByDayAndStartTime()
     {
         try
         {
@@ -57,13 +51,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
                 sql, new { }).ConfigureAwait(false);
 
-            var reactiveScheduledLectures = new List<ReactiveScheduledLecture>();
-            foreach (var scheduledLecture in results)
-            {
-                reactiveScheduledLectures.Add(scheduledLecture.MapToReactive());
-            }
-
-            return reactiveScheduledLectures;
+            return results.Select(lecture => lecture.MapToReactive());
         }
         catch (Exception e)
         {
@@ -75,7 +63,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets all the scheduled lectures of the given day from the database
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesByDay(DayOfWeek? day)
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesByDay(DayOfWeek? day)
     {
         if (day == null) return null;
 
@@ -86,17 +74,35 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
                 sql, new { Day = (int)day.Value }).ConfigureAwait(false);
 
-            var reactiveScheduledLectures = new List<ReactiveScheduledLecture>();
-            foreach (var scheduledLecture in results)
-            {
-                reactiveScheduledLectures.Add(scheduledLecture.MapToReactive());
-            }
-
-            return reactiveScheduledLectures;
+            return results.Select(lecture => lecture.MapToReactive());
         }
         catch (Exception e)
         {
             _logger.LogError(e, "An error occurred while trying to get scheduled lecture with day {Day}", day);
+            return null;
+        }
+    }
+    
+    /// <summary>
+    /// Gets all the scheduled lectures of the given day ordered by start time from the database
+    /// </summary>
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesByDayOrderedByStartTime(DayOfWeek? day)
+    {
+        if (day == null) return null;
+
+        try
+        {
+            string sql = "select * from ScheduledLectures where Day=@Day order by StartTime";
+
+            var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
+                sql, new { Day = (int)day.Value }).ConfigureAwait(false);
+
+            return results.Select(lecture => lecture.MapToReactive());
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while trying to get ordered by start time " +
+                                "scheduled lectures with day {Day}", day);
             return null;
         }
     }
@@ -147,7 +153,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets the distinct subject names from the database
     /// </summary>
-    public async Task<List<string>?> GetDistinctSubjectNames()
+    public async Task<IEnumerable<string>?> GetDistinctSubjectNames()
     {
         try
         {
@@ -164,7 +170,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets the scheduled lectures with distinct subject names
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName()
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName()
     {
         try
         {
@@ -172,7 +178,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
                 sql, new { }).ConfigureAwait(false);
 
-            return result.Select(scheduledLecture => scheduledLecture.MapToReactive()).ToList();
+            return result.Select(scheduledLecture => scheduledLecture.MapToReactive());
         }
         catch (Exception e)
         {
@@ -184,14 +190,14 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     /// <summary>
     /// Gets the scheduled lectures grouped by semester
     /// </summary>
-    public async Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemester()
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemester()
     {
         try
         {
             string sql = "select * from ScheduledLectures order by Semester";
             var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
                 sql, new { }).ConfigureAwait(false);
-            return result.Select(scheduledLecture => scheduledLecture.MapToReactive()).ToList();
+            return result.Select(scheduledLecture => scheduledLecture.MapToReactive());
         }
         catch (Exception e)
         {

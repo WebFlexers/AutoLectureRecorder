@@ -7,17 +7,22 @@ public interface IScheduledLectureRepository
     /// <summary>
     /// Gets all the scheduled lectures from the database
     /// </summary>
-    Task<List<ReactiveScheduledLecture>?> GetAllScheduledLectures();
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetAllScheduledLectures();
 
     /// <summary>
     /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database
     /// </summary>
-    Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedByDayAndStartTime();
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedByDayAndStartTime();
 
     /// <summary>
     /// Gets all the scheduled lectures of the given day from the database
     /// </summary>
-    Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesByDay(DayOfWeek? day);
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesByDay(DayOfWeek? day);
+
+    /// <summary>
+    /// Gets all the scheduled lectures of the given day ordered by start time from the database
+    /// </summary>
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesByDayOrderedByStartTime(DayOfWeek? day);
 
     /// <summary>
     /// Gets the scheduled lecture with the given id from the database
@@ -32,17 +37,17 @@ public interface IScheduledLectureRepository
     /// <summary>
     /// Gets the distinct subject names from the database
     /// </summary>
-    Task<List<string>?> GetDistinctSubjectNames();
+    Task<IEnumerable<string>?> GetDistinctSubjectNames();
 
     /// <summary>
     /// Gets the scheduled lectures with distinct subject names
     /// </summary>
-    Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName();
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName();
 
     /// <summary>
     /// Gets the scheduled lectures grouped by semester
     /// </summary>
-    Task<List<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemester();
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemester();
 
     /// <summary>
     /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture

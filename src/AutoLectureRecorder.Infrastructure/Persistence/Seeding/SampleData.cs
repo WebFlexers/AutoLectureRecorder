@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Abstractions.SampleData;
 using AutoLectureRecorder.Domain.Mapping.ReactiveModelsToSqliteModels;
 using AutoLectureRecorder.Domain.SqliteModels;
 using AutoLectureRecorder.Infrastructure.Recording;

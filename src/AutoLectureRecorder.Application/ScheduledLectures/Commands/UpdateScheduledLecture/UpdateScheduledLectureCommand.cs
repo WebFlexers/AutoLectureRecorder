@@ -1,16 +1,16 @@
 ﻿using AutoLectureRecorder.Application.ScheduledLectures.Common;
-using AutoLectureRecorder.Domain.ReactiveModels;
-using MediatR;
-
 using ErrorOr;
+using MediatR;
+using Unit = System.Reactive.Unit;
 
 namespace AutoLectureRecorder.Application.ScheduledLectures.Commands.UpdateScheduledLecture;
 
-public class UpdateScheduledLectureCommand : IRequest<ErrorOr<ReactiveScheduledLecture>>, IValidatableScheduledLecture
+public class UpdateScheduledLectureCommand : IRequest<ErrorOr<Unit>>, IValidatableScheduledLecture
 {
-    public UpdateScheduledLectureCommand(string? subjectName, int semester, string? meetingLink, DayOfWeek? day, 
-        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload, bool ignoreValidationWarnings)
+    public UpdateScheduledLectureCommand(int id, string? subjectName, int semester, string? meetingLink, DayOfWeek? day, 
+        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload, bool ignoreOverlappingLecturesWarning)
     {
+        Id = id;
         SubjectName = subjectName;
         Semester = semester;
         MeetingLink = meetingLink;
@@ -19,9 +19,10 @@ public class UpdateScheduledLectureCommand : IRequest<ErrorOr<ReactiveScheduledL
         EndTime = endTime;
         IsScheduled = isScheduled;
         WillAutoUpload = willAutoUpload;
-        IgnoreValidationWarnings = ignoreValidationWarnings;
+        IgnoreOverlappingLecturesWarning = ignoreOverlappingLecturesWarning;
     }
 
+    public int Id { get; set; }
     public string? SubjectName { get; set; }
     public int Semester { get; set; }
     public string? MeetingLink { get; set; }
@@ -31,5 +32,5 @@ public class UpdateScheduledLectureCommand : IRequest<ErrorOr<ReactiveScheduledL
     public bool IsScheduled { get; set; }
     public bool WillAutoUpload { get; set; }
 
-    public bool IgnoreValidationWarnings { get; set; }
+    public bool IgnoreOverlappingLecturesWarning { get; set; }
 }

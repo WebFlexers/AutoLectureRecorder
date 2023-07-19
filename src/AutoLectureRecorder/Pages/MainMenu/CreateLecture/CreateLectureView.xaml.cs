@@ -53,6 +53,7 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
                     SubjectNameComboBox.IsDropDownOpen = true;
                 }).DisposeWith(disposables);
 
+            // Command bindings
             this.BindCommand(ViewModel,
                 vm => vm.CreateScheduleLectureCommand,
                 v => v.CreateButton)
@@ -65,10 +66,25 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
 
             this.BindCommand(ViewModel,
                 vm => vm.ProceedAnywayCommand,
-                v => v.ProceedAnywayButton)
+                v => v.ProceedInsertionAnywayButton)
+                .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel,
+                    vm => vm.ProceedAnywayCommand,
+                    v => v.ProceedUpdateAnywayButton)
                 .DisposeWith(disposables);
             
             // Visibilities
+            this.OneWayBind(ViewModel,
+                vm => vm.IsOnUpdateMode,
+                v => v.ProceedInsertionAnywayButton.Visibility,
+                isOnUpdateMode => isOnUpdateMode ? Visibility.Collapsed : Visibility.Visible);
+            
+            this.OneWayBind(ViewModel,
+                vm => vm.IsOnUpdateMode,
+                v => v.ProceedUpdateAnywayButton.Visibility,
+                isOnUpdateMode => isOnUpdateMode ? Visibility.Visible : Visibility.Collapsed);
+            
             this.OneWayBind(ViewModel,
                 vm => vm.IsOnUpdateMode,
                 v => v.CreateTitleTextBlock.Visibility,
@@ -136,6 +152,28 @@ public partial class CreateLectureView : ReactiveUserControl<CreateLectureViewMo
                     ? Visibility.Visible 
                     : Visibility.Collapsed)
                 .DisposeWith(disposables);
+            
+            // IsDefault
+            this.OneWayBind(ViewModel,
+                vm => vm.IsOnUpdateMode,
+                v => v.CreateButton.IsDefault,
+                isOnUpdateMode => !isOnUpdateMode);
+            
+            this.OneWayBind(ViewModel,
+                vm => vm.IsOnUpdateMode,
+                v => v.UpdateButton.IsDefault,
+                isOnUpdateMode => isOnUpdateMode);
+            
+            // IsEnabled
+            this.OneWayBind(ViewModel,
+                vm => vm.IsOnUpdateMode,
+                v => v.CreateButton.IsEnabled,
+                isOnUpdateMode => !isOnUpdateMode);
+            
+            this.OneWayBind(ViewModel,
+                vm => vm.IsOnUpdateMode,
+                v => v.UpdateButton.IsEnabled,
+                isOnUpdateMode => isOnUpdateMode);
         });
         
     }

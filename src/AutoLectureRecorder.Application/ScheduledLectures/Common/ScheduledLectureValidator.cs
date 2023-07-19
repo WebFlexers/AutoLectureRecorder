@@ -2,6 +2,7 @@
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Validation;
 using AutoLectureRecorder.Application.ScheduledLectures.Commands.CreateScheduledLecture;
+using AutoLectureRecorder.Application.ScheduledLectures.Commands.UpdateScheduledLecture;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using FluentValidation;
 
@@ -70,14 +71,38 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
                 .WithMessage("Both start time and end time must be filled");
     }
 
-    private static bool NotOverlapWithOtherLectures(IValidatableScheduledLecture lecture, 
-        List<ReactiveScheduledLecture>? existingLectures, ValidationContext<IValidatableScheduledLecture>? context)
+    private bool NotOverlapWithOtherLectures(IValidatableScheduledLecture lecture, 
+        IEnumerable<ReactiveScheduledLecture>? existingLectures, ValidationContext<IValidatableScheduledLecture>? context)
     {
-        if (existingLectures is null || existingLectures.Any() == false) return true;
+        if (existingLectures is null) return true;
+        if (lecture.IsScheduled == false) return true;
 
+        var isOnUpdateModeObject = _persistentValidationContext.GetValidationParameter(
+            typeof(UpdateScheduledLectureCommand), ValidationParameters.ScheduledLectures.IsOnUpdateMode);
+        
+        bool isOnUpdateMode = false;
+        int lectureId = -1;
+        if (isOnUpdateModeObject is not null)
+        {
+            isOnUpdateMode = (bool)isOnUpdateModeObject;
+            if (isOnUpdateMode)
+            {
+                var lectureIdObject = _persistentValidationContext.GetValidationParameter(
+                    typeof(UpdateScheduledLectureCommand), ValidationParameters.ScheduledLectures.ScheduledLectureId);
+                if (lectureIdObject is not null)
+                {
+                    lectureId = (int)lectureIdObject;
+                }
+            }
+        }
+        
         foreach (var existingLecture in existingLectures)
         {
-            if (lecture.OverlapsWithLecture(existingLecture))
+            // Here we can safely cast to UpdateScheduledLectureCommand because when isOnUpdateMode is true
+            // the validating object is an UpdateScheduledLectureCommand
+            if (isOnUpdateMode && existingLecture.Id == lectureId) continue;
+            
+            if (existingLecture.IsScheduled && lecture.OverlapsWithLecture(existingLecture))
             {
                 if (context == null) return false;
 
@@ -99,17 +124,16 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
 
     private bool ShouldIgnoreOverlappingLectures()
     {
-        bool ignoreOverlappingLectures = false;
-        
         var ignoreOverlappingLecturesObject = _persistentValidationContext.GetValidationParameter(
-            typeof(CreateScheduledLectureCommand),
-            ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures);
+            typeof(CreateScheduledLectureCommand), ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures) ?? 
+                                              _persistentValidationContext.GetValidationParameter(
+            typeof(UpdateScheduledLectureCommand), ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures);
 
         if (ignoreOverlappingLecturesObject is not null)
         {
-            ignoreOverlappingLectures = (bool)ignoreOverlappingLecturesObject;
+            return (bool)ignoreOverlappingLecturesObject;
         }
 
-        return ignoreOverlappingLectures;
+        return false;
     }
 }

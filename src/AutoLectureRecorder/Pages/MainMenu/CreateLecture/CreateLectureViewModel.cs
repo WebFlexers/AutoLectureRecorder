@@ -1,8 +1,10 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using AutoLectureRecorder.Application.Common.Abstractions.Validation;
@@ -14,6 +16,7 @@ using AutoLectureRecorder.Application.ScheduledLectures.Common;
 using AutoLectureRecorder.Application.ScheduledLectures.Queries;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;
+using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using ErrorOr;
 using FluentValidation;
@@ -99,11 +102,44 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
         // TODO: Get parameters that indicate if we are on update mode or create mode
         Activator = new ViewModelActivator();
 
-        ValidatableScheduledLecture = new ValidatableScheduledLecture(validator)
+        IsOnUpdateMode = Convert.ToBoolean(NavigationService.GetNavigationParameters(typeof(CreateLectureViewModel))?
+            [NavigationParameters.CreateLecture.IsUpdateMode]);
+
+        if (IsOnUpdateMode)
         {
-            IsScheduled = true,
-            WillAutoUpload = true
-        };
+            var lectureToUpdate = (ReactiveScheduledLecture?)NavigationService.GetNavigationParameters
+                    (typeof(CreateLectureViewModel))?[NavigationParameters.CreateLecture.ScheduledLectureToUpdate];
+            
+            Debug.Assert(lectureToUpdate is not null);
+            
+            persistentValidationContext.AddValidationParameter(typeof(UpdateScheduledLectureCommand), 
+                ValidationParameters.ScheduledLectures.IsOnUpdateMode,
+                true);
+            persistentValidationContext.AddValidationParameter(typeof(UpdateScheduledLectureCommand), 
+                ValidationParameters.ScheduledLectures.ScheduledLectureId,
+                lectureToUpdate.Id);
+
+            ValidatableScheduledLecture = new ValidatableScheduledLecture(validator)
+            {
+                Id = lectureToUpdate.Id, 
+                SubjectName = lectureToUpdate.SubjectName, 
+                Semester = lectureToUpdate.Semester, 
+                MeetingLink = lectureToUpdate.MeetingLink, 
+                Day = lectureToUpdate.Day,
+                StartTimeForView = DateTime.MinValue.Add(lectureToUpdate.StartTime.ToTimeSpan()), 
+                EndTimeForView = DateTime.MinValue.Add(lectureToUpdate.EndTime.ToTimeSpan()), 
+                IsScheduled = lectureToUpdate.IsScheduled, 
+                WillAutoUpload = lectureToUpdate.WillAutoUpload
+            };
+        }
+        else
+        {
+            ValidatableScheduledLecture = new ValidatableScheduledLecture(validator)
+            {
+                IsScheduled = true,
+                WillAutoUpload = true
+            };
+        }
         
         CreateScheduleLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
@@ -128,13 +164,13 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
             IgnoreOverlappingLectures = false;
         });
         
-        // TODO: Prefill the fields when updating a record 
         UpdateScheduleLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             var command = ValidatableScheduledLecture.MapToUpdateCommand(IgnoreOverlappingLectures);
             persistentValidationContext.AddValidationParameter(command.GetType(), 
                 ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures,
                 IgnoreOverlappingLectures);
+
             var result = await mediatorSender.Send(command);
             
             if (result.IsError)

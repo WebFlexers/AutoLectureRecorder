@@ -1,6 +1,6 @@
 ﻿using AutoLectureRecorder.Domain.SqliteModels;
 
-namespace AutoLectureRecorder.Infrastructure.Persistence.Seeding;
+namespace AutoLectureRecorder.Application.Common.Abstractions.SampleData;
 
 public interface ISampleData
 {

@@ -2,6 +2,7 @@
 using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
+using AutoLectureRecorder.Application.Common.Abstractions.SampleData;
 using AutoLectureRecorder.Application.Common.Abstractions.StartupManager;
 using AutoLectureRecorder.Application.Common.Abstractions.Validation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;

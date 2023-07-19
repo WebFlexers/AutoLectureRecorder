@@ -11,7 +11,7 @@ public interface ISqliteDataAccess
     /// <param name="parameters">The parameters</param>
     /// <param name="connectionStringName">The connection string name (e.g. Default)</param>
     /// <returns>A list of the given object type with the result of the query</returns>
-    Task<List<T>> LoadData<T, U>(
+    Task<IEnumerable<T>> LoadData<T, U>(
         string sqlStatement,
         U parameters);
 

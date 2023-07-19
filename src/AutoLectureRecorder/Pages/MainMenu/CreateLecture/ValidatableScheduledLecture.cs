@@ -124,6 +124,18 @@ public class ValidatableScheduledLecture : ReactiveScheduledLecture, IValidatabl
             .Select(_ => Unit.Default)
             .InvokeCommand(validateTime)
             .DisposeWith(_disposables);
+        
+        this.WhenAnyValue(x => x.IsScheduled)
+            .Do(_ =>
+            {
+                ClearPropertyErrors(nameof(StartTimeForView));
+                ClearPropertyErrors(nameof(EndTimeForView));
+                TimeError = string.Empty;
+            })
+            .Where(_ => StartTimeForView is not null && EndTimeForView is not null)
+            .Select(_ => Unit.Default)
+            .InvokeCommand(validateTime)
+            .DisposeWith(_disposables);
     }
 
     private async Task Validate(params Expression<Func<ValidatableScheduledLecture, object>>[] 

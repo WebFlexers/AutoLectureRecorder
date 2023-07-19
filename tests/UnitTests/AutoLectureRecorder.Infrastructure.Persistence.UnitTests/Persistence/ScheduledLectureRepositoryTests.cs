@@ -56,7 +56,8 @@ public class ScheduledLectureRepositoryTests
             .ToList();
         
         // Act
-        var results = await scheduledLectureData.GetScheduledLecturesOrderedByDayAndStartTime();
+        var results = (await scheduledLectureData
+            .GetScheduledLecturesOrderedByDayAndStartTime())?.ToList();
 
         // Assert
         results.Should().NotBeNull();
@@ -75,7 +76,8 @@ public class ScheduledLectureRepositoryTests
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
         // Act
-        var allScheduledLectures = await scheduledLectureData.GetAllScheduledLectures();
+        var allScheduledLectures = 
+            (await scheduledLectureData.GetAllScheduledLectures())?.ToList();
 
         // Assert
         allScheduledLectures.Should().NotBeNull();
@@ -93,7 +95,7 @@ public class ScheduledLectureRepositoryTests
             .ToList();
 
         // Act
-        var results = await scheduledLectureData.GetDistinctSubjectNames();
+        var results = (await scheduledLectureData.GetDistinctSubjectNames())?.ToList();
         
         // Assert
         results.Should().NotBeNull();
@@ -111,7 +113,8 @@ public class ScheduledLectureRepositoryTests
             .ToList();
 
         // Act
-        var results = await scheduledLectureData.GetScheduledLecturesGroupedByName();
+        var results = 
+            (await scheduledLectureData.GetScheduledLecturesGroupedByName())?.ToList();
 
         // Assert
         results.Should().NotBeNull();
@@ -125,12 +128,13 @@ public class ScheduledLectureRepositoryTests
         var scheduledLectureRepository = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
 
         // Act
-        var sortedLectures = await scheduledLectureRepository.GetScheduledLecturesOrderedBySemester();
+        var sortedLectures = 
+            (await scheduledLectureRepository.GetScheduledLecturesOrderedBySemester())?.ToList();
 
         // Assert
         sortedLectures.Should().NotBeNull();
 
-        for (int i = 1; i < sortedLectures.Count; i++)
+        for (int i = 1; i < sortedLectures!.Count; i++)
         {
             sortedLectures[i].Semester.Should().BeGreaterOrEqualTo(sortedLectures[i - 1].Semester);
         }

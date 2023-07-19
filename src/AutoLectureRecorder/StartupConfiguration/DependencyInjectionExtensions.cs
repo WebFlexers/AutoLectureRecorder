@@ -6,6 +6,7 @@ using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using AutoLectureRecorder.Pages.MainMenu.Dashboard;
+using AutoLectureRecorder.Pages.MainMenu.Schedule;
 using AutoLectureRecorder.Pages.MainMenu.Settings;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using FluentValidation;
@@ -56,6 +57,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IViewFor<LoginWebViewModel>, LoginWebView>();
         services.AddTransient<IViewFor<MainMenuViewModel>, MainMenuView>();
         services.AddTransient<IViewFor<DashboardViewModel>, DashboardView>();
+        services.AddTransient<IViewFor<ScheduleViewModel>, ScheduleView>();
         services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
         services.AddTransient<IViewFor<SettingsViewModel>, SettingsView>();
         return services;
@@ -70,6 +72,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<LoginWebViewModel>();
         services.AddTransient<MainMenuViewModel>();
         services.AddTransient<DashboardViewModel>();
+        services.AddTransient<ScheduleViewModel>();
         services.AddTransient<CreateLectureViewModel>();
         services.AddTransient<SettingsViewModel>();
         return services;

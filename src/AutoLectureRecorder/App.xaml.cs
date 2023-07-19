@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
+using AutoLectureRecorder.Application.Common.Abstractions.SampleData;
 using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Application.ScheduledLectures.Events;
 using AutoLectureRecorder.Common.Navigation;
@@ -60,6 +61,15 @@ namespace AutoLectureRecorder
 
             var mainWindow = services.GetRequiredService<MainWindow>();
             this.MainWindow = mainWindow;
+            
+            // Make the window fullscreen if it's dimensions exceed the screen dimensions
+            var screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
+            if (screen.WorkingArea.Width < mainWindow.Width
+                || screen.WorkingArea.Height < mainWindow.Height)
+            {
+                mainWindow.WindowState = WindowState.Maximized;
+            }
+            
 
             var studentRepository = services.GetRequiredService<IStudentAccountRepository>();
             bool isLoggedIn = await studentRepository.GetStudentAccount() is not null;
