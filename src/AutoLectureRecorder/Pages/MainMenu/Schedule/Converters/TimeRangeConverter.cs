@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace AutoLectureRecorder.Resources.ResourceDictionaries.MainMenu.ScheduleView.Converters;
+namespace AutoLectureRecorder.Pages.MainMenu.Schedule.Converters;
 
 public class TimeRangeConverter : IMultiValueConverter
 {

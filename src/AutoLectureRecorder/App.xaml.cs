@@ -14,7 +14,6 @@ using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Application.ScheduledLectures.Events;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.WindowsServices;
-using AutoLectureRecorder.Infrastructure.Persistence.Seeding;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.StartupConfiguration;

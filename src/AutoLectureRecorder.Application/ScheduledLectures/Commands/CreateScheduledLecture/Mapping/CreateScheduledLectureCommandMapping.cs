@@ -4,8 +4,7 @@ namespace AutoLectureRecorder.Application.ScheduledLectures.Commands.CreateSched
 
 public static class CreateScheduledLectureCommandMapping
 {
-    public static CreateScheduledLectureCommand MapToCreateCommand(this ReactiveScheduledLecture lecture, 
-        bool ignoreValidationWarnings)
+    public static CreateScheduledLectureCommand MapToCreateCommand(this ReactiveScheduledLecture lecture)
     {
         return new CreateScheduledLectureCommand(
             lecture.SubjectName,
@@ -15,8 +14,7 @@ public static class CreateScheduledLectureCommandMapping
             lecture.StartTime,
             lecture.EndTime,
             lecture.IsScheduled,
-            lecture.WillAutoUpload,
-            ignoreValidationWarnings);
+            lecture.WillAutoUpload);
     }
 
     public static ReactiveScheduledLecture MapToReactiveModel(this CreateScheduledLectureCommand lecture)

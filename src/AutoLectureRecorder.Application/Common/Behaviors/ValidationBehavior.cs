@@ -2,6 +2,7 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace AutoLectureRecorder.Application.Common.Behaviors;
 
@@ -11,12 +12,15 @@ public class ValidationBehavior<TRequest, TResponse> :
     where TResponse : IErrorOr
 {
     private readonly IPersistentValidationContext _persistentValidationContext;
+    private readonly ILogger<TRequest> _logger;
     private readonly IValidator<TRequest>? _validator;
 
-    public ValidationBehavior(IPersistentValidationContext persistentValidationContext, 
+    // ReSharper disable once ContextualLoggerProblem
+    public ValidationBehavior(IPersistentValidationContext persistentValidationContext, ILogger<TRequest> logger,
         IValidator<TRequest>? validator = null)
     {
         _persistentValidationContext = persistentValidationContext;
+        _logger = logger;
         _validator = validator;
     }
 
@@ -30,31 +34,13 @@ public class ValidationBehavior<TRequest, TResponse> :
             return await next();
         }
 
-        var requestType = typeof(TRequest);
+        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
 
-        var fluentValidationContext = new ValidationContext<TRequest>(request);
-        var validationParameters = _persistentValidationContext
-            .GetAllValidationParameters(requestType);
-
-        if (validationParameters is not null)
-        {
-            foreach (var parameterKeyValuePair in validationParameters)
-            {
-                fluentValidationContext.RootContextData[parameterKeyValuePair.Key] = parameterKeyValuePair.Value;
-            }
-        }
-
-        var validationResult = await _validator.ValidateAsync(fluentValidationContext, cancellationToken);
-
-        _persistentValidationContext.RemoveValidationParametersOfType(requestType);
-        
         if (validationResult.IsValid)
         {
             return await next();
         }
-
         
-
         var errors = validationResult.Errors
             .ConvertAll(validationFailure =>
             {
@@ -72,6 +58,12 @@ public class ValidationBehavior<TRequest, TResponse> :
                     errorCode,
                     validationFailure.ErrorMessage);
             });
+
+        foreach (var error in errors)
+        {
+            _logger.LogWarning("Validation failed with code {Code}: {Description}",
+                error.Code, error.Description);
+        }
 
         return (dynamic)errors;
     }

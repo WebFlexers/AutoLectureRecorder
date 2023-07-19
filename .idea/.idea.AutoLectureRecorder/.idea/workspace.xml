@@ -9,37 +9,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/Parameters/CreateLecture.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleView.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleView.xaml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/Converters/TimeRangeConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/Converters/WhenTrueCollapsedConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/Converters/WhenTrueVisibleConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/ScheduledLectureButton.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/IScheduledLectureRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/IScheduledLectureRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/ISqliteDataAccess.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/ISqliteDataAccess.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/SampleData/ISampleData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/SampleData/ISampleData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Validation/IPersistentValidationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Validation/IPersistentValidationContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Behaviors/ErrorLoggingBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Behaviors/ErrorLoggingBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Behaviors/ValidationBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Behaviors/ValidationBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/CreateScheduledLectureHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/Mapping/CreateScheduledLectureCommandMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/CreateScheduledLecture/Mapping/CreateScheduledLectureCommandMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/DisableConflictingLectures/DisableConflictingLecturesCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/DisableConflictingLectures/DisableConflictingLecturesCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/DisableConflictingLectures/DisableConflictingLecturesHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/DisableConflictingLectures/DisableConflictingLecturesHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/Mapping/UpdateScheduledLectureCommandMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/Mapping/UpdateScheduledLectureCommandMapping.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/UpdateScheduledLectureCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/UpdateScheduledLectureCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/UpdateScheduledLectureHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Commands/UpdateScheduledLecture/UpdateScheduledLectureHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Common/ScheduledLectureValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Common/ScheduledLectureValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Common/ValidationParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/ScheduledLectures/Common/ValidationParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/ScheduledLectures.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/ScheduledLectures.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/ScheduledLectureRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/ScheduledLectureRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/Seeding/SampleData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/Seeding/SampleData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/SqliteDataAccess.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/SqliteDataAccess.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Validation/PersistentValidationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Validation/PersistentValidationContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureView.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/CreateLectureViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/ValidatableScheduledLecture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/CreateLecture/ValidatableScheduledLecture.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleView.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/ScheduleViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/Converters/TimeRangeConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/Converters/TimeRangeConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/Converters/WhenTrueCollapsedConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/Converters/WhenTrueCollapsedConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/Converters/WhenTrueVisibleConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Schedule/Converters/WhenTrueVisibleConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Resources/ResourceDictionaries/MainMenu/ScheduleView/ScheduledLectureButton.xaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/ScheduledLectureRepositoryTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/ScheduledLectureRepositoryTests.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +105,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ee38174fc3ee51642de584534277748c6f479e4e87ccc9cd28a551e5c3e7c82/XunitTestCollectionRunner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ee456ec7f2e479b4eaa66183eaa0d1365ef16c4615282c4e7dccacdcc14dda/ArgumentNullException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/eea3fdf979c660cda9b859c3e59ad59fb78c23d7a3d1ea0423cef2d8de0bf/MutableDependencyResolverExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f08a5537e313cde9e3b95cab95859f116415eb179ab71a7ceb6697f5c497662/SelectMany.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f4bc324a395d24ed12db75b0a81536b642509aa14825bf114d9b7c934e2b/Mediator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/LoginOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/WebViewOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" root0="FORCE_HIGHLIGHTING" />
@@ -195,7 +193,7 @@
       <workItem from="1689244712483" duration="24325000" />
       <workItem from="1689431675601" duration="11790000" />
       <workItem from="1689503444256" duration="41284000" />
-      <workItem from="1689624532893" duration="26682000" />
+      <workItem from="1689624532893" duration="34439000" />
     </task>
     <servers />
   </component>

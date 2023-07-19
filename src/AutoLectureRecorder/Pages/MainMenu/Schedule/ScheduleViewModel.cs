@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Abstractions.Validation;
+using AutoLectureRecorder.Application.ScheduledLectures.Commands.UpdateScheduledLecture.Mapping;
+using AutoLectureRecorder.Application.ScheduledLectures.Common;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
-using DynamicData;
-using DynamicData.Binding;
-using Microsoft.Extensions.Logging;
+using MediatR;
 using ReactiveUI;
+using Unit = System.Reactive.Unit;
 
 namespace AutoLectureRecorder.Pages.MainMenu.Schedule;
 
@@ -23,13 +24,13 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
     private readonly CompositeDisposable _disposables;
     
     public ViewModelActivator Activator { get; }
-    
-    public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; set; }
+
+    public ObservableCollection<ReactiveScheduledLecture> AllScheduledLectures { get; set; } = new();
     public ReactiveCommand<ReactiveScheduledLecture, Unit> UpdateScheduledLectureCommand { get; private set; }
     public ReactiveCommand<ReactiveScheduledLecture, Unit> NavigateToUpdateScheduledLecture { get; private set; }
 
-    public ScheduleViewModel(INavigationService navigationService, IScheduledLectureRepository scheduledLectureRepository,
-        ILogger<ScheduleViewModel> logger) 
+    public ScheduleViewModel(INavigationService navigationService, ISender mediatorSender,
+        IScheduledLectureRepository scheduledLectureRepository, IPersistentValidationContext persistentValidationContext)
         : base(navigationService)
     {
         _disposables = new CompositeDisposable();
@@ -38,12 +39,27 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
         UpdateScheduledLectureCommand = ReactiveCommand.CreateFromTask<ReactiveScheduledLecture, Unit>(
         async lecture =>
         {
-            await scheduledLectureRepository.UpdateScheduledLecture(lecture);
+            persistentValidationContext.AddValidationParameter(
+                ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures,
+                true);
+            var errorOrConflictingLectureIds = await mediatorSender.Send(lecture.MapToUpdateCommand());
+            if (errorOrConflictingLectureIds.IsError == false)
+            {
+                var conflictingLectures = errorOrConflictingLectureIds.Value;
+                if (conflictingLectures is null) return Unit.Default;
+                
+                foreach (var conflictingLecture in conflictingLectures)
+                {
+                    AllScheduledLectures.First(lecture => lecture.Id == conflictingLecture.Id)
+                        .IsScheduled = conflictingLecture.IsScheduled;
+                }
+            }
+            
             return Unit.Default;
         });
 
-        NavigateToUpdateScheduledLecture = ReactiveCommand.CreateFromTask<ReactiveScheduledLecture, Unit>(
-            async lecture =>
+        NavigateToUpdateScheduledLecture = ReactiveCommand.Create<ReactiveScheduledLecture, Unit>(
+             lecture =>
         {
             var parameters = new Dictionary<string, object>();
             parameters.Add(NavigationParameters.CreateLecture.IsUpdateMode, true);
@@ -52,7 +68,7 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             NavigationService.Navigate(typeof(CreateLectureViewModel), HostNames.MainMenuHost, parameters);
             return Unit.Default;
         });
-        
+
         Observable.FromAsync(async () =>
         {
             var fetchedLectures =
@@ -61,21 +77,6 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             if (fetchedLectures is null) return;
             
             AllScheduledLectures = new ObservableCollection<ReactiveScheduledLecture>(fetchedLectures);
-            
-            AllScheduledLectures.ToObservableChangeSet()
-                .WhenPropertyChanged(scheduledLecture => scheduledLecture.IsScheduled)
-                .Skip(AllScheduledLectures.Count)
-                .Select(x => x.Sender)
-                .InvokeCommand(UpdateScheduledLectureCommand)
-                .DisposeWith(_disposables);
-            
-            AllScheduledLectures.ToObservableChangeSet()
-                .WhenPropertyChanged(scheduledLecture => scheduledLecture.WillAutoUpload)
-                .Skip(AllScheduledLectures.Count)
-                .Select(x => x.Sender)
-                .InvokeCommand(UpdateScheduledLectureCommand)
-                .DisposeWith(_disposables);
-            
         }).Subscribe()
         .DisposeWith(_disposables);
 

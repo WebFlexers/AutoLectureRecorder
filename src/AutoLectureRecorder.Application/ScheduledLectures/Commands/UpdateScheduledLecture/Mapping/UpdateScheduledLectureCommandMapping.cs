@@ -4,8 +4,7 @@ namespace AutoLectureRecorder.Application.ScheduledLectures.Commands.UpdateSched
 
 public static class UpdateScheduledLectureCommandMapping
 {
-    public static UpdateScheduledLectureCommand MapToUpdateCommand(this ReactiveScheduledLecture lecture, 
-        bool ignoreOverlappingLecturesWarning)
+    public static UpdateScheduledLectureCommand MapToUpdateCommand(this ReactiveScheduledLecture lecture)
     {
         return new UpdateScheduledLectureCommand(
             id: lecture.Id,
@@ -16,8 +15,7 @@ public static class UpdateScheduledLectureCommandMapping
             startTime: lecture.StartTime,
             endTime: lecture.EndTime,
             isScheduled: lecture.IsScheduled,
-            willAutoUpload: lecture.WillAutoUpload,
-            ignoreOverlappingLecturesWarning: ignoreOverlappingLecturesWarning);
+            willAutoUpload: lecture.WillAutoUpload);
     }
 
     public static ReactiveScheduledLecture MapToReactiveModel(this UpdateScheduledLectureCommand lecture)

@@ -46,7 +46,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     {
         try
         {
-            string sql = "select * from ScheduledLectures order by Day, StartTime";
+            string sql = "select * from ScheduledLectures order by Day, StartTime, SubjectName";
 
             var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
                 sql, new { }).ConfigureAwait(false);
@@ -92,7 +92,7 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
 
         try
         {
-            string sql = "select * from ScheduledLectures where Day=@Day order by StartTime";
+            string sql = "select * from ScheduledLectures where Day=@Day order by StartTime, SubjectName";
 
             var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
                 sql, new { Day = (int)day.Value }).ConfigureAwait(false);

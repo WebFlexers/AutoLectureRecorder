@@ -1,14 +1,19 @@
 ﻿using AutoLectureRecorder.Application.ScheduledLectures.Common;
+using AutoLectureRecorder.Domain.ReactiveModels;
 using ErrorOr;
 using MediatR;
-using Unit = System.Reactive.Unit;
 
 namespace AutoLectureRecorder.Application.ScheduledLectures.Commands.UpdateScheduledLecture;
 
-public class UpdateScheduledLectureCommand : IRequest<ErrorOr<Unit>>, IValidatableScheduledLecture
+/// <summary>
+/// Updates the scheduled lecture of the given id with the given information.
+/// Returns a list of the lectures that had to be deactivated in
+/// case of a time conflict (if any)
+/// </summary>
+public class UpdateScheduledLectureCommand : IRequest<ErrorOr<List<ReactiveScheduledLecture>?>>, IValidatableScheduledLecture
 {
     public UpdateScheduledLectureCommand(int id, string? subjectName, int semester, string? meetingLink, DayOfWeek? day, 
-        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload, bool ignoreOverlappingLecturesWarning)
+        TimeOnly startTime, TimeOnly endTime, bool isScheduled, bool willAutoUpload)
     {
         Id = id;
         SubjectName = subjectName;
@@ -19,7 +24,6 @@ public class UpdateScheduledLectureCommand : IRequest<ErrorOr<Unit>>, IValidatab
         EndTime = endTime;
         IsScheduled = isScheduled;
         WillAutoUpload = willAutoUpload;
-        IgnoreOverlappingLecturesWarning = ignoreOverlappingLecturesWarning;
     }
 
     public int Id { get; set; }
@@ -31,6 +35,4 @@ public class UpdateScheduledLectureCommand : IRequest<ErrorOr<Unit>>, IValidatab
     public TimeOnly EndTime { get; set; }
     public bool IsScheduled { get; set; }
     public bool WillAutoUpload { get; set; }
-
-    public bool IgnoreOverlappingLecturesWarning { get; set; }
 }

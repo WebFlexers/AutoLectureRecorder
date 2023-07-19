@@ -4,41 +4,22 @@ namespace AutoLectureRecorder.Infrastructure.Validation;
 
 public class PersistentValidationContext : IPersistentValidationContext
 {
-    private readonly Dictionary<Type, Dictionary<string, object>> _contextData = new();
-
-    /// <inheritdoc/>
-    public void AddValidationParameter(Type type, string parameterIdentifier, object parameterValue)
+    private Dictionary<string, object> _contextData = new();
+    
+    public void AddValidationParameter(string parameterIdentifier, object parameterValue)
     {
-        if (_contextData.ContainsKey(type) == false)
-        {
-            _contextData[type] = new Dictionary<string, object>();
-        }
-
-        _contextData[type][parameterIdentifier] = parameterValue;
+        _contextData[parameterIdentifier] = parameterValue;
     }
-
-    /// <inheritdoc/>
-    public bool RemoveValidationParametersOfType(Type type)
+    
+    public object? GetValidationParameter(string parameterIdentifier)
     {
-        return _contextData.Remove(type);
-    }
-
-    /// <inheritdoc/>
-    public object? GetValidationParameter(Type type, string parameterIdentifier)
-    {
-        if (_contextData.TryGetValue(type, out var parameters) == false)
-        {
-            return null;
-        }
-        
-        parameters.TryGetValue(parameterIdentifier, out var parameter);
+        _contextData.TryGetValue(parameterIdentifier, out var parameter);
         return parameter;
     }
-
-    /// <inheritdoc/>
-    public Dictionary<string, object>? GetAllValidationParameters(Type type)
+    
+    public void RemoveAllValidationParameters(string type)
     {
-        _contextData.TryGetValue(type, out var parameters);
-        return parameters;
+        _contextData.Clear();
+        _contextData = new();
     }
 }

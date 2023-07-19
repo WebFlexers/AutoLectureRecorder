@@ -14,14 +14,7 @@ using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using Splat;
-using System;
-using System.Linq;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using System.Windows;
 using AutoLectureRecorder.Pages.MainMenu.Schedule;
-using ReactiveMarbles.ObservableEvents;
-using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu;
 

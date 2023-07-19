@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using AutoLectureRecorder.Common.Core;
+﻿using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Pages.Login;

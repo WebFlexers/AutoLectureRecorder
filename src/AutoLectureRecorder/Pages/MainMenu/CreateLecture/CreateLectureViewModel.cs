@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -112,10 +111,10 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
             
             Debug.Assert(lectureToUpdate is not null);
             
-            persistentValidationContext.AddValidationParameter(typeof(UpdateScheduledLectureCommand), 
+            persistentValidationContext.AddValidationParameter(
                 ValidationParameters.ScheduledLectures.IsOnUpdateMode,
                 true);
-            persistentValidationContext.AddValidationParameter(typeof(UpdateScheduledLectureCommand), 
+            persistentValidationContext.AddValidationParameter(
                 ValidationParameters.ScheduledLectures.ScheduledLectureId,
                 lectureToUpdate.Id);
 
@@ -143,8 +142,8 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
         
         CreateScheduleLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var command = ValidatableScheduledLecture.MapToCreateCommand(IgnoreOverlappingLectures);
-            persistentValidationContext.AddValidationParameter(command.GetType(), 
+            var command = ValidatableScheduledLecture.MapToCreateCommand();
+            persistentValidationContext.AddValidationParameter(
                 ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures,
                 IgnoreOverlappingLectures);
             var result = await mediatorSender.Send(command);
@@ -166,8 +165,8 @@ public class CreateLectureViewModel : RoutableViewModel, INotifyDataErrorInfo, I
         
         UpdateScheduleLectureCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var command = ValidatableScheduledLecture.MapToUpdateCommand(IgnoreOverlappingLectures);
-            persistentValidationContext.AddValidationParameter(command.GetType(), 
+            var command = ValidatableScheduledLecture.MapToUpdateCommand();
+            persistentValidationContext.AddValidationParameter( 
                 ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures,
                 IgnoreOverlappingLectures);
 

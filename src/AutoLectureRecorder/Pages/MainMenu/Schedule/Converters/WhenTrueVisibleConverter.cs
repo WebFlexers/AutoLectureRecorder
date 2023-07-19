@@ -1,9 +1,9 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
-using System;
 using System.Windows.Data;
 
-namespace AutoLectureRecorder.Resources.ResourceDictionaries.MainMenu.ScheduleView.Converters;
+namespace AutoLectureRecorder.Pages.MainMenu.Schedule.Converters;
 
 public class WhenTrueVisibleConverter : IValueConverter
 {

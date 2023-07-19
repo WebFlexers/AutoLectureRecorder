@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace AutoLectureRecorder.Application.Common.Behaviors;
 
 public class ErrorLoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
+    where TRequest : notnull
     where TResponse : IErrorOr
 {
     private readonly ILogger<TRequest> _logger;

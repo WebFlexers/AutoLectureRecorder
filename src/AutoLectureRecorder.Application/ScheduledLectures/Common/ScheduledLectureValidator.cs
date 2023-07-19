@@ -1,8 +1,6 @@
 ﻿using AutoLectureRecorder.Application.Common;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Validation;
-using AutoLectureRecorder.Application.ScheduledLectures.Commands.CreateScheduledLecture;
-using AutoLectureRecorder.Application.ScheduledLectures.Commands.UpdateScheduledLecture;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using FluentValidation;
 
@@ -78,7 +76,7 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
         if (lecture.IsScheduled == false) return true;
 
         var isOnUpdateModeObject = _persistentValidationContext.GetValidationParameter(
-            typeof(UpdateScheduledLectureCommand), ValidationParameters.ScheduledLectures.IsOnUpdateMode);
+            ValidationParameters.ScheduledLectures.IsOnUpdateMode);
         
         bool isOnUpdateMode = false;
         int lectureId = -1;
@@ -88,7 +86,7 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
             if (isOnUpdateMode)
             {
                 var lectureIdObject = _persistentValidationContext.GetValidationParameter(
-                    typeof(UpdateScheduledLectureCommand), ValidationParameters.ScheduledLectures.ScheduledLectureId);
+                    ValidationParameters.ScheduledLectures.ScheduledLectureId);
                 if (lectureIdObject is not null)
                 {
                     lectureId = (int)lectureIdObject;
@@ -125,9 +123,7 @@ public class ScheduledLectureValidator : AbstractValidator<IValidatableScheduled
     private bool ShouldIgnoreOverlappingLectures()
     {
         var ignoreOverlappingLecturesObject = _persistentValidationContext.GetValidationParameter(
-            typeof(CreateScheduledLectureCommand), ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures) ?? 
-                                              _persistentValidationContext.GetValidationParameter(
-            typeof(UpdateScheduledLectureCommand), ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures);
+            ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures);
 
         if (ignoreOverlappingLecturesObject is not null)
         {
