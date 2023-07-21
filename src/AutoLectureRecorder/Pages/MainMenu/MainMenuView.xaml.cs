@@ -16,12 +16,13 @@ using ReactiveMarbles.ObservableEvents;
 using ReactiveUI;
 using Splat;
 using AutoLectureRecorder.Pages.MainMenu.Schedule;
+using AutoLectureRecorder.Pages.MainMenu.Upload;
 
 namespace AutoLectureRecorder.Pages.MainMenu;
 
 public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
 {
-    private IThemeManager? _themeManager;
+    private readonly IThemeManager? _themeManager;
     
     public MainMenuView()
     {
@@ -37,7 +38,6 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                 .DisposeWith(disposables);
 
             // Navigation commands
-            // TODO: Add the navigation commands
             this.BindCommand(ViewModel,
                     vm => vm.NavigateCommand,
                     v => v.DashboardButton,
@@ -52,6 +52,12 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
             
             this.BindCommand(ViewModel,
                     vm => vm.NavigateCommand,
+                    v => v.UploadButton,
+                    Observable.Return(typeof(UploadViewModel)))
+                .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel,
+                    vm => vm.NavigateCommand,
                     v => v.LibraryButton,
                     Observable.Return(typeof(LibraryViewModel)))
                 .DisposeWith(disposables);
@@ -62,11 +68,11 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                     Observable.Return(typeof(SettingsViewModel)))
                 .DisposeWith(disposables);
             
-            this.BindCommand(ViewModel,
+            /*this.BindCommand(ViewModel,
                 vm => vm.NavigateCommand,
                 v => v.HelpButton,
                 Observable.Return(typeof(CreateLectureViewModel)))
-                .DisposeWith(disposables);
+                .DisposeWith(disposables);*/
 
             // Navigate back and forward using the 2 arrow-like mouse buttons (if the user's mouse has them)
             this.Events().MouseDown
@@ -90,7 +96,7 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
 
             // Update the menu buttons to highlight the selected one and show the right side line
             // that indicates it is active
-            ViewModel!.Router.NavigationChanged.Subscribe(cs => 
+            ViewModel!.Router.NavigationChanged.Subscribe(_ => 
                 UpdateMenuButtonsStyle()).DisposeWith(disposables);
 
             MessageBus.Current.Listen<Unit>(PubSubMessages.UpdateTheme)
@@ -106,40 +112,39 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
         
         var navigatedViewModel = ViewModel!.Router.GetCurrentViewModel();
 
-        // TODO: comment this out when the time is right
-        /*switch (navigatedViewModel)
+        switch (navigatedViewModel)
         {
             case DashboardViewModel _:
                 DashboardButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
-                DashboardButtonContent.FillColor = colors["PrimaryBrush"] as SolidColorBrush;
+                DashboardButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 DashboardSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("dashboard", colors);
                 break;
             case LibraryViewModel _:
                 LibraryButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
-                LibraryButtonContent.FillColor = colors["PrimaryBrush"] as SolidColorBrush;
+                LibraryButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 LibrarySelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("library", colors);
                 break;
             case ScheduleViewModel _:
                 ScheduleButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
-                ScheduleButtonContent.FillColor = colors["PrimaryBrush"] as SolidColorBrush;
+                ScheduleButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 ScheduleSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("schedule", colors);
                 break;
             case SettingsViewModel _:
                 SettingsButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
-                SettingsButtonContent.FillColor = colors["PrimaryBrush"] as SolidColorBrush;
+                SettingsButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 SettingsSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("settings", colors);
                 break;
             case UploadViewModel _:
                 UploadButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
-                UploadButtonContent.FillColor = colors["PrimaryBrush"] as SolidColorBrush;
+                UploadButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 UploadSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("upload", colors);
                 break;
-        }*/
+        }
     }
 
     private void ResetMenuButtonsStyleExcept(string exception, ResourceDictionary colors)
@@ -147,31 +152,31 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
         if (exception != "dashboard")
         {
             DashboardButton.Background = new SolidColorBrush(Colors.Transparent);
-            DashboardButtonContent.FillColor = colors["SecondaryTextBrush"] as SolidColorBrush;
+            DashboardButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
             DashboardSelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "library")
         {
             LibraryButton.Background = new SolidColorBrush(Colors.Transparent);
-            LibraryButtonContent.FillColor = colors["SecondaryTextBrush"] as SolidColorBrush;
+            LibraryButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
             LibrarySelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "schedule")
         {
             ScheduleButton.Background = new SolidColorBrush(Colors.Transparent);
-            ScheduleButtonContent.FillColor = colors["SecondaryTextBrush"] as SolidColorBrush;
+            ScheduleButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
             ScheduleSelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "settings")
         {
             SettingsButton.Background = new SolidColorBrush(Colors.Transparent);
-            SettingsButtonContent.FillColor = colors["SecondaryTextBrush"] as SolidColorBrush;
+            SettingsButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
             SettingsSelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "upload")
         {
             UploadButton.Background = new SolidColorBrush(Colors.Transparent);
-            UploadButtonContent.FillColor = colors["SecondaryTextBrush"] as SolidColorBrush;
+            UploadButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
             UploadSelectedLineGrid.Visibility = Visibility.Hidden;
         }
     }

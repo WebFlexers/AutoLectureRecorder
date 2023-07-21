@@ -10,6 +10,7 @@ using AutoLectureRecorder.Pages.MainMenu.Library;
 using AutoLectureRecorder.Pages.MainMenu.Library.Services;
 using AutoLectureRecorder.Pages.MainMenu.Schedule;
 using AutoLectureRecorder.Pages.MainMenu.Settings;
+using AutoLectureRecorder.Pages.MainMenu.Upload;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +64,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IViewFor<DashboardViewModel>, DashboardView>();
         services.AddTransient<IViewFor<ScheduleViewModel>, ScheduleView>();
         services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
+        services.AddTransient<IViewFor<UploadViewModel>, UploadView>();
         services.AddTransient<IViewFor<LibraryViewModel>, LibraryView>();
         services.AddTransient<IViewFor<RecordedLecturesViewModel>, RecordedLecturesView>();
         services.AddTransient<IViewFor<SettingsViewModel>, SettingsView>();
@@ -80,6 +82,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<DashboardViewModel>();
         services.AddTransient<ScheduleViewModel>();
         services.AddTransient<CreateLectureViewModel>();
+        services.AddTransient<UploadViewModel>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<LibraryViewModel>();
         services.AddTransient<RecordedLecturesViewModel>();

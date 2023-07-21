@@ -67,12 +67,12 @@
                                Margin="0, 15"
                                Foreground="{DynamicResource SecondaryTextBrush}"/>
 
-                    <Grid Height="0.5"
+                    <!--<Grid Height="0.5"
                           Margin="0, 0, 0, 15"
                           Background="{DynamicResource SectionLineBrush}">
                     </Grid>
 
-                    <!-- Show Splash Screen -->
+                    ~1~ Show Splash Screen @1@
                     <StackPanel Orientation="Horizontal">
                         <ToggleButton x:Name="ShowSplashScreenToggleButton"
                                       Height="20"/>
@@ -86,7 +86,7 @@
                                MaxWidth="350"
                                HorizontalAlignment="Left"
                                Margin="0, 15"
-                               Foreground="{DynamicResource SecondaryTextBrush}"/> 
+                               Foreground="{DynamicResource SecondaryTextBrush}"/> -->
                 </StackPanel>
             </TabItem>
 
