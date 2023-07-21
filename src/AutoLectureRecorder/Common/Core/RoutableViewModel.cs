@@ -13,7 +13,6 @@ public abstract class RoutableViewModel : ReactiveObject, IRoutableViewModel
     }
 
     public string UrlPathSegment => this.GetType().Name;
-    
     // ReSharper disable once UnassignedGetOnlyAutoProperty
     public IScreen HostScreen { get; } = null!;
 }

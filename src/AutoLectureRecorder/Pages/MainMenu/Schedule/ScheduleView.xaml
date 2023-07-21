@@ -182,7 +182,7 @@
                                                Background="{DynamicResource PrimaryBrush}"
                                                Foreground="{DynamicResource PrimaryTextBrush}"/>
                                     
-                                    <ScrollViewer x:Name="DayLecturesScrollViewer"  
+                                    <ScrollViewer x:Name="DayLecturesScrollViewer" 
                                                   Grid.Column="0" Grid.Row="1"
                                                   Margin="2, 4, 2, 0"
                                                   VerticalScrollBarVisibility="Hidden"
@@ -201,7 +201,8 @@
                           ItemTemplate="{StaticResource ScheduledLectureTemplate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
+                        <VirtualizingStackPanel
+                            Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 

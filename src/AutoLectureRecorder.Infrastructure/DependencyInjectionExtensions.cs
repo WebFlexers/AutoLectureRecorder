@@ -32,6 +32,8 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<ILecturesScheduler, LecturesScheduler>();
 
         services.AddTransient<IStartupManager, WindowsStartupManager>();
+        
+        services.AddHttpClient();
 
         services.AddRepositories();
 
@@ -49,7 +51,8 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<IScheduledLectureRepository, ScheduledLectureRepository>();
         services.AddSingleton<ISettingsRepository, SettingsRepository>();
         services.AddSingleton<IStudentAccountRepository, StudentAccountRepository>();
-
+        services.AddSingleton<IRecordingsRepository, RecordingsRepository>();
+        
         return services;
     }
 }

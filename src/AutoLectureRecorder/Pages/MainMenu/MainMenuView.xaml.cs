@@ -9,6 +9,7 @@ using System.Windows.Media;
 using AutoLectureRecorder.Common.Messages;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using AutoLectureRecorder.Pages.MainMenu.Dashboard;
+using AutoLectureRecorder.Pages.MainMenu.Library;
 using AutoLectureRecorder.Pages.MainMenu.Settings;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using ReactiveMarbles.ObservableEvents;
@@ -47,6 +48,12 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                     vm => vm.NavigateCommand,
                     v => v.ScheduleButton,
                     Observable.Return(typeof(ScheduleViewModel)))
+                .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel,
+                    vm => vm.NavigateCommand,
+                    v => v.LibraryButton,
+                    Observable.Return(typeof(LibraryViewModel)))
                 .DisposeWith(disposables);
             
             this.BindCommand(ViewModel,

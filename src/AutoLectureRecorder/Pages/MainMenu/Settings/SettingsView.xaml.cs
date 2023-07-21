@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Disposables;
 using AutoLectureRecorder.Application.Recording;
+using AutoLectureRecorder.Application.Recording.Common;
 using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu.Settings;

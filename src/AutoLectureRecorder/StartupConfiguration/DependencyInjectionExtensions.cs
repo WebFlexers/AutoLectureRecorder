@@ -1,10 +1,13 @@
-﻿using AutoLectureRecorder.Common.Core;
+﻿using AutoLectureRecorder.Application.Common.Abstractions.Recording;
+using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using AutoLectureRecorder.Pages.MainMenu.Dashboard;
+using AutoLectureRecorder.Pages.MainMenu.Library;
+using AutoLectureRecorder.Pages.MainMenu.Library.Services;
 using AutoLectureRecorder.Pages.MainMenu.Schedule;
 using AutoLectureRecorder.Pages.MainMenu.Settings;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
@@ -32,11 +35,13 @@ public static class DependencyInjectionExtensions
             .AddNavigation();
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjectionExtensions).Assembly);
+
+        // This is here instead of the infrastructure layer, because it has dependencies that
+        // are not available to class libraries
+        services.AddTransient<IVideoInformationRetriever, VideoInformationRetriever>();
         
         services.AddSingleton<IThemeManager, ThemeManager>();
-        
-        services.AddHttpClient();
-        
+
         return services;
     }
 
@@ -58,6 +63,8 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IViewFor<DashboardViewModel>, DashboardView>();
         services.AddTransient<IViewFor<ScheduleViewModel>, ScheduleView>();
         services.AddTransient<IViewFor<CreateLectureViewModel>, CreateLectureView>();
+        services.AddTransient<IViewFor<LibraryViewModel>, LibraryView>();
+        services.AddTransient<IViewFor<RecordedLecturesViewModel>, RecordedLecturesView>();
         services.AddTransient<IViewFor<SettingsViewModel>, SettingsView>();
         return services;
     }
@@ -74,6 +81,8 @@ public static class DependencyInjectionExtensions
         services.AddTransient<ScheduleViewModel>();
         services.AddTransient<CreateLectureViewModel>();
         services.AddTransient<SettingsViewModel>();
+        services.AddTransient<LibraryViewModel>();
+        services.AddTransient<RecordedLecturesViewModel>();
         return services;
     }
 

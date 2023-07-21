@@ -1,4 +1,5 @@
 ﻿using AutoLectureRecorder.Application.Recording;
+using AutoLectureRecorder.Application.Recording.Common;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using ReactiveUI;
 using ScreenRecorderLib;

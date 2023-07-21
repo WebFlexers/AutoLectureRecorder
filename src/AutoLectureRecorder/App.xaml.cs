@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -60,15 +61,6 @@ namespace AutoLectureRecorder
 
             var mainWindow = services.GetRequiredService<MainWindow>();
             this.MainWindow = mainWindow;
-            
-            // Make the window fullscreen if it's dimensions exceed the screen dimensions
-            var screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
-            if (screen.WorkingArea.Width < mainWindow.Width
-                || screen.WorkingArea.Height < mainWindow.Height)
-            {
-                mainWindow.WindowState = WindowState.Maximized;
-            }
-            
 
             var studentRepository = services.GetRequiredService<IStudentAccountRepository>();
             bool isLoggedIn = await studentRepository.GetStudentAccount() is not null;
@@ -87,6 +79,14 @@ namespace AutoLectureRecorder
             if (isBackgroundRunEnabled == false)
             {
                 mainWindow.Show();
+                
+                // Make the window fullscreen if it's dimensions exceed the screen dimensions
+                var screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
+                if (screen.WorkingArea.Width < mainWindow.Width
+                    || screen.WorkingArea.Height < mainWindow.Height)
+                {
+                    mainWindow.WindowState = WindowState.Maximized;
+                }
             }
 
             var observeShowWindowTask = Task.Run(() => ObserveShowWindowPipe());
@@ -102,15 +102,18 @@ namespace AutoLectureRecorder
         private async Task InitializeSettings()
         {
             var settingsRepository = _appBootstrapper!.AppHost.Services.GetRequiredService<ISettingsRepository>();
+            var recordingsRepository = _appBootstrapper.AppHost.Services.GetRequiredService<IRecordingsRepository>();
             var recorder = _appBootstrapper!.AppHost.Services.GetRequiredService<IRecorder>();
             
             var getGeneralSettingsTask = settingsRepository.GetRecordingSettings();
             var getRecordingSettingsTask = settingsRepository.GetRecordingSettings();
+            var recordingDirectoriesTask = recordingsRepository.GetAllRecordingDirectories();
 
-            await Task.WhenAll(getGeneralSettingsTask, getRecordingSettingsTask);
+            await Task.WhenAll(getGeneralSettingsTask, getRecordingSettingsTask, recordingDirectoriesTask);
 
             var generalSettings = getGeneralSettingsTask.Result;
             var recordingSettings = getRecordingSettingsTask.Result;
+            var recordingDirectories = recordingDirectoriesTask.Result;
 
             if (generalSettings == null && recordingSettings == null)
             {
@@ -120,22 +123,28 @@ namespace AutoLectureRecorder
                 return;
             }
 
-            if (recordingSettings == null)
+            var screen = Screen.PrimaryScreen;
+            if (recordingSettings is null)
             {
-                var screen = Screen.PrimaryScreen;
                 await settingsRepository.ResetRecordingSettings(screen!.Bounds.Width, screen.Bounds.Height, recorder);
             }
 
-            if (generalSettings == null)
+            if (generalSettings is null)
             {
                 await settingsRepository.ResetGeneralSettings();
+            }
+
+            if (recordingDirectories is null || recordingDirectories.Any() == false)
+            {
+                var defaultRecordingSettings = recorder.GetDefaultSettings(screen!.Bounds.Width, screen.Bounds.Height);
+                await recordingsRepository.AddRecordingDirectory(defaultRecordingSettings.RecordingsLocalPath);
             }
         }
         
         private async Task SetupLecturesScheduler()
         {
             var mediatorPublisher = _appBootstrapper!.AppHost.Services.GetRequiredService<IPublisher>();
-            var lecturesScheduler = _appBootstrapper!.AppHost.Services.GetRequiredService<ILecturesScheduler>();
+            var lecturesScheduler = _appBootstrapper.AppHost.Services.GetRequiredService<ILecturesScheduler>();
             
             await mediatorPublisher.Publish(new NextScheduledLectureEvent());
             lecturesScheduler.NextScheduledLectureWillBegin

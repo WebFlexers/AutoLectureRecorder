@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
 using AutoLectureRecorder.Application.Recording;
+using AutoLectureRecorder.Application.Recording.Common;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;

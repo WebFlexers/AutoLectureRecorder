@@ -145,6 +145,17 @@ public class SampleData : ISampleData
                 }
             }
         }
+        
+        ScheduledLectures.Add(new ScheduledLecture(
+            lectureId, 
+            "Αλγόριθμοι",
+            5,
+            "teams.microsoft.com",
+            5,
+            "10:15",
+            "12:15 pm",
+            1,
+            1));
     }
 
     /*private void CreateRecordedLectures()

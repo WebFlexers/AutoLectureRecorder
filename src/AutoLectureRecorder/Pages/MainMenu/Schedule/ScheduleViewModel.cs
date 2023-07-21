@@ -50,7 +50,7 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
                 
                 foreach (var conflictingLecture in conflictingLectures)
                 {
-                    AllScheduledLectures.First(lecture => lecture.Id == conflictingLecture.Id)
+                    AllScheduledLectures.First(currentLecture => currentLecture.Id == conflictingLecture.Id)
                         .IsScheduled = conflictingLecture.IsScheduled;
                 }
             }

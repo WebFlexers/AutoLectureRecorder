@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace AutoLectureRecorder.Application.Recording;
+namespace AutoLectureRecorder.Application.Recording.Common;
 
 public class ReactiveAudioDevice : ReactiveObject
 {

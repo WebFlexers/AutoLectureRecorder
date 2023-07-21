@@ -24,8 +24,13 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
     public ViewModelActivator Activator { get; }
     private readonly CompositeDisposable _disposables = new();
-    
-    public ObservableCollection<ReactiveScheduledLecture>? TodaysLectures { get; set; }
+
+    private ObservableCollection<ReactiveScheduledLecture>? _todaysLectures;
+    public ObservableCollection<ReactiveScheduledLecture>? TodaysLectures
+    {
+        get => _todaysLectures;
+        set => this.RaiseAndSetIfChanged(ref _todaysLectures, value);
+    }
 
     private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
     public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;

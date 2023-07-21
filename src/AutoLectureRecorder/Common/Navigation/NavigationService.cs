@@ -56,7 +56,7 @@ public class NavigationService : INavigationService
         if (router.NavigationStack.LastOrDefault()?.GetType() == vmType) return;
 
         // Navigate and reset to avoid memory leaks with ViewModels being retained in memory
-        router.NavigateAndReset.Execute(viewModel);
+        router.NavigateAndReset.Execute(viewModel).Subscribe();
         _logger.LogSuccessfulNavigation(vmType.Name);
     }
 
@@ -70,10 +70,10 @@ public class NavigationService : INavigationService
             }
         }
 
+        SetRoutedViewHostContent(_viewModelFactory.CreateRoutableViewModel(viewModelType), routerHostName);
+        
         _navigationStack.Add(viewModelType);
         _currentNavigationIndex = _navigationStack.Count - 1;
-
-        SetRoutedViewHostContent(_viewModelFactory.CreateRoutableViewModel(viewModelType), routerHostName);
     }
 
     public void Navigate(Type viewModelType, string routerHostName, Dictionary<string, object> parameters)
