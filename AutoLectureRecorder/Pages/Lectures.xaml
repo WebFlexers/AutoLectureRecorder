@@ -1,0 +1,47 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutoLectureRecorder.Pages"
+      xmlns:Structure="clr-namespace:AutoLectureRecorder.Structure" x:Class="AutoLectureRecorder.Pages.Lectures"
+      mc:Ignorable="d" 
+      d:DesignHeight="644" d:DesignWidth="846"
+      Title="Lectures">
+
+    <Grid Background="#FFEDEFEE">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Days Menu -->
+        <Border Grid.ColumnSpan="3">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0">
+                    <GradientStop Color="#FF183A56"/>
+                    <GradientStop Color="#FF204D72" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <ListView Grid.ColumnSpan="3" FontSize="18" FontWeight="DemiBold" Foreground="WhiteSmoke">
+            <ListViewItem x:Name="ListViewItemMonday" Content="Monday" HorizontalContentAlignment="Center" Selected="ListViewItemMonday_Selected"/>
+            <ListViewItem Content="Tuesday" HorizontalContentAlignment="Center" Selected="ListViewItemTuesday_Selected"/>
+            <ListViewItem Content="Wednesday" HorizontalContentAlignment="Center" Selected="ListViewItemWednesday_Selected"/>
+            <ListViewItem Content="Thursday" HorizontalContentAlignment="Center" Selected="ListViewItemThursday_Selected"/>
+            <ListViewItem Content="Friday" HorizontalContentAlignment="Center" Selected="ListViewItemFriday_Selected"/>
+            <ListViewItem Content="Saturday" HorizontalContentAlignment="Center" Selected="ListViewItemSaturday_Selected"/>
+            <ListViewItem Content="Sunday" HorizontalContentAlignment="Center" Selected="ListViewItemSunday_Selected"/>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="7"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        
+        <!-- Lectures frame -->
+        <Frame x:Name="FrameDayLectures" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+
+    </Grid>
+</Page>

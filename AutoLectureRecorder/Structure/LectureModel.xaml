@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="AutoLectureRecorder.Structure.LectureModel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoLectureRecorder.Structure"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="270" d:DesignWidth="220">
+
+    <Border BorderThickness="1" BorderBrush="Black">
+        <StackPanel Background="#FFEDEFEE">
+            <Border Height="65" Background="#FF204D72" BorderBrush="Black" BorderThickness="0 0 0 1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="28"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="*"/>
+                        
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="2"
+                        x:Name="TextBlockName"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap"
+                        TextTrimming="CharacterEllipsis"
+                        FontSize="22" 
+                        FontWeight="DemiBold" 
+                        Foreground="WhiteSmoke">
+                        Lecture Name
+                    </TextBlock>
+
+                    <Button 
+                        x:Name="ButtonDelete" 
+                        Padding="0" 
+                        Grid.Column="1" 
+                        HorizontalContentAlignment="Center" 
+                        Height="28" Width="28" 
+                        Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonDelete_Click">
+                        <materialDesign:PackIcon 
+                            Height="25"
+                            Width="25"
+                            HorizontalAlignment="Center" 
+                            x:Name="ExitIcon" 
+                            Kind="Close" 
+                            Foreground="Red"
+                         />
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Meeting link -->
+            <TextBlock
+                TextAlignment="Center"
+                FontSize="20">
+                Meeting Team
+            </TextBlock>
+
+            <TextBlock
+                x:Name="TextBlockLink"
+                TextAlignment="Center"
+                TextTrimming="CharacterEllipsis"
+                FontSize="16"
+                Padding="5,0,5,0"
+                FontWeight="Thin">
+                Meeting team
+            </TextBlock>
+            
+            <!-- Start Time -->
+            <TextBlock
+                TextAlignment="Center"
+                FontSize="20">
+                Start Time
+            </TextBlock>
+
+            <TextBlock
+                x:Name="TextBlockStartTime"
+                TextAlignment="Center"
+                FontSize="16"
+                FontWeight="Thin">
+                00.00.00
+            </TextBlock>
+
+            <!-- End Time -->
+            <TextBlock
+                TextAlignment="Center"
+                FontSize="20">
+                End Time
+            </TextBlock>
+
+            <TextBlock
+                x:Name="TextBlockEndTime"
+                TextAlignment="Center"
+                FontSize="16"
+                FontWeight="Thin">
+                00.00.00
+            </TextBlock>
+
+            <StackPanel HorizontalAlignment="Center">
+                <CheckBox
+                x:Name="CheckboxYoutube"
+                IsChecked="True"
+                Style="{StaticResource MaterialDesignAccentCheckBox}"
+                HorizontalAlignment="Center"
+                BorderBrush="#0E3C6C"
+                FontSize="16"
+                Margin="0,8,0,4" Checked="CheckboxYoutube_Checked" Unchecked="CheckboxYoutube_Unchecked" Background="#FF0E3C6C">
+
+                    <TextBlock Margin="0,-3,0,0">
+                        Upload to youtube
+                    </TextBlock>
+                </CheckBox>
+
+                <CheckBox
+                x:Name="CheckboxEnabled"
+                IsChecked="True"
+                Style="{StaticResource MaterialDesignAccentCheckBox}"
+                
+                BorderBrush="#0E3C6C"
+                FontSize="16" Checked="CheckboxEnabled_Checked" Unchecked="CheckboxEnabled_Unchecked" Background="#FF0E3C6C">
+
+                    <TextBlock Margin="0,-3,0,0">
+                        Enabled
+                    </TextBlock>
+                </CheckBox>
+            </StackPanel>
+            
+        </StackPanel>
+    </Border>
+    
+</UserControl>

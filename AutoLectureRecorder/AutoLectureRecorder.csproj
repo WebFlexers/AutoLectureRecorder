@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>images\graduation_cap_100px.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="add_50px.png" />
+    <None Remove="graduation_cap_100px.png" />
+    <None Remove="images\graduation_cap_100px.png" />
+    <None Remove="images\maximize_button_18px.png" />
+    <None Remove="images\minus_20px.png" />
+    <None Remove="images\record_50px.png" />
+    <None Remove="images\record_button_on.png" />
+    <None Remove="images\restore_down_20px.png" />
+    <None Remove="images\x_24px.png" />
+    <None Remove="images\youtube_50px.png" />
+    <None Remove="lectures_50px.png" />
+    <None Remove="LoginWindow\graduation_cap_100px.png" />
+    <None Remove="LoginWindow\LoginFormLeft.jpg" />
+    <None Remove="LoginWindow\LoginFormLeft.png" />
+    <None Remove="logout_rounded_left_50px.png" />
+    <None Remove="maximize_button_18px.png" />
+    <None Remove="minus_20px.png" />
+    <None Remove="Pages\record_50px.png" />
+    <None Remove="Pages\record_button_on.png" />
+    <None Remove="Pages\youtube_50px.png" />
+    <None Remove="record_50px.png" />
+    <None Remove="restore_down_20px.png" />
+    <None Remove="settings_50px.png" />
+    <None Remove="student_male_64px.png" />
+    <None Remove="x_24px.png" />
+    <None Remove="youtube_50px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\graduation_cap_100px.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.56.0.2630" />
+    <PackageReference Include="LoadingIndicators.WPF" Version="0.0.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
+    <PackageReference Include="ScreenRecorderLib" Version="3.2.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
+    <PackageReference Include="System.Management" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\add_50px.png" />
+    <Resource Include="images\graduation_cap_100px.png" />
+    <Resource Include="images\lectures_50px.png" />
+    <Resource Include="images\maximize_button_18px.png" />
+    <Resource Include="images\minus_20px.png" />
+    <Resource Include="images\record_button_on.png" />
+    <Resource Include="images\restore_down_20px.png" />
+    <Resource Include="images\x_24px.png" />
+    <Resource Include="images\LoginFormLeft.jpg" />
+    <Resource Include="images\LoginFormLeft.png" />
+    <Resource Include="images\logout_rounded_left_50px.png" />
+    <Resource Include="images\record_50px.png" />
+    <Resource Include="images\settings_50px.png" />
+    <Resource Include="images\student_male_64px.png" />
+    <Resource Include="images\youtube_50px.png" />
+  </ItemGroup>
+
+</Project>
