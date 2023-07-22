@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Platforms>x64;x86</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="ErrorOr" Version="1.2.1" />
+      <PackageReference Include="MediatR" Version="12.1.1" />
+      <PackageReference Include="ReactiveUI" Version="19.4.1" />
+    </ItemGroup>
+
+</Project>

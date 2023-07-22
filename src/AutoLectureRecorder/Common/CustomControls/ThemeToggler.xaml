@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="AutoLectureRecorder.Common.CustomControls.ThemeToggler"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontSize="15"
+             TextElement.FontWeight="Normal"
+             FontFamily="{materialDesign:MaterialDesignFont}"
+             Foreground="{DynamicResource SecondaryTextBrush}"
+             mc:Ignorable="d"
+             d:DesignHeight="43"
+             d:DesignWidth="210">
+
+    <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Center">
+
+        <Image Width="21"
+               Height="21"
+               Margin="10, 0"
+               Source="../../Resources/Icons/ThemeToggler/moon_blue_32x32.png"/>
+        <ToggleButton Width="35"
+                      IsChecked="True"
+                      Background="{DynamicResource SunYellowBrush}"
+                      Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                      Checked="ToggleButton_Checked"
+                      Unchecked="ToggleButton_OnUnchecked"/>
+        <Image Width="23"
+               Height="23"
+               Margin="10, 0"
+               Source="../../Resources/Icons/ThemeToggler/sun_yellow_32x32.png" />
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,6 @@
+Academic hat with magnifier: https://www.flaticon.com/free-icon/magnifier_2955529?related_id=2955529&origin=search
+pc: https://www.flaticon.com/free-icon/computer_1865273?term=computer&page=1&position=2&origin=tag&related_id=1865273
+online: https://www.flaticon.com/free-icon/global_1231223?term=network&page=1&position=30&origin=search&related_id=1231223
+
+****** Wireframe link ******
+https://www.figma.com/file/XyQCWBeFmE21wIzLXmKenL/Auto-Lecture-Recorder?node-id=0%3A1&t=2KTbCQqSXXHiGzfv-0

@@ -1,0 +1,108 @@
+﻿<rxui:ReactiveUserControl 
+            x:Class="AutoLectureRecorder.Pages.MainMenu.Library.LibraryView"
+            x:TypeArguments="local:LibraryViewModel"
+            xmlns:rxui="http://reactiveui.net"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{materialDesign:MaterialDesignFont}"
+            TextElement.FontWeight="Medium"
+            TextElement.FontSize="14"
+            mc:Ignorable="d"
+            xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+            xmlns:local="clr-namespace:AutoLectureRecorder.Pages.MainMenu.Library"
+            d:DesignWidth="1360"
+            d:DesignHeight="768">
+
+<Border>
+    <Border.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../Resources/ResourceDictionaries/MainMenu/Library/RecordedLectureLibraryDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Border.Resources>
+
+    <Grid x:Name="MainGrid"
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <CollectionViewSource x:Key="GroupedLecturesCvs"
+                                  Source="{Binding Path=LecturesBySemester}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="Semester" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+
+            <DataTemplate x:Key="LectureTemplate">
+                <Button Content="{Binding Path=SubjectName}"
+                        Height="80"
+                        Width="auto"
+                        Margin="8"
+                        Style="{StaticResource RecordedLectureLibraryButton}"
+                        Command="{Binding DataContext.NavigateToRecordedLecturesCommand, ElementName=LecturesBySemesterItemsControl}"
+                        CommandParameter="{Binding Path=.}"/>
+            </DataTemplate>
+
+            <Style x:Key="SemesterContainerStyle" TargetType="{x:Type GroupItem}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Margin="21, 10, 21, 10"
+                                    CornerRadius="20"
+                                    Padding="20"
+                                   >
+                                <!--Background="{DynamicResource SecondaryBackgroundBrush}"-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" 
+                                               Text="{Binding Path=Name, StringFormat=Semester {0}}"
+                                               TextElement.FontWeight="Medium"
+                                               FontSize="22"
+                                               Margin="4, 0, 0, 10"/>
+                                    <ItemsPresenter Grid.Row="1"/>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="LecturesBySemesterItemsControl" 
+                          ItemsSource="{Binding Source={StaticResource GroupedLecturesCvs}}"
+                          ItemTemplate="{StaticResource LectureTemplate}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch"
+                                     Columns="5">
+
+                        </UniformGrid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+           
+                <ItemsControl.GroupStyle>
+                    <GroupStyle ContainerStyle="{StaticResource SemesterContainerStyle}"/>
+                </ItemsControl.GroupStyle>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </Grid>
+</Border>
+</rxui:ReactiveUserControl>

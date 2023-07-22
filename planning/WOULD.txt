@@ -1,0 +1,30 @@
+1) W - Walk through it
+The application is called Auto Lecture Recorder (ALR). It's purpose is to automatically join, record and optionally upload online academic lectures
+through microsoft teams or other meeting platforms. Later the lectures can be watched inside ALR's video player (powered by VLC). The uploaded lectures 
+will be available to anyone who uses ALR. They will be organized by university and registration number. 
+Also it keeps statistics of recorded and/or uploaded lectures.  
+
+2) O - Open up the requirements
+* WPF with ReactiveUI MVVM for the Front-End
+* SQLite backend
+* ScreenRecorderLib for recording on windows
+* Selenium web driver for joining meetings
+* Storj for uploading lectures
+* Vlc for viewing the recorded lectures
+
+3) U - User Interface Design
+https://www.figma.com/file/XyQCWBeFmE21wIzLXmKenL/Auto-Lecture-Recorder?node-id=0%3A1&t=2KTbCQqSXXHiGzfv-0
+
+4) L - Logic Design
+* Deploy SQLite with the app
+* Give the ability to change recording location (e.g. to an external hdd)
+and the recording output and input devices
+* Organize the lectures in a schedule using ListViews or a Datagrid
+* Track uploading progress with progress bars
+* Give the ability to watch videos both fullscreen and in normal mode
+* Add a help screen explaining in detail how to setup and use ALR                          
+* Create Azure Functions and a CosmosDB to save the links of all uploaded lectures
+and the registration numbers of the students that created them
+
+5) D - Database Design
+Check the sqlite db file

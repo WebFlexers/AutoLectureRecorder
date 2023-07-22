@@ -1,0 +1,5 @@
+App Icon:
+	Fill: #F3F3F3
+	Gradient left: #58c8df
+	Gradient right: #53a7dd
+
