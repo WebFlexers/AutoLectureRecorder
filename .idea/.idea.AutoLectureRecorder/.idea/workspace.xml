@@ -9,11 +9,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Upload/UploadView.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Upload/UploadView.xaml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Upload/UploadViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/WebElementNames/Login.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutoLectureRecorder.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/AutoLectureRecorder.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/UnipiEdgeWebDriver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/UnipiEdgeWebDriver.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +176,8 @@
       <workItem from="1689503444256" duration="41284000" />
       <workItem from="1689624532893" duration="34784000" />
       <workItem from="1689843313211" duration="9886000" />
-      <workItem from="1689860461897" duration="13416000" />
+      <workItem from="1689860461897" duration="14179000" />
+      <workItem from="1689973961526" duration="2412000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,7 @@
 ﻿using System.Reactive;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Domain.Errors;
+using AutoLectureRecorder.Infrastructure.WebAutomation.WebElementNames;
 using ErrorOr;
 using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
@@ -72,11 +73,11 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
             if (cancellationToken is { IsCancellationRequested: true }) return Errors.Login.LoginCancelled;
 
             // Turn email characters to lower, because capital letters fail the login process 
-            _driver.FindElement(By.Id("i0116")).SendKeys(academicEmailAddress.ToLower());
+            _driver.FindElement(By.Id(ElementNames.Login.MicrosoftEmailFieldId)).SendKeys(academicEmailAddress.ToLower());
             if (cancellationToken is { IsCancellationRequested: true }) return Errors.Login.LoginCancelled;
 
             // Submit to go to University login page
-            _driver.FindElement(By.XPath("//input[@type='submit']")).Click();
+            _driver.FindElement(By.XPath(ElementNames.Login.MicrosoftSubmitButtonXPath)).Click();
             if (cancellationToken is { IsCancellationRequested: true }) return Errors.Login.LoginCancelled;
 
             return EnterUniversityCredentials(academicEmailAddress, password, cancellationToken);
@@ -93,31 +94,33 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
         CancellationToken? cancellationToken = null)
     {
         // Split the academic email address to get the registration number for login
-        _driver!.FindElement(By.Id("username")).SendKeys(academicEmailAddress.Split("@")[0]);
+        _driver!.FindElement(By.Id(ElementNames.Login.UnipiUsernameId)).SendKeys(academicEmailAddress.Split("@")[0]);
 
-        _driver.FindElement(By.Id("password")).SendKeys(password);
+        _driver.FindElement(By.Id(ElementNames.Login.UnipiPasswordId)).SendKeys(password);
         if (cancellationToken is { IsCancellationRequested: true }) return Errors.Login.LoginCancelled;
 
-        _driver.FindElement(By.Id("loginButton")).Click();
+        _driver.FindElement(By.Id(ElementNames.Login.UnipiSubmitButtonId)).Click();
         if (cancellationToken is { IsCancellationRequested: true }) return Errors.Login.LoginCancelled;
 
         // class: banner banner-danger banner-dismissible -> Wrong credentials in unipi auth page
         // class: mdc-card p-4 w-lg-66 m-auto -> Too many requests in unipi auth page
         // class: row text-title -> Successful login
         var loginResultElement = _driver.FindElement(
-            By.XPath("//div[@class='banner banner-danger banner-dismissible' or @class='mdc-card p-4 w-lg-66 m-auto' or @class='row text-title']"));
+            By.XPath($"//div[@class='{ElementNames.Login.UnipiWrongCredentialsClass}' or " +
+                           $"@class='{ElementNames.Login.UnipiTooManyRequestsClass}' or " +
+                           $"@class='{ElementNames.Login.UnipiSuccessfulLoginClass}']"));
 
         var resultMessage = loginResultElement.Text;
         var tagName = loginResultElement.TagName;
         var className = loginResultElement.GetAttribute("class");
-        _logger.LogDebug("TagName: {tag}", tagName);
-        _logger.LogDebug("ClassName: {class}", className);
+        _logger.LogDebug("TagName: {Tag}", tagName);
+        _logger.LogDebug("ClassName: {Class}", className);
 
-        if (loginResultElement.GetAttribute("class").Trim().Equals("row text-title"))
+        if (loginResultElement.GetAttribute("class").Trim().Equals(ElementNames.Login.UnipiSuccessfulLoginClass))
         {
             if (cancellationToken is { IsCancellationRequested: true }) return Errors.Login.LoginCancelled;
 
-            _logger.LogInformation("Successful login of {email}", academicEmailAddress);
+            _logger.LogInformation("Successful login of {Email}", academicEmailAddress);
             return Unit.Default;
         }
 
