@@ -9,10 +9,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/WebElementNames/Login.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Commands/RecordMeeting/RecordMeetingCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Commands/RecordMeeting/RecordMeetingHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Queries/JoinMeeting/JoinMeetingHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Queries/JoinMeeting/JoinMeetingQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/StudentAccount.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/WebElementNames/JoinMeeting.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/Parameters/RecordLecture.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/RecordLecture/RecordWindow.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/RecordLecture/RecordWindow.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/RecordLecture/RecordWindowViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutoLectureRecorder.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/AutoLectureRecorder.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Recording/IRecorder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Recording/IRecorder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/WebAutomation/IAlrWebDriver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/WebAutomation/IAlrWebDriver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/WebAutomation/IWebDriverFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/WebAutomation/IWebDriverFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/WebViewOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/WebViewOptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/Meeting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/Meeting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/Recorder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Errors/Recorder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Recording/WindowsRecorder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Recording/WindowsRecorder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/UnipiEdgeWebDriver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/WebAutomation/UnipiEdgeWebDriver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/Abstractions/IWindowFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/Abstractions/IWindowFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/RoutableViewModelHost.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/RoutableViewModelHost.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/WindowFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Core/WindowFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/HostNames.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/HostNames.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/INavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/INavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Navigation/NavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindowViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindowViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/Login/LoginViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Library/LibraryViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Library/LibraryViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Settings/SettingsView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Settings/SettingsView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Settings/SettingsViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/Settings/SettingsViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/DependencyInjectionExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +73,12 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2770b586d6d9a7878e5f46c5b443c282339347fd573ead79eb7778436691/LoggerEnrichmentConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2981692906aab88d7452aa7dbee95ca93274ea4403754db959cbde3de67b15c/ReactiveCommandMixins.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/30c8c491653cdc68fbd3a74234271554741b523e15fee309e77e243554798b/ReactiveValidationObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36e740b59df23626d207e72ea77e34298e53dd99db463eee529f8c416b5664/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/457e1108f346f5132b5503c29eddab87b9add2a1f47276b1c597cbe5ec772f7/ValidatorTestExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/459b5cba13fc65ba87d9a46ab276a2a9b3c1125ef6bac57b7ca4b7ac70c0ad4c/TargetInvocationException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/46aecebddde0bfd03c5376db415c480f4f36aa2637f848c43f865cf8129776/DateTimeFormat.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/47d890ae2d5130c59594c8be626a504e4f8a2377835a4c9c4ad2c731e5aa9caf/ObservableCache.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/483ec829d82653b52cfb6dda9a59a46aa6875bc3d797e1e437ad99fb68053/WindowInteropHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4a8d59611b3222cb2b8f9ac615886967f571d8a2124e1a5afc1f96f95aea899/UniformGrid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5016729dfa6a2af3b246db6e9cab3cbc2bbb6414102cc3a26cfb0fe60e5ca89/QueryLanguage.Async.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53fde159ba8211bfa732c66683f6d3cd7af7b9ff56a3a1dc1dbe1cee597fe/CallSiteRuntimeResolver.cs" root0="SKIP_HIGHLIGHTING" />
@@ -81,6 +115,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d5b01730896a5828981cfc33b9e065c2bc9c058b6cd7f1af9f3962d4e5752/ReaderWriter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e23a97b49978623cd03cb9ecd2cce63337b4e5145d705d76abee164ca0fe1579/Extensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e4e8886b208868416341c18e8dec6533738df3eed99e22c8c4e3fd31cc9ee4/Window.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e72723ae89bfa14a11bd326a2b2c8ae9ba8669da225cb5b2cb1d81a695ff3c/LambdaExpression.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ee38174fc3ee51642de584534277748c6f479e4e87ccc9cd28a551e5c3e7c82/XunitTestCollectionRunner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ee456ec7f2e479b4eaa66183eaa0d1365ef16c4615282c4e7dccacdcc14dda/ArgumentNullException.cs" root0="SKIP_HIGHLIGHTING" />
@@ -111,7 +146,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.34735203&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;CompleteRevamp&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -178,6 +213,11 @@
       <workItem from="1689843313211" duration="9886000" />
       <workItem from="1689860461897" duration="14179000" />
       <workItem from="1689973961526" duration="2412000" />
+      <workItem from="1690032598056" duration="2359000" />
+      <workItem from="1690236901658" duration="637000" />
+      <workItem from="1690718512843" duration="366000" />
+      <workItem from="1690887361809" duration="3566000" />
+      <workItem from="1690970767914" duration="20468000" />
     </task>
     <servers />
   </component>

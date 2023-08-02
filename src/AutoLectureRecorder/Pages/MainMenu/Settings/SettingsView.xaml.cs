@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reactive.Disposables;
-using AutoLectureRecorder.Application.Recording;
 using AutoLectureRecorder.Application.Recording.Common;
 using ReactiveUI;
 

@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using AutoLectureRecorder.Common.Messages;
-using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using AutoLectureRecorder.Pages.MainMenu.Dashboard;
 using AutoLectureRecorder.Pages.MainMenu.Library;
 using AutoLectureRecorder.Pages.MainMenu.Settings;
@@ -68,11 +67,10 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                     Observable.Return(typeof(SettingsViewModel)))
                 .DisposeWith(disposables);
             
-            /*this.BindCommand(ViewModel,
-                vm => vm.NavigateCommand,
-                v => v.HelpButton,
-                Observable.Return(typeof(CreateLectureViewModel)))
-                .DisposeWith(disposables);*/
+            this.BindCommand(ViewModel,
+                vm => vm.NavigateToRecordWindowCommand,
+                v => v.HelpButton)
+                .DisposeWith(disposables);
 
             // Navigate back and forward using the 2 arrow-like mouse buttons (if the user's mouse has them)
             this.Events().MouseDown

@@ -22,7 +22,7 @@ namespace AutoLectureRecorder.Pages.Login;
 public class LoginViewModel : RoutableViewModel, IActivatableViewModel
 {
     private readonly IWebDriverDownloader _webDriverDownloader;
-    private CompositeDisposable _disposables = new();
+    private readonly CompositeDisposable _disposables = new();
     public ViewModelActivator Activator { get; }
 
     private string? _errorMessage;

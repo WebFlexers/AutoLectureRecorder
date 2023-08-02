@@ -2,7 +2,7 @@
 
 public static class WebViewOptions
 {
-    public static class BrowserArguments
+    public static class Network
     {
         public const string DebugPort = "9222";
         public const string RemoteDebuggingPortArgument = $"--remote-debugging-port={DebugPort}";

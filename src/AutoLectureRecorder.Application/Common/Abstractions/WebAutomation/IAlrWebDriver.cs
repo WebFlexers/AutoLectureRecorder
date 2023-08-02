@@ -4,7 +4,7 @@ using ErrorOr;
 
 namespace AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 
-public interface IAlrWebDriver
+public interface IAlrWebDriver : IDisposable
 {
     /// <summary>
     /// Creates a web driver backed by the Edge browser.
@@ -13,7 +13,7 @@ public interface IAlrWebDriver
     /// <param name="implicitWaitTime">The time to wait when searching for elements before throwing exception</param>
     /// <param name="debuggerAddress">The debugger address that will host the WebView2</param>
     ErrorOr<Unit> StartDriver(bool useWebView, TimeSpan implicitWaitTime, 
-        string debuggerAddress = $"localhost:{WebViewOptions.BrowserArguments.DebugPort}");
+        string debuggerAddress = $"localhost:{WebViewOptions.Network.DebugPort}");
 
     /// <summary>
     /// Login to Microsoft Teams through the web driver using the provided credentials
@@ -26,6 +26,4 @@ public interface IAlrWebDriver
     /// </summary>
     ErrorOr<Unit> JoinMeeting(string academicEmailAddress, string password,
         string meetingLink, TimeSpan meetingDuration, CancellationToken? cancellationToken = null);
-
-    void Dispose();
 }

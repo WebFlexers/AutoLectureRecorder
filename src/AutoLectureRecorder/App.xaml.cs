@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -13,10 +14,14 @@ using AutoLectureRecorder.Application.Common.Abstractions.Recording;
 using AutoLectureRecorder.Application.Common.Abstractions.SampleData;
 using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Application.ScheduledLectures.Events;
+using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
+using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Common.WindowsServices;
+using AutoLectureRecorder.Domain.ReactiveModels;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu;
+using AutoLectureRecorder.Pages.RecordLecture;
 using AutoLectureRecorder.StartupConfiguration;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,7 +53,7 @@ namespace AutoLectureRecorder
 
             // This is required for the WebView2 to work inside the app
             Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", 
-                WebViewOptions.BrowserArguments.RemoteDebuggingPortArgument);
+                WebViewOptions.Network.RemoteDebuggingPortArgument);
 
             _appBootstrapper = new AppBootstrapper();
             var services = _appBootstrapper.AppHost.Services;
@@ -79,24 +84,53 @@ namespace AutoLectureRecorder
             if (isBackgroundRunEnabled == false)
             {
                 mainWindow.Show();
-                
-                // Make the window fullscreen if it's dimensions exceed the screen dimensions
-                var screen = Screen.FromPoint(new System.Drawing.Point((int)mainWindow.Left, (int)mainWindow.Top));
-                if (screen.WorkingArea.Width < mainWindow.Width
-                    || screen.WorkingArea.Height < mainWindow.Height)
-                {
-                    mainWindow.WindowState = WindowState.Maximized;
-                }
+                MakeWindowFullScreenOnTooLargeScreen();
             }
 
             var observeShowWindowTask = Task.Run(() => ObserveShowWindowPipe());
         }
 
-        private ReactiveCommand<Unit, Unit> NavigateToRecordLecture => ReactiveCommand.CreateFromTask(async () =>
+        /// <summary>
+        /// Make the window fullscreen if it's dimensions exceed the screen dimensions
+        /// </summary>
+        public void MakeWindowFullScreenOnTooLargeScreen()
         {
+            var screen = Screen.FromPoint(new System.Drawing.Point((int)this.MainWindow!.Left, (int)this.MainWindow.Top));
+            if (screen.WorkingArea.Width < this.MainWindow.Width
+                || screen.WorkingArea.Height < this.MainWindow.Height)
+            {
+                this.MainWindow.WindowState = WindowState.Maximized;
+            }
+        }
+        
+        private ReactiveCommand<ReactiveScheduledLecture?, Unit> NavigateToRecordLecture => ReactiveCommand
+            .CreateFromTask<ReactiveScheduledLecture?, Unit>(async reactiveScheduledLecture =>
+        {
+            if (reactiveScheduledLecture is null)
+            {
+                Log.Logger.Error("Failed to start recording window, because the lecture was null");
+                return Unit.Default;
+            }
+            
             Log.Logger.Information("Lecture starting...");
-            var mediatorPublisher = _appBootstrapper!.AppHost.Services.GetRequiredService<IPublisher>();
-            await mediatorPublisher.Publish(new NextScheduledLectureEvent());
+
+            var mediator = _appBootstrapper!.AppHost.Services.GetRequiredService<IMediator>();
+            var windowFactory = _appBootstrapper!.AppHost.Services.GetRequiredService<IWindowFactory>();
+            var navigationService = _appBootstrapper!.AppHost.Services.GetRequiredService<INavigationService>();
+
+            // TODO: Navigate
+            var navigationParameters = new Dictionary<string, object>()
+            {
+                { NavigationParameters.RecordLecture.LectureToRecord, reactiveScheduledLecture }
+            };
+            navigationService.AddNavigationParameters(typeof(RecordWindowViewModel), navigationParameters);
+
+            var recordingWindow = windowFactory.CreateRecordWindow();
+            recordingWindow.Show();
+            
+            await mediator.Publish(new NextScheduledLectureEvent());
+
+            return Unit.Default;
         });
 
         private async Task InitializeSettings()
@@ -143,13 +177,14 @@ namespace AutoLectureRecorder
         
         private async Task SetupLecturesScheduler()
         {
-            var mediatorPublisher = _appBootstrapper!.AppHost.Services.GetRequiredService<IPublisher>();
+            var mediator = _appBootstrapper!.AppHost.Services.GetRequiredService<IMediator>();
             var lecturesScheduler = _appBootstrapper.AppHost.Services.GetRequiredService<ILecturesScheduler>();
             
-            await mediatorPublisher.Publish(new NextScheduledLectureEvent());
+            await mediator.Publish(new NextScheduledLectureEvent());
+            
             lecturesScheduler.NextScheduledLectureWillBegin
                 .Where(nextLectureWillBegin => nextLectureWillBegin)
-                .Select(_ => Unit.Default)
+                .Select(_ => lecturesScheduler.NextScheduledLecture)
                 .InvokeCommand(NavigateToRecordLecture);
         }
 

@@ -1,5 +1,4 @@
-﻿using AutoLectureRecorder.Application.Recording;
-using AutoLectureRecorder.Application.Recording.Common;
+﻿using AutoLectureRecorder.Application.Recording.Common;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using ReactiveUI;
 using ScreenRecorderLib;
@@ -36,7 +35,7 @@ public interface IRecorder : IDisposable, IReactiveObject
     /// done yet. If you want to execute code after it has finished use the
     /// OnRecordingComplete and/or OnRecordingFailed methods
     /// </summary>
-    IRecorder StopRecording();
+    IRecorder InitiateStopRecording();
 
     /// <summary>
     /// Executes the specified action when the recording

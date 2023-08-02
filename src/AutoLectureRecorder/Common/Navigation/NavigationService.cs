@@ -34,7 +34,12 @@ public class NavigationService : INavigationService
     {
         _routers[hostName] = router;
     }
-    
+
+    public void RemoveNavigationHost(string hostName)
+    {
+        _routers.Remove(hostName);
+    }
+
     // An extra navigation stack that handles forward and back navigation
     // since it doesn't already exist in ReactiveUI.
     // IMPORTANT: It also avoids memory leaks caused by ViewModel instances
@@ -47,6 +52,11 @@ public class NavigationService : INavigationService
     public Dictionary<string, object>? GetNavigationParameters(Type viewModelType)
     {
         return _parameters.TryGetValue(viewModelType, out var parameters) ? parameters : null;
+    }
+
+    public void AddNavigationParameters(Type viewModelType, Dictionary<string, object> parameters)
+    {
+        _parameters[viewModelType] = parameters;
     }
 
     private void SetRoutedViewHostContent(IRoutableViewModel viewModel, string routerHostName)
@@ -78,7 +88,7 @@ public class NavigationService : INavigationService
 
     public void Navigate(Type viewModelType, string routerHostName, Dictionary<string, object> parameters)
     {
-        _parameters[viewModelType] = parameters;
+        AddNavigationParameters(viewModelType, parameters);
         Navigate(viewModelType, routerHostName);
     }
 

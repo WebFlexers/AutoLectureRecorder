@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Common.Core;
-using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Domain.ReactiveModels;
-using Microsoft.Extensions.Logging;
 using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu.Library;

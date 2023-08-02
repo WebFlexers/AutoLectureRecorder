@@ -7,5 +7,5 @@ using ErrorOr;
 public interface IWebDriverFactory
 {
     ErrorOr<IAlrWebDriver> CreateUnipiEdgeWebDriver(bool useWebView, TimeSpan implicitWaitTime, 
-        string debuggerAddress = $"localhost:{WebViewOptions.BrowserArguments.DebugPort}");
+        string debuggerAddress = $"localhost:{WebViewOptions.Network.DebugPort}");
 }

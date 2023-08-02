@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Interop;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Pages.Login;
+using AutoLectureRecorder.Pages.RecordLecture;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoLectureRecorder.Common.Core;
 
@@ -16,10 +18,7 @@ public class WindowFactory : IWindowFactory
         _services = services;
     }
 
-    /// <summary>
-    /// Creates a transparent loading window that covers fully
-    /// the given window and sits exactly on top of it
-    /// </summary>
+    /// <inheritdoc/>
     public Window CreateTransparentOverlayWindow(Window? backgroundWindowOfOverlay, 
         bool isWindowFullscreen, Func<Task>? cancelDelegate)
     {
@@ -49,5 +48,14 @@ public class WindowFactory : IWindowFactory
         }
 
         return overlayWindow;
+    }
+    
+    /// <inheritdoc/>
+    public Window CreateRecordWindow()
+    {
+        var recordWindow = _services.GetRequiredService<RecordWindow>();
+        recordWindow.ViewModel!.RecordWindowState = WindowState.Maximized;
+        
+        return recordWindow;
     }
 }

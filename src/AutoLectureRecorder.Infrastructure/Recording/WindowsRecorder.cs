@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
-using AutoLectureRecorder.Application.Recording;
 using AutoLectureRecorder.Application.Recording.Common;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using Microsoft.Extensions.Logging;
@@ -214,7 +213,7 @@ public class WindowsRecorder : ReactiveObject, IRecorder
     }
 
     /// <inheritdoc/>
-    public IRecorder StopRecording()
+    public IRecorder InitiateStopRecording()
     {
         _recorder?.Stop();
         _logger?.LogInformation("Recording stop initiated");

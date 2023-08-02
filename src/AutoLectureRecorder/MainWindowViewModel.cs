@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reactive;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
@@ -44,9 +45,13 @@ public class MainWindowViewModel : RoutableViewModelHost
             window.WindowStyle = WindowStyle.SingleBorderWindow;
             window.WindowState = WindowState.Normal;
             window.Show();
+            
             IntPtr windowHandle = new WindowInteropHelper(window).Handle;
             Win32Api.ShowWindow(windowHandle, 5);
             Win32Api.SetForegroundWindow(windowHandle);
+            
+            ((App)System.Windows.Application.Current).MakeWindowFullScreenOnTooLargeScreen();
+            
             return Unit.Default;
         });
 
@@ -71,6 +76,7 @@ public class MainWindowViewModel : RoutableViewModelHost
         
         ExitAppCommand = ReactiveCommand.Create<(Window, bool)>(parameters =>
         {
+            // TODO: Add a check to notify the user if a recording is currently active
             Window window = parameters.Item1;
             _forceAppShutdown = parameters.Item2;
             

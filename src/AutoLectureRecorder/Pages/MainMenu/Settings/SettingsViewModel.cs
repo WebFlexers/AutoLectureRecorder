@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
 using AutoLectureRecorder.Application.Common.Abstractions.StartupManager;
-using AutoLectureRecorder.Application.Recording;
 using AutoLectureRecorder.Application.Recording.Common;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;

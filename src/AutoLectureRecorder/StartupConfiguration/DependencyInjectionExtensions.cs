@@ -11,6 +11,7 @@ using AutoLectureRecorder.Pages.MainMenu.Library.Services;
 using AutoLectureRecorder.Pages.MainMenu.Schedule;
 using AutoLectureRecorder.Pages.MainMenu.Settings;
 using AutoLectureRecorder.Pages.MainMenu.Upload;
+using AutoLectureRecorder.Pages.RecordLecture;
 using AutoLectureRecorder.Resources.Themes.ThemesManager;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +51,9 @@ public static class DependencyInjectionExtensions
     {
         services.AddSingleton(sp => new MainWindow 
             { ViewModel = sp.GetRequiredService<MainWindowViewModel>() });
+        
+        services.AddTransient(sp => new RecordWindow
+            { ViewModel = sp.GetRequiredService<RecordWindowViewModel>() });
 
         services.AddTransient<IWindowFactory, WindowFactory>();
         
@@ -74,6 +78,8 @@ public static class DependencyInjectionExtensions
     private static IServiceCollection AddViewModels(this IServiceCollection services)
     {
         services.AddSingleton<MainWindowViewModel>();
+        
+        services.AddTransient<RecordWindowViewModel>();
         services.AddTransient<IViewModelFactory, ViewModelFactory>();
 
         services.AddTransient<LoginViewModel>();

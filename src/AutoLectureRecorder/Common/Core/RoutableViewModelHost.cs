@@ -9,8 +9,7 @@ public class RoutableViewModelHost : ReactiveObject, IRoutableViewModel, IScreen
     
     public RoutingState Router { get; }
     public string UrlPathSegment => this.GetType().Name;
-    // ReSharper disable once UnassignedGetOnlyAutoProperty
-    public IScreen HostScreen { get; } = null!;
+    public IScreen HostScreen => this;
 
     protected RoutableViewModelHost(INavigationService navigationService)
     {

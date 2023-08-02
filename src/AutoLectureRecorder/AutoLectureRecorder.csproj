@@ -16,7 +16,7 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1823.32" />
+      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1901.177" />
       <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.2.3">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,9 +29,9 @@
       <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
       <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
       <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-      <PackageReference Include="Splat" Version="14.6.37" />
-      <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.37" />
-      <PackageReference Include="Splat.Serilog" Version="14.6.37" />
+      <PackageReference Include="Splat" Version="14.7.1" />
+      <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.7.1" />
+      <PackageReference Include="Splat.Serilog" Version="14.7.1" />
       <PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
     </ItemGroup>
 
