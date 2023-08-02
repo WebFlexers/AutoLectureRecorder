@@ -183,6 +183,7 @@ namespace AutoLectureRecorder
             await mediator.Publish(new NextScheduledLectureEvent());
             
             lecturesScheduler.NextScheduledLectureWillBegin
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Where(nextLectureWillBegin => nextLectureWillBegin)
                 .Select(_ => lecturesScheduler.NextScheduledLecture)
                 .InvokeCommand(NavigateToRecordLecture);
