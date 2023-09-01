@@ -8,7 +8,7 @@
              TextElement.FontSize="15"
              TextElement.FontWeight="Normal"
              FontFamily="{materialDesign:MaterialDesignFont}"
-             Foreground="{DynamicResource SecondaryTextBrush}"
+             Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
              mc:Ignorable="d"
              d:DesignHeight="43"
              d:DesignWidth="210">
@@ -22,7 +22,7 @@
                Source="../../Resources/Icons/ThemeToggler/moon_blue_32x32.png"/>
         <ToggleButton Width="35"
                       IsChecked="True"
-                      Background="{DynamicResource SunYellowBrush}"
+                      Background="{DynamicResource PrimaryBrush}"
                       Style="{StaticResource MaterialDesignSwitchToggleButton}"
                       Checked="ToggleButton_Checked"
                       Unchecked="ToggleButton_OnUnchecked"/>

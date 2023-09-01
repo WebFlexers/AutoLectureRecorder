@@ -44,11 +44,11 @@
                                MaxWidth="350"
                                HorizontalAlignment="Left"
                                Margin="0, 15"
-                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"/>
 
                     <Grid Height="0.5"
                           Margin="0, 0, 0, 15"
-                          Background="{DynamicResource SectionLineBrush}">
+                          Background="{DynamicResource SecondaryBrush}">
                     </Grid>
 
                     <!-- On Close Minimize --> 
@@ -65,7 +65,7 @@
                                MaxWidth="350"
                                HorizontalAlignment="Left"
                                Margin="0, 15"
-                               Foreground="{DynamicResource SecondaryTextBrush}"/>
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"/>
 
                     <!--<Grid Height="0.5"
                           Margin="0, 0, 0, 15"
@@ -118,12 +118,12 @@
                         <Button x:Name="BrowseRecordingDirectoryButton" 
                                 Content="Browse"
                                 Margin="0, 15, 0, 15"
-                                Foreground="{DynamicResource PrimaryTextBrush}"/>
+                                Foreground="{DynamicResource OnPrimaryBrush}"/>
 
                         <TextBlock TextWrapping="Wrap"
                                    HorizontalAlignment="Left"
                                    Margin="0, 0, 0, 15"
-                                   Foreground="{DynamicResource SecondaryTextBrush}">
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}">
                             Above is the path of the base directory where future recordings will be 
                             saved. During recording more folders will be created for the semester 
                             and the subject name for each lecture
@@ -131,7 +131,7 @@
 
                         <Grid Height="0.5"
                               Margin="0, 0, 0, 15"
-                              Background="{DynamicResource SectionLineBrush}">
+                              Background="{DynamicResource SecondaryBrush}">
                         </Grid>
 
                         <Grid>
@@ -171,7 +171,7 @@
                                        HorizontalAlignment="Left"
                                        Margin="0, 15, 0, 0"
                                        Padding="5, 0"
-                                       Foreground="{DynamicResource SecondaryTextBrush}">
+                                       Foreground="{DynamicResource OnBackgroundSecondaryBrush}">
                                 The quality of the recording from 10 to 100. 
                                 Higher values mean better quality, but more storage space
                             </TextBlock>
@@ -205,7 +205,7 @@
                                        HorizontalAlignment="Left"
                                        Margin="0, 15, 0, 0"
                                        Padding="5, 0"
-                                       Foreground="{DynamicResource SecondaryTextBrush}">
+                                       Foreground="{DynamicResource OnBackgroundSecondaryBrush}">
                                 The frame rate of the recording from 30 to 60. 
                                 Higher values mean smoother video, but more storage space
                             </TextBlock>
@@ -213,7 +213,7 @@
 
                         <Grid Height="0.5"
                               Margin="0, 15, 0, 15"
-                              Background="{DynamicResource SectionLineBrush}">
+                              Background="{DynamicResource SecondaryBrush}">
                         </Grid>
 
                         <!-- Output resolution -->
@@ -239,7 +239,7 @@
                                    HorizontalAlignment="Left"
                                    Margin="0, 15, 0, 0"
                                    Padding="5, 0"
-                                   Foreground="{DynamicResource SecondaryTextBrush}">
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}">
                             The output scaled resolution of the final video. 
                             Higher values mean crisper video, but significantly 
                             more storage space. Do NOT select a higher resolution 
@@ -267,11 +267,11 @@
                                    MaxWidth="350"
                                    HorizontalAlignment="Left"
                                    Margin="0, 15"
-                                   Foreground="{DynamicResource SecondaryTextBrush}"/>
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"/>
 
                         <Grid Height="0.5"
                               Margin="0, 0, 0, 15"
-                              Background="{DynamicResource SectionLineBrush}">
+                              Background="{DynamicResource SecondaryBrush}">
                         </Grid>
 
                         <!-- Selected input device -->

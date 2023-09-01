@@ -44,12 +44,13 @@ namespace AutoLectureRecorder
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            
             if (_appMutex.IsAppRunning()) return;
 
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-
-            // TODO: Make alr actually background on startup
-            bool isBackgroundRunEnabled = e.Args.Length > 0 && e.Args[0] == "-background";
+            
+            bool isBackgroundRunEnabled = e.Args.Length > 0 && e.Args.Contains("-background");
 
             // This is required for the WebView2 to work inside the app
             Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", 
@@ -90,6 +91,13 @@ namespace AutoLectureRecorder
             var observeShowWindowTask = Task.Run(() => ObserveShowWindowPipe());
         }
 
+        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var ex = e.ExceptionObject as Exception;
+            Log.Fatal(ex, "An unhandled exception occurred");
+            Log.CloseAndFlush();
+        }
+
         /// <summary>
         /// Make the window fullscreen if it's dimensions exceed the screen dimensions
         /// </summary>
@@ -117,8 +125,7 @@ namespace AutoLectureRecorder
             var mediator = _appBootstrapper!.AppHost.Services.GetRequiredService<IMediator>();
             var windowFactory = _appBootstrapper!.AppHost.Services.GetRequiredService<IWindowFactory>();
             var navigationService = _appBootstrapper!.AppHost.Services.GetRequiredService<INavigationService>();
-
-            // TODO: Navigate
+            
             var navigationParameters = new Dictionary<string, object>()
             {
                 { NavigationParameters.RecordLecture.LectureToRecord, reactiveScheduledLecture }
@@ -191,13 +198,12 @@ namespace AutoLectureRecorder
 
         protected override async void OnExit(ExitEventArgs e)
         {
-            if (_appBootstrapper is not null)
-            {
-                await _appBootstrapper.AppHost.StopAsync();
-            }
+            await _appBootstrapper?.AppHost.StopAsync()!;
 
             await Log.CloseAndFlushAsync();
-
+            
+            AppDomain.CurrentDomain.UnhandledException -= CurrentDomainOnUnhandledException;
+            
             _appMutex.ReleaseMutex();
 
             base.OnExit(e);

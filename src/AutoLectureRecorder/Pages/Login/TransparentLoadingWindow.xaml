@@ -64,7 +64,7 @@
                     Cursor="Hand"
                     FontSize="16"
                     Margin="0, 20, 0, 30"
-                    Foreground="{DynamicResource PrimaryTextBrush}"
+                    Foreground="{DynamicResource OnPrimaryBrush}"
                     Content="Cancel"
                     VerticalAlignment="Bottom"
                     Click="CancelButton_OnClick">
@@ -72,7 +72,7 @@
                     <LinearGradientBrush EndPoint="1,1"
                                          StartPoint="0,0">
                         <GradientStop Color="{DynamicResource PrimaryColor}" />
-                        <GradientStop Color="{DynamicResource PrimaryDarkerColor}"
+                        <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
                                       Offset="1" />
                     </LinearGradientBrush>
                 </Button.Background>

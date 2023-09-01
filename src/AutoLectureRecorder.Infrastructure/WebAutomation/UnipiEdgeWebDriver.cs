@@ -47,6 +47,11 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
             return Unit.Default;
         }
+        catch (WebDriverException ex)
+        {
+            _logger.LogError(ex, "A WebDriverException occurred while trying to start the Web Driver");
+            return Errors.WebDriver.EdgeOutOfDate;
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred while trying to start the Web Driver");

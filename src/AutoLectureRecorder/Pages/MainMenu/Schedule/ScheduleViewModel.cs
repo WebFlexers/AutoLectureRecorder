@@ -42,10 +42,10 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             persistentValidationContext.AddValidationParameter(
                 ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures,
                 true);
-            var errorOrConflictingLectureIds = await mediatorSender.Send(lecture.MapToUpdateCommand());
-            if (errorOrConflictingLectureIds.IsError == false)
+            var errorOrConflictingLectures = await mediatorSender.Send(lecture.MapToUpdateCommand());
+            if (errorOrConflictingLectures.IsError == false)
             {
-                var conflictingLectures = errorOrConflictingLectureIds.Value;
+                var conflictingLectures = errorOrConflictingLectures.Value;
                 if (conflictingLectures is null) return Unit.Default;
                 
                 foreach (var conflictingLecture in conflictingLectures)
@@ -61,10 +61,12 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
         NavigateToUpdateScheduledLecture = ReactiveCommand.Create<ReactiveScheduledLecture, Unit>(
              lecture =>
         {
-            var parameters = new Dictionary<string, object>();
-            parameters.Add(NavigationParameters.CreateLecture.IsUpdateMode, true);
-            parameters.Add(NavigationParameters.CreateLecture.ScheduledLectureToUpdate, lecture);
-            
+            var parameters = new Dictionary<string, object>
+            {
+                { NavigationParameters.CreateLecture.IsUpdateMode, true },
+                { NavigationParameters.CreateLecture.ScheduledLectureToUpdate, lecture }
+            };
+
             NavigationService.Navigate(typeof(CreateLectureViewModel), HostNames.MainMenuHost, parameters);
             return Unit.Default;
         });

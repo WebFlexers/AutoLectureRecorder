@@ -113,31 +113,31 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
         switch (navigatedViewModel)
         {
             case DashboardViewModel _:
-                DashboardButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
+                DashboardButton.Background = colors["OnBackgroundHoverBrush"] as SolidColorBrush;
                 DashboardButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 DashboardSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("dashboard", colors);
                 break;
             case LibraryViewModel _:
-                LibraryButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
+                LibraryButton.Background = colors["OnBackgroundHoverBrush"] as SolidColorBrush;
                 LibraryButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 LibrarySelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("library", colors);
                 break;
             case ScheduleViewModel _:
-                ScheduleButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
+                ScheduleButton.Background = colors["OnBackgroundHoverBrush"] as SolidColorBrush;
                 ScheduleButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 ScheduleSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("schedule", colors);
                 break;
             case SettingsViewModel _:
-                SettingsButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
+                SettingsButton.Background = colors["OnBackgroundHoverBrush"] as SolidColorBrush;
                 SettingsButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 SettingsSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("settings", colors);
                 break;
             case UploadViewModel _:
-                UploadButton.Background = colors["ButtonHoverBrush"] as SolidColorBrush;
+                UploadButton.Background = colors["OnBackgroundHoverBrush"] as SolidColorBrush;
                 UploadButtonContent.FillColor = (colors["PrimaryBrush"] as SolidColorBrush)!;
                 UploadSelectedLineGrid.Visibility = Visibility.Visible;
                 ResetMenuButtonsStyleExcept("upload", colors);
@@ -150,31 +150,31 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
         if (exception != "dashboard")
         {
             DashboardButton.Background = new SolidColorBrush(Colors.Transparent);
-            DashboardButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
+            DashboardButtonContent.FillColor = (colors["OnBackgroundSecondaryBrush"] as SolidColorBrush)!;
             DashboardSelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "library")
         {
             LibraryButton.Background = new SolidColorBrush(Colors.Transparent);
-            LibraryButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
+            LibraryButtonContent.FillColor = (colors["OnBackgroundSecondaryBrush"] as SolidColorBrush)!;
             LibrarySelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "schedule")
         {
             ScheduleButton.Background = new SolidColorBrush(Colors.Transparent);
-            ScheduleButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
+            ScheduleButtonContent.FillColor = (colors["OnBackgroundSecondaryBrush"] as SolidColorBrush)!;
             ScheduleSelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "settings")
         {
             SettingsButton.Background = new SolidColorBrush(Colors.Transparent);
-            SettingsButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
+            SettingsButtonContent.FillColor = (colors["OnBackgroundSecondaryBrush"] as SolidColorBrush)!;
             SettingsSelectedLineGrid.Visibility = Visibility.Hidden;
         }
         if (exception != "upload")
         {
             UploadButton.Background = new SolidColorBrush(Colors.Transparent);
-            UploadButtonContent.FillColor = (colors["SecondaryTextBrush"] as SolidColorBrush)!;
+            UploadButtonContent.FillColor = (colors["OnBackgroundSecondaryBrush"] as SolidColorBrush)!;
             UploadSelectedLineGrid.Visibility = Visibility.Hidden;
         }
     }

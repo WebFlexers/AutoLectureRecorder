@@ -47,11 +47,11 @@
                 <Grid Margin="0,35,0,0">
                     <Button x:Name="DashboardButton"
                             Height="55"
-                            Background="{DynamicResource ButtonHoverBrush}"
+                            Background="{DynamicResource OnBackgroundHoverBrush}"
                             BorderThickness="0"
                             Cursor="Arrow"
                             Padding="0,5"
-                            Style="{DynamicResource MaterialDesignFlatButton}">
+                            Style="{StaticResource MaterialDesignFlatButton}">
 
                         <Button.Content>
                             <mainMenu1:Dashboard x:Name="DashboardButtonContent"
@@ -81,7 +81,7 @@
                             <mainMenu1:Schedule x:Name="ScheduleButtonContent"
                                                Margin="0,0,7,0"
                                                TextElement.FontSize="14"
-                                               FillColor="{DynamicResource SecondaryTextBrush}" />
+                                               FillColor="{DynamicResource OnBackgroundSecondaryBrush}" />
                         </Button.Content>
                     </Button>
                     <Grid x:Name="ScheduleSelectedLineGrid"
@@ -106,7 +106,7 @@
                             <mainMenu1:Upload x:Name="UploadButtonContent"
                                              Margin="0,0,26,0"
                                              TextElement.FontSize="14"
-                                             FillColor="{DynamicResource SecondaryTextBrush}" />
+                                             FillColor="{DynamicResource OnBackgroundSecondaryBrush}" />
                         </Button.Content>
                     </Button>
 
@@ -132,7 +132,7 @@
                             <mainMenu1:Library x:Name="LibraryButtonContent"
                                               Margin="0,0,24,0"
                                               TextElement.FontSize="14"
-                                              FillColor="{DynamicResource SecondaryTextBrush}" />
+                                              FillColor="{DynamicResource OnBackgroundSecondaryBrush}" />
                         </Button.Content>
                     </Button>
                     
@@ -158,7 +158,7 @@
                             <mainMenu1:Settings x:Name="SettingsButtonContent"
                                                Margin="0,0,15,0"
                                                TextElement.FontSize="14"
-                                               FillColor="{DynamicResource SecondaryTextBrush}" />
+                                               FillColor="{DynamicResource OnBackgroundSecondaryBrush}" />
                         </Button.Content>
                     </Button>
 
@@ -188,7 +188,7 @@
                         <mainMenu1:Help x:Name="HelpButtonContent"
                                        Margin="0,0,32,0"
                                        TextElement.FontSize="14"
-                                       FillColor="{DynamicResource SecondaryTextBrush}" />
+                                       FillColor="{DynamicResource OnBackgroundSecondaryBrush}" />
                     </Button.Content>
                 </Button>
 
@@ -205,7 +205,8 @@
                         <mainMenu1:Logout x:Name="LogoutButtonContent"
                                          Margin="0,0,15,0"
                                          TextElement.FontSize="14"
-                                         FillColor="{DynamicResource ErrorDarkerBrush}" />
+                                         FillColor="{DynamicResource ErrorBrush}"
+                                         Foreground="{DynamicResource ErrorBrush}"/>
                     </Button.Content>
                 </Button>
             </StackPanel>
@@ -215,7 +216,7 @@
         <Grid Grid.Column="0"
               Width="0.5"
               HorizontalAlignment="Right"
-              Background="{DynamicResource SectionLineBrush}"
+              Background="{DynamicResource SecondaryBrush}"
               Panel.ZIndex="-1">
         </Grid>
 

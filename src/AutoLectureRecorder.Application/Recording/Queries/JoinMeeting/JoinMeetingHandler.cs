@@ -1,6 +1,7 @@
 ﻿using System.Reactive;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
 using AutoLectureRecorder.Domain.Errors;
 using ErrorOr;
 

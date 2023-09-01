@@ -3,6 +3,7 @@ using System.IO.Compression;
 using System.Reactive;
 using System.Runtime.InteropServices;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
 using AutoLectureRecorder.Application.Common.Logging;
 using AutoLectureRecorder.Domain.Errors;
 using AutoLectureRecorder.Infrastructure.Common.HttpUtilities;
@@ -10,7 +11,7 @@ using ErrorOr;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 
-namespace AutoLectureRecorder.Infrastructure.WebAutomation;
+namespace AutoLectureRecorder.Infrastructure.WebAutomation.DownloadWebDriver;
 
 public class EdgeWebDriverDownloader : IWebDriverDownloader
 {

@@ -38,6 +38,13 @@ public class RecordedLecturesViewModel : RoutableViewModel, IActivatableViewMode
     
     public ReactiveCommand<string, Unit> OpenVideoLocallyCommand { get; private set; }
 
+    private bool _hasLectures = true;
+    public bool HasLectures
+    {
+        get => _hasLectures;
+        set => this.RaiseAndSetIfChanged(ref _hasLectures, value);
+    }
+    
     public RecordedLecturesViewModel(INavigationService navigationService, ISender mediatorSender) 
         : base(navigationService)
     {
@@ -77,7 +84,7 @@ public class RecordedLecturesViewModel : RoutableViewModel, IActivatableViewMode
                 return Unit.Default;
             }, errors =>
             {
-                // TODO: Show an empty message  
+                HasLectures = false;
                 return Unit.Default;
             });
         }).Subscribe()

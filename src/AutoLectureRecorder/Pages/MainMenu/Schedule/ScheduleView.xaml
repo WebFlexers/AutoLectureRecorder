@@ -46,102 +46,111 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Grid>
-                                    <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=MainBorder}" />
-                                    </Grid.OpacityMask>
-                                    
-                                    <Border x:Name="MainBorder" 
-                                        CornerRadius="7" 
-                                        BorderBrush="{DynamicResource PrimaryDarkerHoverBrush}"
-                                        Background="{DynamicResource SecondaryBackgroundBrush}"/> 
-                                    
-                                     <Border x:Name="ContentBorder"
-                                        HorizontalAlignment="Stretch"
-                                        CornerRadius="15"
-                                        Background="{DynamicResource SecondaryBackgroundBrush}"
-                                        Padding="7"
-                                        Height="{TemplateBinding Height}"
-                                        Width="{TemplateBinding Width}">       
-                                         
-                                        <StackPanel x:Name="MainStackPanel" 
-                                                VerticalAlignment="Top"
-                                                HorizontalAlignment="Center"
-                                                Margin="2">
-                     
-                                            <Border Height="35">
-                                                <TextBlock x:Name="SubjectNameTextBlock"
-                                                       Text="{TemplateBinding Content}"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Center" 
-                                                       TextWrapping="Wrap"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       FontSize="14"
-                                                       Foreground="{DynamicResource MaterialDesignBody}">
-                                                </TextBlock>
-                                            </Border>
+                                <Border>
+                                    <Grid>
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Visual="{Binding ElementName=MainBorder}" />
+                                        </Grid.OpacityMask>
                                         
-                                            <TextBlock x:Name="TimeTextBlock" 
-                                                       Margin="0, 7, 0, 0"
-                                                       FontSize="12"
-                                                       TextAlignment="Center"
-                                                       Foreground="{DynamicResource MaterialDesignBody}">
-                                                <TextBlock.Text>
-                                                    <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                                        <Binding Path="StartTime" />
-                                                        <Binding Path="EndTime" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
+                                        <Border x:Name="MainBorder" 
+                                            CornerRadius="7" 
+                                            BorderBrush="{DynamicResource PrimaryDarkVariantBrush}"
+                                            Background="{DynamicResource SurfaceBrush}">
+                                        </Border> 
+                                        
+                                         <Border x:Name="ContentBorder"
+                                            HorizontalAlignment="Stretch"
+                                            CornerRadius="15"
+                                            Background="{DynamicResource SurfaceBrush}"
+                                            Padding="7"
+                                            Height="{TemplateBinding Height}"
+                                            Width="{TemplateBinding Width}">       
+                                             
+                                            <StackPanel x:Name="MainStackPanel" 
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="2">
+                         
+                                                <Border Height="35">
+                                                    <TextBlock x:Name="SubjectNameTextBlock"
+                                                           Text="{TemplateBinding Content}"
+                                                           VerticalAlignment="Center"
+                                                           TextAlignment="Center" 
+                                                           TextWrapping="Wrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           FontSize="14"
+                                                           Foreground="{DynamicResource MaterialDesignBody}">
+                                                    </TextBlock>
+                                                </Border>
+                                            
+                                                <TextBlock x:Name="TimeTextBlock" 
+                                                           Margin="0, 7, 0, 0"
+                                                           FontSize="12"
+                                                           TextAlignment="Center"
+                                                           Foreground="{DynamicResource MaterialDesignBody}">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource TimeRangeConverter}">
+                                                            <Binding Path="StartTime" />
+                                                            <Binding Path="EndTime" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
 
-                                            <StackPanel x:Name="CheckboxesStackPanel"
-                                                        Margin="0, 7, 0, 0"
-                                                        Orientation="Horizontal"
-                                                        HorizontalAlignment="Center"
-                                                        Cursor="Arrow">
-                                                <CheckBox x:Name="ActiveCheckBox" 
-                                                          Content="Active"
-                                                          Padding="0,0,0,0"
-                                                          VerticalAlignment="Bottom"
-                                                          FontSize="13"
-                                                          Foreground="{DynamicResource MaterialDesignBody}"
-                                                          IsChecked="{Binding Path=IsScheduled}"
-                                                          Checked="CheckBox_OnCheckedChanged"
-                                                          Unchecked="CheckBox_OnCheckedChanged">
-                                                </CheckBox>
+                                                <StackPanel x:Name="CheckboxesStackPanel"
+                                                            Margin="0, 7, 0, 0"
+                                                            Orientation="Horizontal"
+                                                            HorizontalAlignment="Center"
+                                                            Cursor="Arrow">
+                                                    <CheckBox x:Name="ActiveCheckBox" 
+                                                              Content="Active"
+                                                              Padding="0,0,0,0"
+                                                              VerticalAlignment="Bottom"
+                                                              FontSize="13"
+                                                              Foreground="{DynamicResource MaterialDesignBody}"
+                                                              IsChecked="{Binding Path=IsScheduled}"
+                                                              Checked="CheckBox_OnCheckedChanged"
+                                                              Unchecked="CheckBox_OnCheckedChanged">
+                                                    </CheckBox>
 
-                                                <CheckBox x:Name="UploadCheckBox" 
-                                                          Content="Upload"
-                                                          Margin="2, 0, 0, 0"
-                                                          VerticalAlignment="Bottom"
-                                                          FontSize="13"
-                                                          Foreground="{DynamicResource MaterialDesignBody}"
-                                                          IsChecked="{Binding Path=WillAutoUpload}"
-                                                          Checked="CheckBox_OnCheckedChanged"
-                                                          Unchecked="CheckBox_OnCheckedChanged"/>
+                                                    <CheckBox x:Name="UploadCheckBox" 
+                                                              Content="Upload"
+                                                              Margin="2, 0, 0, 0"
+                                                              VerticalAlignment="Bottom"
+                                                              FontSize="13"
+                                                              Foreground="{DynamicResource MaterialDesignBody}"
+                                                              IsChecked="{Binding Path=WillAutoUpload}"
+                                                              Checked="CheckBox_OnCheckedChanged"
+                                                              Unchecked="CheckBox_OnCheckedChanged"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                    </Border>
-                                    
-                                    <Border x:Name="LeftSidebarActiveBorder" 
-                                        Width="7"
-                                        HorizontalAlignment="Left"
-                                        Background="{DynamicResource SuccessBrush}"
-                                        Visibility="{Binding IsScheduled, Converter={StaticResource WhenTrueVisibleConverter}}"/>
-                                    
-                                    <Border x:Name="LeftSidebarInactiveBorder" 
-                                        Width="7"
-                                        HorizontalAlignment="Left"
-                                        Background="{DynamicResource SecondaryTextBrush}"
-                                        Visibility="{Binding IsScheduled, Converter={StaticResource WhenTrueCollapsedConverter}}"/>
-                                </Grid>
+                                        </Border>
+                                        
+                                        <Border x:Name="LeftSidebarActiveBorder" 
+                                            Width="7"
+                                            HorizontalAlignment="Left"
+                                            Background="{DynamicResource SuccessBrush}"
+                                            Visibility="{Binding IsScheduled, Converter={StaticResource WhenTrueVisibleConverter}}"/>
+                                        
+                                        <Border x:Name="LeftSidebarInactiveBorder" 
+                                            Width="7"
+                                            HorizontalAlignment="Left"
+                                            Background="{DynamicResource OnBackgroundSecondaryBrush}"
+                                            Visibility="{Binding IsScheduled, Converter={StaticResource WhenTrueCollapsedConverter}}"/>
+                                    </Grid>               
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0"
+                                                          BlurRadius="10"
+                                                          Opacity="0.1"
+                                                          Direction="-75" />
+                                    </Border.Effect>
+                                </Border>
                                
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" TargetName="ContentBorder" Value="{DynamicResource ButtonHoverBrush}"/>
+                                        <Setter Property="Background" TargetName="ContentBorder" Value="{DynamicResource OnSurfaceHoverBrush}"/>
                                     </Trigger>
                                     <Trigger Property="IsKeyboardFocused" Value="true">
-                                        <Setter Property="Background" TargetName="ContentBorder" Value="{DynamicResource ButtonHoverBrush}"/>
+                                        <Setter Property="Background" TargetName="ContentBorder" Value="{DynamicResource OnSurfaceHoverBrush}"/>
                                     </Trigger>
                                     <Trigger Property="IsEnabled" Value="false">
                                         <Setter Property="Opacity" Value="0.38"/>
@@ -160,7 +169,8 @@
                             Style="{StaticResource ScheduledLectureButton}"
                             Command="{Binding DataContext.NavigateToUpdateScheduledLecture, 
                                                               ElementName=AllLecturesItemsControl}"
-                            CommandParameter="{Binding Path=.}"/>
+                            CommandParameter="{Binding Path=.}">
+                    </Button>
                 </DataTemplate>
                 
                 <Style x:Key="DayContainerStyle" TargetType="{x:Type GroupItem}">
@@ -180,7 +190,7 @@
                                                TextAlignment="Center"
                                                Padding="0, 25"
                                                Background="{DynamicResource PrimaryBrush}"
-                                               Foreground="{DynamicResource PrimaryTextBrush}"/>
+                                               Foreground="{DynamicResource OnPrimaryBrush}"/>
                                     
                                     <ScrollViewer x:Name="DayLecturesScrollViewer" 
                                                   Grid.Column="0" Grid.Row="1"

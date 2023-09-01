@@ -34,7 +34,7 @@ public class LoginToMicrosoftTeamsHandler : IRequestHandler<LoginToMicrosoftTeam
                 return errorOrWebDriver.Errors;
             }
 
-            var webDriver = errorOrWebDriver.Value;
+            using var webDriver = errorOrWebDriver.Value;
             return webDriver.Login(request.AcademicEmailAddress, request.Password, cancellationToken: cancellationToken);
         }, cancellationToken);
 

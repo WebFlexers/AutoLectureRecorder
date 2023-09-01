@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
 using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;

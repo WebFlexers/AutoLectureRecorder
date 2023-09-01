@@ -62,7 +62,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Let's get recording"
                                    FontSize="18"
-                                   Foreground="{DynamicResource SecondaryTextBrush}"
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
                                    Margin="0,5,13,0" />
                         <Image Source="../../../Resources/Icons/Dashboard/video_camera.png"
                                Width="25"
@@ -76,7 +76,7 @@
                       Width="{Binding ElementName=MainDashboardStackPanel,Path=ActualWidth}"
                       Margin="0,20"
                       HorizontalAlignment="Right"
-                      Background="{DynamicResource SectionLineBrush}">
+                      Background="{DynamicResource SecondaryBrush}">
                 </Grid>
 
                 <!-- Next scheduled lecture -->
@@ -87,7 +87,7 @@
 
                     <TextBlock Text="Next Scheduled lecture"
                                FontSize="18"
-                               Foreground="{DynamicResource SecondaryTextBrush}"
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
                                Margin="0,20,0,10" />
 
                     <Border CornerRadius="12"
@@ -96,7 +96,7 @@
                             <LinearGradientBrush EndPoint="1,1"
                                                  StartPoint="0,0">
                                 <GradientStop Color="{DynamicResource PrimaryColor}" />
-                                <GradientStop Color="{DynamicResource PrimaryDarkerColor}"
+                                <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Border.Background>
@@ -109,7 +109,7 @@
                         <TextBox x:Name="NextLectureSubjectNameTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{DynamicResource PrimaryTextBrush}"
+                                   Foreground="{DynamicResource OnPrimaryBrush}"
                                    FontSize="20"
                                    MaxWidth="650"
                                    TextWrapping="WrapWithOverflow"
@@ -128,7 +128,7 @@
                         <TextBlock Text="Starting in"
                                    VerticalAlignment="Center"
                                    FontSize="18"
-                                   Foreground="{DynamicResource SecondaryTextBrush}"/>
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"/>
                         <Border Width="30" Height="30"
                                 Margin="15, 0, 0, 0">
                             <Border.Background>
@@ -160,7 +160,7 @@
                         <TextBox x:Name="NextLectureTimeTextBlock" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{DynamicResource PrimaryTextBrush}"
+                                   Foreground="{DynamicResource OnPrimaryBrush}"
                                    FontSize="20"
                                    MaxWidth="650"
                                    TextWrapping="WrapWithOverflow"
@@ -201,7 +201,7 @@
                     <Border CornerRadius="12"
                             Height="50"
                             Margin="10,10,0,10"
-                            Background="{DynamicResource PrimaryBackgroundBrush}">
+                            Background="{DynamicResource SurfaceBrush}">
 
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0"
@@ -223,6 +223,7 @@
                                 </Border.Background>
                             </Border>
                             <TextBlock Text="Record Attempts:"
+                                       Foreground="{DynamicResource OnSurfaceBrush}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        TextWrapping="Wrap"
@@ -230,6 +231,7 @@
 
                             <TextBlock x:Name="TotalLecturesTextBlock"
                                        Text="134"
+                                       Foreground="{DynamicResource OnSurfaceBrush}"
                                        Margin="10,0,0,0"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
@@ -244,7 +246,7 @@
                     <Border CornerRadius="12"
                             Height="50"
                             Margin="10,0,0,10"
-                            Background="{DynamicResource PrimaryBackgroundBrush}">
+                            Background="{DynamicResource SurfaceBrush}">
 
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0"
@@ -266,6 +268,7 @@
                                 </Border.Background>
                             </Border>
                             <TextBlock Text="Successful:"
+                                       Foreground="{DynamicResource OnSurfaceBrush}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        TextWrapping="Wrap"
@@ -273,6 +276,7 @@
 
                             <TextBlock x:Name="TotalSuccessfulLecturesTextBlock"
                                        Text="114"
+                                       Foreground="{DynamicResource OnSurfaceBrush}"
                                        Margin="10,0,0,0"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
@@ -285,7 +289,7 @@
                     <Border CornerRadius="12"
                             Height="50"
                             Margin="10,0,0,10"
-                            Background="{DynamicResource PrimaryBackgroundBrush}">
+                            Background="{DynamicResource SurfaceBrush}">
 
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0"
@@ -308,6 +312,7 @@
                             </Border>
 
                             <TextBlock Text="Failed:"
+                                       Foreground="{DynamicResource OnSurfaceBrush}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        TextWrapping="Wrap"
@@ -315,6 +320,7 @@
 
                             <TextBlock x:Name="TotalFailedLecturesTextBlock"
                                        Text="20"
+                                       Foreground="{DynamicResource OnSurfaceBrush}"
                                        Margin="10,0,0,0"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
@@ -337,7 +343,7 @@
                         Height="170.5"
                         VerticalAlignment="Top"
                         Margin="10,65,35,10"
-                        Background="{DynamicResource PrimaryBackgroundBrush}">
+                        Background="{DynamicResource SurfaceBrush}">
                     
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0"
@@ -348,16 +354,13 @@
                     
                     <Grid>
                         <TextBlock Text="No lecture is being recorded at the moment"
-                                   Visibility="Collapsed"
                                    MaxWidth="230"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Foreground="{DynamicResource OnSurfaceBrush}"
                                    TextWrapping="Wrap"
                                    FontSize="18" />
-                        
-                        <StackPanel>
-                            
-                        </StackPanel>
                     </Grid>
                     
                 </Border>
@@ -374,7 +377,7 @@
               Grid.RowSpan="2" 
               Width="0.5"
               HorizontalAlignment="Right"
-              Background="{DynamicResource SectionLineBrush}">
+              Background="{DynamicResource SecondaryBrush}">
         </Grid>
 
         
@@ -400,7 +403,7 @@
                   Width="{Binding ElementName=ScheduledLecturesStackPanel,Path=ActualWidth}"
                   Margin="0,31.5,0,10"
                   HorizontalAlignment="Right"
-                  Background="{DynamicResource SectionLineBrush}">
+                  Background="{DynamicResource SecondaryBrush}">
             </Grid>
 
             <!-- Error message for empty todays lectures -->
@@ -409,7 +412,8 @@
                        TextAlignment="Center"
                        FontSize="18"
                        Padding="50, 20, 50, 0"
-                       d:Visibility="Collapsed">
+                       d:Visibility="Collapsed"
+                       Foreground="{DynamicResource OnBackgroundSecondaryBrush}">
                 No scheduled lectures were found. Click below to begin scheduling
             </TextBlock>
 
@@ -435,7 +439,7 @@
                                 <Border CornerRadius="12"
                                         Padding="15"
                                         Margin="0,0,0,15"
-                                        Background="{DynamicResource PrimaryBackgroundBrush}">
+                                        Background="{DynamicResource SurfaceBrush}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0"
                                                           BlurRadius="18"
@@ -498,13 +502,13 @@
                     Cursor="Hand"
                     FontSize="18"
                     Margin="0, 0, 0, 0"
-                    Foreground="{DynamicResource PrimaryTextBrush}"
+                    Foreground="{DynamicResource OnPrimaryBrush}"
                     Content="Schedule Lectures">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="1,1"
                                          StartPoint="0,0">
                         <GradientStop Color="{DynamicResource PrimaryColor}" />
-                        <GradientStop Color="{DynamicResource PrimaryDarkerColor}"
+                        <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
                                       Offset="1" />
                     </LinearGradientBrush>
                 </Button.Background>

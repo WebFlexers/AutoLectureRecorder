@@ -6,6 +6,7 @@ using AutoLectureRecorder.Application.Common.Abstractions.SampleData;
 using AutoLectureRecorder.Application.Common.Abstractions.StartupManager;
 using AutoLectureRecorder.Application.Common.Abstractions.Validation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
 using AutoLectureRecorder.Infrastructure.LecturesSchedule;
 using AutoLectureRecorder.Infrastructure.Persistence;
 using AutoLectureRecorder.Infrastructure.Persistence.Seeding;
@@ -13,6 +14,7 @@ using AutoLectureRecorder.Infrastructure.Recording;
 using AutoLectureRecorder.Infrastructure.StartupManager;
 using AutoLectureRecorder.Infrastructure.Validation;
 using AutoLectureRecorder.Infrastructure.WebAutomation;
+using AutoLectureRecorder.Infrastructure.WebAutomation.DownloadWebDriver;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoLectureRecorder.Infrastructure;

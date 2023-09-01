@@ -1,4 +1,6 @@
 ﻿using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Windows;
 using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu.Library;
@@ -24,6 +26,12 @@ public partial class RecordedLecturesView : ReactiveUserControl<RecordedLectures
                 vm => vm.ScheduledLecture.SubjectName, 
                 v => v.SubjectNameTextBox.Text)
                 .DisposeWith(disposables);
+            
+            // Visibilities
+            this.OneWayBind(ViewModel,
+                vm => vm.HasLectures,
+                v => v.NoLecturesTextBlock.Visibility,
+                hasLectures => hasLectures ? Visibility.Collapsed : Visibility.Visible);
         });
     }
 }

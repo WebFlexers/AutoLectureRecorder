@@ -1,7 +1,7 @@
 ﻿using System.Reactive;
 using ErrorOr;
 
-namespace AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
+namespace AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
 
 public interface IWebDriverDownloader
 {

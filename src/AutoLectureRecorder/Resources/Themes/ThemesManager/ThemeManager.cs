@@ -9,39 +9,38 @@ using MaterialDesignThemes.Wpf;
 
 namespace AutoLectureRecorder.Resources.Themes.ThemesManager;
 
-public partial class ThemeManager : IThemeManager
+public class ThemeManager : IThemeManager
 {
     [DllImport("UXTheme.dll", SetLastError = true, EntryPoint = "#138")]
     public static extern bool ShouldSystemUseDarkMode();
 
+    private static Window[] AllActiveWindows => System.Windows.Application.Current.Windows.Cast<Window>().ToArray();
     public ColorTheme CurrentColorTheme { get; set; } = ColorTheme.Light;
 
-    //public static void InitializeTheme()
-    //{
-    //    if (ShouldSystemUseDarkMode())
-    //    {
-    //        SwitchToDarkTheme();
-    //    }
-    //    else
-    //    {
-    //        SwitchToLightTheme();
-    //    }
-    //}
+    public void InitializeTheme()
+    {
+        if (ShouldSystemUseDarkMode())
+        {
+            SwitchToDarkTheme(AllActiveWindows);
+        }
+        else
+        {
+            SwitchToLightTheme(AllActiveWindows);
+        }
+    }
 
     /// <summary>
     /// Reapplies the current theme in case it was not applied to specific elements
     /// </summary>
     public void RefreshTheme()
     {
-        var windows = System.Windows.Application.Current.Windows.Cast<Window>().ToArray();
-        
         switch (CurrentColorTheme)
         {
             case ColorTheme.Light:
-                SwitchToLightTheme(windows);
+                SwitchToLightTheme(AllActiveWindows);
                 break;
             case ColorTheme.Dark:
-                SwitchToDarkTheme(windows);
+                SwitchToDarkTheme(AllActiveWindows);
                 break;
         }
     }
@@ -79,7 +78,7 @@ public partial class ThemeManager : IThemeManager
         var palette = new PaletteHelper();
         var colors = GetCurrentThemeDictionary();
         var primaryColor = (Color)colors["PrimaryColor"];
-        var secondaryColor = (Color)colors["SecondaryTextColor"];
+        var secondaryColor = (Color)colors["SecondaryColor"];
 
         var theme = Theme.Create(CurrentColorTheme == ColorTheme.Light 
             ? Theme.Light 

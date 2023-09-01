@@ -10,7 +10,7 @@
                 
                 <materialDesign:CustomColorTheme BaseTheme="Light"
                                                  PrimaryColor="{StaticResource PrimaryColor}"
-                                                 SecondaryColor="{StaticResource SecondaryTextColor}" />
+                                                 SecondaryColor="{StaticResource SecondaryColor}"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml" />

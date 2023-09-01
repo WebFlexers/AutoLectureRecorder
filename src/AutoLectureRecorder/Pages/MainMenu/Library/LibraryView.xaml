@@ -49,7 +49,8 @@
                         Width="auto"
                         Margin="8"
                         Style="{StaticResource RecordedLectureLibraryButton}"
-                        Command="{Binding DataContext.NavigateToRecordedLecturesCommand, ElementName=LecturesBySemesterItemsControl}"
+                        Command="{Binding DataContext.NavigateToRecordedLecturesCommand, 
+                                            ElementName=LecturesBySemesterItemsControl}"
                         CommandParameter="{Binding Path=.}"/>
             </DataTemplate>
 
@@ -60,7 +61,7 @@
                             <Border Margin="21, 10, 21, 10"
                                     CornerRadius="20"
                                     Padding="20"
-                                   >
+                                    Background="{DynamicResource SurfaceBrush}">
                                 <!--Background="{DynamicResource SecondaryBackgroundBrush}"-->
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -74,7 +75,15 @@
                                                Margin="4, 0, 0, 10"/>
                                     <ItemsPresenter Grid.Row="1"/>
                                 </Grid>
+                                
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      BlurRadius="16"
+                                                      Opacity="0.15"
+                                                      Direction="-75" />
+                                </Border.Effect>
                             </Border>
+                            
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>

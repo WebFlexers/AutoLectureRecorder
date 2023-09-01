@@ -16,7 +16,7 @@
                             Height="{TemplateBinding Height}"
                             Width="{TemplateBinding Width}">                       
                         <TextBlock Text="{TemplateBinding Content}"
-                                   Foreground="{DynamicResource PrimaryTextBrush}"
+                                   Foreground="{DynamicResource OnPrimaryBrush}"
                                    TextWrapping="Wrap"
                                    TextTrimming="CharacterEllipsis"
                                    TextAlignment="Center"
@@ -26,11 +26,11 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource PrimaryDarkerBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource PrimaryDarkVariantBrush}"/>
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="true">
                             <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource PrimaryDarkerBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource PrimaryDarkVariantBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value="0.38"/>

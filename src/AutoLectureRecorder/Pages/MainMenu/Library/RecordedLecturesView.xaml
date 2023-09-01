@@ -37,109 +37,122 @@
 
         <ScrollViewer Grid.Row="2"
                       VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="RecordedLecturesItemsControl">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Background="{DynamicResource PrimaryBackgroundBrush}"
-                                CornerRadius="15"
-                                Margin="25, 8"
-                                Padding="15">
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="0"
-                                                  BlurRadius="16"
-                                                  Opacity="0.15"
-                                                  Direction="-75" />
-                            </Border.Effect>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+            <Grid>
+                <TextBlock x:Name="NoLecturesTextBlock" 
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource MaterialDesignBody}"
+                           FontSize="20"
+                           Text="No lectures have been recorded for this subject yet"/>
+                
+                <ItemsControl x:Name="RecordedLecturesItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource SurfaceBrush}"
+                                    CornerRadius="15"
+                                    Margin="25, 8"
+                                    Padding="15">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      BlurRadius="16"
+                                                      Opacity="0.15"
+                                                      Direction="-75" />
+                                </Border.Effect>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0"
-                                           Grid.Column="0"
-                                           TextElement.FontWeight="Medium"
-                                           Text="{Binding Path=StartedAt, StringFormat='dddd, d MMMM yyyy'}"
-                                           TextTrimming="CharacterEllipsis"
-                                           VerticalAlignment="Center"
-                                           TextAlignment="Center"
-                                           FontSize="18"/>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               TextElement.FontWeight="Medium"
+                                               Text="{Binding Path=StartedAt, StringFormat='dddd, d MMMM yyyy'}"
+                                               TextTrimming="CharacterEllipsis"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"
+                                               FontSize="18"/>
 
-                                <TextBlock Grid.Row="1"
-                                           Grid.Column="0"
-                                           Text="{Binding Path=Duration, StringFormat='Duration: {0:hh} hours, {0:mm} minutes, {0:ss} seconds'}"
-                                           TextTrimming="CharacterEllipsis"
-                                           VerticalAlignment="Center"
-                                           TextAlignment="Center"
-                                           FontSize="18"/>
+                                    <TextBlock Grid.Row="1"
+                                               Grid.Column="0"
+                                               Text="{Binding Path=Duration, StringFormat='Duration: {0:hh} hours, {0:mm} minutes, {0:ss} seconds'}"
+                                               TextTrimming="CharacterEllipsis"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"
+                                               FontSize="18"/>
 
-                                <Button x:Name="WatchLocallyButton"
-                                        Grid.Row="0" Grid.Column="1" 
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Margin="0, 0, 15, 0"
-                                        Command="{Binding DataContext.OpenVideoLocallyCommand, 
-                                                                    ElementName=RecordedLecturesItemsControl}"
-                                        CommandParameter="{Binding Path=FilePath}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" 
-                                               Source="../../../Resources/Icons/Library/pc.png"
-                                               RenderOptions.BitmapScalingMode="HighQuality"/>
-                                        <TextBlock Grid.Column="1" 
-                                                   Text="Watch Locally"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Right"
-                                                   Padding="10, 0, 6, 0"/>
-                                    </Grid>
-                                    <Button.Background>
-                                        <LinearGradientBrush EndPoint="1,1"
-                                                             StartPoint="0,0">
-                                            <GradientStop Color="{DynamicResource PrimaryColor}" />
-                                            <GradientStop Color="{DynamicResource PrimaryDarkerColor}"
-                                                          Offset="1" />
-                                        </LinearGradientBrush>
-                                    </Button.Background>
-                                </Button>
-                                <Button Grid.Row="1" 
-                                        Grid.Column="1"  
-                                        Visibility="Collapsed"
-                                        Margin="0, 8, 15, 0"
-                                        Foreground="{DynamicResource MaterialDesignPaper}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" 
-                                               Source="../../../Resources/Icons/Library/global.png"
-                                               RenderOptions.BitmapScalingMode="HighQuality"/>
-                                        <TextBlock Grid.Column="1" 
-                                                   Text="Watch Online"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Right"
-                                                   Padding="10, 0, 6, 0"/>
-                                    </Grid>
-                                    <Button.Background>
-                                        <LinearGradientBrush EndPoint="1,1"
-                                                             StartPoint="0,0">
-                                            <GradientStop Color="#FF58C8DF" />
-                                            <GradientStop Color="#FF53A7DD"
-                                                          Offset="1" />
-                                        </LinearGradientBrush>
-                                    </Button.Background>
-                                </Button>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                    <Button x:Name="WatchLocallyButton"
+                                            Grid.RowSpan="2"
+                                            Grid.Row="0" 
+                                            Grid.Column="1" 
+                                            Foreground="{DynamicResource OnPrimaryBrush}"
+                                            Margin="0, 0, 15, 0"
+                                            Command="{Binding DataContext.OpenVideoLocallyCommand, 
+                                                                        ElementName=RecordedLecturesItemsControl}"
+                                            CommandParameter="{Binding Path=FilePath}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" 
+                                                   Source="../../../Resources/Icons/Library/pc.png"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            <TextBlock Grid.Column="1" 
+                                                       Text="Watch Locally"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Right"
+                                                       Foreground="{DynamicResource OnPrimaryBrush}"
+                                                       Padding="10, 0, 6, 0"/>
+                                        </Grid>
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="1,1"
+                                                                 StartPoint="0,0">
+                                                <GradientStop Color="{DynamicResource PrimaryColor}" />
+                                                <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
+                                                              Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Grid.Row="1" 
+                                            Grid.Column="1"  
+                                            Visibility="Collapsed"
+                                            Margin="0, 8, 15, 0"
+                                            Foreground="{DynamicResource MaterialDesignPaper}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" 
+                                                   Source="../../../Resources/Icons/Library/global.png"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            <TextBlock Grid.Column="1" 
+                                                       Text="Watch Online"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Right"
+                                                       Padding="10, 0, 6, 0"/>
+                                        </Grid>
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="1,1"
+                                                                 StartPoint="0,0">
+                                                <GradientStop Color="#FF58C8DF" />
+                                                <GradientStop Color="#FF53A7DD"
+                                                              Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </rxui:ReactiveUserControl>

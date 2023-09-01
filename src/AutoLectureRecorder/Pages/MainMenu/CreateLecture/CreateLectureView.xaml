@@ -9,7 +9,6 @@
     xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:local="clr-namespace:AutoLectureRecorder.Pages.MainMenu.CreateLecture"
-    xmlns:themes="clr-namespace:AutoLectureRecorder.Resources.Themes"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{materialDesign:MaterialDesignFont}"
@@ -24,10 +23,10 @@
             <Border Padding="30">
                 <StackPanel>
                     <TextBlock x:Name="DialogTitleTextBlock"
+                               Text="Warning: Overlapping lecture detected"
+                               FontWeight="Bold"
                                FontSize="22"
-                               Margin="0, 0, 0, 15">
-                        Warning: Overlapping lecture detected
-                    </TextBlock>
+                               Margin="0, 0, 0, 15"/>
                     <TextBlock x:Name="DialogContentTextBlock"
                                FontSize="18"
                                TextWrapping="Wrap"
@@ -40,20 +39,21 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
                         <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                Foreground="{DynamicResource ErrorDarkerBrush}"
+                                Foreground="{DynamicResource OnBackgroundBrush}"
                                 Opacity="0.6"
                                 FontSize="16"
                                 IsCancel="True"
+                                Margin="0, 0, 10, 0"
                                 Content="CANCEL"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
                         <Button x:Name="ProceedInsertionAnywayButton"  
-                                Style="{StaticResource MaterialDesignFlatButton}"
-                                Foreground="{DynamicResource SuccessBrush}"
+                                Background="{DynamicResource PrimaryBrush}"
+                                Foreground="{DynamicResource OnPrimaryBrush}"
                                 FontSize="16"
                                 Content="ADD ANYWAY"/>
                         <Button x:Name="ProceedUpdateAnywayButton"  
-                                Style="{StaticResource MaterialDesignFlatButton}"
-                                Foreground="{DynamicResource SuccessBrush}"
+                                Background="{DynamicResource PrimaryBrush}"
+                                Foreground="{DynamicResource OnPrimaryBrush}"
                                 FontSize="16"
                                 Content="UPDATE ANYWAY"/>
                     </StackPanel>
@@ -99,7 +99,7 @@
                                    HorizontalAlignment="Left"
                                    TextWrapping="Wrap"
                                    FontSize="16"
-                                   Foreground="{DynamicResource SecondaryTextBrush}" />
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}" />
                     </StackPanel>
 
                     <!-- Subject Fields -->
@@ -224,7 +224,7 @@
                 <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=200}" 
                       Height="0.5"
                       Margin="0,25"
-                      Background="{DynamicResource SectionLineBrush}">
+                      Background="{DynamicResource SecondaryBrush}">
                 </Grid>
 
                 <!-- Day - Time Details -->
@@ -244,7 +244,7 @@
                                    HorizontalAlignment="Left"
                                    TextWrapping="Wrap"
                                    FontSize="16"
-                                   Foreground="{DynamicResource SecondaryTextBrush}" />
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}" />
                     </StackPanel>
 
                     <!-- Day - Time Fields -->
@@ -255,6 +255,7 @@
                                                              UpdateSourceTrigger=PropertyChanged}"
                                   materialDesign:HintAssist.Hint="Day"
                                   Margin="0, 0, 0, 10"
+                                  Foreground="{DynamicResource OnBackgroundBrush}"
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}">
 
                             <ComboBoxItem Content="Monday" />
@@ -308,7 +309,7 @@
                 <!-- Horizontal Line 2 -->
                 <Grid Height="0.5"
                       Margin="0,25"
-                      Background="{DynamicResource SectionLineBrush}">
+                      Background="{DynamicResource SecondaryBrush}">
                 </Grid>
 
                 <!-- Lecture Settings -->
@@ -327,7 +328,7 @@
                                    HorizontalAlignment="Left"
                                    TextWrapping="Wrap"
                                    FontSize="16"
-                                   Foreground="{DynamicResource SecondaryTextBrush}">
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}">
                             Information about whether the lecture will be scheduled immediately
                             and whether it will be automatically uploaded
                         </TextBlock>
@@ -341,6 +342,7 @@
                             <ToggleButton x:Name="AutoUploadToggleButton"
                                           IsChecked="{Binding ValidatableScheduledLecture.WillAutoUpload}" />
                             <TextBlock Text="Automatically upload to the cloud"
+                                       Foreground="{DynamicResource MaterialDesignBody}"
                                        Margin="15,0,0,0" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
@@ -348,6 +350,7 @@
                             <ToggleButton x:Name="IsScheduledToggleButton"
                                           IsChecked="{Binding ValidatableScheduledLecture.IsScheduled}" />
                             <TextBlock Text="Schedule lecture for recording"
+                                       Foreground="{DynamicResource MaterialDesignBody}"
                                        Margin="15,0,0,0" />
                         </StackPanel>
                     </StackPanel>
@@ -371,8 +374,17 @@
                         VerticalAlignment="Bottom"
                         Cursor="Hand"
                         FontSize="18"
-                        Foreground="{DynamicResource PrimaryTextBrush}"
-                        Content="Create Lecture"/>
+                        Foreground="{DynamicResource OnPrimaryBrush}"
+                        Content="Create Lecture">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="1,1"
+                                             StartPoint="0,0">
+                            <GradientStop Color="{DynamicResource PrimaryColor}" />
+                            <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
 
                 <Button x:Name="UpdateButton"
                         Grid.Column="1"
@@ -382,8 +394,17 @@
                         VerticalAlignment="Bottom"
                         Cursor="Hand"
                         FontSize="18"
-                        Foreground="{DynamicResource PrimaryTextBrush}"
-                        Content="Update Lecture"/>
+                        Foreground="{DynamicResource OnPrimaryBrush}"
+                        Content="Update Lecture">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="1,1"
+                                             StartPoint="0,0">
+                            <GradientStop Color="{DynamicResource PrimaryColor}" />
+                            <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
             </Grid>
 
             <!-- Success and Failure Snackbars -->
@@ -391,12 +412,14 @@
                                      Message="Lecture failed to be added..."
                                      d:IsActive="false"
                                      Background="{DynamicResource ErrorBrush}"
+                                     Foreground="{DynamicResource OnErrorBrush}"
                                      Margin="0,0,0,20"/>
 
             <materialDesign:Snackbar x:Name="InsertionSucceededSnackbar"
                                      Message="Lecture added successfully!"
                                      d:IsActive="false"
                                      Background="{DynamicResource SuccessBrush}"
+                                     Foreground="{DynamicResource OnSuccessBrush}"
                                      Margin="0,0,0,20" />
 
             <!-- Update and Failure Snackbars -->
@@ -404,12 +427,14 @@
                                      Message="Lecture failed to be updated..."
                                      d:IsActive="false"
                                      Background="{DynamicResource ErrorBrush}"
+                                     Foreground="{DynamicResource OnErrorBrush}"
                                      Margin="0,0,0,20"/>
 
             <materialDesign:Snackbar x:Name="UpdateSucceededSnackbar"
                                      Message="Lecture was updated successfully!"
                                      d:IsActive="false"
                                      Background="{DynamicResource SuccessBrush}"
+                                     Foreground="{DynamicResource OnSuccessBrush}"
                                      Margin="0,0,0,20" />
         </Grid>
     </materialDesign:DialogHost>
