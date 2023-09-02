@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Domain.ReactiveModels;
+using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu.Schedule;
@@ -16,9 +18,12 @@ namespace AutoLectureRecorder.Pages.MainMenu.Schedule;
 public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
 {
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
-    public ViewModelActivator Activator { get; }
-
+    
     private IEnumerable<ReactiveScheduledLecture>? _allLectures;
+    
+    public ViewModelActivator Activator { get; }
+    
+    public ReactiveCommand<Unit, Unit> NavigateToCreateLecture { get; }
     
     #region Filtered Lectures Observable Collections
 
@@ -109,8 +114,10 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
         : base(navigationService)
     {
         Activator = new();
-        
         _scheduledLectureRepository = scheduledLectureRepository;
+
+        NavigateToCreateLecture = ReactiveCommand.Create(() => 
+            NavigationService.Navigate(typeof(CreateLectureViewModel), HostNames.MainMenuHost));
 
         var loadLecturesObservable = Observable.FromAsync(LoadLectures)
             .Subscribe();
