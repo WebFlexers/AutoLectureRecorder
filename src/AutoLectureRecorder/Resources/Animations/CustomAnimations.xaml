@@ -11,4 +11,15 @@
                                   Duration="800" />
         </xf:CompoundSettings.Sequence>
     </xf:CompoundSettings>
+    
+    <xf:AnimationSettings x:Key="FadeInAndSlideFromLeft"
+                          Kind="FadeFrom,TranslateXFrom"
+                          Opacity="0"
+                          OffsetX="{StaticResource NegativeOffset}" />
+    
+    <xf:AnimationSettings x:Key="FadeInGrowAndSlideFromTop"
+                          Kind="FadeFrom,ScaleYFrom,TranslateYFrom"
+                          Opacity="0"
+                          ScaleY="{StaticResource LargeScaleFactor}"
+                          OffsetY="{StaticResource NegativeOffset}" />
 </ResourceDictionary>

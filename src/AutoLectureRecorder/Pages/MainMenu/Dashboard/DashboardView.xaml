@@ -19,7 +19,7 @@
             d:DesignHeight="768">
 
     <Grid x:Name="MainGrid"
-          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInGrowAndSlideFromTop}, Duration=400}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -41,7 +41,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="MainDashboardStackPanel"
-                        Margin="35,35,35,0">
+                        Margin="30,30,30,0">
                 <!-- Welcome back -->
                 <StackPanel>
                     <StackPanel Orientation="Horizontal"
@@ -123,24 +123,12 @@
                     </Border>
 
                     <!-- Starting in -->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="0,15,0,10">
-                        <TextBlock Text="Starting in"
-                                   VerticalAlignment="Center"
-                                   FontSize="18"
-                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"/>
-                        <Border Width="30" Height="30"
-                                Margin="15, 0, 0, 0">
-                            <Border.Background>
-                                <ImageBrush Stretch="UniformToFill"
-                                            RenderOptions.BitmapScalingMode="HighQuality"
-                                            RenderOptions.EdgeMode="Aliased"
-                                            ImageSource="../../../Resources/Icons/Dashboard/stand-by.png" />
-                            </Border.Background>
-                        </Border>
-                    </StackPanel>
+                    <TextBlock Text="Starting in"
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                               Margin="0,15,0,10"/>
                     
-
                     <Border CornerRadius="12"
                             Height="85">
                         <Border.Background>
@@ -189,7 +177,7 @@
                            Text="Statistics"
                            TextElement.FontWeight="Medium"
                            FontSize="22"
-                           Margin="35, 20, 10,10" />
+                           Margin="30, 20, 10,10" />
                 
                 <StackPanel Grid.Row="0" Grid.Column="0"
                         Margin="25,55,10,35"
@@ -200,7 +188,7 @@
                     <!-- Total Lectures -->
                     <Border CornerRadius="12"
                             Height="50"
-                            Margin="10,10,0,10"
+                            Margin="5,10,0,10"
                             Background="{DynamicResource SurfaceBrush}">
 
                         <Border.Effect>
@@ -230,7 +218,7 @@
                                        FontSize="18" />
 
                             <TextBlock x:Name="TotalLecturesTextBlock"
-                                       Text="134"
+                                       Text="0"
                                        Foreground="{DynamicResource OnSurfaceBrush}"
                                        Margin="10,0,0,0"
                                        HorizontalAlignment="Center"
@@ -245,7 +233,7 @@
                     <!-- Successfully Recorded Lectures -->
                     <Border CornerRadius="12"
                             Height="50"
-                            Margin="10,0,0,10"
+                            Margin="5,0,0,10"
                             Background="{DynamicResource SurfaceBrush}">
 
                         <Border.Effect>
@@ -275,7 +263,7 @@
                                        FontSize="18" />
 
                             <TextBlock x:Name="TotalSuccessfulLecturesTextBlock"
-                                       Text="114"
+                                       Text="0"
                                        Foreground="{DynamicResource OnSurfaceBrush}"
                                        Margin="10,0,0,0"
                                        HorizontalAlignment="Center"
@@ -288,7 +276,7 @@
 
                     <Border CornerRadius="12"
                             Height="50"
-                            Margin="10,0,0,10"
+                            Margin="5,0,0,10"
                             Background="{DynamicResource SurfaceBrush}">
 
                         <Border.Effect>
@@ -319,7 +307,7 @@
                                        FontSize="18" />
 
                             <TextBlock x:Name="TotalFailedLecturesTextBlock"
-                                       Text="20"
+                                       Text="0"
                                        Foreground="{DynamicResource OnSurfaceBrush}"
                                        Margin="10,0,0,0"
                                        HorizontalAlignment="Center"
@@ -336,13 +324,13 @@
                            HorizontalAlignment="Center"
                            TextElement.FontWeight="Medium"
                            FontSize="22"
-                           Margin="0, 20, 35,0" />
+                           Margin="0, 20, 30,0" />
                 
                 <Border Grid.Column="1" 
                         CornerRadius="12"
                         Height="170.5"
                         VerticalAlignment="Top"
-                        Margin="10,65,35,10"
+                        Margin="10,65,30,10"
                         Background="{DynamicResource SurfaceBrush}">
                     
                     <Border.Effect>

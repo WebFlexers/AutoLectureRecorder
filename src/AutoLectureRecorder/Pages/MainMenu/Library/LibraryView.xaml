@@ -28,7 +28,7 @@
     </Border.Resources>
 
     <Grid x:Name="MainGrid"
-          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromTop}, Duration=400}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>

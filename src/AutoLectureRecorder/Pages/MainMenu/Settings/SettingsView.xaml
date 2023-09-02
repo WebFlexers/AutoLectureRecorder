@@ -18,7 +18,7 @@
             d:DesignWidth="1360" 
             d:DesignHeight="768">
 
-    <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=500}">
+    <Grid xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=400}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>

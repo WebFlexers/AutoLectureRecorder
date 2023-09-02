@@ -97,12 +97,10 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
         var todaysLecturesUnsorted = await _scheduledLectureRepository
             .GetScheduledLecturesByDay(DateTime.Now.DayOfWeek);
 
-        if (todaysLecturesUnsorted == null || todaysLecturesUnsorted.Any() == false) return null;
-
         var todaysLecturesSortedByStartTime =
-            todaysLecturesUnsorted.OrderBy(lecture => lecture.StartTime);
+            todaysLecturesUnsorted?.OrderBy(lecture => lecture.StartTime);
 
         // TODO: Create a way to detect whether a lecture was successfully recorded and change the icon accordingly
-        return todaysLecturesSortedByStartTime.ToList();
+        return todaysLecturesSortedByStartTime?.ToList();
     }
 }
