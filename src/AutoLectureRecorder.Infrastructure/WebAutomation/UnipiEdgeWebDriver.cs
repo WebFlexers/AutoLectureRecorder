@@ -70,6 +70,8 @@ public class UnipiEdgeWebDriver : IAlrWebDriver
 
         try
         {
+            if (cancellationToken is { IsCancellationRequested: true }) return Errors.Login.LoginCancelled;
+            
             if (resolveInitialUrlAutomatically)
             {
                 _driver.Url = MicrosoftTeamsAuthUrl;
