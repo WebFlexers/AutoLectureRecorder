@@ -1,0 +1,294 @@
+﻿<rxui:ReactiveUserControl 
+     x:Name="ScheduleViewMain"
+     x:Class="AutoLectureRecorder.Pages.MainMenu.Schedule.ScheduleView"
+     x:TypeArguments="local:ScheduleViewModel"
+     xmlns:rxui="http://reactiveui.net"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     xmlns:local="clr-namespace:AutoLectureRecorder.Pages.MainMenu.Schedule"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{materialDesign:MaterialDesignFont}"
+     TextElement.FontWeight="Normal"
+     TextElement.FontSize="14"
+     mc:Ignorable="d" 
+     d:DesignWidth="1360"
+     d:DesignHeight="768">
+    <Grid Margin="30"
+          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=400}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Title -->
+        <TextBlock Grid.Row="0" 
+                   Text="Lectures Schedule"
+                   FontSize="30"
+                   FontWeight="Medium"/>
+        
+        <!-- Controls -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Filters -->
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        Margin="0, 10, 0, 0">
+                <!-- Search by Subject Name -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0"
+                               Text="Search by subject name"
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                               Margin="0, 0, 0, 5"/>
+                    
+                    <TextBox x:Name="SubjectNameSearchTextBox" 
+                             Grid.Row="1" 
+                             materialDesign:TextFieldAssist.HasClearButton="True"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Padding="35, 10, 0, 10"
+                             MinWidth="300"/>
+                    
+                    <materialDesign:PackIcon Kind="Magnify" 
+                                             Grid.Row="1"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             Width="25"
+                                             Height="25"
+                                             Margin="8, 0, 0, 0"/>
+                </Grid>
+                
+                <!-- Filter by Semester -->
+                <StackPanel Orientation="Vertical"
+                            Margin="30, 0, 0, 0">
+                    <TextBlock Text="Semester"
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                               Margin="0, 0, 0, 5"/>
+                    <ComboBox x:Name="SemesterFilteringCombobox" 
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              Padding="10"
+                              MinWidth="80">
+                        <ComboBoxItem Content="All"
+                                      IsSelected="True"/>
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="6"/>
+                        <ComboBoxItem Content="7"/>
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="9"/>
+                        <ComboBoxItem Content="10"/>
+                    </ComboBox>
+                </StackPanel>
+                
+                <!-- Filter by Active Status -->
+                <StackPanel Orientation="Vertical"
+                            Margin="20, 0, 0, 0">
+                    <TextBlock Text="Active Status"
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                               Margin="0, 0, 0, 5"/>
+                    <ComboBox x:Name="ActiveFilteringCombobox" 
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              Padding="10"
+                              MinWidth="80">
+                        <ComboBoxItem Content="All"
+                                      IsSelected="True"/>
+                        <ComboBoxItem Content="Active"/>
+                        <ComboBoxItem Content="Inactive"/>
+                    </ComboBox>
+                </StackPanel>
+                
+                <!-- Filter by Upload Status -->
+                <StackPanel Orientation="Vertical"
+                            Margin="20, 0, 0, 0">
+                    <TextBlock Text="Active Status"
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                               Margin="0, 0, 0, 5"/>
+                    <ComboBox x:Name="UploadFilteringCombobox" 
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              Padding="10"
+                              MinWidth="80">
+                        <ComboBoxItem Content="All"
+                                      IsSelected="True"/>
+                        <ComboBoxItem Content="Upload"/>
+                        <ComboBoxItem Content="No Upload"/>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+            
+            <!-- Action buttons -->
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Margin="0, 2, 0, 0">
+                
+                <Button x:Name="DeleteSelectedLecturesButton"
+                        IsEnabled="False"
+                        Height="45"
+                        Width="60"
+                        VerticalAlignment="Bottom"
+                        Margin="0, 0, 20, 0"
+                        Background="{DynamicResource ErrorBrush}">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="Delete"
+                                                 Foreground="{DynamicResource OnErrorBrush}"
+                                                 Width="27"
+                                                 Height="27"/>
+                    </Button.Content>
+                </Button>
+                
+                <Button x:Name="ScheduleLecturesButton"
+                        Content="Schedule Lectures"
+                        FontSize="18"
+                        Height="45"
+                        VerticalAlignment="Bottom">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="1,1"
+                                             StartPoint="0,0">
+                            <GradientStop Color="{DynamicResource PrimaryColor}" />
+                            <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Schedule -->
+        <Border Grid.Row="2"
+                BorderBrush="{DynamicResource MaterialDesignBody}"
+                BorderThickness="1"
+                CornerRadius="10"
+                Margin="1, 20, 0, 0">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Schedule lectures + button -->
+                <Button x:Name="ScheduleLectureActionButton"  
+                        Grid.Row="1" 
+                        Grid.Column="6"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Margin="0, 0, 15, 15"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}">
+                    <materialDesign:PackIcon Kind="Plus" 
+                                             Width="35"
+                                             Height="35"/>
+                </Button>
+                
+                <!-- Days background -->
+                <!-- 
+                    The first border is used to round the 2 upper corners 
+                    and the second to cover the bottom part of the border
+                    so it is not round as well
+                -->
+                <Border Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="7"
+                        CornerRadius="9.3"
+                        Background="{DynamicResource PrimaryBrush}"/>
+                
+                <Border Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="7"
+                        Height="10"
+                        VerticalAlignment="Bottom"
+                        Background="{DynamicResource PrimaryBrush}"/>
+                
+                <!-- Monday -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           FontSize="18"
+                           Text="Monday"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+                
+                
+                <!-- Tuesday -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           FontSize="18"
+                           Text="Tuesday"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+            
+                <!-- Wednesday -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           FontSize="18"
+                           Text="Wednesday"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+            
+                <!-- Thursday -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="3"
+                           FontSize="18"
+                           Text="Thursday"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+            
+                <!-- Friday -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="4"
+                           FontSize="18"
+                           Text="Friday"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+            
+                <!-- Saturday -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="5"
+                           FontSize="18"
+                           Text="Saturday"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+            
+                <!-- Sunday -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="6"
+                           FontSize="18"
+                           Text="Sunday"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</rxui:ReactiveUserControl>
