@@ -37,7 +37,8 @@ public class CreateScheduledLectureHandler
         
         // Now we need to recalculate the next scheduled lecture in case the newly
         // added one is earlier that the currently scheduled one
-        await _mediator.Publish(new NextScheduledLectureEvent(), cancellationToken).ConfigureAwait(false);
+        await _mediator.Publish(new NextScheduledLectureEvent(), cancellationToken)
+            .ConfigureAwait(false);
 
         return reactiveScheduledLecture;
     }

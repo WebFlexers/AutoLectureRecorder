@@ -40,9 +40,9 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
-    /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database
+    /// Gets all the scheduled lectures sorted by Day first then by Start Time and then by Subject Name from the database
     /// </summary>
-    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedByDayAndStartTime()
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrdered()
     {
         try
         {

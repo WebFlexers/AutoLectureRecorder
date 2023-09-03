@@ -18,14 +18,18 @@ public class NextScheduledLectureHandler : INotificationHandler<NextScheduledLec
     
     public async Task Handle(NextScheduledLectureEvent notification, CancellationToken cancellationToken)
     {
-        var lecturesSorted = await _scheduledLectureRepository
-            .GetScheduledLecturesOrderedByDayAndStartTime();
-        
-        if (lecturesSorted == null || lecturesSorted.Any() == false) return;
+        var lecturesSorted = (await _scheduledLectureRepository
+            .GetScheduledLecturesOrdered())?.ToArray();
+
+        if (lecturesSorted == null || lecturesSorted.Length == 0)
+        {
+            _lecturesScheduler.NextScheduledLecture = null;
+            return;
+        }
 
         var activeLectures = lecturesSorted
             .Where(lecture => lecture.IsScheduled)
-            .ToList();
+            .ToArray();
 
         DayOfWeek today = DateTime.Today.DayOfWeek;
         TimeOnly currentTime = TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay);
@@ -36,7 +40,7 @@ public class NextScheduledLectureHandler : INotificationHandler<NextScheduledLec
         // scheduled for today or any day after today (until Sunday).
         //  E.g. If today is Friday we check if there is a scheduled lecture at Friday, Saturday or Sunday
         int counter = 0;
-        while (counter < activeLectures.Count)
+        while (counter < activeLectures.Length)
         {
             if (activeLectures[counter].Day >= today)
             {
@@ -59,7 +63,7 @@ public class NextScheduledLectureHandler : INotificationHandler<NextScheduledLec
         // If the closest day is today we need to check if the start
         // time of the lecture is after the current time of day.
         // So we continue where we left off using the same counter
-        while (counter < activeLectures.Count && activeLectures[counter].Day == today)
+        while (counter < activeLectures.Length && activeLectures[counter].Day == today)
         {
             if (activeLectures[counter].StartTime >= currentTime)
             {
@@ -71,7 +75,7 @@ public class NextScheduledLectureHandler : INotificationHandler<NextScheduledLec
         }
 
         // Let's not overstep
-        if (counter == activeLectures.Count)
+        if (counter == activeLectures.Length)
         {
             counter--;
         }

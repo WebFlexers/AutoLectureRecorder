@@ -57,7 +57,7 @@ public class ScheduledLectureRepositoryTests
         
         // Act
         var results = (await scheduledLectureData
-            .GetScheduledLecturesOrderedByDayAndStartTime())?.ToList();
+            .GetScheduledLecturesOrdered())?.ToList();
 
         // Assert
         results.Should().NotBeNull();

@@ -12,7 +12,7 @@ public interface IScheduledLectureRepository
     /// <summary>
     /// Gets all the scheduled lectures sorted by Day first and then by Start Time from the database
     /// </summary>
-    Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedByDayAndStartTime();
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrdered();
 
     /// <summary>
     /// Gets all the scheduled lectures of the given day from the database

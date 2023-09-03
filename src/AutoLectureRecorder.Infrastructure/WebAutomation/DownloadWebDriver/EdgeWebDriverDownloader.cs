@@ -2,7 +2,6 @@
 using System.IO.Compression;
 using System.Reactive;
 using System.Runtime.InteropServices;
-using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
 using AutoLectureRecorder.Application.Common.Logging;
 using AutoLectureRecorder.Domain.Errors;

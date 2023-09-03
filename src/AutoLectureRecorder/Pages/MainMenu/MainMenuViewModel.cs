@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
@@ -7,11 +6,8 @@ using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
 using AutoLectureRecorder.Common.Navigation;
-using AutoLectureRecorder.Common.Navigation.Parameters;
-using AutoLectureRecorder.Domain.ReactiveModels;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu.Dashboard;
-using AutoLectureRecorder.Pages.RecordLecture;
 using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu;

@@ -17,11 +17,11 @@ public class DisableConflictingLecturesHandler
         _sqliteDataAccess = sqliteDataAccess;
     }
     
-    public async Task<List<ReactiveScheduledLecture>?> Handle(DisableConflictingLecturesCommand request, 
+    public async Task<List<ReactiveScheduledLecture>?> Handle(DisableConflictingLecturesCommand command, 
         CancellationToken cancellationToken)
     {
         var referenceScheduledLecture = await _scheduledLectureRepository
-            .GetScheduledLectureById(request.ReferenceScheduledLectureId).ConfigureAwait(false);
+            .GetScheduledLectureById(command.ReferenceScheduledLectureId).ConfigureAwait(false);
 
         if (referenceScheduledLecture is null) return null;
         
@@ -35,20 +35,21 @@ public class DisableConflictingLecturesHandler
         var updateLecturesTasks = new List<Task>();
         await _sqliteDataAccess.BeginTransaction().ConfigureAwait(false);
 
-        var updatedLectures = new List<ReactiveScheduledLecture>();
-        foreach (var lecture in dayLectures)
+        var deactivatedLectures = new List<ReactiveScheduledLecture>();
+        foreach (var existingLecture in dayLectures)
         {
-            if (lecture.Id != referenceScheduledLecture.Id && referenceScheduledLecture.OverlapsWithLecture(lecture))
+            if (existingLecture.Id != referenceScheduledLecture.Id && existingLecture.IsScheduled &&
+                referenceScheduledLecture.OverlapsWithLecture(existingLecture))
             {
-                lecture.IsScheduled = false;
-                updateLecturesTasks.Add(_scheduledLectureRepository.UpdateScheduledLecture(lecture));
-                updatedLectures.Add(lecture);
+                existingLecture.IsScheduled = false;
+                updateLecturesTasks.Add(_scheduledLectureRepository.UpdateScheduledLecture(existingLecture));
+                deactivatedLectures.Add(existingLecture);
             }
         }
 
         await Task.WhenAll(updateLecturesTasks).ConfigureAwait(false);
         _sqliteDataAccess.CommitPendingTransaction();
 
-        return updatedLectures;
+        return deactivatedLectures;
     }
 }

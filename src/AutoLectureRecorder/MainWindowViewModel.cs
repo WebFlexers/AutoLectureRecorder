@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reactive;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;

@@ -8,8 +8,9 @@
      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
      xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
-     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      xmlns:local="clr-namespace:AutoLectureRecorder.Pages.MainMenu.Schedule"
+     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     xmlns:customControls="clr-namespace:AutoLectureRecorder.Pages.MainMenu.Schedule.CustomControls"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{materialDesign:MaterialDesignFont}"
@@ -19,278 +20,562 @@
      d:DesignWidth="1360"
      d:DesignHeight="768">
     
-    <Grid Margin="30"
-          xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=400}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="75"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <!-- Title -->
-        <TextBlock Grid.Row="0" 
-                   Text="Lectures Schedule"
-                   FontSize="30"
-                   FontWeight="Medium"/>
-        
-        <!-- Controls -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="300"/>
-            </Grid.ColumnDefinitions>
-            
-            <!-- Filters -->
-            <StackPanel Grid.Column="0"
-                        Orientation="Horizontal"
-                        Margin="0, 10, 0, 0">
-                <!-- Search by Subject Name -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    
-                    <TextBlock Grid.Row="0"
-                               Text="Search by subject name"
-                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
-                               Margin="0, 0, 0, 5"/>
-                    
-                    <TextBox x:Name="SubjectNameSearchTextBox" 
-                             Grid.Row="1" 
-                             materialDesign:TextFieldAssist.HasClearButton="True"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Padding="35, 10, 0, 10"
-                             MinWidth="300"/>
-                    
-                    <materialDesign:PackIcon Kind="Magnify" 
-                                             Grid.Row="1"
-                                             VerticalAlignment="Center"
-                                             HorizontalAlignment="Left"
-                                             Width="25"
-                                             Height="25"
-                                             Margin="8, 0, 0, 0"/>
-                </Grid>
-                
-                <!-- Filter by Semester -->
-                <StackPanel Orientation="Vertical"
-                            Margin="30, 0, 0, 0">
-                    <TextBlock Text="Semester"
-                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
-                               Margin="0, 0, 0, 5"/>
-                    <ComboBox x:Name="SemesterFilteringCombobox" 
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              Padding="10"
-                              MinWidth="80">
-                        <ComboBoxItem Content="All"
-                                      IsSelected="True"/>
-                        <ComboBoxItem Content="1"/>
-                        <ComboBoxItem Content="2"/>
-                        <ComboBoxItem Content="3"/>
-                        <ComboBoxItem Content="4"/>
-                        <ComboBoxItem Content="5"/>
-                        <ComboBoxItem Content="6"/>
-                        <ComboBoxItem Content="7"/>
-                        <ComboBoxItem Content="8"/>
-                        <ComboBoxItem Content="9"/>
-                        <ComboBoxItem Content="10"/>
-                    </ComboBox>
+    <materialDesign:DialogHost x:Name="DeleteConfirmationDialogHost" 
+                               CloseOnClickAway="True">
+        <materialDesign:DialogHost.DialogContent>
+            <Border Padding="30">
+                <StackPanel>
+                    <TextBlock Text="Delete Confirmation"
+                               FontWeight="Bold"
+                               FontSize="22"
+                               Margin="0, 0, 0, 15"/>
+                    <TextBlock FontSize="18"
+                               TextWrapping="Wrap"
+                               MaxWidth="600"
+                               Margin="0, 0, 0, 25"
+                               Foreground="{DynamicResource SecondaryTextBrush}">
+                        Are you sure you want to delete the selected lectures? This action is permanent.
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                Foreground="{DynamicResource OnBackgroundBrush}"
+                                Opacity="0.6"
+                                FontSize="16"
+                                IsCancel="True"
+                                Margin="0, 0, 10, 0"
+                                Content="CANCEL"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+                        <Button x:Name="ProceedWithDeletionButton"  
+                                Background="{DynamicResource ErrorBrush}"
+                                Foreground="{DynamicResource OnErrorBrush}"
+                                FontSize="16"
+                                Content="YES"/>
+                    </StackPanel>
                 </StackPanel>
-                
-                <!-- Filter by Active Status -->
-                <StackPanel Orientation="Vertical"
-                            Margin="20, 0, 0, 0">
-                    <TextBlock Text="Active Status"
-                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
-                               Margin="0, 0, 0, 5"/>
-                    <ComboBox x:Name="ActiveFilteringCombobox" 
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              Padding="10"
-                              MinWidth="80">
-                        <ComboBoxItem Content="All"
-                                      IsSelected="True"/>
-                        <ComboBoxItem Content="Active"/>
-                        <ComboBoxItem Content="Inactive"/>
-                    </ComboBox>
-                </StackPanel>
-                
-                <!-- Filter by Upload Status -->
-                <StackPanel Orientation="Vertical"
-                            Margin="20, 0, 0, 0">
-                    <TextBlock Text="Active Status"
-                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
-                               Margin="0, 0, 0, 5"/>
-                    <ComboBox x:Name="UploadFilteringCombobox" 
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              Padding="10"
-                              MinWidth="80">
-                        <ComboBoxItem Content="All"
-                                      IsSelected="True"/>
-                        <ComboBoxItem Content="Upload"/>
-                        <ComboBoxItem Content="No Upload"/>
-                    </ComboBox>
-                </StackPanel>
-            </StackPanel>
-            
-            <!-- Action buttons -->
-            <StackPanel Grid.Column="1"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        Margin="0, 2, 0, 0">
-                
-                <Button x:Name="DeleteSelectedLecturesButton"
-                        IsEnabled="False"
-                        Height="45"
-                        Width="60"
-                        VerticalAlignment="Bottom"
-                        Margin="0, 0, 20, 0"
-                        Background="{DynamicResource ErrorBrush}">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="Delete"
-                                                 Foreground="{DynamicResource OnErrorBrush}"
-                                                 Width="27"
-                                                 Height="27"/>
-                    </Button.Content>
-                </Button>
-                
-                <Button x:Name="ScheduleLecturesButton"
-                        Content="Schedule Lectures"
-                        FontSize="18"
-                        Height="45"
-                        VerticalAlignment="Bottom">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="1,1"
-                                             StartPoint="0,0">
-                            <GradientStop Color="{DynamicResource PrimaryColor}" />
-                            <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-            </StackPanel>
-        </Grid>
+            </Border>
+        </materialDesign:DialogHost.DialogContent>
         
-        <!-- Schedule -->
-        <Border Grid.Row="2"
-                BorderBrush="{DynamicResource MaterialDesignBody}"
-                BorderThickness="1"
-                CornerRadius="10"
-                Margin="1, 20, 0, 0">
+        <Grid Margin="30"
+              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=400}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
+            <!-- Title -->
+            <TextBlock Grid.Row="0" 
+                       Text="Lectures Schedule"
+                       FontSize="30"
+                       FontWeight="Medium"/>
+            
+            <!-- Controls -->
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
                 
-                <!-- Schedule lectures action button -->
-                <Button x:Name="ScheduleLectureActionButton"  
-                        Grid.Row="1" 
-                        Grid.Column="6"
-                        VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right"
-                        Margin="0, 0, 15, 15"
-                        ToolTip="Schedule Lectures"
-                        Style="{StaticResource MaterialDesignFloatingActionButton}">
-                    <materialDesign:PackIcon Kind="Plus" 
-                                             Width="35"
-                                             Height="35"/>
-                </Button>
+                <!-- Filters -->
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
+                            Margin="0, 10, 0, 0">
+                    <!-- Search by Subject Name -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock Grid.Row="0"
+                                   Text="Search by subject name"
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                                   Margin="0, 0, 0, 5"/>
+                        
+                        <TextBox x:Name="SubjectNameSearchTextBox" 
+                                 Grid.Row="1" 
+                                 materialDesign:TextFieldAssist.HasClearButton="True"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Padding="35, 10, 0, 10"
+                                 MinWidth="300"/>
+                        
+                        <materialDesign:PackIcon Kind="Magnify" 
+                                                 Grid.Row="1"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Left"
+                                                 Width="25"
+                                                 Height="25"
+                                                 Margin="8, 0, 0, 0"/>
+                    </Grid>
+                    
+                    <!-- Filter by Semester -->
+                    <StackPanel Orientation="Vertical"
+                                Margin="30, 0, 0, 0">
+                        <TextBlock Text="Semester"
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                                   Margin="0, 0, 0, 5"/>
+                        <ComboBox x:Name="SemesterFilteringCombobox" 
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  Padding="10"
+                                  MinWidth="80">
+                            <ComboBoxItem Content="All"
+                                          IsSelected="True"/>
+                            <ComboBoxItem Content="1"/>
+                            <ComboBoxItem Content="2"/>
+                            <ComboBoxItem Content="3"/>
+                            <ComboBoxItem Content="4"/>
+                            <ComboBoxItem Content="5"/>
+                            <ComboBoxItem Content="6"/>
+                            <ComboBoxItem Content="7"/>
+                            <ComboBoxItem Content="8"/>
+                            <ComboBoxItem Content="9"/>
+                            <ComboBoxItem Content="10"/>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <!-- Filter by Active Status -->
+                    <StackPanel Orientation="Vertical"
+                                Margin="20, 0, 0, 0">
+                        <TextBlock Text="Active Status"
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                                   Margin="0, 0, 0, 5"/>
+                        <ComboBox x:Name="ActiveFilteringCombobox" 
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  Padding="10"
+                                  MinWidth="80">
+                            <ComboBoxItem Content="All"
+                                          IsSelected="True"/>
+                            <ComboBoxItem Content="Active"/>
+                            <ComboBoxItem Content="Inactive"/>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <!-- Filter by Upload Status -->
+                    <StackPanel Orientation="Vertical"
+                                Margin="20, 0, 0, 0">
+                        <TextBlock Text="Active Status"
+                                   Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
+                                   Margin="0, 0, 0, 5"/>
+                        <ComboBox x:Name="UploadFilteringCombobox" 
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  Padding="10"
+                                  MinWidth="80">
+                            <ComboBoxItem Content="All"
+                                          IsSelected="True"/>
+                            <ComboBoxItem Content="Upload"/>
+                            <ComboBoxItem Content="No Upload"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
                 
-                <!-- Days background -->
-                <!-- 
-                    The first border is used to round the 2 upper corners 
-                    and the second to cover the bottom part of the border
-                    so it is not round as well
-                -->
-                <Border Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="7"
-                        CornerRadius="9.3"
-                        Background="{DynamicResource PrimaryBrush}"/>
-                
-                <Border Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="7"
-                        Height="10"
-                        VerticalAlignment="Bottom"
-                        Background="{DynamicResource PrimaryBrush}"/>
-                
-                <!-- Monday -->
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           FontSize="18"
-                           Text="Monday"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{DynamicResource OnPrimaryBrush}"/>
-                
-                
-                <!-- Tuesday -->
-                <TextBlock Grid.Row="0"
-                           Grid.Column="1"
-                           FontSize="18"
-                           Text="Tuesday"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{DynamicResource OnPrimaryBrush}"/>
-            
-                <!-- Wednesday -->
-                <TextBlock Grid.Row="0"
-                           Grid.Column="2"
-                           FontSize="18"
-                           Text="Wednesday"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{DynamicResource OnPrimaryBrush}"/>
-            
-                <!-- Thursday -->
-                <TextBlock Grid.Row="0"
-                           Grid.Column="3"
-                           FontSize="18"
-                           Text="Thursday"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{DynamicResource OnPrimaryBrush}"/>
-            
-                <!-- Friday -->
-                <TextBlock Grid.Row="0"
-                           Grid.Column="4"
-                           FontSize="18"
-                           Text="Friday"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{DynamicResource OnPrimaryBrush}"/>
-            
-                <!-- Saturday -->
-                <TextBlock Grid.Row="0"
-                           Grid.Column="5"
-                           FontSize="18"
-                           Text="Saturday"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{DynamicResource OnPrimaryBrush}"/>
-            
-                <!-- Sunday -->
-                <TextBlock Grid.Row="0"
-                           Grid.Column="6"
-                           FontSize="18"
-                           Text="Sunday"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{DynamicResource OnPrimaryBrush}"/>
+                <!-- Action buttons -->
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Margin="0, 2, 0, 0">
+                    
+                    <CheckBox x:Name="SelectAllLecturesCheckBox"
+                              Content="Select All"
+                              FontSize="16"
+                              materialDesign:CheckBoxAssist.CheckBoxSize="25"
+                              Margin="0, 0, 20, 0"/>
+                    
+                    <Button x:Name="DeleteSelectedLecturesButton"
+                            Height="45"
+                            Width="60"
+                            VerticalAlignment="Bottom"
+                            Margin="0, 0, 20, 0"
+                            Background="{DynamicResource ErrorBrush}">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="Delete"
+                                                     Foreground="{DynamicResource OnErrorBrush}"
+                                                     Width="27"
+                                                     Height="27"/>
+                        </Button.Content>
+                    </Button>
+                    
+                    <Button x:Name="ScheduleLecturesButton"
+                            Content="Schedule Lectures"
+                            FontSize="18"
+                            Height="45"
+                            VerticalAlignment="Bottom">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="1,1"
+                                                 StartPoint="0,0">
+                                <GradientStop Color="{DynamicResource PrimaryColor}" />
+                                <GradientStop Color="{DynamicResource PrimaryDarkVariantColor}"
+                                              Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
             </Grid>
-        </Border>
-    </Grid>
+            
+            <!-- Schedule -->
+            <Border Grid.Row="2"
+                    BorderBrush="{DynamicResource MaterialDesignBody}"
+                    BorderThickness="1.5"
+                    CornerRadius="10"
+                    Margin="1, 20, 0, 0">
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Days background -->
+                    <!-- 
+                        The first border is used to round the 2 upper corners 
+                        and the second to cover the bottom part of the border
+                        so it is not round as well
+                    -->
+                    <Border x:Name="DaysBackgroundBorder"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="7"
+                            CornerRadius="8.9"
+                            Background="{DynamicResource PrimaryBrush}"/>
+                    
+                    <!-- Cover bottom edges border -->
+                    <Border Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="7"
+                            Height="10"
+                            VerticalAlignment="Bottom"
+                            Background="{DynamicResource PrimaryBrush}"/>
+                    
+                    <!-- Horizontal Line Border -->
+                    <Border Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="7"
+                            Width="{Binding ElementName=DaysBackgroundBorder, Path=ActualWidth}"
+                            Height="1"
+                            VerticalAlignment="Bottom"
+                            BorderBrush="{DynamicResource MaterialDesignBody}"
+                            BorderThickness="0.5"/>
+                    
+                    <!-- Monday -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               FontSize="18"
+                               Text="Monday"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource OnPrimaryBrush}"/>
+                    
+                    <ScrollViewer x:Name="MondaysLecturesScrollViewer"  
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="6, 10, 6, 0">
+                        <ItemsControl x:Name="MondaysLecturesItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <customControls:Lecture
+                                        x:Name="LectureComponent"
+                                        Margin="0, 0, 0, 15"
+                                        VerticalAlignment="Top"
+                                        LectureViewModel="{Binding Path=., Mode=TwoWay}"
+                                        EditClick="LectureComponent_OnEditClick"
+                                        StatusChanged="LectureComponent_OnCheckedChanged"
+                                        SelectedChanged="LectureComponent_OnSelectedChanged"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            HorizontalAlignment="Right"
+                            BorderBrush="{DynamicResource MaterialDesignBody}"
+                            BorderThickness="0.5"/>
+                    
+                    <!-- Tuesday -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               FontSize="18"
+                               Text="Tuesday"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource OnPrimaryBrush}"/>
+                    
+                    <ScrollViewer x:Name="TuesdaysLecturesScrollViewer"  
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="6, 10, 6, 0">
+                        <ItemsControl x:Name="TuesdaysLecturesItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <customControls:Lecture
+                                        x:Name="LectureComponent"
+                                        Margin="0, 0, 0, 15"
+                                        VerticalAlignment="Top"
+                                        LectureViewModel="{Binding Path=., Mode=TwoWay}"
+                                        EditClick="LectureComponent_OnEditClick"
+                                        StatusChanged="LectureComponent_OnCheckedChanged"
+                                        SelectedChanged="LectureComponent_OnSelectedChanged"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            BorderBrush="{DynamicResource MaterialDesignBody}"
+                            BorderThickness="0.5"/>
+                
+                    <!-- Wednesday -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="2"
+                               FontSize="18"
+                               Text="Wednesday"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource OnPrimaryBrush}"/>
+                    
+                    <ScrollViewer x:Name="WednesdaysLecturesScrollViewer"  
+                                  Grid.Row="1"
+                                  Grid.Column="2"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="6, 10, 6, 0">
+                        <ItemsControl x:Name="WednesdaysLecturesItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <customControls:Lecture
+                                        x:Name="LectureComponent"
+                                        Margin="0, 0, 0, 15"
+                                        VerticalAlignment="Top"
+                                        LectureViewModel="{Binding Path=., Mode=TwoWay}"
+                                        EditClick="LectureComponent_OnEditClick"
+                                        StatusChanged="LectureComponent_OnCheckedChanged"
+                                        SelectedChanged="LectureComponent_OnSelectedChanged"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            BorderBrush="{DynamicResource MaterialDesignBody}"
+                            BorderThickness="0.5"/>
+                
+                    <!-- Thursday -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="3"
+                               FontSize="18"
+                               Text="Thursday"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource OnPrimaryBrush}"/>
+                    
+                    <ScrollViewer x:Name="ThursdaysLecturesScrollViewer"  
+                                  Grid.Row="1"
+                                  Grid.Column="3"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="6, 10, 6, 0">
+                        <ItemsControl x:Name="ThursdaysLecturesItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <customControls:Lecture
+                                        x:Name="LectureComponent"
+                                        Margin="0, 0, 0, 15"
+                                        VerticalAlignment="Top"
+                                        LectureViewModel="{Binding Path=., Mode=TwoWay}"
+                                        EditClick="LectureComponent_OnEditClick"
+                                        StatusChanged="LectureComponent_OnCheckedChanged"
+                                        SelectedChanged="LectureComponent_OnSelectedChanged"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="3"
+                            HorizontalAlignment="Right"
+                            BorderBrush="{DynamicResource MaterialDesignBody}"
+                            BorderThickness="0.5"/>
+                
+                    <!-- Friday -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="4"
+                               FontSize="18"
+                               Text="Friday"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource OnPrimaryBrush}"/>
+                    
+                    <ScrollViewer x:Name="FridaysLecturesScrollViewer"  
+                                  Grid.Row="1"
+                                  Grid.Column="4"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="6, 10, 6, 0">
+                        <ItemsControl x:Name="FridaysLecturesItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <customControls:Lecture
+                                        x:Name="LectureComponent"
+                                        Margin="0, 0, 0, 15"
+                                        VerticalAlignment="Top"
+                                        LectureViewModel="{Binding Path=., Mode=TwoWay}"
+                                        EditClick="LectureComponent_OnEditClick"
+                                        StatusChanged="LectureComponent_OnCheckedChanged"
+                                        SelectedChanged="LectureComponent_OnSelectedChanged"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="4"
+                            HorizontalAlignment="Right"
+                            BorderBrush="{DynamicResource MaterialDesignBody}"
+                            BorderThickness="0.5"/>
+                
+                    <!-- Saturday -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="5"
+                               FontSize="18"
+                               Text="Saturday"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource OnPrimaryBrush}"/>
+                    
+                    <ScrollViewer x:Name="SaturdaysLecturesScrollViewer"  
+                                  Grid.Row="1"
+                                  Grid.Column="5"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="6, 10, 6, 0">
+                        <ItemsControl x:Name="SaturdaysLecturesItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <customControls:Lecture
+                                        x:Name="LectureComponent"
+                                        Margin="0, 0, 0, 15"
+                                        VerticalAlignment="Top"
+                                        LectureViewModel="{Binding Path=., Mode=TwoWay}"
+                                        EditClick="LectureComponent_OnEditClick"
+                                        StatusChanged="LectureComponent_OnCheckedChanged"
+                                        SelectedChanged="LectureComponent_OnSelectedChanged"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="5"
+                            HorizontalAlignment="Right"
+                            BorderBrush="{DynamicResource MaterialDesignBody}"
+                            BorderThickness="0.5"/>
+                
+                    <!-- Sunday -->
+                    <ScrollViewer x:Name="SundaysLecturesScrollViewer"  
+                                  Grid.Row="1"
+                                  Grid.Column="6"
+                                  VerticalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  Margin="6, 10, 6, 0">
+                        <ItemsControl x:Name="SundaysLecturesItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <customControls:Lecture
+                                        x:Name="LectureComponent"
+                                        Margin="0, 0, 0, 15"
+                                        VerticalAlignment="Top"
+                                        LectureViewModel="{Binding Path=., Mode=TwoWay}"
+                                        EditClick="LectureComponent_OnEditClick"
+                                        StatusChanged="LectureComponent_OnCheckedChanged"
+                                        SelectedChanged="LectureComponent_OnSelectedChanged"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="6"
+                               FontSize="18"
+                               Text="Sunday"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource OnPrimaryBrush}"/>
+                    
+                    <!-- Schedule lectures action button -->
+                    <Button x:Name="ScheduleLectureActionButton"  
+                            Grid.Row="1" 
+                            Grid.Column="6"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Margin="0, 0, 15, 15"
+                            ToolTip="Schedule Lectures"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}">
+                        <materialDesign:PackIcon Kind="Plus"
+                                                 Width="35"
+                                                 Height="35"/>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+    </materialDesign:DialogHost>
 </rxui:ReactiveUserControl>
