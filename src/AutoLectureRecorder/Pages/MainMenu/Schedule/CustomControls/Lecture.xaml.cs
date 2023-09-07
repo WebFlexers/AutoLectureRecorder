@@ -6,6 +6,7 @@ using Splat;
 
 namespace AutoLectureRecorder.Pages.MainMenu.Schedule.CustomControls;
 
+// TODO: Change the CheckChanged events to Click events
 public partial class Lecture : UserControl
 {
     private readonly ResourceDictionary? _colors;

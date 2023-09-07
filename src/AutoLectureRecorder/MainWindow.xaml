@@ -18,7 +18,7 @@
                            WindowStartupLocation="CenterScreen"
                            mc:Ignorable="d"
                            Title="MainWindow"
-                           MinWidth="1160"
+                           MinWidth="1260"
                            MinHeight="710"
                            Width="1360"
                            Height="768">
@@ -58,7 +58,7 @@
         <!-- Tray Icon -->
         <tb:TaskbarIcon x:Name="MainTaskbarIcon" 
                         Grid.Row="1"
-                        IconSource="Resources/Icons/app_icon_filled_64x64.ico">
+                        IconSource="Resources/Icons/app_icon.ico">
             <tb:TaskbarIcon.TrayToolTip>
                 <Border Background="{DynamicResource MaterialDesignPaper}"
                         Padding="10, 5"

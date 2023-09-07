@@ -50,6 +50,6 @@ public class DisableConflictingLecturesHandler
         await Task.WhenAll(updateLecturesTasks).ConfigureAwait(false);
         _sqliteDataAccess.CommitPendingTransaction();
 
-        return deactivatedLectures;
+        return deactivatedLectures.Count > 0 ? deactivatedLectures : null;
     }
 }

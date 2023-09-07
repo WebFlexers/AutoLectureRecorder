@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -30,7 +31,10 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
     private ReactiveScheduledLecture[]? _allLecturesSorted;
     public int AllLecturesCount => _allLecturesSorted?.Length ?? 0;
     
+    private List<ReactiveScheduledLecture> _filteredLectures;
+    
     public ViewModelActivator Activator { get; }
+    private bool _isLoaded = false;
     
     private bool _isDeleteLecturesConfirmationDialogOpen;
     public bool IsDeleteLecturesConfirmationDialogOpen
@@ -46,6 +50,7 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
         set => this.RaiseAndSetIfChanged(ref _selectedLecturesCount, value);
     }
 
+    public ReactiveCommand<Unit, Unit> LoadLecturesCommand { get; }
     public ReactiveCommand<Unit, Unit> NavigateToCreateLecture { get; }
     public ReactiveCommand<ReactiveScheduledLecture, Unit> NavigateToEditLecture { get; }
     public ReactiveCommand<ReactiveScheduledLecture, Unit> ModifyLectureStateCommand { get; }
@@ -53,16 +58,16 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
     public ReactiveCommand<Unit, Unit> AttemptToDeleteLecturesCommand { get; }
     public ReactiveCommand<Unit, Unit> DeleteLecturesCommand { get; }
     public ReactiveCommand<Unit, Unit> ChangeAllLecturesSelectionCommand { get; }
-    
+
     public Dictionary<DayOfWeek, ObservableCollection<LectureViewModel>?> FilteredLecturesByDay { get; } = new()
     {
-        { DayOfWeek.Monday, null },
-        { DayOfWeek.Tuesday, null },
-        { DayOfWeek.Wednesday, null },
-        { DayOfWeek.Thursday, null },
-        { DayOfWeek.Friday, null },
-        { DayOfWeek.Saturday, null },
-        { DayOfWeek.Sunday, null },
+        { DayOfWeek.Monday, new() },
+        { DayOfWeek.Tuesday, new() },
+        { DayOfWeek.Wednesday, new() },
+        { DayOfWeek.Thursday, new() },
+        { DayOfWeek.Friday, new() },
+        { DayOfWeek.Saturday, new() },
+        { DayOfWeek.Sunday, new() },
     };
 
     #region Filters
@@ -74,21 +79,21 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
         set => this.RaiseAndSetIfChanged(ref _subjectNameSearchFilter, value);
     }
     
-    private string? _semesterFilter;
+    private string? _semesterFilter = "All";
     public string? SemesterFilter 
     { 
         get => _semesterFilter; 
         set => this.RaiseAndSetIfChanged(ref _semesterFilter, value); 
     }
     
-    private string? _activeStateFilter;
+    private string? _activeStateFilter = "All";
     public string? ActiveStateFilter 
     { 
         get => _activeStateFilter; 
         set => this.RaiseAndSetIfChanged(ref _activeStateFilter, value); 
     }
     
-    private string? _uploadStateFilterFilter;
+    private string? _uploadStateFilterFilter = "All";
     public string? UploadStateFilter 
     { 
         get => _uploadStateFilterFilter; 
@@ -101,10 +106,18 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
         ISender mediatorSender, IPersistentValidationContext persistentValidationContext) : base(navigationService)
     {
         Activator = new();
+        
         _scheduledLectureRepository = scheduledLectureRepository;
 
-        NavigateToCreateLecture = ReactiveCommand.Create(() => 
-            NavigationService.Navigate(typeof(CreateLectureViewModel), HostNames.MainMenuHost));
+        LoadLecturesCommand = ReactiveCommand.CreateFromTask(LoadLectures);
+        
+        NavigateToCreateLecture = ReactiveCommand.Create(() =>
+        {
+            persistentValidationContext.RemoveAllValidationParameters();
+            var parameters = new Dictionary<string, object>
+                { { NavigationParameters.CreateLecture.IsUpdateMode, false } };
+            NavigationService.Navigate(typeof(CreateLectureViewModel), HostNames.MainMenuHost, parameters);
+        });
 
         NavigateToEditLecture = ReactiveCommand.Create<ReactiveScheduledLecture>(lecture =>
         {
@@ -118,6 +131,8 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
 
         ModifyLectureStateCommand = ReactiveCommand.CreateFromTask<ReactiveScheduledLecture>(async lecture =>
         {
+            // When updating a lecture we want to ignore overlapping lectures during validation,
+            // since they will be disabled later
             persistentValidationContext.AddValidationParameter(
                 ValidationParameters.ScheduledLectures.IgnoreOverlappingLectures, true);
             persistentValidationContext.AddValidationParameter(
@@ -130,7 +145,7 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
 
             if (deactivatedLectures is null) return;
 
-            UpdateLecturesByDay(lecture.Day!.Value, deactivatedLectures);
+            UpdateLectures(lecture.Day!.Value, deactivatedLectures);
         });
 
         ChangeSelectedLecturesCountCommand = ReactiveCommand.Create<bool, Unit>(isSelected =>
@@ -145,6 +160,30 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             }
 
             return Unit.Default;
+        });
+        
+        ChangeAllLecturesSelectionCommand = ReactiveCommand.Create(() =>
+        {
+            var shouldGetSelected = SelectedLecturesCount != AllLecturesCount;
+            
+            foreach (var keyValuePair in FilteredLecturesByDay)
+            {
+                for (int lectureIndex = 0; lectureIndex < keyValuePair.Value!.Count; lectureIndex++)
+                {
+                    var scheduledLecture = keyValuePair.Value[lectureIndex].ScheduledLecture;
+                    keyValuePair.Value[lectureIndex] = new LectureViewModel(scheduledLecture, shouldGetSelected);
+                }
+            }
+            
+            SelectedLecturesCount = shouldGetSelected ? AllLecturesCount : 0;
+        });
+
+        var filterLecturesCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            if (_allLecturesSorted is null) return;
+                    
+            var filteredLectures = FilterLectures(_allLecturesSorted);
+            await AssignLecturesToDaysCollections(filteredLectures);
         });
         
         var deleteLecturesCanExecute = this.WhenAnyValue(
@@ -190,57 +229,70 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             SelectedLecturesCount = 0;
             IsDeleteLecturesConfirmationDialogOpen = false;
         }, deleteLecturesCanExecute);
-
-        ChangeAllLecturesSelectionCommand = ReactiveCommand.Create(() =>
-        {
-            var shouldGetSelected = SelectedLecturesCount != AllLecturesCount;
-            
-            foreach (var keyValuePair in FilteredLecturesByDay)
-            {
-                if (keyValuePair.Value is null) continue;
-                
-                for (int lectureIndex = 0; lectureIndex < keyValuePair.Value.Count; lectureIndex++)
-                {
-                    var scheduledLecture = keyValuePair.Value[lectureIndex].ScheduledLecture;
-                    keyValuePair.Value[lectureIndex] = new LectureViewModel(scheduledLecture, shouldGetSelected);
-                }
-            }
-            
-            SelectedLecturesCount = shouldGetSelected ? AllLecturesCount : 0;
-        });
         
         var loadLecturesObservable = Observable.FromAsync(LoadLectures)
             .Subscribe();
         
         this.WhenActivated(disposables =>
         {
+            this.WhenAnyValue(vm => vm.SubjectNameSearchFilter)
+                .Where(_ => _isLoaded)
+                .Throttle(TimeSpan.FromMilliseconds(300))
+                .DistinctUntilChanged()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Select(_ => Unit.Default)
+                .InvokeCommand(filterLecturesCommand)
+                .DisposeWith(disposables);
+            
+            this.WhenAnyValue(vm => vm.SemesterFilter,
+                    vm => vm.ActiveStateFilter, vm => vm.UploadStateFilter)
+                .Where(_ => _isLoaded)
+                .DistinctUntilChanged()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Select(_ => Unit.Default)
+                .InvokeCommand(filterLecturesCommand)
+                .DisposeWith(disposables);
+            
             loadLecturesObservable.DisposeWith(disposables);
         });
-       
     }
 
     /// <summary>
     /// Modifies the IsScheduled and WillAutoUpload properties of the lectures of the given day that correspond to the
     /// given list of modified lectures
     /// </summary>
-    private void UpdateLecturesByDay(DayOfWeek day, List<ReactiveScheduledLecture> modifiedLectures)
+    private void UpdateLectures(DayOfWeek day, List<ReactiveScheduledLecture> modifiedLectures)
     {
+        if (_allLecturesSorted is null) return;
+        
         foreach (var modifiedLecture in CollectionsMarshal.AsSpan(modifiedLectures))
         {
-            int? foundIndex = null;
+            // Update all lectures list
+            for (int i = 0; i < _allLecturesSorted.Length; i++)
+            {
+                if (_allLecturesSorted[i].Id == modifiedLecture.Id)
+                {
+                    _allLecturesSorted[i].IsScheduled = modifiedLecture.IsScheduled;
+                    _allLecturesSorted[i].WillAutoUpload = modifiedLecture.WillAutoUpload;
+                    break;
+                }
+            }
+            
+            // Update observable collections
+            int? modifiedLectureIndex = null;
 
             for (int i = 0; i < FilteredLecturesByDay[day]?.Count; i++)
             {
                 if (FilteredLecturesByDay[day]?[i].ScheduledLecture.Id != modifiedLecture.Id) continue;
                 
-                foundIndex = i;
+                modifiedLectureIndex = i;
                 break;
             }
 
-            if (foundIndex.HasValue == false) return;
+            if (modifiedLectureIndex.HasValue == false) continue;
 
-            var existingLectureVm = FilteredLecturesByDay[day]?[foundIndex.Value];
-            if (existingLectureVm is null) return;    
+            var existingLectureVm = FilteredLecturesByDay[day]?[modifiedLectureIndex.Value];
+            if (existingLectureVm is null) continue;    
             
             existingLectureVm.ScheduledLecture.IsScheduled = modifiedLecture.IsScheduled;
             existingLectureVm.ScheduledLecture.WillAutoUpload = modifiedLecture.WillAutoUpload;
@@ -248,41 +300,95 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             // Create a new instance of LectureViewModel and update it in the list in order for the observable collection
             // to propagate the change.
             var updatedLectureVm = new LectureViewModel(existingLectureVm.ScheduledLecture, existingLectureVm.IsSelected);
-            FilteredLecturesByDay[day]![foundIndex.Value] = updatedLectureVm;
+            FilteredLecturesByDay[day]![modifiedLectureIndex.Value] = updatedLectureVm;
         }
     }
     
     /// <summary>
-    /// Adds each lecture in the given array of ReactiveScheduledLecture to the corresponding ObservableCollection
+    /// Assigns each lecture in the given array of ReactiveScheduledLecture to the corresponding ObservableCollection
     /// based on the day of the lecture
     /// </summary>
-    /// <param name="lectures"></param>
-    private void AssignLecturesByDay(ReactiveScheduledLecture[] lectures)
+    private async Task AssignLecturesToDaysCollections(IEnumerable<ReactiveScheduledLecture> lectures)
     {
+        // Clear previous lectures to load the new ones
         foreach (var keyValuePair in FilteredLecturesByDay)
         {
-            FilteredLecturesByDay[keyValuePair.Key] = new ObservableCollection<LectureViewModel>();
+            FilteredLecturesByDay[keyValuePair.Key]!.Clear();
         }
+
+        // To prevent a freezing screen when loading a big amount of lectures we will lazy load the lectures and
+        // wait 15 milliseconds between loading each lecture. For the best user experience we will load the lectures
+        // horizontally by day. That means that the first lecture of each day will be loaded and shown to the screen, 
+        // then the second lecture of each day and so on, until all the lectures are finished loading
         
-        foreach (var lecture in lectures)
+        // First lets group the lectures by day
+        var lecturesByDay = lectures
+            .GroupBy(lecture => lecture.Day)
+            .ToDictionary(g => g.Key!.Value, 
+                g => g.ToArray());
+
+        // This is needed to know when to stop the loop. If the loop goes through all the days and no lecture is loaded
+        // it means that there are no lectures left to load
+        bool lectureIsLoadedAtCurrentIndex = false;
+        
+        // This is the index we will use to load the lectures
+        int lectureIndex = 0;
+        
+        do
         {
-            FilteredLecturesByDay[lecture.Day!.Value]?.Add(new LectureViewModel(lecture, false));
-        }
+            // Because the DayOfWeek starts with Sunday, but we want to start from Monday we do the following:
+            // If a Sunday lecture is found, instead of adding it to the ObservableCollection and therefore loading it
+            // on the screen immediately, we store it in this variable. After the lecture of the given index in each day
+            // is finished loading then we add the Sunday lecture as well
+            LectureViewModel? sundayLectureVm = null;
+            
+            foreach (var dayLectures in lecturesByDay)
+            {
+                bool lectureExistsAtIndex = lectureIndex < dayLectures.Value.Length;
+
+                if (lectureExistsAtIndex)
+                {
+                    lectureIsLoadedAtCurrentIndex = true;
+
+                    if (dayLectures.Key == DayOfWeek.Sunday)
+                    {
+                        sundayLectureVm = new LectureViewModel(dayLectures.Value[lectureIndex], false);
+                    }
+                    else
+                    {
+                        FilteredLecturesByDay[dayLectures.Key]!
+                            .Add(new LectureViewModel(dayLectures.Value[lectureIndex], false));
+                        await Task.Delay(15);
+                    }
+                }
+                else
+                {
+                    lectureIsLoadedAtCurrentIndex = false;
+                }
+            }
+
+            if (sundayLectureVm is not null)
+            {
+                FilteredLecturesByDay[DayOfWeek.Sunday]!
+                    .Add(sundayLectureVm);   
+                await Task.Delay(15);
+            }
+
+            lectureIndex++;
+        } while (lectureIsLoadedAtCurrentIndex);
     }
     
-    private IEnumerable<ReactiveScheduledLecture>? FilterLectures(IEnumerable<ReactiveScheduledLecture>? allLectures)
+    private IEnumerable<ReactiveScheduledLecture> FilterLectures(IEnumerable<ReactiveScheduledLecture> lectures)
     {
-        if (allLectures is null) return null;
-        
         if (string.IsNullOrWhiteSpace(SubjectNameSearchFilter) == false)
         {
-            allLectures = allLectures
+            lectures = lectures
                 .Where(lecture => lecture.SubjectName!.ToLower().Contains(SubjectNameSearchFilter.ToLower()));
         }
 
         if (string.IsNullOrEmpty(SemesterFilter) == false && SemesterFilter.ToLower() != "all")
         {
-            allLectures = allLectures
+            lectures = lectures
                 .Where(lecture => lecture.Semester == Convert.ToInt32(SemesterFilter));
         }
 
@@ -291,7 +397,7 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             var activeStateFilterNormalized = ActiveStateFilter.ToLower();
             bool activeStateFilterBool = activeStateFilterNormalized == "active";
 
-            allLectures = allLectures
+            lectures = lectures
                 .Where(lecture => lecture.IsScheduled == activeStateFilterBool);
         }
 
@@ -300,11 +406,11 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             var uploadStateFilterNormalized = UploadStateFilter.ToLower();
             bool uploadStateFilterBool = uploadStateFilterNormalized == "upload";
 
-            allLectures = allLectures
-                .Where(lecture => lecture.WillAutoUpload = uploadStateFilterBool);
+            lectures = lectures
+                .Where(lecture => lecture.WillAutoUpload == uploadStateFilterBool);
         }
 
-        return allLectures
+        return lectures
             .OrderBy(lecture => lecture.Day)
             .ThenBy(lecture => lecture.StartTime)
             .ThenBy(lecture => lecture.SubjectName);
@@ -315,10 +421,12 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
         _allLecturesSorted = (await _scheduledLectureRepository
             .GetScheduledLecturesOrdered())?.ToArray();
 
-        var filteredLectures = FilterLectures(_allLecturesSorted);
-
-        if (filteredLectures is null) return;
+        if (_allLecturesSorted is null) return;
         
-        AssignLecturesByDay(filteredLectures.ToArray());
+        _filteredLectures = FilterLectures(_allLecturesSorted).ToList();
+
+        await AssignLecturesToDaysCollections(_filteredLectures);
+
+        _isLoaded = true;
     }
 }

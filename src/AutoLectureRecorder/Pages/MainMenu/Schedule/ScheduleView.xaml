@@ -57,7 +57,7 @@
         </materialDesign:DialogHost.DialogContent>
         
         <Grid Margin="30"
-              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=400}">
+              xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=500}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="75"/>
@@ -95,10 +95,9 @@
                         
                         <TextBox x:Name="SubjectNameSearchTextBox" 
                                  Grid.Row="1" 
-                                 materialDesign:TextFieldAssist.HasClearButton="True"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  Padding="35, 10, 0, 10"
-                                 MinWidth="300"/>
+                                 MinWidth="250"/>
                         
                         <materialDesign:PackIcon Kind="Magnify" 
                                                  Grid.Row="1"
@@ -111,14 +110,14 @@
                     
                     <!-- Filter by Semester -->
                     <StackPanel Orientation="Vertical"
-                                Margin="30, 0, 0, 0">
+                                Margin="20, 0, 0, 0">
                         <TextBlock Text="Semester"
                                    Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
                                    Margin="0, 0, 0, 5"/>
                         <ComboBox x:Name="SemesterFilteringCombobox" 
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                   Padding="10"
-                                  MinWidth="80">
+                                  MinWidth="85">
                             <ComboBoxItem Content="All"
                                           IsSelected="True"/>
                             <ComboBoxItem Content="1"/>
@@ -143,7 +142,7 @@
                         <ComboBox x:Name="ActiveFilteringCombobox" 
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                   Padding="10"
-                                  MinWidth="80">
+                                  MinWidth="85">
                             <ComboBoxItem Content="All"
                                           IsSelected="True"/>
                             <ComboBoxItem Content="Active"/>
@@ -154,13 +153,13 @@
                     <!-- Filter by Upload Status -->
                     <StackPanel Orientation="Vertical"
                                 Margin="20, 0, 0, 0">
-                        <TextBlock Text="Active Status"
+                        <TextBlock Text="Upload Status"
                                    Foreground="{DynamicResource OnBackgroundSecondaryBrush}"
                                    Margin="0, 0, 0, 5"/>
                         <ComboBox x:Name="UploadFilteringCombobox" 
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                   Padding="10"
-                                  MinWidth="80">
+                                  MinWidth="85">
                             <ComboBoxItem Content="All"
                                           IsSelected="True"/>
                             <ComboBoxItem Content="Upload"/>

@@ -31,6 +31,12 @@ public class NextScheduledLectureHandler : INotificationHandler<NextScheduledLec
             .Where(lecture => lecture.IsScheduled)
             .ToArray();
 
+        if (activeLectures.Length == 0)
+        {
+            _lecturesScheduler.NextScheduledLecture = null;
+            return;
+        }
+
         DayOfWeek today = DateTime.Today.DayOfWeek;
         TimeOnly currentTime = TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay);
 
@@ -56,7 +62,7 @@ public class NextScheduledLectureHandler : INotificationHandler<NextScheduledLec
         // will be the closest
         if (closestDayIsTodayOrAfterUntilSunday == false)
         {
-            _lecturesScheduler.NextScheduledLecture = (activeLectures[0]);
+            _lecturesScheduler.NextScheduledLecture = activeLectures[0];
             return;
         }
 

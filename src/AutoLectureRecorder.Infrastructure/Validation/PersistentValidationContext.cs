@@ -17,7 +17,7 @@ public class PersistentValidationContext : IPersistentValidationContext
         return parameter;
     }
     
-    public void RemoveAllValidationParameters(string type)
+    public void RemoveAllValidationParameters()
     {
         _contextData.Clear();
         _contextData = new();

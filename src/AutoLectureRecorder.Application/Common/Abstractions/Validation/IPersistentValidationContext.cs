@@ -4,5 +4,5 @@ public interface IPersistentValidationContext
 {
     void AddValidationParameter(string parameterIdentifier, object parameterValue);
     object? GetValidationParameter(string parameterIdentifier);
-    void RemoveAllValidationParameters(string type);
+    void RemoveAllValidationParameters();
 }

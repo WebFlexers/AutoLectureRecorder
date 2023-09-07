@@ -35,7 +35,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Column="0">
-                <Image Source="../../Resources/Icons/app_icon_filled256x256.png"
+                <Image Source="../../Resources/Icons/app_icon.png"
                        Width="80"
                        Height="80"
                        HorizontalAlignment="Center"

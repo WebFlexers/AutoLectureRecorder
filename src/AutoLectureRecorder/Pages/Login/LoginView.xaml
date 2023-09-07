@@ -178,7 +178,7 @@
                         Margin="0,10, 100, 0"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right">
-                <Image Source="../../Resources/Icons/app_icon_filled256x256.png"
+                <Image Source="../../Resources/Icons/app_icon.png"
                        Width="70"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
                 <TextBlock Text="Auto Lecture Recorder"

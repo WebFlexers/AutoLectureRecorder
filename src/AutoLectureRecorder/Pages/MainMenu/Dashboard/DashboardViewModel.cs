@@ -8,8 +8,10 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Abstractions.Validation;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Navigation;
+using AutoLectureRecorder.Common.Navigation.Parameters;
 using AutoLectureRecorder.Domain.ReactiveModels;
 using AutoLectureRecorder.Pages.MainMenu.CreateLecture;
 using Microsoft.Extensions.Logging;
@@ -46,7 +48,7 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
 
     public DashboardViewModel(ILogger<DashboardViewModel> logger, INavigationService navigationService, 
         IStudentAccountRepository studentAccountRepository, IScheduledLectureRepository scheduledLectureRepository, 
-        ILecturesScheduler lecturesScheduler) 
+        ILecturesScheduler lecturesScheduler, IPersistentValidationContext persistentValidationContext) 
         : base(navigationService)
     {
         LecturesScheduler = lecturesScheduler;
@@ -56,7 +58,10 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
 
         NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
         {
-            NavigationService.Navigate(typeof(CreateLectureViewModel), HostNames.MainMenuHost);
+            persistentValidationContext.RemoveAllValidationParameters();
+            var parameters = new Dictionary<string, object>
+                { { NavigationParameters.CreateLecture.IsUpdateMode, false } };
+            NavigationService.Navigate(typeof(CreateLectureViewModel), HostNames.MainMenuHost, parameters);
         });
 
         _areLecturesScheduledToday =

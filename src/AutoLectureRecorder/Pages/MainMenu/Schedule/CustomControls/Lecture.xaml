@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:AutoLectureRecorder.Pages.MainMenu.Schedule.CustomControls"
+             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource OnSurfaceBrush}"
@@ -18,25 +19,32 @@
     <Border Padding="8"
             Margin="2"
             CornerRadius="15"
-            Background="{DynamicResource SurfaceBrush}">
+            Background="{DynamicResource SurfaceBrush}"
+            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=400}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="55"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
         
             <!-- Edit Button -->
             <Button x:Name="EditButton" 
-                    Grid.Row="0" 
-                    Content="Edit"
-                    HorizontalAlignment="Center"
-                    Height="20"
-                    FontSize="12"
-                    Padding="15, 2"
-                    Click="EditButton_OnClick"/>
+                    Grid.Row="0"
+                    Width="25"
+                    Height="25"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Margin="0, -3.5, 0, 0"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Click="EditButton_OnClick">
+                <materialDesign:PackIcon Kind="CogOutline"
+                                         Width="25"
+                                         Height="25"
+                                         Foreground="{DynamicResource PrimaryBrush}"/>
+            </Button>
             
             <!-- Active indicator dot -->
             <Ellipse x:Name="ActiveStatusEllipse" 
@@ -45,7 +53,7 @@
                      Width="18"
                      Height="18"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Left"/>
+                     HorizontalAlignment="Center"/>
             
             <!-- Selector dot -->
             <CheckBox x:Name="SelectedCheckBox" Grid.Row="0"
@@ -67,25 +75,26 @@
                        FontSize="14"
                        TextTrimming="CharacterEllipsis"/>
             
-            <!-- Active checkbox -->
-            <CheckBox x:Name="ActiveCheckBox" 
-                      Grid.Row="2"
-                      Content="Active"
-                      VerticalAlignment="Bottom"
-                      Checked="ActiveCheckBox_CheckedChanged"
-                      Unchecked="ActiveCheckBox_CheckedChanged"/>
             
-            <!-- Upload checkbox -->
-            <CheckBox x:Name="UploadCheckBox" 
-                      Grid.Row="3"
-                      Content="Upload"
-                      VerticalAlignment="Bottom"
-                      Checked="UploadCheckBox_CheckedChanged"
-                      Unchecked="UploadCheckBox_CheckedChanged"/>
+            <StackPanel Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <!-- Active checkbox -->
+                <CheckBox x:Name="ActiveCheckBox"
+                          Content="Active"
+                          Checked="ActiveCheckBox_CheckedChanged"
+                          Unchecked="ActiveCheckBox_CheckedChanged"/>
+            
+                <!-- Upload checkbox -->
+                <CheckBox x:Name="UploadCheckBox"
+                          Content="Upload"
+                          Checked="UploadCheckBox_CheckedChanged"
+                          Unchecked="UploadCheckBox_CheckedChanged"/>
+            </StackPanel>
             
             <!-- Time checkbox -->
             <TextBlock x:Name="TimeTextBlock" 
-                       Grid.Row="4"
+                       Grid.Row="3"
                        FontWeight="Bold"
                        VerticalAlignment="Bottom"
                        TextAlignment="Center"

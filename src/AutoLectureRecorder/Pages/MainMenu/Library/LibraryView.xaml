@@ -90,6 +90,16 @@
             </Style>
         </Grid.Resources>
 
+        <TextBlock Grid.Row="0"
+                   Grid.RowSpan="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="18"
+                   TextWrapping="Wrap"
+                   MaxWidth="500">
+            No lectures have been scheduled or recorded. Go the Schedule tab to begin your automatic recording journey
+        </TextBlock>
+        
         <ScrollViewer Grid.Row="1"
                       VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="LecturesBySemesterItemsControl" 

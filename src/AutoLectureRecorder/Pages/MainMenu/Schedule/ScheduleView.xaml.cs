@@ -11,7 +11,7 @@ namespace AutoLectureRecorder.Pages.MainMenu.Schedule;
 
 public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
 {
-    private CompositeDisposable _disposables = new();
+    private readonly CompositeDisposable _disposables = new();
     
     public ScheduleView()
     {
@@ -61,11 +61,33 @@ public partial class ScheduleView : ReactiveUserControl<ScheduleViewModel>
             this.OneWayBind(ViewModel,
                 vm => vm.SelectedLecturesCount,
                 v => v.SelectAllLecturesCheckBox.IsChecked,
-                selectedCount => selectedCount == ViewModel!.AllLecturesCount);
+                selectedCount => selectedCount == ViewModel!.AllLecturesCount)
+                .DisposeWith(disposables);
 
             SelectAllLecturesCheckBox.Events().Click
                 .Select(_ => Unit.Default)
                 .InvokeCommand(ViewModel!.ChangeAllLecturesSelectionCommand)
+                .DisposeWith(disposables);
+            
+            // Filters
+            this.Bind(ViewModel,
+                    vm => vm.SubjectNameSearchFilter,
+                    v => v.SubjectNameSearchTextBox.Text)
+                .DisposeWith(disposables);
+            
+            this.Bind(ViewModel,
+                    vm => vm.SemesterFilter,
+                    v => v.SemesterFilteringCombobox.Text)
+                .DisposeWith(disposables);
+            
+            this.Bind(ViewModel,
+                    vm => vm.ActiveStateFilter,
+                    v => v.ActiveFilteringCombobox.Text)
+                .DisposeWith(disposables);
+
+            this.Bind(ViewModel,
+                    vm => vm.UploadStateFilter,
+                    v => v.UploadFilteringCombobox.Text)
                 .DisposeWith(disposables);
             
             // Commands
