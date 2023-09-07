@@ -92,6 +92,7 @@
 
         <TextBlock Grid.Row="0"
                    Grid.RowSpan="2"
+                   x:Name="NoLecturesTextBlock"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="18"

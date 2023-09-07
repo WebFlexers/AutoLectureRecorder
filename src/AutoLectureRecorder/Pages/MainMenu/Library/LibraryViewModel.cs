@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -14,7 +15,6 @@ using ReactiveUI;
 
 namespace AutoLectureRecorder.Pages.MainMenu.Library;
 
-// TODO: Create a screen to handle 0 recorded lectures
 public class LibraryViewModel : RoutableViewModel, IActivatableViewModel
 {
     private readonly CompositeDisposable _disposables = new();
@@ -22,7 +22,11 @@ public class LibraryViewModel : RoutableViewModel, IActivatableViewModel
     
     private readonly IScheduledLectureRepository _scheduledLectureRepository;
 
+    
     public ObservableCollection<ReactiveScheduledLecture>? LecturesBySemester { get; set; }
+    
+    private ObservableAsPropertyHelper<bool> _doAnyLecturesExist;
+    public bool DoAnyLecturesExist => _doAnyLecturesExist.Value;
 
     public ReactiveCommand<ReactiveScheduledLecture, Unit> NavigateToRecordedLecturesCommand { get; set; }
 
@@ -46,6 +50,12 @@ public class LibraryViewModel : RoutableViewModel, IActivatableViewModel
 
         this.WhenActivated(disposables =>
         {
+            _doAnyLecturesExist =
+                this.WhenAnyValue(vm => vm.LecturesBySemester)
+                    .Select(lectures => lectures is not null && lectures.Count > 0)
+                    .ToProperty(this, vm => vm.DoAnyLecturesExist)
+                    .DisposeWith(_disposables);
+            
             _disposables.DisposeWith(disposables);
         });
     }
