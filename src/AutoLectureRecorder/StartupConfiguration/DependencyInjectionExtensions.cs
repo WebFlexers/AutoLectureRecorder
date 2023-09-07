@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using Serilog;
+using Serilog.Core;
 using Serilog.Events;
 using Serilog.Filters;
 using Splat;
@@ -103,20 +104,23 @@ public static class DependencyInjectionExtensions
 
     public static ILoggingBuilder AddLogging(this ILoggingBuilder builder)
     {
+        builder.ClearProviders();
+
         Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
             .Enrich.FromLogContext()
             .Enrich.WithThreadId()
             .Enrich.WithMachineName()
+            .WriteTo.Console(levelSwitch: new LoggingLevelSwitch(LogEventLevel.Debug))
+            .WriteTo.Debug(restrictedToMinimumLevel: LogEventLevel.Debug)
             .WriteTo.File(Common.Options.Serilog.Serilog.Sinks.FileLocation, 
                 rollingInterval: RollingInterval.Day,
                 retainedFileCountLimit: 7,
                 restrictedToMinimumLevel: LogEventLevel.Information)
-            .WriteTo.Debug()
             .Filter.ByExcluding(Matching.FromSource("ReactiveUI.POCOObservableForProperty"))
             .CreateLogger();
 
-        builder.ClearProviders()
-            .AddSerilog();
+        builder.AddSerilog();
 
         Locator.CurrentMutable.UseSerilogFullLogger();
 
