@@ -422,9 +422,15 @@
                               ScrollChanged="TodaysLecturesScrollViewer_OnScrollChanged">
                     <ItemsControl x:Name="TodaysLecturesListView"
                                   Padding="6, 10">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="12"
+                                <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=400}" 
+                                        CornerRadius="12"
                                         Padding="15"
                                         Margin="0,0,0,15"
                                         Background="{DynamicResource SurfaceBrush}">

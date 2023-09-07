@@ -27,14 +27,14 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
     public ViewModelActivator Activator { get; }
     private readonly CompositeDisposable _disposables = new();
 
-    private ObservableCollection<ReactiveScheduledLecture>? _todaysLectures;
-    public ObservableCollection<ReactiveScheduledLecture>? TodaysLectures
+    private ObservableCollection<ReactiveScheduledLecture> _todaysLectures = new();
+    public ObservableCollection<ReactiveScheduledLecture> TodaysLectures
     {
         get => _todaysLectures;
         set => this.RaiseAndSetIfChanged(ref _todaysLectures, value);
     }
 
-    private readonly ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
+    private ObservableAsPropertyHelper<bool> _areLecturesScheduledToday;
     public bool AreLecturesScheduledToday => _areLecturesScheduledToday.Value;
     
     private string? _registrationNumber;
@@ -55,7 +55,7 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
         _logger = logger;
         _scheduledLectureRepository = scheduledLectureRepository;
         Activator = new ViewModelActivator();
-
+        
         NavigateToCreateLectureCommand = ReactiveCommand.Create(() =>
         {
             persistentValidationContext.RemoveAllValidationParameters();
@@ -65,8 +65,8 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
         });
 
         _areLecturesScheduledToday =
-            this.WhenAnyValue(vm => vm.TodaysLectures)
-                .Select(lectures => lectures is not null && lectures.Any())
+            this.WhenAnyValue(vm => vm.TodaysLectures.Count)
+                .Select(count => count > 0)
                 .ToProperty(this, vm => vm.AreLecturesScheduledToday)
                 .DisposeWith(_disposables);
 
@@ -77,12 +77,18 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
 
             await Task.WhenAll(fetchLecturesTask, fetchStudentTask);
 
+            RegistrationNumber = fetchStudentTask.Result?.RegistrationNumber;
+            
             if (fetchLecturesTask.Result is not null)
             {
-                TodaysLectures?.Clear();
-                TodaysLectures = new ObservableCollection<ReactiveScheduledLecture>(fetchLecturesTask.Result);
+                TodaysLectures.Clear();
+                
+                foreach (var lecture in fetchLecturesTask.Result)
+                {
+                    TodaysLectures.Add(lecture);
+                    await Task.Delay(50);
+                }
             }
-            RegistrationNumber = fetchStudentTask.Result?.RegistrationNumber;
         })
         .Catch((Exception e) =>
         {
