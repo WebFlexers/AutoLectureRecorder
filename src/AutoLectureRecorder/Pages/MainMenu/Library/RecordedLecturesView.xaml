@@ -49,7 +49,8 @@
                 <ItemsControl x:Name="RecordedLecturesItemsControl">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="{DynamicResource SurfaceBrush}"
+                            <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=400}" 
+                                    Background="{DynamicResource SurfaceBrush}"
                                     CornerRadius="15"
                                     Margin="25, 8"
                                     Padding="15">

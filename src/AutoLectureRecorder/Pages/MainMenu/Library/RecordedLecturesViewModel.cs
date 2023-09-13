@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoLectureRecorder.Application.Recording.Common;
 using AutoLectureRecorder.Application.Recording.Queries.RecordedLecturesInformation;
@@ -78,14 +79,19 @@ public class RecordedLecturesViewModel : RoutableViewModel, IActivatableViewMode
         {
             var query = new RecordedLecturesInformationQuery(ScheduledLecture.SubjectName!, ScheduledLecture.Semester);
             var result = await mediatorSender.Send(query);
-            result.Match(videosInformation =>
+            await result.MatchAsync(async videosInformation =>
             {
-                RecordedLectures = new ObservableCollection<AlrVideoInformation>(videosInformation);
+                RecordedLectures = new ObservableCollection<AlrVideoInformation>();
+                foreach (var videoInformation in videosInformation)
+                {
+                    RecordedLectures.Add(videoInformation);
+                    await Task.Delay(40);
+                }
                 return Unit.Default;
             }, errors =>
             {
                 HasLectures = false;
-                return Unit.Default;
+                return Task.FromResult(Unit.Default);
             });
         }).Subscribe()
         .DisposeWith(_disposables);

@@ -263,44 +263,48 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
     /// </summary>
     private void UpdateLectures(DayOfWeek day, List<ReactiveScheduledLecture> modifiedLectures)
     {
-        if (_allLecturesSorted is null) return;
-        
+        var allLectures = _allLecturesSorted;
+        if (allLectures is null) return;
+
+        var dayLectures = FilteredLecturesByDay[day];
+        if (dayLectures is null) return;
+    
         foreach (var modifiedLecture in CollectionsMarshal.AsSpan(modifiedLectures))
         {
             // Update all lectures list
-            for (int i = 0; i < _allLecturesSorted.Length; i++)
+            for (int i = 0; i < allLectures.Length; i++)
             {
-                if (_allLecturesSorted[i].Id == modifiedLecture.Id)
+                if (allLectures[i].Id == modifiedLecture.Id)
                 {
-                    _allLecturesSorted[i].IsScheduled = modifiedLecture.IsScheduled;
-                    _allLecturesSorted[i].WillAutoUpload = modifiedLecture.WillAutoUpload;
+                    allLectures[i].IsScheduled = modifiedLecture.IsScheduled;
+                    allLectures[i].WillAutoUpload = modifiedLecture.WillAutoUpload;
                     break;
                 }
             }
-            
+        
             // Update observable collections
             int? modifiedLectureIndex = null;
 
-            for (int i = 0; i < FilteredLecturesByDay[day]?.Count; i++)
+            for (int i = 0; i < dayLectures.Count; i++)
             {
-                if (FilteredLecturesByDay[day]?[i].ScheduledLecture.Id != modifiedLecture.Id) continue;
-                
+                if (dayLectures[i].ScheduledLecture.Id != modifiedLecture.Id) continue;
+            
                 modifiedLectureIndex = i;
                 break;
             }
 
             if (modifiedLectureIndex.HasValue == false) continue;
 
-            var existingLectureVm = FilteredLecturesByDay[day]?[modifiedLectureIndex.Value];
+            var existingLectureVm = dayLectures[modifiedLectureIndex.Value];
             if (existingLectureVm is null) continue;    
-            
+        
             existingLectureVm.ScheduledLecture.IsScheduled = modifiedLecture.IsScheduled;
             existingLectureVm.ScheduledLecture.WillAutoUpload = modifiedLecture.WillAutoUpload;
-        
+    
             // Create a new instance of LectureViewModel and update it in the list in order for the observable collection
             // to propagate the change.
             var updatedLectureVm = new LectureViewModel(existingLectureVm.ScheduledLecture, existingLectureVm.IsSelected);
-            FilteredLecturesByDay[day]![modifiedLectureIndex.Value] = updatedLectureVm;
+            dayLectures[modifiedLectureIndex.Value] = updatedLectureVm;
         }
     }
     
