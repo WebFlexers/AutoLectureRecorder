@@ -9,6 +9,7 @@
     <Color x:Key="ErrorColor">#CD342D</Color>
     <Color x:Key="WarningColor">#DBB704</Color>
     <Color x:Key="SuccessColor">#2E7D32</Color>
+    <Color x:Key="LightHoverColor">#ededed</Color>
     <Color x:Key="OnPrimaryColor">#FAFAFA</Color>
     <Color x:Key="OnPrimaryHoverColor">#D9E4F1</Color>
     <Color x:Key="OnSecondaryColor">#262626</Color>
@@ -30,6 +31,7 @@
     <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}"/>
     <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}"/>
     <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}"/>
+    <SolidColorBrush x:Key="LightHoverBrush" Color="{DynamicResource LightHoverColor}"/>
     <SolidColorBrush x:Key="OnPrimaryBrush" Color="{DynamicResource OnPrimaryColor}"/>
     <SolidColorBrush x:Key="OnPrimaryHoverBrush" Color="{DynamicResource OnPrimaryHoverColor}"/>
     <SolidColorBrush x:Key="OnSecondaryBrush" Color="{DynamicResource OnSecondaryColor}"/>
