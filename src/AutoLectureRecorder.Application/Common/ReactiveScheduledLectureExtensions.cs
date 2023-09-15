@@ -39,6 +39,6 @@ public static class ReactiveScheduledLectureExtensions
     private static bool LecturesOverlap(TimeOnly lecture1StartTime, TimeOnly lecture1EndTime,
         TimeOnly lecture2StartTime, TimeOnly lecture2EndTime)
     {
-        return lecture1StartTime <= lecture2EndTime && lecture2StartTime <= lecture1EndTime;
+        return lecture1StartTime < lecture2EndTime && lecture2StartTime < lecture1EndTime;
     }
 }
