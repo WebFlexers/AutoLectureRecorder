@@ -33,8 +33,8 @@ public static class RealDataGenerator
             new ScheduledLecture(3, "Εικονική Πραγματικότητα", 7, "teams.microsoft.com", 1, 
                 "04:15 pm", "06:00 pm", 0, 1),
             new ScheduledLecture(4, "Εικονική Πραγματικότητα", 7, "teams.microsoft.com", 5, 
-                
-                "02:15 pm", "04:00 pm", 1, 0),
+                "02:15 pm", "04:00 pm", 0, 0),
+            
             new ScheduledLecture(5, "Σύγχρονα Θέματα Τεχνολογίας Λογισμικού - Λογισμικό για Κινητές Συσκευές", 
                 7, "teams.microsoft.com", 1, "02:15 pm", "04:00 pm", 0, 0),
             new ScheduledLecture(6, "Σύγχρονα Θέματα Τεχνολογίας Λογισμικού - Λογισμικό για Κινητές Συσκευές",
