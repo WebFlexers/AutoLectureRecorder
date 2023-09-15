@@ -10,12 +10,14 @@ the **light** in the **dark times of the pandemic**.
 # How to set it up?
 Setting up Auto Lecture Recorder is pretty simple
 
-1) Download the **latest release** from this repository
-2) **Open Microsoft Edge** in order for it to update automatically (this is necessary, because Auto Lecture Recorder relies on Microsoft Edge behind the scenes to automatically join microsoft teams meetings)
-3) **Disable** the **auto sleep** and **auto turn off of your computer screen** through the Windows settings, because this can interfere with the recording process or lead or a failure to join the meeting in the first place
-4) (Optional) If you want to record lectures while you sleep you can enable the Launch on Startup option in the settings page of Auto Lecture Recorder in order to start it automatically with windows (more information on the Settings Page section of this documentation).
-In addition to this you can modify your computer's bios in order to automatically boot the pc at a certain time. Keep in mind that every motherboard is different so you will have to find out how to do this on your own.
-This way the process will be 100% automatic.
+1) [Download the **latest release**](https://github.com/WebFlexers/AutoLectureRecorder/releases/download/v3.0.0/AutoLectureRecorder.rar) from this repository
+2) **Extract** to the directory of your choice
+3) (Optional) Create a desktop shortcut by right clicking AutoLectureRecorder.exe and clicking Send To -> Desktop
+4) **Open Microsoft Edge** in order for it to update automatically (this is necessary, because Auto Lecture Recorder relies on Microsoft Edge behind the scenes to automatically join microsoft teams meetings)
+5) **Disable** the **auto sleep** and **auto turn off of your computer screen** through the Windows settings, because this can interfere with the recording process or lead or a failure to join the meeting in the first place
+6) Click on AutoLectureRecorder.exe to run the app
+7) (Optional) If you want to record lectures while you sleep you can enable the Launch on Startup option in the settings page of Auto Lecture Recorder in order to start it automatically with windows (more information on the Settings Page section of this documentation).
+In addition to this you can modify your computer's bios in order to automatically boot the pc at a certain time. Keep in mind that every motherboard is different so you will have to find out how to do this on your own. This way the process will be 100% automatic.
 
 </br>
 
@@ -122,31 +124,31 @@ The second category is recording settings where you can alter several settings r
 
 ![settings_recording](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/5288a7c2-30f4-4c34-acf5-fdbaeb336060)
 
-## Dark mode
+# Dark mode
 
 For those of us with sensitive eyes there is also a dark mode, that you can enable by clicking the toggle button next to the window buttons in the top right corner.
 The dark mode looks like this:
 
-**Login**
+## Login
 
 ![Login](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/cd5aa373-ca84-47cb-8ec7-11fdb14c82e9)
 
-**Dashboard**
+## Dashboard
 
 ![Dashboard](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/12f30b8b-72d7-447d-b063-ceecc91b84c7)
 
-**Create Lectures**
+## Create Lectures**
 
 ![Create Lectures](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/1a50026f-e93b-407b-80f3-5261787b12f3)
 
-**Schedule**
+## Schedule
 
 ![Schedule](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/ea381759-a4ae-457a-92e0-0e02d8005182)
 
-**Library**
+## Library
 
 ![Library](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/f2e06c22-6ada-424a-a62c-63fc94219447)
 
-**Settings**
+## Settings
 
 ![Settings](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/b48e2342-6bbb-4828-8bc9-d6f0660a7a52)
