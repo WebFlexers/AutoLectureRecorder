@@ -14,7 +14,7 @@ Setting up Auto Lecture Recorder is pretty simple
 2) **Extract** to the directory of your choice
 3) (Optional) Create a desktop shortcut by right clicking AutoLectureRecorder.exe and clicking Send To -> Desktop
 4) **Open Microsoft Edge** in order for it to update automatically (this is necessary, because Auto Lecture Recorder relies on Microsoft Edge behind the scenes to automatically join microsoft teams meetings)
-5) **Disable** the **auto sleep** and **auto turn off of your computer screen** through the Windows settings, because this can interfere with the recording process or lead or a failure to join the meeting in the first place
+5) **Disable** the **auto sleep** and **auto turn off of your computer screen** through the Windows settings, because this can interfere with the recording process or lead to a failure to join the meeting in the first place
 6) Click on AutoLectureRecorder.exe to run the app
 7) (Optional) If you want to record lectures while you sleep you can enable the Launch on Startup option in the settings page of Auto Lecture Recorder in order to start it automatically with windows (more information on the Settings Page section of this documentation).
 In addition to this you can modify your computer's bios in order to automatically boot the pc at a certain time. Keep in mind that every motherboard is different so you will have to find out how to do this on your own. This way the process will be 100% automatic.
