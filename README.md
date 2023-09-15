@@ -137,7 +137,7 @@ The dark mode looks like this:
 
 ![Dashboard](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/12f30b8b-72d7-447d-b063-ceecc91b84c7)
 
-## Create Lectures**
+## Create Lectures
 
 ![Create Lectures](https://github.com/WebFlexers/AutoLectureRecorder/assets/57811193/1a50026f-e93b-407b-80f3-5261787b12f3)
 
