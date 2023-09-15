@@ -45,7 +45,7 @@ public class ScheduledLectureRepositoryTests
     }
     
     [Fact]
-    public async Task GetScheduledLecturesOrderedByDayAndStartTime_ShouldFetchSuccessfully()
+    public async Task GetScheduledLecturesOrderedByDayStartTimeAndSubjectName_ShouldFetchSuccessfully()
     {
         // Arrange
         var scheduledLectureData = new ScheduledLectureRepository(_fixture.DataAccess, _logger);
@@ -53,6 +53,7 @@ public class ScheduledLectureRepositoryTests
         var actualScheduledLecturesSorted = _fixture.SampleData.ScheduledLectures
             .OrderBy(lecture => lecture.Day)
             .ThenBy(lecture => lecture.StartTime)
+            .ThenBy(lecture => lecture.SubjectName)
             .ToList();
         
         // Act
