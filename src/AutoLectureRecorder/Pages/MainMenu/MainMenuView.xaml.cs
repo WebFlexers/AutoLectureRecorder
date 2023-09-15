@@ -36,6 +36,12 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                     v => v.RoutedViewHost.Router)
                 .DisposeWith(disposables);
 
+            // Open help modal
+            this.BindCommand(ViewModel,
+                    vm => vm.OpenHelpCommand,
+                    v => v.HelpButton)
+                .DisposeWith(disposables);
+            
             // Navigation commands
             this.BindCommand(ViewModel,
                     vm => vm.NavigateCommand,
@@ -68,7 +74,7 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
                 .DisposeWith(disposables);
             
             this.BindCommand(ViewModel,
-                vm => vm.NavigateToRecordWindowCommand,
+                vm => vm.OpenHelpCommand,
                 v => v.HelpButton)
                 .DisposeWith(disposables);
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Common.Core;
 using AutoLectureRecorder.Common.Core.Abstractions;
+using AutoLectureRecorder.Common.Messages;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Pages.Login;
 using AutoLectureRecorder.Pages.MainMenu.Dashboard;
@@ -22,6 +23,7 @@ public class MainMenuViewModel : RoutableViewModelHost, IActivatableViewModel
     public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
     public ReactiveCommand<Unit, Unit> NavigateForwardCommand { get; }
 
+    public ReactiveCommand<Unit, Unit> OpenHelpCommand { get; }
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; }
 
     public MainMenuViewModel(INavigationService navigationService, IStudentAccountRepository studentAccountRepository,
@@ -66,6 +68,11 @@ public class MainMenuViewModel : RoutableViewModelHost, IActivatableViewModel
         NavigateForwardCommand = ReactiveCommand.Create(() => 
             navigationService.NavigateForward(HostNames.MainMenuHost));
 
+        OpenHelpCommand = ReactiveCommand.Create(() =>
+        {
+            MessageBus.Current.SendMessage(Unit.Default, PubSubMessages.OpenHelpPageModal);
+        });
+        
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
 
         // Navigate to the Dashboard at startup

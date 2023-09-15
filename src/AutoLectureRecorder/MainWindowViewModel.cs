@@ -1,10 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+using AutoLectureRecorder.Application.Common.Options;
 using AutoLectureRecorder.Common.Core;
+using AutoLectureRecorder.Common.Messages;
 using AutoLectureRecorder.Common.Navigation;
 using AutoLectureRecorder.Common.WindowsServices;
 using ReactiveUI;
@@ -26,6 +30,14 @@ public class MainWindowViewModel : RoutableViewModelHost
     public ReactiveCommand<Window, Unit> ShowAppCommand { get; }
     public ReactiveCommand<Unit, Unit> ToggleWindowStateCommand { get; }
     public ReactiveCommand<Unit, WindowState> MinimizeWindowCommand { get; }
+    public ReactiveCommand<Unit, Unit> OpenBrowserHelpPageCommand { get; }
+
+    private bool _isHelpModalOpen = false;
+    public bool IsHelpModalOpen
+    {
+        get => _isHelpModalOpen;
+        set => this.RaiseAndSetIfChanged(ref _isHelpModalOpen, value);
+    }
     
     private bool _forceAppShutdown = false;
 
@@ -90,5 +102,19 @@ public class MainWindowViewModel : RoutableViewModelHost
         });
 
         MinimizeWindowCommand = ReactiveCommand.Create(() => MainWindowState = WindowState.Minimized);
+        
+        OpenBrowserHelpPageCommand = ReactiveCommand.Create(() =>
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Websites.HelpPageLink,
+                UseShellExecute = true
+            });
+
+            IsHelpModalOpen = false;
+        });
+
+        MessageBus.Current.Listen<Unit>(PubSubMessages.OpenHelpPageModal)
+            .Subscribe(_ => IsHelpModalOpen = true);
     }
 }

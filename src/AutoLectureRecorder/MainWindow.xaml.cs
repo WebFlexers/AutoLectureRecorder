@@ -46,6 +46,17 @@ namespace AutoLectureRecorder
                         v => v.RoutedViewHost.Router)
                     .DisposeWith(disposables);
                 
+                // Help modal dialog
+                this.Bind(ViewModel, 
+                        vm => vm.IsHelpModalOpen, 
+                        v => v.ConfirmationDialogHost.IsOpen)
+                    .DisposeWith(disposables);
+                
+                this.BindCommand(ViewModel,
+                        vm => vm.OpenBrowserHelpPageCommand,
+                        v => v.OpenHelpPageButton)
+                    .DisposeWith(disposables);
+                
                 // TitleBar
                 this.BindCommand(ViewModel, 
                         vm => vm.ExitAppCommand,

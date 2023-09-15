@@ -49,69 +49,108 @@
         </Style>
     </Window.Style>
     
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <!-- Tray Icon -->
-        <tb:TaskbarIcon x:Name="MainTaskbarIcon" 
-                        Grid.Row="1"
-                        IconSource="Resources/Icons/app_icon.ico">
-            <tb:TaskbarIcon.TrayToolTip>
-                <Border Background="{DynamicResource MaterialDesignPaper}"
-                        Padding="10, 5"
-                        CornerRadius="10">
-                    <TextBlock Text="Auto Lecture Recorder"
-                               FontFamily="{materialDesign:MaterialDesignFont}"
-                               Foreground="{DynamicResource MaterialDesignBody}"
-                               FontSize="14"/>
-                </Border>
-            </tb:TaskbarIcon.TrayToolTip>
-            <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <MenuItem x:Name="OpenAppTrayMenuItem" 
-                              Header="Open"/>
-                    <MenuItem x:Name="ExitAppTrayMenuItem" 
-                              Header="Exit"/>
-                </ContextMenu>
-            </tb:TaskbarIcon.ContextMenu>
-        </tb:TaskbarIcon>
-        
-        <!-- TitleBar -->
-        <Grid x:Name="TitlebarGrid"
-              Grid.Row="0"
-              Panel.ZIndex="10">
-            <StackPanel x:Name="TitlebarButtonsStackPanel"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
+    <materialDesign:DialogHost x:Name="ConfirmationDialogHost" 
+                               CloseOnClickAway="True">
+        <materialDesign:DialogHost.DialogContent>
+            <Border Padding="30">
+                <StackPanel>
+                    <TextBlock x:Name="DialogTitleTextBlock"
+                               Text="Read the online guide"
+                               FontWeight="Bold"
+                               FontSize="22"
+                               Margin="0, 0, 0, 15"/>
+                    <TextBlock x:Name="DialogContentTextBlock"
+                               FontSize="18"
+                               TextWrapping="Wrap"
+                               MaxWidth="600"
+                               Margin="0, 0, 0, 25"
+                               Foreground="{DynamicResource OnBackgroundSecondaryBrush}">
+                        For help on how to use Auto Lecture Recorder you can go to our GitHub repository and read the
+                        documentation. Do you want to open the browser and navigate to the help page? 
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                Foreground="{DynamicResource OnBackgroundBrush}"
+                                Opacity="0.6"
+                                FontSize="16"
+                                IsCancel="True"
+                                Margin="0, 0, 10, 0"
+                                Content="NO"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+                        <Button x:Name="OpenHelpPageButton"  
+                                Background="{DynamicResource PrimaryBrush}"
+                                Foreground="{DynamicResource OnPrimaryBrush}"
+                                FontSize="16"
+                                Content="OPEN HELP PAGE ON BROWSER"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <!-- Tray Icon -->
+            <tb:TaskbarIcon x:Name="MainTaskbarIcon" 
+                            Grid.Row="1"
+                            IconSource="Resources/Icons/app_icon.ico">
+                <tb:TaskbarIcon.TrayToolTip>
+                    <Border Background="{DynamicResource MaterialDesignPaper}"
+                            Padding="10, 5"
+                            CornerRadius="10">
+                        <TextBlock Text="Auto Lecture Recorder"
+                                   FontFamily="{materialDesign:MaterialDesignFont}"
+                                   Foreground="{DynamicResource MaterialDesignBody}"
+                                   FontSize="14"/>
+                    </Border>
+                </tb:TaskbarIcon.TrayToolTip>
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="OpenAppTrayMenuItem" 
+                                  Header="Open"/>
+                        <MenuItem x:Name="ExitAppTrayMenuItem" 
+                                  Header="Exit"/>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+            </tb:TaskbarIcon>
+            
+            <!-- TitleBar -->
+            <Grid x:Name="TitlebarGrid"
+                  Grid.Row="0"
+                  Panel.ZIndex="10">
+                <StackPanel x:Name="TitlebarButtonsStackPanel"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
 
-                <!-- Light - Dark mode Toggler -->
-                <customControls:ThemeToggler Margin="0, 2, 20, 0"
-                                       WindowChrome.IsHitTestVisibleInChrome="True" />
+                    <!-- Light - Dark mode Toggler -->
+                    <customControls:ThemeToggler Margin="0, 2, 20, 0"
+                                           WindowChrome.IsHitTestVisibleInChrome="True" />
 
-                <Button x:Name="MinimizeWindowButton"
-                        Style="{StaticResource TitlebarMinimizeButton}"
-                        WindowChrome.IsHitTestVisibleInChrome="True" />
-                <Button x:Name="ToggleWindowStateButton"
-                        Style="{StaticResource TitlebarMaximizeButton}"
-                        WindowChrome.IsHitTestVisibleInChrome="True" />
-                <Button x:Name="ExitAppButton"
-                        Style="{StaticResource TitlebarCloseButton}"
-                        WindowChrome.IsHitTestVisibleInChrome="True" />
-            </StackPanel>
+                    <Button x:Name="MinimizeWindowButton"
+                            Style="{StaticResource TitlebarMinimizeButton}"
+                            WindowChrome.IsHitTestVisibleInChrome="True" />
+                    <Button x:Name="ToggleWindowStateButton"
+                            Style="{StaticResource TitlebarMaximizeButton}"
+                            WindowChrome.IsHitTestVisibleInChrome="True" />
+                    <Button x:Name="ExitAppButton"
+                            Style="{StaticResource TitlebarCloseButton}"
+                            WindowChrome.IsHitTestVisibleInChrome="True" />
+                </StackPanel>
+            </Grid>
+            
+            <!-- Routed View Host -->
+            <reactiveUi:RoutedViewHost 
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Duration="0"
+                x:Name="RoutedViewHost"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch" />
+            
         </Grid>
-        
-        <!-- Routed View Host -->
-        <reactiveUi:RoutedViewHost 
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Duration="0"
-            x:Name="RoutedViewHost"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch" />
-        
-    </Grid>
+    </materialDesign:DialogHost>
 </reactiveUi:ReactiveWindow>
