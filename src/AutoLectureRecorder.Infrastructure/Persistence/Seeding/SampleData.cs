@@ -21,13 +21,14 @@ public class SampleData : ISampleData
     public GeneralSettings? GeneralSettings { get; set; }
     public Statistics? Statistics { get; set; }
 
-    public SampleData(ISqliteDataAccess dataAccess, bool isRunningFromTest = false)
+    public SampleData(ISqliteDataAccess dataAccess, bool isRunningFromTest = false, bool generateRealData = true)
     {
         _dataAccess = dataAccess;
         _isRunningFromTest = isRunningFromTest;
         _random = new Random(RandomSeed);
 
-        CreateScheduledLectures();
+        
+        CreateScheduledLectures(generateRealData);
         // CreateRecordedLectures();
         if (isRunningFromTest)
         {
@@ -98,8 +99,20 @@ public class SampleData : ISampleData
         { CourseNames[1], 0 }, 
         { CourseNames[2], 0 }
     };
-    private void CreateScheduledLectures()
+    private void CreateScheduledLectures(bool generateRealData)
     {
+        if (generateRealData)
+        {
+            var semestersToGenerateLecturesFor = new int[] { 7, 8 };
+            
+            foreach (var semester in semestersToGenerateLecturesFor)
+            {
+                ScheduledLectures.AddRange(RealDataGenerator.GenerateLecturesForSemester(semester));
+            }   
+            
+            return;
+        }
+        
         int lectureId = 1;
         bool shouldLectureBeActive = true;
 
