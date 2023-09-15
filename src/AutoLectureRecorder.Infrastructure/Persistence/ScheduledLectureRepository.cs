@@ -82,7 +82,27 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
             return null;
         }
     }
-    
+
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetActiveScheduledLecturesByDay(DayOfWeek? day)
+    {
+        if (day == null) return null;
+
+        try
+        {
+            string sql = "select * from ScheduledLectures where Day=@Day and IsScheduled=1";
+
+            var results = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
+                sql, new { Day = (int)day.Value }).ConfigureAwait(false);
+
+            return results.Select(lecture => lecture.MapToReactive());
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while trying to get scheduled lecture with day {Day}", day);
+            return null;
+        }
+    }
+
     /// <summary>
     /// Gets all the scheduled lectures of the given day ordered by start time from the database
     /// </summary>

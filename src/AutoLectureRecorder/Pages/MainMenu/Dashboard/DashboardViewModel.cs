@@ -106,7 +106,7 @@ public class DashboardViewModel : RoutableViewModel, IActivatableViewModel
     private async Task<List<ReactiveScheduledLecture>?> FetchTodaysLectures()
     {
         var todaysLecturesUnsorted = await _scheduledLectureRepository
-            .GetScheduledLecturesByDay(DateTime.Now.DayOfWeek);
+            .GetActiveScheduledLecturesByDay(DateTime.Now.DayOfWeek);
 
         var todaysLecturesSortedByStartTime =
             todaysLecturesUnsorted?.OrderBy(lecture => lecture.StartTime);

@@ -18,6 +18,11 @@ public interface IScheduledLectureRepository
     /// Gets all the scheduled lectures of the given day from the database
     /// </summary>
     Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesByDay(DayOfWeek? day);
+    
+    /// <summary>
+    /// Gets all the active scheduled lectures of the given day from the database
+    /// </summary>
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetActiveScheduledLecturesByDay(DayOfWeek? day);
 
     /// <summary>
     /// Gets all the scheduled lectures of the given day ordered by start time from the database
