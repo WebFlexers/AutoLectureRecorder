@@ -63,7 +63,7 @@ public class LibraryViewModel : RoutableViewModel, IActivatableViewModel
     private async Task FetchScheduledLecturesBySemester()
     {
         var lecturesBySemester = await 
-            _scheduledLectureRepository.GetScheduledLecturesOrderedBySemester();
+            _scheduledLectureRepository.GetDistinctScheduledLecturesOrderedBySemester();
         
         if (lecturesBySemester is null) return;
 

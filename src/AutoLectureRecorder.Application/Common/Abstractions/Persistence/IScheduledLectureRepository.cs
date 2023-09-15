@@ -50,9 +50,14 @@ public interface IScheduledLectureRepository
     Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesGroupedByName();
 
     /// <summary>
-    /// Gets the scheduled lectures grouped by semester
+    /// Gets the scheduled lectures ordered by semester
     /// </summary>
     Task<IEnumerable<ReactiveScheduledLecture>?> GetScheduledLecturesOrderedBySemester();
+    
+    /// <summary>
+    /// Gets the scheduled lectures ordered by semester with distinct subject names
+    /// </summary>
+    Task<IEnumerable<ReactiveScheduledLecture>?> GetDistinctScheduledLecturesOrderedBySemester();
 
     /// <summary>
     /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture

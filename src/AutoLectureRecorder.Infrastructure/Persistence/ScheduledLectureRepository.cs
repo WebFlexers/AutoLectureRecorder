@@ -227,6 +227,35 @@ public class ScheduledLectureRepository : IScheduledLectureRepository
     }
 
     /// <summary>
+    /// Gets the scheduled lectures with distinct names grouped by semester
+    /// </summary>
+    public async Task<IEnumerable<ReactiveScheduledLecture>?> GetDistinctScheduledLecturesOrderedBySemester()
+    {
+        try
+        {
+            string sql = """
+                         SELECT l.*
+                         FROM (
+                             SELECT MIN(id) as id
+                             FROM ScheduledLectures
+                             GROUP BY SubjectName
+                         ) AS unique_subject_names
+                         JOIN ScheduledLectures l ON l.id = unique_subject_names.id
+                         ORDER BY l.Semester;
+                         """;
+            
+            var result = await _dataAccess.LoadData<ScheduledLecture, dynamic>(
+                sql, new { }).ConfigureAwait(false);
+            return result.Select(scheduledLecture => scheduledLecture.MapToReactive());
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while trying to get scheduled lecture grouped by semester");
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Inserts a new Scheduled Lecture in the database and returns it as a ReactiveScheduledLecture
     /// </summary>
     public async Task<ReactiveScheduledLecture?> InsertScheduledLecture(ReactiveScheduledLecture reactiveLecture)
