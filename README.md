@@ -10,7 +10,7 @@ the **light** in the **dark times of the pandemic**.
 # How to set it up?
 Setting up Auto Lecture Recorder is pretty simple
 
-1) [Download the **latest release**](https://github.com/WebFlexers/AutoLectureRecorder/releases/download/v3.0.0/AutoLectureRecorder.rar) from this repository
+1) [Download the **latest release**](https://github.com/WebFlexers/AutoLectureRecorder/releases/download/v3.0.1/AutoLectureRecorder.rar) from this repository
 2) **Extract** to the directory of your choice
 3) (Optional) Create a desktop shortcut by right clicking AutoLectureRecorder.exe and clicking Send To -> Desktop
 4) **Open Microsoft Edge** in order for it to update automatically (this is necessary, because Auto Lecture Recorder relies on Microsoft Edge behind the scenes to automatically join microsoft teams meetings)
