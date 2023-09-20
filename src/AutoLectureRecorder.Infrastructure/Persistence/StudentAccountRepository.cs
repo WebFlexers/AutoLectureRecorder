@@ -23,7 +23,7 @@ public class StudentAccountRepository : IStudentAccountRepository
     {
         try
         {
-            string sql = "select * from StudentAccount";
+            string sql = "select Id, RegistrationNumber, EmailAddress, EncryptedPassword, Entropy from StudentAccount";
             var result = await _dataAccess.LoadData<StudentAccount, dynamic>(
                     sql, new { }).ConfigureAwait(false);
             var studentAccount = result.FirstOrDefault();
@@ -34,7 +34,8 @@ public class StudentAccountRepository : IStudentAccountRepository
             (
                 registrationNumber: studentAccount.RegistrationNumber,
                 emailAddress: studentAccount.EmailAddress,
-                password: studentAccount.Password
+                encryptedPassword: studentAccount.EncryptedPassword,
+                entropy: studentAccount.Entropy
             );
         }
         catch (Exception e)
@@ -47,7 +48,8 @@ public class StudentAccountRepository : IStudentAccountRepository
     /// <summary>
     /// Insert a new student account to the database asynchronously
     /// </summary>
-    public async Task<bool> InsertStudentAccount(string registrationNumber, string academicEmailAddress, string password)
+    public async Task<bool> InsertStudentAccount(string registrationNumber, string academicEmailAddress, string encryptedPassword, 
+        byte[] entropy)
     {
         try
         {
@@ -55,11 +57,12 @@ public class StudentAccountRepository : IStudentAccountRepository
             (
                 RegistrationNumber: registrationNumber,
                 EmailAddress: academicEmailAddress,
-                Password: password
+                EncryptedPassword: encryptedPassword,
+                Entropy: entropy
             );
 
-            string sql = "insert into StudentAccount (RegistrationNumber, EmailAddress, Password)" +
-                         "values (@RegistrationNumber, @EmailAddress, @Password)";
+            string sql = "insert into StudentAccount (RegistrationNumber, EmailAddress, EncryptedPassword, Entropy)" +
+                         "values (@RegistrationNumber, @EmailAddress, @EncryptedPassword, @Entropy)";
 
             int rowsAffectedNumber = await _dataAccess.SaveData(sql, student).ConfigureAwait(false);
 

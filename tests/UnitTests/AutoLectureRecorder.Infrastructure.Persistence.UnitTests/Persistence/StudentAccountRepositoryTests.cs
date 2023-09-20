@@ -24,9 +24,14 @@ public class StudentAccountRepositoryTests
         // Arrange
         await _fixture.DataAccess.BeginTransaction();
 
-        var insertStudentAccountSql = "insert into StudentAccount (RegistrationNumber, EmailAddress, Password)" +
-                                      "values ('p19000', 'p19000@unipi.gr', 'a_completely_fake_password')";
-        await _fixture.DataAccess.SaveData(insertStudentAccountSql, new { });
+        var insertStudentAccountSql = 
+            "insert into StudentAccount (RegistrationNumber, EmailAddress, EncryptedPassword, Entropy)" +
+            "values ('p19000', 'p19000@unipi.gr', 'a_completely_fake_password', @Entropy)";
+        
+        await _fixture.DataAccess.SaveData(insertStudentAccountSql, new
+        {
+            Entropy = new byte[] { 2,3,5,4,3,2,5,2,8,7,3,4,8,5,2,0,3,4,7,5,2,3,4 }
+        });
         
         var studentData = new StudentAccountRepository(_fixture.DataAccess, _logger);
 
@@ -38,7 +43,7 @@ public class StudentAccountRepositoryTests
         // Assert
         studentAccount?.RegistrationNumber.Should().Be("p19000");
         studentAccount?.EmailAddress.Should().Be("p19000@unipi.gr");
-        studentAccount?.Password.Should().Be("a_completely_fake_password");
+        studentAccount?.EncryptedPassword.Should().Be("a_completely_fake_password");
     }
 
     [Fact]
@@ -50,7 +55,8 @@ public class StudentAccountRepositoryTests
 
         // Act
         var result = await studentData.InsertStudentAccount("p19165", 
-            "p19165@unipi.gr", "a_random_not_real_password");
+            "p19165@unipi.gr", "a_random_not_real_password", new byte[]
+                {2,3,5,4,3,2,5,2,8,7,3,4,8,5,2,0,3,4,7,5,2,3,4});
 
         _fixture.DataAccess.RollbackPendingTransaction();
 
@@ -62,9 +68,14 @@ public class StudentAccountRepositoryTests
     public async Task DeleteStudentAccount_ShouldDeleteAllRows()
     {
         // Arrange
-        var insertStudentAccountSql = "insert into StudentAccount (RegistrationNumber, EmailAddress, Password)" +
-                                            "values ('p19000', 'p19000@unipi.gr', 'a_completely_fake_password')";
-        await _fixture.DataAccess.SaveData(insertStudentAccountSql, new { });
+        var insertStudentAccountSql = 
+            "insert into StudentAccount (RegistrationNumber, EmailAddress, EncryptedPassword, Entropy)" +
+            "values ('p19000', 'p19000@unipi.gr', 'a_completely_fake_password', @Entropy)";
+        
+        await _fixture.DataAccess.SaveData(insertStudentAccountSql, new
+        {
+            Entropy = new byte[] { 2,3,5,4,3,2,5,2,8,7,3,4,8,5,2,0,3,4,7,5,2,3,4 }
+        });
 
         var studentData = new StudentAccountRepository(_fixture.DataAccess, _logger);
 

@@ -10,6 +10,7 @@ public static class ReactiveStudentAccountMapping
         return new StudentAccount(
             input.RegistrationNumber,
             input.EmailAddress,
-            input.Password);
+            input.EncryptedPassword,
+            input.Entropy);
     }
 }

@@ -1,4 +1,5 @@
 using System.Reactive;
+using AutoLectureRecorder.Application.Common.Abstractions.Encryption;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Login.Queries.LoginToMicrosoftTeams;
 using AutoLectureRecorder.Application.UnitTests.Login.TestsUtils;
@@ -16,8 +17,9 @@ public class LoginToMicrosoftTeamsHandlerTests
         var loginToMicrosoftTeamsQuery = LoginToMicrosoftTeamsQueryUtils.CreateQuery();
         var webDriverFactoryMock = MockCreator.CreateWebDriverFactoryMockForHappyPath();
         var studentRepositoryMock = new Mock<IStudentAccountRepository>();
+        var encryptionServiceMock = new Mock<IEncryptionService>();
         var handler = new LoginToMicrosoftTeamsHandler(webDriverFactoryMock.Object,
-            studentRepositoryMock.Object);
+            studentRepositoryMock.Object, encryptionServiceMock.Object);
         
         // Act
         var result = await handler.Handle(loginToMicrosoftTeamsQuery, default);
@@ -29,7 +31,8 @@ public class LoginToMicrosoftTeamsHandlerTests
         studentRepositoryMock.Verify(x => x.InsertStudentAccount(
             It.IsAny<string>(), 
             It.IsAny<string>(),
-            It.IsAny<string>()), Times.Once);
+            It.IsAny<string>(),
+            It.IsAny<byte[]>()) ,Times.Once);
     }
     
     [Fact]
@@ -39,8 +42,9 @@ public class LoginToMicrosoftTeamsHandlerTests
         var loginToMicrosoftTeamsQuery = LoginToMicrosoftTeamsQueryUtils.CreateQuery();
         var webDriverFactoryMock = MockCreator.CreateWebDriverFactoryMockForFailedToCreateDriver();
         var studentRepositoryMock = new Mock<IStudentAccountRepository>();
+        var encryptionServiceMock = new Mock<IEncryptionService>();
         var handler = new LoginToMicrosoftTeamsHandler(webDriverFactoryMock.Object, 
-            studentRepositoryMock.Object);
+            studentRepositoryMock.Object, encryptionServiceMock.Object);
         
         // Act
         var result = await handler.Handle(loginToMicrosoftTeamsQuery, default);
@@ -51,7 +55,8 @@ public class LoginToMicrosoftTeamsHandlerTests
         studentRepositoryMock.Verify(x => x.InsertStudentAccount(
             It.IsAny<string>(), 
             It.IsAny<string>(),
-            It.IsAny<string>()), Times.Never);
+            It.IsAny<string>(),
+            It.IsAny<byte[]>()), Times.Never);
     }
     
     [Fact]
@@ -61,8 +66,9 @@ public class LoginToMicrosoftTeamsHandlerTests
         var loginToMicrosoftTeamsQuery = LoginToMicrosoftTeamsQueryUtils.CreateQuery();
         var webDriverFactoryMock = MockCreator.CreateWebDriverFactoryMockForFailedToLogin();
         var studentRepositoryMock = new Mock<IStudentAccountRepository>();
+        var encryptionServiceMock = new Mock<IEncryptionService>();
         var handler = new LoginToMicrosoftTeamsHandler(webDriverFactoryMock.Object,
-            studentRepositoryMock.Object);
+            studentRepositoryMock.Object, encryptionServiceMock.Object);
 
         // Act
         var result = await handler.Handle(loginToMicrosoftTeamsQuery, default);
@@ -73,6 +79,7 @@ public class LoginToMicrosoftTeamsHandlerTests
         studentRepositoryMock.Verify(x => x.InsertStudentAccount(
             It.IsAny<string>(), 
             It.IsAny<string>(),
-            It.IsAny<string>()), Times.Never);
+            It.IsAny<string>(),
+            It.IsAny<byte[]>()), Times.Never);
     }
 }

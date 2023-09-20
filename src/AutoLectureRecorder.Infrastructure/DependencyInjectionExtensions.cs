@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using AutoLectureRecorder.Application.Common.Abstractions.Encryption;
 using AutoLectureRecorder.Application.Common.Abstractions.LecturesSchedule;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.Recording;
@@ -7,6 +8,7 @@ using AutoLectureRecorder.Application.Common.Abstractions.StartupManager;
 using AutoLectureRecorder.Application.Common.Abstractions.Validation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
+using AutoLectureRecorder.Infrastructure.Encryption;
 using AutoLectureRecorder.Infrastructure.LecturesSchedule;
 using AutoLectureRecorder.Infrastructure.Persistence;
 using AutoLectureRecorder.Infrastructure.Persistence.Seeding;
@@ -27,6 +29,8 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IAlrWebDriver, UnipiEdgeWebDriver>();
         services.AddTransient<IWebDriverFactory, WebDriverFactory>();
 
+        services.AddSingleton<IEncryptionService, EncryptionService>();
+        
         services.AddTransient<IRecorder, WindowsRecorder>();
 
         services.AddSingleton<IPersistentValidationContext, PersistentValidationContext>();
@@ -36,7 +40,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<IStartupManager, WindowsStartupManager>();
         
         services.AddHttpClient();
-
+        
         services.AddRepositories();
 
         if (Debugger.IsAttached)

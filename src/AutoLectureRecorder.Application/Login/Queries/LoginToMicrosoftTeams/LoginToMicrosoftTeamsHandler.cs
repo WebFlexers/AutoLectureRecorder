@@ -1,4 +1,5 @@
-﻿using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
+﻿using AutoLectureRecorder.Application.Common.Abstractions.Encryption;
+using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Domain.Errors;
 using ErrorOr;
@@ -11,12 +12,14 @@ public class LoginToMicrosoftTeamsHandler : IRequestHandler<LoginToMicrosoftTeam
 {
     private readonly IWebDriverFactory _webDriverFactory;
     private readonly IStudentAccountRepository _studentAccountRepository;
+    private readonly IEncryptionService _encryptionService;
 
     public LoginToMicrosoftTeamsHandler(IWebDriverFactory webDriverFactory, 
-        IStudentAccountRepository studentAccountRepository)
+        IStudentAccountRepository studentAccountRepository, IEncryptionService encryptionService)
     {
         _webDriverFactory = webDriverFactory;
         _studentAccountRepository = studentAccountRepository;
+        _encryptionService = encryptionService;
     }
     
     public async Task<ErrorOr<Unit>> Handle(LoginToMicrosoftTeamsQuery request, CancellationToken cancellationToken)
@@ -44,12 +47,19 @@ public class LoginToMicrosoftTeamsHandler : IRequestHandler<LoginToMicrosoftTeam
         {
             return errorOrLoggedIn.Errors;
         }
+
+        var entropy = _encryptionService.GenerateRandomEntropy();
+        var encryptedPassword = _encryptionService.Encrypt(request.Password, entropy);
         
         await _studentAccountRepository.DeleteStudentAccount();
         await _studentAccountRepository.InsertStudentAccount(
             request.AcademicEmailAddress.Split("@")[0], 
             request.AcademicEmailAddress, 
-            request.Password);
+            encryptedPassword,
+            entropy);
+
+        entropy = null;
+        encryptedPassword = null;
         
         return Unit.Default;
     }

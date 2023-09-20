@@ -4,11 +4,12 @@ namespace AutoLectureRecorder.Domain.ReactiveModels;
 
 public class ReactiveStudentAccount : ReactiveObject
 {
-    public ReactiveStudentAccount(string registrationNumber, string emailAddress, string password)
+    public ReactiveStudentAccount(string registrationNumber, string emailAddress, string? encryptedPassword, byte[]? entropy)
     {
         _registrationNumber = registrationNumber;
         _emailAddress = emailAddress;
-        _password = password;
+        _encryptedPassword = encryptedPassword;
+        _entropy = entropy;
     }
     
     private string _registrationNumber;
@@ -25,10 +26,17 @@ public class ReactiveStudentAccount : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _emailAddress, value);
     }
 
-    private string _password;
-    public string Password 
+    private string? _encryptedPassword;
+    public string? EncryptedPassword 
     {
-        get => _password;
-        set => this.RaiseAndSetIfChanged(ref _password, value);
+        get => _encryptedPassword;
+        set => this.RaiseAndSetIfChanged(ref _encryptedPassword, value);
+    }
+    
+    private byte[]? _entropy;
+    public byte[]? Entropy
+    {
+        get => _entropy;
+        set => this.RaiseAndSetIfChanged(ref _entropy, value);
     }
 }

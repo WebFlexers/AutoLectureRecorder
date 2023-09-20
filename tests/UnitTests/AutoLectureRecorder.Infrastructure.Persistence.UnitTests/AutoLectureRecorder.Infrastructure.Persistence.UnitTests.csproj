@@ -32,6 +32,7 @@
       <ProjectReference Include="..\..\CommonTestsUtils\CommonTestsUtils.csproj" />
     </ItemGroup>
 
+
     <ItemGroup>
       <None Update="Persistence\AutoLectureRecorderDB.db">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>

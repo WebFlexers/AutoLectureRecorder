@@ -9,14 +9,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/Websites.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Encryption/IEncryptionService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Encryption/EncryptionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources/a6dd7b3d-ff8d-4a20-8de3-bdf89cd97c8f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources/a6dd7b3d-ff8d-4a20-8de3-bdf89cd97c8f.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Messages/PubSubMessages.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Common/Messages/PubSubMessages.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindow.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindow.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindowViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/MainWindowViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuView.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/Pages/MainMenu/MainMenuViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/IStudentAccountRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/IStudentAccountRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Login/Queries/LoginToMicrosoftTeams/LoginToMicrosoftTeamsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Login/Queries/LoginToMicrosoftTeams/LoginToMicrosoftTeamsHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Queries/JoinMeeting/JoinMeetingHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Queries/JoinMeeting/JoinMeetingHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/ReactiveModelsToSqliteModels/ReactiveStudentAccountMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/ReactiveModelsToSqliteModels/ReactiveStudentAccountMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/SqliteModelsToReactiveModels/StudentAccountMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/SqliteModelsToReactiveModels/StudentAccountMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/ReactiveModels/ReactiveStudentAccount.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/ReactiveModels/ReactiveStudentAccount.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/SqliteModels/StudentAccount.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/SqliteModels/StudentAccount.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/AutoLectureRecorderDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/AutoLectureRecorderDB.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/StudentAccountRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/StudentAccountRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/LoginToMicrosoftTeamsHandlerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/LoginToMicrosoftTeamsHandlerTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/AutoLectureRecorderDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/AutoLectureRecorderDB.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/StudentAccountRepositoryTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/StudentAccountRepositoryTests.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +94,10 @@
   }
 }</component>
   <component name="RunManager" selected=".NET Project.AutoLectureRecorder.Wpf">
+    <configuration name="Publish Self-Contained AutoLectureRecorder to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
+      <riderPublish configuration="Release" delete_existing_files="true" platform="x64" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/src/AutoLectureRecorder/bin/publish/win64" target_framework="net7.0-windows10.0.17763.0" uuid_high="6531089964885361776" uuid_low="-8109308931013708519" />
+      <method v="2" />
+    </configuration>
     <configuration name="AutoLectureRecorder.Wpf" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/src/AutoLectureRecorder/bin/x64/Debug/net7.0-windows10.0.17763.0/AutoLectureRecorder.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -110,6 +126,7 @@
     </configuration>
     <list>
       <item itemvalue=".NET Project.AutoLectureRecorder.Wpf" />
+      <item itemvalue="Publish to folder.Publish Self-Contained AutoLectureRecorder to folder" />
       <item itemvalue="Publish to folder.Publish AutoLectureRecorder to folder" />
       <item itemvalue="UWP.AutoLectureRecorder" />
     </list>
@@ -156,7 +173,10 @@
       <workItem from="1694198662667" duration="1154000" />
       <workItem from="1694610900591" duration="4980000" />
       <workItem from="1694710860119" duration="866000" />
-      <workItem from="1694769905554" duration="10059000" />
+      <workItem from="1694769905554" duration="12509000" />
+      <workItem from="1694852222097" duration="662000" />
+      <workItem from="1694972408203" duration="611000" />
+      <workItem from="1695208568712" duration="3546000" />
     </task>
     <servers />
   </component>

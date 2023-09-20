@@ -1,4 +1,5 @@
 ﻿using System.Reactive;
+using AutoLectureRecorder.Application.Common.Abstractions.Encryption;
 using AutoLectureRecorder.Application.Common.Abstractions.Persistence;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation;
 using AutoLectureRecorder.Application.Common.Abstractions.WebAutomation.DownloadWebDriver;
@@ -12,13 +13,15 @@ public class JoinMeetingHandler : MediatR.IRequestHandler<JoinMeetingQuery, Erro
     private readonly IWebDriverFactory _webDriverFactory;
     private readonly IWebDriverDownloader _webDriverDownloader;
     private readonly IStudentAccountRepository _studentAccountRepository;
+    private readonly IEncryptionService _encryptionService;
 
     public JoinMeetingHandler(IWebDriverFactory webDriverFactory, IWebDriverDownloader webDriverDownloader, 
-        IStudentAccountRepository studentAccountRepository)
+        IStudentAccountRepository studentAccountRepository, IEncryptionService encryptionService)
     {
         _webDriverFactory = webDriverFactory;
         _webDriverDownloader = webDriverDownloader;
         _studentAccountRepository = studentAccountRepository;
+        _encryptionService = encryptionService;
     }
     
     public async Task<ErrorOr<Unit>> Handle(JoinMeetingQuery query, CancellationToken cancellationToken)
@@ -46,12 +49,14 @@ public class JoinMeetingHandler : MediatR.IRequestHandler<JoinMeetingQuery, Erro
             return errorOrWebDriver.Errors;
         }
         
-        var webDriver = errorOrWebDriver.Value;
+        using var webDriver = errorOrWebDriver.Value;
 
-        var errorOrJoinedMeeting = webDriver.JoinMeeting(studentAccount.EmailAddress, studentAccount.Password,
+        var password = _encryptionService.Decrypt(studentAccount.EncryptedPassword!, studentAccount.Entropy!);
+
+        var errorOrJoinedMeeting = webDriver.JoinMeeting(studentAccount.EmailAddress, password,
             query.MeetingLink, query.LectureDuration, cancellationToken);
 
-        webDriver.Dispose();
+        password = null;
 
         return errorOrJoinedMeeting;
     }

@@ -4,9 +4,10 @@ public record StudentAccount
 (
     string RegistrationNumber,
     string EmailAddress,
-    string Password
+    string? EncryptedPassword,
+    byte[]? Entropy
 )
 {
-    public StudentAccount() : this(default!, default!, default!)
+    public StudentAccount() : this(default!, default!, default!, default!)
     { }
 };

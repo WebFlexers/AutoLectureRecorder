@@ -12,7 +12,8 @@ public interface IStudentAccountRepository
     /// <summary>
     /// Insert a new student account to the database asynchronously
     /// </summary>
-    Task<bool> InsertStudentAccount(string registrationNumber, string academicEmailAddress, string password);
+    Task<bool> InsertStudentAccount(string registrationNumber, string academicEmailAddress, string encryptedPassword, 
+        byte[] entropy);
 
     /// <summary>
     /// Wipe out the student account table asynchronously
