@@ -23,10 +23,10 @@ public class VideoInformationRetriever : IVideoInformationRetriever
     
     public async Task<List<AlrVideoInformation>?> GetVideoInformationOfLecture(string subjectName, int semester)
     {
-        var recordingFilesDirectories = await 
-            _recordingsRepository.GetAllRecordingDirectories();
+        var recordingFilesDirectories = (await 
+            _recordingsRepository.GetAllRecordingDirectories())?.ToArray();
 
-        if (recordingFilesDirectories is null) return null;
+        if (recordingFilesDirectories is null || recordingFilesDirectories.Length == 0) return null;
 
         var recordingsInformation = new List<AlrVideoInformation>();
         foreach (var recordingFilesRootDirectory in recordingFilesDirectories)

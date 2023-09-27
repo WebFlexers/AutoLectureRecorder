@@ -154,8 +154,15 @@ namespace AutoLectureRecorder
 
             var generalSettings = getGeneralSettingsTask.Result;
             var recordingSettings = getRecordingSettingsTask.Result;
-            var recordingDirectories = recordingDirectoriesTask.Result;
+            var recordingDirectories = recordingDirectoriesTask.Result?.ToArray();
 
+            var screen = Screen.PrimaryScreen;
+            if (recordingDirectories is null || recordingDirectories.Any() == false)
+            {
+                var defaultRecordingSettings = recorder.GetDefaultSettings(screen!.Bounds.Width, screen.Bounds.Height);
+                await recordingsRepository.AddRecordingDirectory(defaultRecordingSettings.RecordingsLocalPath);
+            }
+            
             if (generalSettings == null && recordingSettings == null)
             {
                 await settingsRepository.ResetAllSettings(Screen.PrimaryScreen!.Bounds.Width, 
@@ -163,8 +170,7 @@ namespace AutoLectureRecorder
                     recorder);
                 return;
             }
-
-            var screen = Screen.PrimaryScreen;
+            
             if (recordingSettings is null)
             {
                 await settingsRepository.ResetRecordingSettings(screen!.Bounds.Width, screen.Bounds.Height, recorder);
@@ -173,12 +179,6 @@ namespace AutoLectureRecorder
             if (generalSettings is null)
             {
                 await settingsRepository.ResetGeneralSettings();
-            }
-
-            if (recordingDirectories is null || recordingDirectories.Any() == false)
-            {
-                var defaultRecordingSettings = recorder.GetDefaultSettings(screen!.Bounds.Width, screen.Bounds.Height);
-                await recordingsRepository.AddRecordingDirectory(defaultRecordingSettings.RecordingsLocalPath);
             }
         }
         
