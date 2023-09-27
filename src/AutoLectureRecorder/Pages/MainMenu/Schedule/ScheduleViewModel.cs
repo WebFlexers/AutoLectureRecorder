@@ -330,21 +330,23 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
             .GroupBy(lecture => lecture.Day)
             .ToDictionary(g => g.Key!.Value, 
                 g => g.ToArray());
-
-        // This is needed to know when to stop the loop. If the loop goes through all the days and no lecture is loaded
-        // it means that there are no lectures left to load
-        bool lectureIsLoadedAtCurrentIndex = false;
         
-        // This is the index we will use to load the lectures
+        // This is needed to know when to stop the loop. If the loop goes through all the days in one row
+        // with a certain index and no lecture is loaded it means that there are no lectures left to load
+        bool noLectureWasLoadedInWholeRow;
+        
+        // This is the row index we will use to load the lectures
         int lectureIndex = 0;
         
         do
         {
             // Because the DayOfWeek starts with Sunday, but we want to start from Monday we do the following:
             // If a Sunday lecture is found, instead of adding it to the ObservableCollection and therefore loading it
-            // on the screen immediately, we store it in this variable. After the lecture of the given index in each day
-            // is finished loading then we add the Sunday lecture as well
+            // on the screen immediately, we store it in this variable. After each lecture of the other days in the
+            // row we are currently in are loaded, then we load the Sunday lecture.
             LectureViewModel? sundayLectureVm = null;
+
+            noLectureWasLoadedInWholeRow = true;
             
             foreach (var dayLectures in lecturesByDay)
             {
@@ -352,7 +354,7 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
 
                 if (lectureExistsAtIndex)
                 {
-                    lectureIsLoadedAtCurrentIndex = true;
+                    noLectureWasLoadedInWholeRow = false;
 
                     if (dayLectures.Key == DayOfWeek.Sunday)
                     {
@@ -365,21 +367,19 @@ public class ScheduleViewModel : RoutableViewModel, IActivatableViewModel
                         await Task.Delay(15);
                     }
                 }
-                else
-                {
-                    lectureIsLoadedAtCurrentIndex = false;
-                }
             }
 
             if (sundayLectureVm is not null)
             {
                 FilteredLecturesByDay[DayOfWeek.Sunday]!
-                    .Add(sundayLectureVm);   
+                    .Add(sundayLectureVm);
                 await Task.Delay(15);
+
+                noLectureWasLoadedInWholeRow = false;
             }
 
             lectureIndex++;
-        } while (lectureIsLoadedAtCurrentIndex);
+        } while (noLectureWasLoadedInWholeRow == false);
     }
     
     private IEnumerable<ReactiveScheduledLecture> FilterLectures(IEnumerable<ReactiveScheduledLecture> lectures)
