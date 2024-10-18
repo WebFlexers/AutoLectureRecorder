@@ -9,26 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Encryption/IEncryptionService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Encryption/EncryptionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources/a6dd7b3d-ff8d-4a20-8de3-bdf89cd97c8f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources/a6dd7b3d-ff8d-4a20-8de3-bdf89cd97c8f.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/IStudentAccountRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Abstractions/Persistence/IStudentAccountRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Login/Queries/LoginToMicrosoftTeams/LoginToMicrosoftTeamsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Login/Queries/LoginToMicrosoftTeams/LoginToMicrosoftTeamsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Queries/JoinMeeting/JoinMeetingHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/Recording/Queries/JoinMeeting/JoinMeetingHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/ReactiveModelsToSqliteModels/ReactiveStudentAccountMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/ReactiveModelsToSqliteModels/ReactiveStudentAccountMapping.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/SqliteModelsToReactiveModels/StudentAccountMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/Mapping/SqliteModelsToReactiveModels/StudentAccountMapping.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/ReactiveModels/ReactiveStudentAccount.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/ReactiveModels/ReactiveStudentAccount.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/SqliteModels/StudentAccount.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/SqliteModels/StudentAccount.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/DependencyInjectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/AutoLectureRecorderDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/AutoLectureRecorderDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/StudentAccountRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/Persistence/StudentAccountRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/LoginToMicrosoftTeamsHandlerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/Login/LoginToMicrosoftTeamsHandlerTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/AutoLectureRecorderDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/AutoLectureRecorderDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/StudentAccountRepositoryTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/Persistence/StudentAccountRepositoryTests.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,16 +22,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1c073fb10e2c4e7c9c69166354917cd762d400/c9/1d3dbf14/WebDriverException.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/491f06332e8b43f291e6ef2080c8e546925a00/7e/a1f43827/Snackbar.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/18efc93a81dbd23dde8e595181b79f44bb33916489b9e2ed089e23b90e21280/ReactiveCommand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/19ba5a289f2afd3f4d5e862cb3f3efee6181683a31ee31b86c2298b1f51114b/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5016729dfa6a2af3b246db6e9cab3cbc2bbb6414102cc3a26cfb0fe60e5ca89/QueryLanguage.Async.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7155f6cd588824e1bc449594dffc38a5e2d2cf92ad3b40e7f0693dcf4659d7/UIElement.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/80da87d32668cd95d08725c52c85b1ad66c7e11/SourceClassSystem.Windows.Controls.CheckBox-InstanceEvents.SourceGenerated.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bfe93a7fff2744552764ba348b957f9b886c68291167816af688fdf0da5c56/RxApp.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e7bdef8686489167e6bcc2498e93448cc314a7e6c78ad16fbe54b83ca84622/EventRoute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/LoginOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/WebViewOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder/App.xaml.cs" root0="FORCE_HIGHLIGHTING" />
@@ -68,31 +43,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.16510904&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.16510904",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/StyleM/Documents/GitHub/AutoLectureRecorder/AutoLectureRecorder.sln",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\StyleM\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\StyleM\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Project.AutoLectureRecorder.Wpf">
     <configuration name="Publish Self-Contained AutoLectureRecorder to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" delete_existing_files="true" platform="x64" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/src/AutoLectureRecorder/bin/publish/win64" target_framework="net7.0-windows10.0.17763.0" uuid_high="6531089964885361776" uuid_low="-8109308931013708519" />
@@ -176,7 +153,12 @@
       <workItem from="1694769905554" duration="12509000" />
       <workItem from="1694852222097" duration="662000" />
       <workItem from="1694972408203" duration="611000" />
-      <workItem from="1695208568712" duration="3546000" />
+      <workItem from="1695208568712" duration="5063000" />
+      <workItem from="1695810913714" duration="8082000" />
+      <workItem from="1695902662209" duration="2353000" />
+      <workItem from="1696767472188" duration="641000" />
+      <workItem from="1709497224999" duration="706000" />
+      <workItem from="1726324616400" duration="1232000" />
     </task>
     <servers />
   </component>
@@ -198,6 +180,7 @@
       <select />
     </coverage-tree-state>
   </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="AutoLectureRecorderDB">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.49">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.52">
     <root id="1">
       <ServerVersion>3.40.1</ServerVersion>
     </root>
@@ -432,8 +432,7 @@
     <routine id="172" parent="1" name="fts3_tokenizer"/>
     <schema id="173" parent="1" name="main">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-09-20.14:47:26.477</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-09-20.11:47:26</LocalIntrospectionTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-09-20.11:47:26</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="174" parent="16">
       <ArgumentDirection>R</ArgumentDirection>

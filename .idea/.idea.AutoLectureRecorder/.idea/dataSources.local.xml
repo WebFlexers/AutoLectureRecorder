@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="RD-232.9559.61">
+  <component name="dataSourceStorageLocal" created-in="RD-241.18034.76">
     <data-source name="AutoLectureRecorderDB" uuid="a6dd7b3d-ff8d-4a20-8de3-bdf89cd97c8f">
       <database-info product="SQLite" version="3.40.1" jdbc-version="4.2" driver-name="SQLite JDBC" driver-version="3.40.1.0" dbms="SQLITE" exact-version="3.40.1" exact-driver-version="3.40">
         <identifier-quote-string>&quot;</identifier-quote-string>
