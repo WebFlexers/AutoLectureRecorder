@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Platforms>x64;x86</Platforms>
@@ -9,14 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ErrorOr" Version="1.2.1" />
-      <PackageReference Include="FluentValidation" Version="11.6.0" />
-      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
-      <PackageReference Include="MediatR" Version="12.1.1" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
-      <PackageReference Include="ReactiveUI" Version="19.4.1" />
-      <PackageReference Include="ScreenRecorderLib" Version="5.3.0" />
+      <PackageReference Include="ErrorOr" Version="2.0.1" />
+      <PackageReference Include="FluentValidation" Version="11.11.0" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+      <PackageReference Include="ReactiveUI" Version="20.1.63" />
+      <PackageReference Include="ScreenRecorderLib" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>

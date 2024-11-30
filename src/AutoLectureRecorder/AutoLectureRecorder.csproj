@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
+        <TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
@@ -11,28 +11,28 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+      <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
       <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" />
-      <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.2.3">
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+      <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.3.1">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="ReactiveUI" Version="19.4.1" />
-      <PackageReference Include="ReactiveUI.WPF" Version="19.4.1" />
-      <PackageReference Include="Serilog" Version="3.0.1" />
-      <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
-      <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
-      <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
-      <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-      <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
-      <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-      <PackageReference Include="Splat" Version="14.7.1" />
-      <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.7.1" />
-      <PackageReference Include="Splat.Serilog" Version="14.7.1" />
+      <PackageReference Include="ReactiveUI" Version="20.1.63" />
+      <PackageReference Include="ReactiveUI.WPF" Version="20.1.63" />
+      <PackageReference Include="Serilog" Version="4.1.0" />
+      <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+      <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+      <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+      <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+      <PackageReference Include="Splat" Version="15.2.22" />
+      <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="15.2.22" />
+      <PackageReference Include="Splat.Serilog" Version="15.2.22" />
       <PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
     </ItemGroup>
 

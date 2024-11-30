@@ -26,7 +26,8 @@ public class AppBootstrapper
                 resolver.InitializeReactiveUI();
 
                 // Configure our local services and access the host configuration
-                services.AddPresentation()
+                services
+                    .AddPresentation()
                     .AddApplication()
                     .AddInfrastructure();
             })

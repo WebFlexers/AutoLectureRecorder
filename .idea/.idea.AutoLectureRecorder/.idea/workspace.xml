@@ -11,18 +11,30 @@
     <list default="true" id="09fd73d9-b913-4567-92ea-1d12900cc05b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources/a6dd7b3d-ff8d-4a20-8de3-bdf89cd97c8f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/dataSources/a6dd7b3d-ff8d-4a20-8de3-bdf89cd97c8f.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutoLectureRecorder/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Application/AutoLectureRecorder.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/AutoLectureRecorder.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Domain/AutoLectureRecorder.Domain.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder.Infrastructure/AutoLectureRecorder.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/AutoLectureRecorder.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppBootstrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AutoLectureRecorder/StartupConfiguration/AppBootstrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/CommonTestsUtils/CommonTestsUtils.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CommonTestsUtils/CommonTestsUtils.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/AutoLectureRecorder.Application.UnitTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Application.UnitTests/AutoLectureRecorder.Application.UnitTests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests/AutoLectureRecorder.Infrastructure.Persistence.UnitTests.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/18efc93a81dbd23dde8e595181b79f44bb33916489b9e2ed089e23b90e21280/ReactiveCommand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9f3f6ac2973b52b9b246bc900a441bf6a7cc21b73be1a5faf7f363865e61/XamlReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/LoginOptions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AutoLectureRecorder.Application/Common/Options/WebViewOptions.cs" root0="FORCE_HIGHLIGHTING" />
@@ -45,10 +57,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Project.AutoLectureRecorder.Wpf.executor": "Debug",
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Publish to folder.Publish AutoLectureRecorder to folder.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
     "XThreadsFramesViewSplitterKey": "0.16510904",
     "git-widget-placeholder": "main",
@@ -61,16 +76,13 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.editor",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\StyleM\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\StyleM\\AppData\\Local\\Symbols\\src"
-    ]
   }
 }]]></component>
   <component name="RunManager" selected=".NET Project.AutoLectureRecorder.Wpf">
+    <configuration name="Publish AutoLectureRecorder to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
+      <riderPublish configuration="Release" platform="x64" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/../../DotNetPublishes/AutoLectureRecorder" target_framework="net9.0-windows10.0.17763.0" uuid_high="6531089964885361776" uuid_low="-8109308931013708519" />
+      <method v="2" />
+    </configuration>
     <configuration name="Publish Self-Contained AutoLectureRecorder to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" delete_existing_files="true" platform="x64" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/src/AutoLectureRecorder/bin/publish/win64" target_framework="net7.0-windows10.0.17763.0" uuid_high="6531089964885361776" uuid_low="-8109308931013708519" />
       <method v="2" />
@@ -159,6 +171,9 @@
       <workItem from="1696767472188" duration="641000" />
       <workItem from="1709497224999" duration="706000" />
       <workItem from="1726324616400" duration="1232000" />
+      <workItem from="1730568443663" duration="43000" />
+      <workItem from="1732923476779" duration="210000" />
+      <workItem from="1732923703488" duration="1186000" />
     </task>
     <servers />
   </component>
